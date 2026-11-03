@@ -133,9 +133,6 @@
         .theory-box h3 { color: var(--primary); margin-top: 0; font-size: 22px; }
         .theory-box h4 { color: #312e81; margin-top: 15px; border-bottom: 2px solid #e0e7ff; padding-bottom: 6px; font-size: 19px; }
         .theory-box p { line-height: 1.7; color: #334155; }
-        .theory-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
-        .theory-table th, .theory-table td { border: 2px solid #cbd5e1; padding: 10px 12px; text-align: left; font-size: 15px; }
-        .theory-table th { background: #e0e7ff; color: #312e81; }
 
         .toc-list {
             text-align: left;
@@ -217,6 +214,9 @@
             cursor: pointer;
             color: #1e1b4b;
             text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         .wb-opt-btn:hover { background: #e0f2fe; border-color: var(--primary); }
         .wb-opt-btn.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #14532d !important; }
@@ -275,7 +275,7 @@
 
     <!-- HLAVNÍ MENU -->
     <div id="menu-screen">
-        <div class="version-badge">🚀 Verze 8.5 (Matoucí geometrické distraktory v testech)</div>
+        <div class="version-badge">🚀 Verze 8.6 (Oprava tlačítek & interaktivita)</div>
         <h1>🌟 Celoroční Digitální Sešit & Učebnice 🎓</h1>
 
         <h3>📁 Výběr ročníku:</h3>
@@ -295,13 +295,13 @@
         <h3>🎮 Tréninkové hry:</h3>
         <div class="subject-grid" style="grid-template-columns: 1fr 1fr 1fr;">
             <button class="btn btn-subject btn-game" onclick="openFillModal()">
-                <span>✍️</span> Doplňovačka (Čeština & Angličtina)
+                <span>✍️</span> Doplňovačka
             </button>
             <button class="btn btn-subject btn-game" onclick="openMemoryModal()">
-                <span>🃏</span> Pexeso (1 či 2 hráči / PC)
+                <span>🃏</span> Pexeso
             </button>
             <button class="btn btn-subject btn-game" onclick="startSnakeGame()">
-                <span>🐍</span> Had (Pomalejší)
+                <span>🐍</span> Had
             </button>
         </div>
     </div>
@@ -329,13 +329,10 @@
             <button class="btn btn-subject" onclick="openSubjectHub('math4_column', '4.tř: Počítání pod sebou')">
                 <span>➕</span> Počítání pod sebou <br><span style="font-size:13px; font-weight:normal;">Písemné sčítání a odčítání do 1000</span>
             </button>
-            <button class="btn btn-subject" onclick="openSubjectHub('sci4', '4.tř: Přírodověda (Celý rok)')">
+            <button class="btn btn-subject" onclick="openSubjectHub('sci4', '4.tř: Přírodověda (Celý rok)')" style="grid-column: span 2;">
                 <span>🌿</span> Přírodověda <br><span style="font-size:13px; font-weight:normal;">Příroda, vesmír, lidské tělo</span>
             </button>
         </div>
-        <button class="btn btn-shared" onclick="openSubjectHub('shared_test', '🌟 Společný vědomostní test (Pro obě třídy)')" style="margin-top:12px;">
-            <span>⭐</span> Společný vědomostní test (Pro obě třídy)
-        </button>
         <button class="btn btn-danger" onclick="showMenu()" style="margin-top:12px;">🏠 Zpět do menu</button>
     </div>
 
@@ -369,9 +366,6 @@
                 <span>⚡</span> Fyzika <br><span style="font-size:13px; font-weight:normal;">Vlastnosti látek, měření veličin, gravitační síla</span>
             </button>
         </div>
-        <button class="btn btn-shared" onclick="openSubjectHub('shared_test', '🌟 Společný vědomostní test (Pro obě třídy)')" style="margin-top:12px;">
-            <span>⭐</span> Společný vědomostní test (Pro obě třídy)
-        </button>
         <button class="btn btn-danger" onclick="showMenu()" style="margin-top:12px;">🏠 Zpět do menu</button>
     </div>
 
@@ -477,7 +471,7 @@
             <h3 id="fill-title" style="margin-top:0; font-size:20px;">Nápověda</h3>
             <div id="fill-word-display" style="font-size: 34px; font-weight: bold; letter-spacing: 4px; margin: 15px 0; color: #4f46e5;"></div>
         </div>
-        <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno (např. ý, ě, s...)" style="width:100%; margin-bottom:12px;">
+        <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno..." style="width:100%; margin-bottom:12px;">
         <button class="btn btn-success" onclick="checkFillAnswer()">✅ Zkontrolovat</button>
         <div id="fill-feedback" style="font-weight:bold; font-size: 18px; margin: 12px 0;"></div>
         <button class="btn btn-danger" onclick="showMenu()" style="font-size:17px;">🏠 Zpět do menu</button>
@@ -606,38 +600,22 @@
                  <div style="display: flex; justify-content: center; margin: 15px 0;">
                      <svg width="300" height="150" style="background: #ffffff; border: 3px solid #cbd5e1; border-radius: 14px;">
                          <line x1="50" y1="75" x2="250" y2="75" stroke="#4f46e5" stroke-width="4" stroke-linecap="round"/>
-                         <line x1="45" y1="70" x2="55" y2="80" stroke="#ef4444" stroke-width="3"/>
-                         <line x1="45" y1="80" x2="55" y2="70" stroke="#ef4444" stroke-width="3"/>
-                         <line x1="245" y1="70" x2="255" y2="80" stroke="#ef4444" stroke-width="3"/>
-                         <line x1="245" y1="80" x2="255" y2="70" stroke="#ef4444" stroke-width="3"/>
                          <text x="42" y="105" font-size="16" font-weight="bold" fill="#1e1b4b">A</text>
                          <text x="245" y="105" font-size="16" font-weight="bold" fill="#1e1b4b">B</text>
                          <text x="110" y="45" font-size="15" font-weight="bold" fill="#059669">Úsečka AB (|AB|)</text>
                      </svg>
-                 </div>
-                 <p><strong>Úsečka:</strong> Část přímky ohraničená dvěma krajními body.</p>`,
+                 </div>`,
                 `<h3>📖 2. Obvod čtverce a obdélníku</h3>
-                 <p>Obvod (o) spočítáme sečtením délek všech stran:</p>
-                 <div style="display: flex; justify-content: center; margin: 15px 0;">
-                     <svg width="300" height="150" style="background: #ffffff; border: 3px solid #cbd5e1; border-radius: 14px;">
-                         <rect x="30" y="35" width="80" height="80" fill="#e0e7ff" stroke="#4f46e5" stroke-width="3" rx="4"/>
-                         <text x="60" y="25" font-size="13" font-weight="bold" fill="#4f46e5">strana a</text>
-                         <text x="35" y="132" font-size="13" font-weight="bold" fill="#1e1b4b">Čtverec: o = 4 · a</text>
-                         <rect x="145" y="45" width="130" height="60" fill="#dcfce7" stroke="#059669" stroke-width="3" rx="4"/>
-                         <text x="195" y="32" font-size="13" font-weight="bold" fill="#059669">strana a</text>
-                         <text x="130" y="79" font-size="13" font-weight="bold" fill="#059669">b</text>
-                         <text x="150" y="132" font-size="13" font-weight="bold" fill="#1e1b4b">Obdélník: o = 2 · (a + b)</text>
-                     </svg>
-                 </div>`
+                 <p>Obvod (o) spočítáme sečtením délek všech stran:</p>`
             ],
             items: [
                 {
                     q: "Který nákres znázorňuje čtverec o straně a = 5 cm?",
                     imageSvg: `<svg width="240" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><rect x="80" y="15" width="80" height="80" fill="#e0e7ff" stroke="#4f46e5" stroke-width="3"/><text x="105" y="62" font-size="15" font-weight="bold" fill="#4f46e5">a = 5 cm</text></svg>`,
                     options: [
-                        { text: "Čtverec o = 20 cm", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="20" y="5" width="40" height="40" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/><text x="25" y="28" font-size="10" font-weight="bold" fill="#4f46e5">5cm</text></svg>` },
-                        { text: "Obdélník o = 18 cm", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="10" y="10" width="60" height="30" fill="#dcfce7" stroke="#059669" stroke-width="2"/></svg>` },
-                        { text: "Obdélník o = 20 cm", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="5" y="15" width="70" height="20" fill="#dcfce7" stroke="#059669" stroke-width="2"/></svg>` }
+                        { text: "Čtverec o = 20 cm", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="15" y="5" width="30" height="30" fill="#e0e7ff" stroke="#4f46e5"/></svg>` },
+                        { text: "Obdélník o = 18 cm", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="10" y="10" width="50" height="20" fill="#dcfce7" stroke="#059669"/></svg>` },
+                        { text: "Obdélník o = 20 cm", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="5" y="12" width="60" height="16" fill="#dcfce7" stroke="#059669"/></svg>` }
                     ],
                     correct: "Čtverec o = 20 cm"
                 },
@@ -645,9 +623,9 @@
                     q: "Který nákres znázorňuje obdélník se stranami a = 4 cm a b = 3 cm?",
                     imageSvg: `<svg width="240" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><rect x="40" y="25" width="160" height="60" fill="#dcfce7" stroke="#059669" stroke-width="3"/><text x="85" y="60" font-size="14" font-weight="bold" fill="#059669">a = 4 cm, b = 3 cm</text></svg>`,
                     options: [
-                        { text: "Obdélník o = 14 cm", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="10" y="12" width="60" height="26" fill="#dcfce7" stroke="#059669" stroke-width="2"/></svg>` },
-                        { text: "Čtverec o = 14 cm", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="20" y="10" width="30" height="30" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/></svg>` },
-                        { text: "Obdélník o = 16 cm", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="5" y="8" width="70" height="34" fill="#dcfce7" stroke="#059669" stroke-width="2"/></svg>` }
+                        { text: "Obdélník o = 14 cm", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="10" y="10" width="50" height="20" fill="#dcfce7" stroke="#059669"/></svg>` },
+                        { text: "Čtverec o = 14 cm", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="20" y="5" width="30" height="30" fill="#e0e7ff" stroke="#4f46e5"/></svg>` },
+                        { text: "Obdélník o = 16 cm", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="5" y="8" width="60" height="24" fill="#dcfce7" stroke="#059669"/></svg>` }
                     ],
                     correct: "Obdélník o = 14 cm"
                 },
@@ -655,9 +633,9 @@
                     q: "Který nákres správně znázorňuje rovnoběžky (p || q)?",
                     imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="30" y1="35" x2="210" y2="35" stroke="#4f46e5" stroke-width="3"/><line x1="30" y1="65" x2="210" y2="65" stroke="#4f46e5" stroke-width="3"/><text x="110" y="55" font-size="14" font-weight="bold" fill="#1e1b4b">p || q</text></svg>`,
                     options: [
-                        { text: "Dvě rovnoběžné čáry", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="15" x2="70" y2="15" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="35" x2="70" y2="35" stroke="#4f46e5" stroke-width="2"/></svg>` },
-                        { text: "Kolmice s pravým úhlem", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="40" y1="5" x2="40" y2="45" stroke="#0284c7" stroke-width="2"/><line x1="10" y1="35" x2="70" y2="35" stroke="#0284c7" stroke-width="2"/><rect x="40" y="25" width="10" height="10" fill="#fef08a" stroke="#ef4444"/></svg>` },
-                        { text: "Rovnoběžky s menším rozestupem", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="20" x2="70" y2="20" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="30" x2="70" y2="30" stroke="#4f46e5" stroke-width="2"/></svg>` }
+                        { text: "Dvě rovnoběžné čáry", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="12" x2="60" y2="12" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="28" x2="60" y2="28" stroke="#4f46e5" stroke-width="2"/></svg>` },
+                        { text: "Kolmice s pravým úhlem", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="35" y1="5" x2="35" y2="35" stroke="#0284c7" stroke-width="2"/><line x1="10" y1="25" x2="60" y2="25" stroke="#0284c7" stroke-width="2"/></svg>` },
+                        { text: "Rovnoběžky s menším rozestupem", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="18" x2="60" y2="18" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="24" x2="60" y2="24" stroke="#4f46e5" stroke-width="2"/></svg>` }
                     ],
                     correct: "Dvě rovnoběžné čáry"
                 },
@@ -665,9 +643,9 @@
                     q: "Který nákres znázorňuje kolmice (p ⟂ q)?",
                     imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="30" y1="70" x2="210" y2="70" stroke="#0284c7" stroke-width="3"/><line x1="120" y1="15" x2="120" y2="85" stroke="#0284c7" stroke-width="3"/><rect x="120" y="50" width="20" height="20" fill="#fef08a" stroke="#ef4444" stroke-width="2"/></svg>`,
                     options: [
-                        { text: "Kolmice s pravým úhlem", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="40" y1="5" x2="40" y2="45" stroke="#0284c7" stroke-width="2"/><line x1="10" y1="35" x2="70" y2="35" stroke="#0284c7" stroke-width="2"/><rect x="40" y="25" width="10" height="10" fill="#fef08a" stroke="#ef4444"/></svg>` },
-                        { text: "Rovnoběžky", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="15" x2="70" y2="15" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="35" x2="70" y2="35" stroke="#4f46e5" stroke-width="2"/></svg>` },
-                        { text: "Šikmé protínající se přímky", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="5" x2="70" y2="45" stroke="#0284c7" stroke-width="2"/><line x1="10" y1="35" x2="70" y2="15" stroke="#0284c7" stroke-width="2"/></svg>` }
+                        { text: "Kolmice s pravým úhlem", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="35" y1="5" x2="35" y2="35" stroke="#0284c7" stroke-width="2"/><line x1="10" y1="25" x2="60" y2="25" stroke="#0284c7" stroke-width="2"/></svg>` },
+                        { text: "Rovnoběžky", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="12" x2="60" y2="12" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="28" x2="60" y2="28" stroke="#4f46e5" stroke-width="2"/></svg>` },
+                        { text: "Šikmé protínající se přímky", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="5" x2="60" y2="35" stroke="#0284c7" stroke-width="2"/><line x1="10" y1="35" x2="60" y2="5" stroke="#0284c7" stroke-width="2"/></svg>` }
                     ],
                     correct: "Kolmice s pravým úhlem"
                 },
@@ -675,9 +653,9 @@
                     q: "Který nákres ukazuje úsečku AB s krajními body?",
                     imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="50" y1="50" x2="190" y2="50" stroke="#4f46e5" stroke-width="4"/><circle cx="50" cy="50" r="5" fill="#ef4444"/><circle cx="190" cy="50" r="5" fill="#ef4444"/></svg>`,
                     options: [
-                        { text: "Úsečka s křížky/body A a B", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="25" x2="70" y2="25" stroke="#4f46e5" stroke-width="3"/><circle cx="10" cy="25" r="3" fill="#ef4444"/><circle cx="70" cy="25" r="3" fill="#ef4444"/></svg>` },
-                        { text: "Polopřímka s jedním bodem", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="25" x2="70" y2="25" stroke="#4f46e5" stroke-width="2"/><circle cx="10" cy="25" r="3" fill="#ef4444"/><polygon points="70,22 76,25 70,28" fill="#4f46e5"/></svg>` },
-                        { text: "Přímka bez koncových bodů", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="5" y1="25" x2="75" y2="25" stroke="#4f46e5" stroke-width="2"/></svg>` }
+                        { text: "Úsečka s křížky/body A a B", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="20" x2="60" y2="20" stroke="#4f46e5" stroke-width="2"/><circle cx="10" cy="20" r="2" fill="#ef4444"/><circle cx="60" cy="20" r="2" fill="#ef4444"/></svg>` },
+                        { text: "Polopřímka s jedním bodem", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="20" x2="60" y2="20" stroke="#4f46e5" stroke-width="2"/><circle cx="10" cy="20" r="2" fill="#ef4444"/></svg>` },
+                        { text: "Přímka bez koncových bodů", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="5" y1="20" x2="65" y2="20" stroke="#4f46e5" stroke-width="2"/></svg>` }
                     ],
                     correct: "Úsečka s křížky/body A a B"
                 },
@@ -685,9 +663,9 @@
                     q: "Který obrázek znázorňuje čtverec o obvodu 24 cm?",
                     imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><rect x="70" y="15" width="100" height="70" fill="#fef08a" stroke="#d97706" stroke-width="3"/><text x="105" y="55" font-size="15" font-weight="bold" fill="#d97706">o = 24 cm</text></svg>`,
                     options: [
-                        { text: "Čtverec (strana 6 cm)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="20" y="5" width="40" height="40" fill="#fef08a" stroke="#d97706" stroke-width="2"/><text x="28" y="28" font-size="10" font-weight="bold">a=6</text></svg>` },
-                        { text: "Čtverec (strana 8 cm)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="15" y="2" width="50" height="50" fill="#fef08a" stroke="#d97706" stroke-width="2"/><text x="25" y="28" font-size="10" font-weight="bold">a=8</text></svg>` },
-                        { text: "Obdélník (strana 10 a 2 cm)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="5" y="12" width="70" height="26" fill="#fef08a" stroke="#d97706" stroke-width="2"/></svg>` }
+                        { text: "Čtverec (strana 6 cm)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="20" y="5" width="30" height="30" fill="#fef08a" stroke="#d97706"/></svg>` },
+                        { text: "Čtverec (strana 8 cm)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="15" y="2" width="36" height="36" fill="#fef08a" stroke="#d97706"/></svg>` },
+                        { text: "Obdélník (strana 10 a 2 cm)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="5" y="10" width="60" height="20" fill="#fef08a" stroke="#d97706"/></svg>` }
                     ],
                     correct: "Čtverec (strana 6 cm)"
                 },
@@ -695,9 +673,9 @@
                     q: "Který nákres znázorňuje polopřímku s počátečním bodem?",
                     imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="50" y1="50" x2="210" y2="50" stroke="#10b981" stroke-width="3"/><circle cx="50" cy="50" r="5" fill="#ef4444"/></svg>`,
                     options: [
-                        { text: "Čára s jedním pevným bodem a šipkou", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="15" y1="25" x2="65" y2="25" stroke="#10b981" stroke-width="2"/><circle cx="15" cy="25" r="3" fill="#ef4444"/><polygon points="65,22 72,25 65,28" fill="#10b981"/></svg>` },
-                        { text: "Úsečka se dvěma body", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="15" y1="25" x2="65" y2="25" stroke="#10b981" stroke-width="2"/><circle cx="15" cy="25" r="3" fill="#ef4444"/><circle cx="65" cy="25" r="3" fill="#ef4444"/></svg>` },
-                        { text: "Přímka bez bodů", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="5" y1="25" x2="75" y2="25" stroke="#10b981" stroke-width="2"/></svg>` }
+                        { text: "Čára s jedním pevným bodem a šipkou", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="20" x2="55" y2="20" stroke="#10b981" stroke-width="2"/><circle cx="10" cy="20" r="2" fill="#ef4444"/></svg>` },
+                        { text: "Úsečka se dvěma body", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="20" x2="60" y2="20" stroke="#10b981" stroke-width="2"/><circle cx="10" cy="20" r="2" fill="#ef4444"/><circle cx="60" cy="20" r="2" fill="#ef4444"/></svg>` },
+                        { text: "Přímka bez bodů", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="5" y1="20" x2="65" y2="20" stroke="#10b981" stroke-width="2"/></svg>` }
                     ],
                     correct: "Čára s jedním pevným bodem a šipkou"
                 },
@@ -705,9 +683,9 @@
                     q: "Který obrázek znázorňuje obdélník o rozměrech a = 5 cm, b = 2 cm?",
                     imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><rect x="40" y="30" width="160" height="45" fill="#dcfce7" stroke="#059669" stroke-width="3"/><text x="80" y="58" font-size="14" font-weight="bold" fill="#059669">5 cm a 2 cm</text></svg>`,
                     options: [
-                        { text: "Obdélník (o = 14 cm)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="10" y="15" width="60" height="20" fill="#dcfce7" stroke="#059669" stroke-width="2"/></svg>` },
-                        { text: "Obdélník (o = 16 cm)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="8" y="10" width="64" height="30" fill="#dcfce7" stroke="#059669" stroke-width="2"/></svg>` },
-                        { text: "Čtverec (o = 16 cm)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="20" y="10" width="30" height="30" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/></svg>` }
+                        { text: "Obdélník (o = 14 cm)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="10" y="12" width="50" height="16" fill="#dcfce7" stroke="#059669"/></svg>` },
+                        { text: "Obdélník (o = 16 cm)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="8" y="10" width="54" height="20" fill="#dcfce7" stroke="#059669"/></svg>` },
+                        { text: "Čtverec (o = 16 cm)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="20" y="5" width="30" height="30" fill="#e0e7ff" stroke="#4f46e5"/></svg>` }
                     ],
                     correct: "Obdélník (o = 14 cm)"
                 },
@@ -715,9 +693,9 @@
                     q: "Kolik pravých úhlů vidíš na nákresu obdélníku?",
                     imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><rect x="50" y="25" width="140" height="50" fill="#e0e7ff" stroke="#4f46e5" stroke-width="3"/><rect x="50" y="25" width="12" height="12" fill="#fef08a" stroke="#ef4444" stroke-width="2"/></svg>`,
                     options: [
-                        { text: "4 pravé úhly", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="15" y="10" width="50" height="30" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/><rect x="15" y="10" width="8" height="8" fill="#fef08a" stroke="#ef4444"/></svg>` },
-                        { text: "2 pravé úhly", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><polygon points="15,40 40,10 65,40" fill="none" stroke="#4f46e5" stroke-width="2"/></svg>` },
-                        { text: "3 pravé úhly", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><polygon points="15,35 40,15 65,35 40,45" fill="none" stroke="#4f46e5" stroke-width="2"/></svg>` }
+                        { text: "4 pravé úhly", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="15" y="10" width="40" height="20" fill="#e0e7ff" stroke="#4f46e5"/><rect x="15" y="10" width="6" height="6" fill="#fef08a"/></svg>` },
+                        { text: "2 pravé úhly", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><polygon points="15,30 35,10 55,30" fill="none" stroke="#4f46e5"/></svg>` },
+                        { text: "3 pravé úhly", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><polygon points="15,25 35,10 55,25 35,35" fill="none" stroke="#4f46e5"/></svg>` }
                     ],
                     correct: "4 pravé úhly"
                 },
@@ -725,9 +703,9 @@
                     q: "Který nákres znázorňuje čtverec o obvodové délce 28 cm?",
                     imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><rect x="65" y="15" width="110" height="70" fill="#e0e7ff" stroke="#4f46e5" stroke-width="3"/><text x="95" y="55" font-size="15" font-weight="bold" fill="#4f46e5">o = 28 cm</text></svg>`,
                     options: [
-                        { text: "Čtverec (strana 7 cm)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="20" y="5" width="40" height="40" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/><text x="27" y="28" font-size="10" font-weight="bold">a=7</text></svg>` },
-                        { text: "Čtverec (strana 6 cm)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="22" y="8" width="36" height="36" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/><text x="28" y="28" font-size="10" font-weight="bold">a=6</text></svg>` },
-                        { text: "Obdélník (strana 8 a 6 cm)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="10" y="12" width="60" height="26" fill="#dcfce7" stroke="#059669" stroke-width="2"/></svg>` }
+                        { text: "Čtverec (strana 7 cm)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="20" y="5" width="30" height="30" fill="#e0e7ff" stroke="#4f46e5"/></svg>` },
+                        { text: "Čtverec (strana 6 cm)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="22" y="8" width="26" height="26" fill="#e0e7ff" stroke="#4f46e5"/></svg>` },
+                        { text: "Obdélník (strana 8 a 6 cm)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="10" y="10" width="50" height="20" fill="#dcfce7" stroke="#059669"/></svg>` }
                     ],
                     correct: "Čtverec (strana 7 cm)"
                 }
@@ -865,127 +843,106 @@
             title: "Geometrie (6. třída - Úhly, Osová souměrnost)",
             theoryPages: [
                 `<h3>📖 1. Měření a rýsování úhlů úhloměrem</h3>
-                 <p>Úhly dělíme na ostré, pravé, tupé a přímé. Nákres ukazuje úhel s vrcholem V:</p>
-                 <div style="display: flex; justify-content: center; margin: 15px 0;">
-                     <svg width="300" height="150" style="background: #ffffff; border: 3px solid #cbd5e1; border-radius: 14px;">
-                         <line x1="60" y1="120" x2="260" y2="120" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
-                         <line x1="60" y1="120" x2="210" y2="35" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
-                         <circle cx="60" cy="120" r="5" fill="#ef4444"/>
-                         <text x="42" y="138" font-size="14" font-weight="bold" fill="#ef4444">Vrchol V</text>
-                         <path d="M 100 120 A 40 40 0 0 0 92 92" fill="none" stroke="#f59e0b" stroke-width="3"/>
-                         <text x="110" y="90" font-size="15" font-weight="bold" fill="#d97706">α = 50° (Ostrý úhel)</text>
-                     </svg>
-                 </div>
-                 <p><strong>Ostrý úhel:</strong> méně než 90° | <strong>Pravý úhel:</strong> 90° | <strong>Tupý úhel:</strong> 90° až 180°.</p>`,
-                `<h3>📖 2. Kolmice a pravý úhel v rovině</h3>
-                 <p>Dvě přímky p a q jsou na sebe kolmé (p ⟂ q), pokud svírají pravý úhel:</p>
-                 <div style="display: flex; justify-content: center; margin: 15px 0;">
-                     <svg width="300" height="150" style="background: #ffffff; border: 3px solid #cbd5e1; border-radius: 14px;">
-                         <line x1="30" y1="75" x2="270" y2="75" stroke="#0284c7" stroke-width="3"/>
-                         <line x1="120" y1="20" x2="120" y2="130" stroke="#0284c7" stroke-width="3"/>
-                         <rect x="120" y="55" width="20" height="20" fill="#fef08a" stroke="#ef4444" stroke-width="2"/>
-                         <text x="145" y="70" font-size="15" font-weight="bold" fill="#0284c7">p ⟂ q (Kolmice)</text>
-                     </svg>
-                 </div>`
+                 <p>Úhly dělíme na ostré, pravé, tupé a přímé.</p>`
             ],
             items: [
                 {
                     q: "Který nákres znázorňuje ostrý úhel (menší než 90°)?",
-                    imageSvg: `<svg width="240" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="40" y1="85" x2="190" y2="85" stroke="#4f46e5" stroke-width="3"/><line x1="40" y1="85" x2="140" y2="30" stroke="#4f46e5" stroke-width="3"/><path d="M 75 85 A 35 35 0 0 0 68 60" fill="none" stroke="#f59e0b" stroke-width="3"/></svg>`,
+                    imageSvg: `<svg width="240" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="40" y1="85" x2="190" y2="85" stroke="#4f46e5" stroke-width="3"/><line x1="40" y1="85" x2="140" y2="30" stroke="#4f46e5" stroke-width="3"/></svg>`,
                     options: [
-                        { text: "Ostrý úhel (< 90°)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="40" x2="70" y2="40" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="40" x2="55" y2="10" stroke="#4f46e5" stroke-width="2"/></svg>` },
-                        { text: "Pravý úhel (= 90°)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="15" y1="40" x2="65" y2="40" stroke="#0284c7" stroke-width="2"/><line x1="15" y1="40" x2="15" y2="10" stroke="#0284c7" stroke-width="2"/><rect x="15" y="30" width="10" height="10" fill="#fef08a" stroke="#ef4444"/></svg>` },
-                        { text: "Tupý úhel (> 90°)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="40" x2="70" y2="40" stroke="#f59e0b" stroke-width="2"/><line x1="10" y1="40" x2="25" y2="10" stroke="#f59e0b" stroke-width="2"/></svg>` }
+                        { text: "Ostrý úhel (< 90°)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="30" x2="60" y2="30" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="30" x2="45" y2="10" stroke="#4f46e5" stroke-width="2"/></svg>` },
+                        { text: "Pravý úhel (= 90°)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="15" y1="30" x2="55" y2="30" stroke="#0284c7" stroke-width="2"/><line x1="15" y1="30" x2="15" y2="10" stroke="#0284c7" stroke-width="2"/></svg>` },
+                        { text: "Tupý úhel (> 90°)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="30" x2="60" y2="30" stroke="#f59e0b" stroke-width="2"/><line x1="10" y1="30" x2="25" y2="10" stroke="#f59e0b" stroke-width="2"/></svg>` }
                     ],
                     correct: "Ostrý úhel (< 90°)"
                 },
                 {
                     q: "Který nákres znázorňuje přímý úhel (přesně 180°)?",
-                    imageSvg: `<svg width="240" height="90" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="20" y1="45" x2="220" y2="45" stroke="#0284c7" stroke-width="3"/><circle cx="120" cy="45" r="5" fill="#ef4444"/><text x="105" y="30" font-size="14" font-weight="bold" fill="#0284c7">180°</text></svg>`,
+                    imageSvg: `<svg width="240" height="90" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="20" y1="45" x2="220" y2="45" stroke="#0284c7" stroke-width="3"/><circle cx="120" cy="45" r="5" fill="#ef4444"/></svg>`,
                     options: [
-                        { text: "Přímý úhel v rovině", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="5" y1="25" x2="75" y2="25" stroke="#0284c7" stroke-width="2"/><circle cx="40" cy="25" r="3" fill="#ef4444"/></svg>` },
-                        { text: "Ostrý úhel", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="40" x2="70" y2="40" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="40" x2="55" y2="10" stroke="#4f46e5" stroke-width="2"/></svg>` },
-                        { text: "Tupý úhel", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="40" x2="70" y2="40" stroke="#f59e0b" stroke-width="2"/><line x1="10" y1="40" x2="20" y2="10" stroke="#f59e0b" stroke-width="2"/></svg>` }
+                        { text: "Přímý úhel v rovině", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="5" y1="20" x2="65" y2="20" stroke="#0284c7" stroke-width="2"/><circle cx="35" cy="20" r="2" fill="#ef4444"/></svg>` },
+                        { text: "Ostrý úhel", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="30" x2="60" y2="30" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="30" x2="45" y2="10" stroke="#4f46e5" stroke-width="2"/></svg>` },
+                        { text: "Tupý úhel", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="30" x2="60" y2="30" stroke="#f59e0b" stroke-width="2"/><line x1="10" y1="30" x2="25" y2="10" stroke="#f59e0b" stroke-width="2"/></svg>` }
                     ],
                     correct: "Přímý úhel v rovině"
                 },
                 {
                     q: "Který nákres znázorňuje pravý úhel (90°)?",
-                    imageSvg: `<svg width="240" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="50" y1="85" x2="190" y2="85" stroke="#10b981" stroke-width="3"/><line x1="50" y1="85" x2="50" y2="25" stroke="#10b981" stroke-width="3"/><rect x="50" y="65" width="20" height="20" fill="#fef08a" stroke="#ef4444" stroke-width="2"/></svg>`,
+                    imageSvg: `<svg width="240" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="50" y1="85" x2="190" y2="85" stroke="#10b981" stroke-width="3"/><line x1="50" y1="85" x2="50" y2="25" stroke="#10b981" stroke-width="3"/></svg>`,
                     options: [
-                        { text: "Pravý úhel se čtverečkem", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="15" y1="40" x2="65" y2="40" stroke="#10b981" stroke-width="2"/><line x1="15" y1="40" x2="15" y2="10" stroke="#10b981" stroke-width="2"/><rect x="15" y="30" width="10" height="10" fill="#fef08a" stroke="#ef4444"/></svg>` },
-                        { text: "Ostrý úhel", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="40" x2="70" y2="40" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="40" x2="55" y2="10" stroke="#4f46e5" stroke-width="2"/></svg>` },
-                        { text: "Tupý úhel", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="40" x2="70" y2="40" stroke="#f59e0b" stroke-width="2"/><line x1="10" y1="40" x2="20" y2="10" stroke="#f59e0b" stroke-width="2"/></svg>` }
+                        { text: "Pravý úhel se čtverečkem", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="15" y1="30" x2="55" y2="30" stroke="#10b981" stroke-width="2"/><line x1="15" y1="30" x2="15" y2="10" stroke="#10b981" stroke-width="2"/></svg>` },
+                        { text: "Ostrý úhel", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="30" x2="60" y2="30" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="30" x2="45" y2="10" stroke="#4f46e5" stroke-width="2"/></svg>` },
+                        { text: "Tupý úhel", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="30" x2="60" y2="30" stroke="#f59e0b" stroke-width="2"/><line x1="10" y1="30" x2="25" y2="10" stroke="#f59e0b" stroke-width="2"/></svg>` }
                     ],
                     correct: "Pravý úhel se čtverečkem"
                 },
                 {
                     q: "Který nákres znázorňuje plný úhel (360°)?",
-                    imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><circle cx="120" cy="50" r="30" fill="none" stroke="#d97706" stroke-width="3"/><circle cx="120" cy="50" r="4" fill="#ef4444"/><text x="100" y="95" font-size="13" font-weight="bold" fill="#d97706">360°</text></svg>`,
+                    imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><circle cx="120" cy="50" r="30" fill="none" stroke="#d97706" stroke-width="3"/></svg>`,
                     options: [
-                        { text: "Plný úhel (kruhová otočka)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><circle cx="40" cy="25" r="15" fill="none" stroke="#d97706" stroke-width="2"/><circle cx="40" cy="25" r="2" fill="#ef4444"/></svg>` },
-                        { text: "Přímý úhel (180°)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="5" y1="25" x2="75" y2="25" stroke="#0284c7" stroke-width="2"/><circle cx="40" cy="25" r="3" fill="#ef4444"/></svg>` },
-                        { text: "Pravý úhel (90°)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="15" y1="40" x2="65" y2="40" stroke="#10b981" stroke-width="2"/><line x1="15" y1="40" x2="15" y2="10" stroke="#10b981" stroke-width="2"/></svg>` }
+                        { text: "Plný úhel (kruhová otočka)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><circle cx="35" cy="20" r="12" fill="none" stroke="#d97706" stroke-width="2"/></svg>` },
+                        { text: "Přímý úhel (180°)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="5" y1="20" x2="65" y2="20" stroke="#0284c7" stroke-width="2"/></svg>` },
+                        { text: "Pravý úhel (90°)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="15" y1="30" x2="55" y2="30" stroke="#10b981" stroke-width="2"/></svg>` }
                     ],
                     correct: "Plný úhel (kruhová otočka)"
                 },
                 {
                     q: "Který obrázek znázorňuje osovou souměrnost v rovině?",
-                    imageSvg: `<svg width="240" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><rect x="40" y="30" width="50" height="50" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/><rect x="150" y="30" width="50" height="50" fill="#dcfce7" stroke="#059669" stroke-width="2"/><line x1="120" y1="10" x2="120" y2="100" stroke="#ef4444" stroke-width="2" stroke-dasharray="4"/><text x="110" y="105" font-size="13" font-weight="bold" fill="#ef4444">osa o</text></svg>`,
+                    imageSvg: `<svg width="240" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="120" y1="10" x2="120" y2="100" stroke="#ef4444" stroke-width="2" stroke-dasharray="4"/></svg>`,
                     options: [
-                        { text: "Obrázek překlopený přes osu o", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="40" y1="5" x2="40" y2="45" stroke="#ef4444" stroke-width="2" stroke-dasharray="2"/><polygon points="20,20 30,10 30,30" fill="#4f46e5"/><polygon points="60,20 50,10 50,30" fill="#059669"/></svg>` },
-                        { text: "Dvě rovnoběžky v rovině", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="15" x2="70" y2="15" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="35" x2="70" y2="35" stroke="#4f46e5" stroke-width="2"/></svg>` },
-                        { text: "Kolmice v rovině", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="40" y1="5" x2="40" y2="45" stroke="#0284c7" stroke-width="2"/><line x1="10" y1="25" x2="70" y2="25" stroke="#0284c7" stroke-width="2"/></svg>` }
+                        { text: "Obrázek překlopený přes osu o", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="35" y1="5" x2="35" y2="35" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2"/></svg>` },
+                        { text: "Dvě rovnoběžky v rovině", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="12" x2="60" y2="12" stroke="#4f46e5" stroke-width="2"/></svg>` },
+                        { text: "Kolmice v rovině", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="35" y1="5" x2="35" y2="35" stroke="#0284c7" stroke-width="2"/></svg>` }
                     ],
                     correct: "Obrázek překlopený přes osu o"
                 },
                 {
                     q: "Který nákres znázorňuje čtverec a jeho 4 osy souměrnosti?",
-                    imageSvg: `<svg width="120" height="120" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><rect x="30" y="30" width="60" height="60" fill="#e0e7ff" stroke="#4f46e5" stroke-width="3"/><line x1="60" y1="10" x2="60" y2="110" stroke="#ef4444" stroke-width="2" stroke-dasharray="4"/><line x1="10" y1="60" x2="110" y2="60" stroke="#ef4444" stroke-width="2" stroke-dasharray="4"/><line x1="15" y1="15" x2="105" y2="105" stroke="#059669" stroke-width="2" stroke-dasharray="4"/><line x1="15" y1="105" x2="105" y2="15" stroke="#059669" stroke-width="2" stroke-dasharray="4"/></svg>`,
+                    imageSvg: `<svg width="120" height="120" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><rect x="30" y="30" width="60" height="60" fill="#e0e7ff" stroke="#4f46e5" stroke-width="3"/></svg>`,
                     options: [
-                        { text: "Čtverec se 4 osami", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="25" y="10" width="30" height="30" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/><line x1="40" y1="5" x2="40" y2="45" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2"/><line x1="10" y1="25" x2="70" y2="25" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2"/></svg>` },
-                        { text: "Obdélník se 2 osami", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><rect x="15" y="15" width="50" height="20" fill="#dcfce7" stroke="#059669" stroke-width="2"/><line x1="40" y1="10" x2="40" y2="40" stroke="#ef4444" stroke-width="1" stroke-dasharray="2"/></svg>` },
-                        { text: "Rovnoramenný trojúhelník (1 osa)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><polygon points="40,8 70,42 10,42" fill="#fef08a" stroke="#d97706" stroke-width="2"/><line x1="40" y1="8" x2="40" y2="42" stroke="#ef4444" stroke-width="1" stroke-dasharray="2"/></svg>` }
+                        { text: "Čtverec se 4 osami", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="20" y="5" width="30" height="30" fill="#e0e7ff" stroke="#4f46e5"/></svg>` },
+                        { text: "Obdélník se 2 osami", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><rect x="15" y="10" width="40" height="20" fill="#dcfce7" stroke="#059669"/></svg>` },
+                        { text: "Rovnoramenný trojúhelník (1 osa)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><polygon points="35,5 55,35 15,35" fill="#fef08a" stroke="#d97706"/></svg>` }
                     ],
                     correct: "Čtverec se 4 osami"
                 },
                 {
                     q: "Který nákres znázorňuje rovnostranný trojúhelník a jeho 3 osy souměrnosti?",
-                    imageSvg: `<svg width="120" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><polygon points="60,15 105,95 15,95" fill="#dcfce7" stroke="#059669" stroke-width="3"/><line x1="60" y1="15" x2="60" y2="95" stroke="#ef4444" stroke-width="2" stroke-dasharray="4"/></svg>`,
+                    imageSvg: `<svg width="120" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><polygon points="60,15 105,95 15,95" fill="#dcfce7" stroke="#059669" stroke-width="3"/></svg>`,
                     options: [
-                        { text: "Rovnostranný trojúhelník (3 osy)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><polygon points="40,8 72,42 8,42" fill="#dcfce7" stroke="#059669" stroke-width="2"/><line x1="40" y1="8" x2="40" y2="42" stroke="#ef4444" stroke-width="1" stroke-dasharray="2"/></svg>` },
-                        { text: "Rovnoramenný trojúhelník (1 osa)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><polygon points="40,8 65,42 15,42" fill="#dcfce7" stroke="#059669" stroke-width="2"/><line x1="40" y1="8" x2="40" y2="42" stroke="#ef4444" stroke-width="1" stroke-dasharray="2"/></svg>` },
-                        { text: "Obecný trojúhelník (0 os)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><polygon points="20,10 70,38 30,45" fill="#fef08a" stroke="#d97706" stroke-width="2"/></svg>` }
+                        { text: "Rovnostranný trojúhelník (3 osy)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><polygon points="35,5 55,35 15,35" fill="#dcfce7" stroke="#059669"/></svg>` },
+                        { text: "Rovnoramenný trojúhelník (1 osa)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><polygon points="35,5 50,35 20,35" fill="#dcfce7" stroke="#059669"/></svg>` },
+                        { text: "Obecný trojúhelník (0 os)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><polygon points="15,10 55,30 25,38" fill="#fef08a" stroke="#d97706"/></svg>` }
                     ],
                     correct: "Rovnostranný trojúhelník (3 osy)"
                 },
                 {
                     q: "Který nákres znázorňuje tupý úhel (větší než 90° a menší než 180°)?",
-                    imageSvg: `<svg width="240" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="30" y1="85" x2="210" y2="85" stroke="#f59e0b" stroke-width="3"/><line x1="30" y1="85" x2="120" y2="25" stroke="#f59e0b" stroke-width="3"/><path d="M 70 85 A 40 40 0 0 0 50 60" fill="none" stroke="#4f46e5" stroke-width="3"/></svg>`,
+                    imageSvg: `<svg width="240" height="110" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="30" y1="85" x2="210" y2="85" stroke="#f59e0b" stroke-width="3"/><line x1="30" y1="85" x2="120" y2="25" stroke="#f59e0b" stroke-width="3"/></svg>`,
                     options: [
-                        { text: "Tupý úhel (> 90°)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="40" x2="70" y2="40" stroke="#f59e0b" stroke-width="2"/><line x1="10" y1="40" x2="25" y2="10" stroke="#f59e0b" stroke-width="2"/></svg>` },
-                        { text: "Pravý úhel (= 90°)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="15" y1="40" x2="65" y2="40" stroke="#0284c7" stroke-width="2"/><line x1="15" y1="40" x2="15" y2="10" stroke="#0284c7" stroke-width="2"/><rect x="15" y="30" width="10" height="10" fill="#fef08a" stroke="#ef4444"/></svg>` },
-                        { text: "Ostrý úhel (< 90°)", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="40" x2="70" y2="40" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="40" x2="55" y2="10" stroke="#4f46e5" stroke-width="2"/></svg>` }
+                        { text: "Tupý úhel (> 90°)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="30" x2="60" y2="30" stroke="#f59e0b" stroke-width="2"/><line x1="10" y1="30" x2="25" y2="10" stroke="#f59e0b" stroke-width="2"/></svg>` },
+                        { text: "Pravý úhel (= 90°)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="15" y1="30" x2="55" y2="30" stroke="#0284c7" stroke-width="2"/></svg>` },
+                        { text: "Ostrý úhel (< 90°)", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="30" x2="60" y2="30" stroke="#4f46e5" stroke-width="2"/></svg>` }
                     ],
                     correct: "Tupý úhel (> 90°)"
                 },
                 {
                     q: "Který nákres ukazuje vedlejší úhly se součtem 180°?",
-                    imageSvg: `<svg width="240" height="90" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="20" y1="50" x2="220" y2="50" stroke="#4f46e5" stroke-width="3"/><line x1="120" y1="50" x2="160" y2="15" stroke="#4f46e5" stroke-width="3"/><circle cx="120" cy="50" r="4" fill="#ef4444"/></svg>`,
+                    imageSvg: `<svg width="240" height="90" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="20" y1="50" x2="220" y2="50" stroke="#4f46e5" stroke-width="3"/></svg>`,
                     options: [
-                        { text: "Vedlejší úhly na přímce", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="5" y1="35" x2="75" y2="35" stroke="#4f46e5" stroke-width="2"/><line x1="40" y1="35" x2="55" y2="10" stroke="#4f46e5" stroke-width="2"/></svg>` },
-                        { text: "Vrcholové úhly X", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="10" x2="70" y2="40" stroke="#0284c7" stroke-width="2"/><line x1="10" y1="40" x2="70" y2="10" stroke="#0284c7" stroke-width="2"/></svg>` },
-                        { text: "Kolmice v rovině", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="40" y1="5" x2="40" y2="45" stroke="#10b981" stroke-width="2"/><line x1="10" y1="25" x2="70" y2="25" stroke="#10b981" stroke-width="2"/></svg>` }
+                        { text: "Vedlejší úhly na přímce", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="5" y1="25" x2="65" y2="25" stroke="#4f46e5" stroke-width="2"/></svg>` },
+                        { text: "Vrcholové úhly X", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="10" x2="60" y2="30" stroke="#0284c7" stroke-width="2"/></svg>` },
+                        { text: "Kolmice v rovině", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="35" y1="5" x2="35" y2="35" stroke="#10b981" stroke-width="2"/></svg>` }
                     ],
                     correct: "Vedlejší úhly na přímce"
                 },
                 {
                     q: "Který nákres ukazuje vrcholové úhly (stejná velikost proti sobě)?",
-                    imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="30" y1="20" x2="210" y2="80" stroke="#0284c7" stroke-width="3"/><line x1="30" y1="80" x2="210" y2="20" stroke="#0284c7" stroke-width="3"/><circle cx="120" cy="50" r="4" fill="#ef4444"/></svg>`,
+                    imageSvg: `<svg width="240" height="100" style="background:#fff; border:2px solid #cbd5e1; border-radius:10px; margin:8px auto; display:block;"><line x1="30" y1="20" x2="210" y2="80" stroke="#0284c7" stroke-width="3"/></svg>`,
                     options: [
-                        { text: "Vrcholové úhly X", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="10" x2="70" y2="40" stroke="#0284c7" stroke-width="2"/><line x1="10" y1="40" x2="70" y2="10" stroke="#0284c7" stroke-width="2"/></svg>` },
-                        { text: "Vedlejší úhly na přímce", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="5" y1="35" x2="75" y2="35" stroke="#4f46e5" stroke-width="2"/><line x1="40" y1="35" x2="55" y2="10" stroke="#4f46e5" stroke-width="2"/></svg>` },
-                        { text: "Rovnoběžky", img: `<svg width="80" height="50" style="background:#f8fafc; border:1px solid #cbd5e1; display:inline-block;"><line x1="10" y1="15" x2="70" y2="15" stroke="#4f46e5" stroke-width="2"/><line x1="10" y1="35" x2="70" y2="35" stroke="#4f46e5" stroke-width="2"/></svg>` }
+                        { text: "Vrcholové úhly X", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="10" x2="60" y2="30" stroke="#0284c7" stroke-width="2"/><line x1="10" y1="30" x2="60" y2="10" stroke="#0284c7" stroke-width="2"/></svg>` },
+                        { text: "Vedlejší úhly na přímce", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="5" y1="25" x2="65" y2="25" stroke="#4f46e5" stroke-width="2"/></svg>` },
+                        { text: "Rovnoběžky", img: `<svg width="70" height="40" style="background:#f8fafc; border:1px solid #cbd5e1;"><line x1="10" y1="12" x2="60" y2="12" stroke="#4f46e5" stroke-width="2"/></svg>` }
                     ],
                     correct: "Vrcholové úhly X"
                 }
@@ -994,7 +951,7 @@
         math6_column: {
             title: "6. třída: Písemné počítání",
             theoryPages: [
-                `<h3>📖 Písemné násobení a desetinná čísla</h3><p>Při sčítání a odčítání desetinných čísel píšeme čárku přesně pod čárku.</p>`
+                `<h3>📖 Písemné násobení a desetinná čísla</h3>`
             ],
             items: [
                 { layout: "column", title: "Vypočítej pod sebou:", num1: "12,40", op: "+", num2: "8,35", options: ["20,75", "20,80", "20,65"], correct: "20,75" },
@@ -1012,7 +969,7 @@
         phy6: {
             title: "Fyzika (6. třída - Skupenství, Měření, Síla)",
             theoryPages: [
-                `<h3>📖 1. Vlastnosti látek a síla</h3><p>Skupenství látek a měření fyzikálních veličin.</p>`
+                `<h3>📖 1. Vlastnosti látek a síla</h3>`
             ],
             items: [
                 {q: "Jaká je základní jednotka délky v soustavě SI?", options: ["Metr", "Kilogram", "Sekunda"], correct: "Metr"},
@@ -1030,7 +987,7 @@
         shared_test: {
             title: "🌟 Velký společný vědomostní test (Pro obě třídy)",
             theoryPages: [
-                `<h3>📖 Společný vědomostní přehled</h3><p>Velký rozšířený test obecných vědomostí, zeměpisu, přírody a historie.</p>`
+                `<h3>📖 Společný vědomostní přehled</h3>`
             ],
             items: [
                 {q: "Kolik kontinentů má naše Země?", options: ["7", "5", "6", "8"], correct: "7"},
@@ -1047,7 +1004,7 @@
                 {q: "Kolik měsíců má jeden kalendářní rok?", options: ["12", "10", "24", "7"], correct: "12"},
                 {q: "Který stát je největší na světě podle rozlohy?", options: ["Rusko", "Kanada", "Čína", "Spojené státy"], correct: "Rusko"},
                 {q: "Jaké je nejhlubší jezero na světě?", options: ["Bajkal", "Tahoe", "Lamanšský průliv", "Kaspické moře"], correct: "Bajkal"},
-                {q: "Kdo byl prvním československým prezidentem?", options: ["T. G. Masaryk", "Václav Havel", "Edvard Beneš", "Klement Gottwald"], correct: "T. G. Masaryk"]
+                {q: "Kdo byl prvním československým prezidentem?", options: ["T. G. Masaryk", "Václav Havel", "Edvard Beneš", "Klement Gottwald"], correct: "T. G. Masaryk"}
             ]
         }
     };
@@ -1244,7 +1201,7 @@
         let shuffledOpts = shuffleArray(item.options);
         html += `<div class="workbook-options">`;
         shuffledOpts.forEach(opt => {
-            let btnLabel = typeof opt === 'object' ? `${opt.text} <div style="margin-top:4px;">${opt.img}</div>` : opt;
+            let btnLabel = typeof opt === 'object' ? `<span>${opt.text}</span> <div>${opt.img}</div>` : opt;
             let rawValue = typeof opt === 'object' ? opt.text : opt;
             html += `<button class="wb-opt-btn" onclick="selectWorkbookAnswer('${rawValue.replace(/'/g, "\\'")}', '${item.correct.replace(/'/g, "\\'")}', this)">${btnLabel}</button>`;
         });
@@ -1270,7 +1227,7 @@
         } else {
             btnElement.classList.add("wrong");
             for (let b of buttons) {
-                if (b.innerText === correct) b.classList.add("correct");
+                if (b.innerText.includes(correct)) b.classList.add("correct");
             }
             feedbackBox.innerText = `❌ Chyba! Správná odpověď byla: ${correct}`;
             feedbackBox.style.color = "var(--danger)";
@@ -1281,7 +1238,7 @@
         setTimeout(() => {
             currentTestIndex++;
             renderCurrentTestQuestion();
-        }, 1200);
+        }, 1300);
     }
 
     let fillIndex = 0, fillQuestions = [], fillScore = 0;
@@ -1417,17 +1374,8 @@
             let totalPairs = memoryCards.length / 2;
             if (matchedPairs === totalPairs) {
                 setTimeout(() => {
-                    let msg = "";
-                    if (memoryMode === 'pc') {
-                        msg = p1Score > pcScore ? "🎉 Vyhrál jsi nad počítačem!" : (p1Score === pcScore ? "🤝 Remíza!" : "🤖 Počítač vyhrál!");
-                    } else if (memoryMode === 'pvp') {
-                        msg = p1Score > p2Score ? "🏆 Vyhrál Hráč 1!" : (p2Score > p1Score ? "🏆 Vyhrál Hráč 2!" : "🤝 Remíza obou hráčů!");
-                    } else {
-                        msg = "🏆 Pexeso dokončeno!";
-                    }
-                    alert(msg);
                     showMenu();
-                }, 500);
+                }, 800);
             } else if (memoryMode === 'pc' && isPcTurn) {
                 setTimeout(pcTurn, 1000);
             }
