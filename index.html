@@ -6,20 +6,21 @@
     <title>🎓 Školní Trénink - Zábavné Učení</title>
     <style>
         :root {
-            --primary: #4A90E2;
-            --primary-hover: #357ABD;
-            --success: #2ECC71;
-            --danger: #E74C3C;
-            --accent: #F39C12;
-            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --card-bg: #FFFFFF;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --accent: #f59e0b;
+            --bg-gradient: linear-gradient(135deg, #f0abfc 0%, #818cf8 50%, #38bdf8 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
         }
 
         * { box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--bg-gradient);
+            background-attachment: fixed;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -31,48 +32,49 @@
         .container {
             background: var(--card-bg);
             padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
             width: 100%;
-            max-width: 540px;
+            max-width: 560px;
             text-align: center;
-            border: 5px solid rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border: 6px solid #ffffff;
         }
 
         h1 {
-            color: #2C3E50;
-            font-size: 30px;
+            color: #4f46e5;
+            font-size: 32px;
             margin-top: 0;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px #e0e7ff;
         }
 
         .user-box {
             background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-            padding: 18px;
-            border-radius: 16px;
+            padding: 16px;
+            border-radius: 20px;
             margin-bottom: 20px;
-            border: 2px dashed #0284c7;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            border: 3px dashed #0284c7;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
         }
 
         input[type="text"] {
             width: 85%;
             padding: 12px;
             font-size: 18px;
-            border: 2px solid #CBD5E1;
-            border-radius: 12px;
+            border: 3px solid #7dd3fc;
+            border-radius: 15px;
             margin-top: 8px;
             text-align: center;
             font-weight: bold;
             outline: none;
-            transition: all 0.3s;
             background: #FFFFFF;
+            color: #0369a1;
         }
 
         input[type="text"]:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(74, 144, 226, 0.4);
+            border-color: #0284c7;
+            box-shadow: 0 0 15px rgba(2, 132, 199, 0.4);
         }
 
         .btn {
@@ -81,13 +83,13 @@
             border: none;
             padding: 14px 20px;
             font-size: 18px;
-            border-radius: 14px;
+            border-radius: 18px;
             cursor: pointer;
             width: 100%;
             margin: 8px 0;
             transition: all 0.2s ease;
             font-weight: bold;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -96,48 +98,71 @@
 
         .btn:hover {
             background-color: var(--primary-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
         }
 
         .btn:active { transform: translateY(0); }
 
-        .btn-success { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); }
-        .btn-danger { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); font-size: 15px; padding: 10px; }
-        .btn-warning { background: linear-gradient(135deg, #f39c12 0%, #d35400 100%); font-size: 15px; padding: 10px; }
+        .btn-success { background: linear-gradient(135deg, #34d399 0%, #059669 100%); }
+        .btn-danger { background: linear-gradient(135deg, #f87171 0%, #dc2626 100%); font-size: 15px; padding: 10px; border-radius: 14px; }
+        .btn-warning { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); font-size: 15px; padding: 10px; border-radius: 14px; }
+
+        .subject-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
 
         .btn-subject {
-            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
-            font-size: 18px;
-            border-radius: 16px;
-            padding: 16px;
+            background: white;
+            border: 3px solid #e0e7ff;
+            color: #312e81;
+            font-size: 16px;
+            border-radius: 20px;
+            padding: 18px 10px;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+
+        .btn-subject span { font-size: 32px; }
+
+        .btn-subject:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            background: #f5f3ff;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.15);
         }
 
         .hidden { display: none !important; }
 
         .option-btn {
-            background: #F8FAFC;
-            border: 2px solid #E2E8F0;
-            color: #1E293B;
+            background: #ffffff;
+            border: 3px solid #e2e8f0;
+            color: #1e293b;
             margin: 10px 0;
             font-size: 18px;
-            border-radius: 14px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
 
         .option-btn:hover {
             border-color: var(--primary);
-            background: #EFF6FF;
-            transform: scale(1.01);
+            background: #eef2ff;
+            transform: scale(1.02);
         }
 
         .score-board {
-            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-            border: 2px solid #f59e0b;
-            padding: 18px;
-            border-radius: 18px;
-            margin-top: 20px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 3px solid #f59e0b;
+            padding: 16px;
+            border-radius: 22px;
+            margin-top: 15px;
             text-align: left;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 15px rgba(245, 158, 11, 0.15);
         }
 
         .score-board h4 {
@@ -146,30 +171,30 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 17px;
+            font-size: 16px;
         }
 
         .score-list {
             list-style: none;
             padding: 0;
             margin: 0;
-            max-height: 220px;
+            max-height: 200px;
             overflow-y: auto;
         }
 
         .score-item {
             background: #FFFFFF;
             padding: 12px 14px;
-            border-radius: 12px;
+            border-radius: 14px;
             margin-bottom: 8px;
-            border: 1px solid #fde68a;
+            border: 2px solid #fef08a;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.03);
         }
 
         .score-item:hover {
@@ -179,27 +204,27 @@
         }
 
         .badge-subject {
-            background: #334155;
+            background: #4f46e5;
             color: white;
             padding: 3px 10px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 12px;
             font-weight: bold;
         }
 
         .vertical-math {
             font-family: 'Courier New', Courier, monospace;
-            font-size: 36px;
+            font-size: 38px;
             font-weight: bold;
             text-align: right;
             display: inline-block;
-            border-bottom: 4px solid #1E293B;
+            border-bottom: 4px solid #312e81;
             padding: 10px 25px;
-            margin: 15px 0;
-            background: #F1F5F9;
-            border-radius: 12px;
-            letter-spacing: 3px;
-            color: #0F172A;
+            margin: 10px 0;
+            background: #f8fafc;
+            border-radius: 16px;
+            letter-spacing: 4px;
+            color: #1e1b4b;
         }
 
         #feedback {
@@ -210,12 +235,12 @@
         }
 
         .question-card {
-            background: #F8FAFC;
+            background: #f8fafc;
             padding: 20px;
-            border-radius: 16px;
-            border: 2px solid #E2E8F0;
+            border-radius: 20px;
+            border: 3px solid #e2e8f0;
             margin-bottom: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .modal {
@@ -226,16 +251,17 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            backdrop-filter: blur(5px);
         }
         .modal-content {
             background: white;
             padding: 25px;
-            border-radius: 20px;
+            border-radius: 25px;
             width: 90%;
-            max-width: 420px;
+            max-width: 450px;
             text-align: center;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            border: 4px solid var(--primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 5px solid var(--primary);
         }
     </style>
 </head>
@@ -247,20 +273,30 @@
     <div id="menu-screen">
         <h1>🌟 Školní Trénink 🌟</h1>
         <div class="user-box">
-            <label for="username"><strong>👤 Zadej své jméno nebo vyber níže:</strong></label><br>
-            <input type="text" id="username" placeholder="Napiš jméno...">
+            <label for="username"><strong>👤 Napiš své jméno nebo vyber v tabulce:</strong></label><br>
+            <input type="text" id="username" placeholder="Např. Anička / Honzík...">
         </div>
 
         <h3>🎯 Vyber si předmět:</h3>
-        <button class="btn btn-subject" onclick="startQuiz('math')">🔢 Matematika (do 1000)</button>
-        <button class="btn btn-subject" onclick="startQuiz('eng')">🇬🇧 Angličtina (6. třída)</button>
-        <button class="btn btn-subject" onclick="startQuiz('cz')">🇨🇿 Čeština (i/y, e/ě, vyjm. slova)</button>
-        <button class="btn btn-subject" onclick="startQuiz('phy')">⚡ Fyzika (6. třída)</button>
+        <div class="subject-grid">
+            <button class="btn btn-subject" onclick="startQuiz('math')">
+                <span>🔢</span> Matematika
+            </button>
+            <button class="btn btn-subject" onclick="startQuiz('eng')">
+                <span>🇬🇧</span> Angličtina
+            </button>
+            <button class="btn btn-subject" onclick="startQuiz('cz')">
+                <span>🇨🇿</span> Čeština
+            </button>
+            <button class="btn btn-subject" onclick="startQuiz('phy')">
+                <span>⚡</span> Fyzika
+            </button>
+        </div>
 
         <div class="score-board">
             <h4>
-                <span>🏆 Hráči v žebříčku (kliknutím vybereš):</span>
-                <button onclick="resetLeaderboard()" style="background:#e74c3c; color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:12px;" title="Vymazat skóre">🗑️ Vynulovat</button>
+                <span>🏆 Žebříček (klikni pro detail):</span>
+                <button onclick="resetLeaderboard()" style="background:#ef4444; color:white; border:none; padding:5px 10px; border-radius:10px; cursor:pointer; font-size:12px; font-weight:bold;" title="Vymazat skóre">🗑️ Vynulovat</button>
             </h4>
             <ul class="score-list" id="leaderboard"></ul>
         </div>
@@ -269,13 +305,13 @@
     <!-- KVÍZOVÁ OBRAZOVKA -->
     <div id="quiz-screen" class="hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:16px;">
-            <span id="question-count">📌 Otázka: 1/10</span>
-            <span id="score-display" style="color: #27AE60; font-size: 18px;">⭐ Body: 0</span>
+            <span id="question-count" style="color: #4f46e5;">📌 Otázka: 1/10</span>
+            <span id="score-display" style="color: #059669; font-size: 18px;">⭐ Body: 0</span>
         </div>
-        <hr style="border: 1px solid #E2E8F0; margin: 12px 0;">
+        <hr style="border: 2px solid #e2e8f0; margin: 12px 0; border-radius: 2px;">
 
         <div class="question-card">
-            <h2 id="question-title" style="margin:0; color:#1E293B; font-size:22px;">Otázka</h2>
+            <h2 id="question-title" style="margin:0; color:#1e293b; font-size:22px;">Otázka</h2>
             
             <div id="vertical-box" class="hidden">
                 <div class="vertical-math" id="vertical-content"></div>
@@ -296,18 +332,18 @@
     <div id="result-screen" class="hidden">
         <h2>🎉 Skvělá práce!</h2>
         <div style="font-size: 70px; margin: 10px 0;">🏆</div>
-        <p id="final-stats" style="font-size: 20px; font-weight: bold; color: #1E293B;">Získal jsi 0 bodů z 10.</p>
+        <p id="final-stats" style="font-size: 20px; font-weight: bold; color: #1e293b;">Získal jsi 0 bodů z 10.</p>
         <button class="btn btn-success" onclick="saveScoreAndRestart()">💾 Uložit výsledek do tabulky</button>
         <button class="btn btn-warning" onclick="showMenu()">🏠 Zpět do menu bez uložení</button>
     </div>
 
 </div>
 
-<!-- DETAILNÍ OKNO PO KLIKNUTÍ NA SKÓRE -->
+<!-- DETAILNÍ OKNO PRO HISTORII POKUSŮ -->
 <div id="detail-modal" class="modal hidden">
     <div class="modal-content">
-        <h3 id="modal-title" style="color:#2C3E50; margin-top:0;">📊 Detail hráče</h3>
-        <div id="modal-body" style="max-height: 250px; overflow-y: auto; text-align: left; margin: 15px 0; font-size: 15px;"></div>
+        <h3 id="modal-title" style="color:#4f46e5; margin-top:0;">📊 Profil hráče</h3>
+        <div id="modal-body" style="max-height: 280px; overflow-y: auto; text-align: left; margin: 15px 0; font-size: 15px;"></div>
         <button class="btn btn-success" onclick="selectUserFromModal()">✅ Pokračovat za tohoto hráče</button>
         <button class="btn btn-warning" onclick="closeModal()">Zavřít</button>
     </div>
@@ -378,27 +414,27 @@
                 n1 = Math.floor(Math.random() * 500) + 50;
                 n2 = Math.floor(Math.random() * 400) + 50;
                 ans = n1 + n2;
-                text = `➕ Spočítej: ${n1} + ${n2}`;
+                text = `➕ Spočítej příklad: ${n1} + ${n2}`;
             } else if (type === 1) {
                 n1 = Math.floor(Math.random() * 800) + 100;
                 n2 = Math.floor(Math.random() * n1);
                 ans = n1 - n2;
-                text = `➖ Spočítej: ${n1} - ${n2}`;
+                text = `➖ Spočítej příklad: ${n1} - ${n2}`;
             } else if (type === 2) {
                 n1 = Math.floor(Math.random() * 12) + 2;
                 n2 = Math.floor(Math.random() * 20) + 2;
                 ans = n1 * n2;
-                text = `✖️ Spočítej: ${n1} × ${n2}`;
+                text = `✖️ Spočítej příklad: ${n1} × ${n2}`;
             } else if (type === 3) {
                 n2 = Math.floor(Math.random() * 9) + 2;
                 ans = Math.floor(Math.random() * 50) + 2;
                 n1 = n2 * ans;
-                text = `➗ Spočítej: ${n1} ÷ ${n2}`;
+                text = `➗ Spočítej příklad: ${n1} ÷ ${n2}`;
             } else {
                 n1 = Math.floor(Math.random() * 400) + 100;
                 n2 = Math.floor(Math.random() * 400) + 100;
                 ans = n1 + n2;
-                text = "📝 Spočítej pod sebou:";
+                text = "📝 Matematika pod sebou:";
                 isVertical = true;
             }
 
@@ -417,7 +453,7 @@
     function startQuiz(subject) {
         let nameInput = document.getElementById("username").value.trim();
         if (!nameInput) {
-            alert("Prosím, zadej svoje jméno nebo na něj klikni v tabulce dole!");
+            alert("⚠️ Prosím, zadej nejprve svoje jméno do políčka nahoře nebo klikni na své jméno v žebříčku dole!");
             return;
         }
 
@@ -483,9 +519,9 @@
         disableOptions();
         if (selected === correct) {
             score++;
-            showFeedback("🎉 Správně!", "green");
+            showFeedback("🎉 Výborně, správně! 🌟", "green");
         } else {
-            showFeedback(`❌ Špatně! Správně: ${correct}`, "red");
+            showFeedback(`❌ Bohužel ne, správně bylo: ${correct}`, "red");
         }
     }
 
@@ -497,9 +533,9 @@
 
         if (userAns === correct) {
             score++;
-            showFeedback("🎉 Správně!", "green");
+            showFeedback("🎉 Skvělé, správný výsledek! 🚀", "green");
         } else {
-            showFeedback(`❌ Špatně! Správně: ${correct}`, "red");
+            showFeedback(`❌ Chybička, správně je: ${correct}`, "red");
         }
     }
 
@@ -526,7 +562,7 @@
     }
 
     function confirmExit() {
-        if (confirm("Opravdu chceš ukončit test? Skóre se neuloží.")) {
+        if (confirm("Opravdu chceš ukončit test? Skóre se tentokrát neuloží.")) {
             showMenu();
         }
     }
@@ -540,13 +576,6 @@
     function saveScoreAndRestart() {
         saveLeaderboard(currentUser, score, currentSubjectName);
         showMenu();
-    }
-
-    function showMenu() {
-        document.getElementById("quiz-screen").classList.add("hidden");
-        document.getElementById("result-screen").classList.add("hidden");
-        document.getElementById("menu-screen").classList.remove("hidden");
-        loadLeaderboard();
     }
 
     function saveLeaderboard(name, pts, subjectName) {
@@ -565,9 +594,8 @@
         let listHtml = "";
 
         if (board.length === 0) {
-            listHtml = "<li style='text-align:center; color:#7F8C8D; padding:10px;'>Zatím žádné výsledky. Napiš jméno a vyzkoušej test!</li>";
+            listHtml = "<li style='text-align:center; color:#7F8C8D; padding:10px;'>Zatím žádné výsledky. Napiš jméno a hraj! 🎮</li>";
         } else {
-            // VYTVOŘENÍ UNIKÁTNÍCH HRÁČŮ (každý hráč zobrazen pouze jednou s nejlepším skóre)
             let uniquePlayers = {};
             board.forEach(item => {
                 if (!uniquePlayers[item.name] || item.score > uniquePlayers[item.name].score) {
@@ -586,8 +614,8 @@
                             <span class="badge-subject">${subj}</span>
                         </div>
                         <div style="text-align:right;">
-                            <span style="font-weight:bold; font-size:16px; color:#27AE60;">⭐ Max: ${item.score}/10</span><br>
-                            <small style="color:#94a3b8;">${item.date}</small>
+                            <span style="font-weight:bold; font-size:16px; color:#059669;">⭐ Max: ${item.score}/10</span><br>
+                            <small style="color:#64748b;">${item.date}</small>
                         </div>
                     </li>`;
             });
@@ -600,12 +628,24 @@
         let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
         let userRecords = board.filter(item => item.name === name);
         
-        let html = `<strong>Vybraný hráč:</strong> ${name}<br><br><strong>Historie pokusů:</strong><ul style="padding-left:20px; margin:5px 0;">`;
+        let bySubject = {};
         userRecords.forEach(r => {
-            let subjName = r.subject || "Matematika 🔢";
-            html += `<li><b>${subjName}</b>: ${r.score}/10 bodů (${r.date})</li>`;
+            let subj = r.subject || "Matematika 🔢";
+            if (!bySubject[subj]) bySubject[subj] = [];
+            bySubject[subj].push(r);
         });
-        html += `</ul>`;
+
+        let html = `<strong>Hráč:</strong> ${name}<br><br><strong>📈 Poslední pokusy (pro sledování zlepšení):</strong>`;
+        
+        for (let subj in bySubject) {
+            let lastThree = bySubject[subj].slice(-3);
+            html += `<div style="margin-top:10px; background:#f8fafc; padding:8px; border-radius:10px; border:1px solid #cbd5e1;">`;
+            html += `<b>${subj}:</b><ul style="padding-left:20px; margin:3px 0;">`;
+            lastThree.forEach(r => {
+                html += `<li><b>${r.score}/10 bodů</b> <small style="color:#64748b;">(${r.date})</small></li>`;
+            });
+            html += `</ul></div>`;
+        }
 
         document.getElementById("modal-title").innerText = `📊 Profil hráče: ${name}`;
         document.getElementById("modal-body").innerHTML = html;
