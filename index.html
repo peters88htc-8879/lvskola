@@ -477,14 +477,16 @@
         <button class="btn btn-danger" onclick="showMenu()" style="margin-top:8px;">🏠 Zpět do menu</button>
     </div>
 
-    <!-- VÝHODNOCENÍ S POHÁRY -->
+    <!-- VÝHODNOCENÍ S POHÁRY A MOŽNOSTÍ POKRAČOVAT NA DALŠÍ KOLO -->
     <div id="result-screen" class="hidden">
         <div class="question-card" style="border: 5px solid #fbbf24; background: linear-gradient(145deg, #fffbeb, #fef3c7);">
             <h2 style="color: #b45309; margin-top:0;">🎉 Skvělá práce a odměna!</h2>
             <div class="trophy-animation" id="trophy-icon">🏆</div>
             <h3 id="trophy-title" style="color: #d97706; margin: 5px 0;">Zlatý pohár!</h3>
             <p id="final-stats" style="font-size: 20px; font-weight: 700; color: #1e1b4b; margin: 15px 0;">Získal jsi 0 bodů.</p>
-            <button class="btn btn-success" onclick="showMenu()">🏠 Pokračovat do hlavního menu</button>
+            
+            <button id="next-level-btn" class="btn btn-success hidden" onclick="startNextLevel()" style="margin-bottom: 10px;">🚀 Pokračovat na další kolo</button>
+            <button class="btn btn-warning" onclick="showMenu()" style="margin-bottom: 10px;">🏠 Uložit a zpět do hlavního menu</button>
         </div>
     </div>
 
@@ -680,12 +682,23 @@
         questionIndex = 0;
         score = 0;
         
+        // Zajištění náhodného výběru bez duplicit
         let rawQuestions = database[currentSubjectKey][level];
         questions = [...rawQuestions].sort(() => Math.random() - 0.5);
 
         hideAllScreens();
         document.getElementById("quiz-screen").classList.remove("hidden");
         showQuestion();
+    }
+
+    // Funkce pro plynulý přechod na další kolo po dokončení testu
+    function startNextLevel() {
+        if (currentLevel < 10) {
+            startSelectedLevel(currentLevel + 1);
+        } else {
+            showAppAlert("🎉 Gratulace! Dokončil jsi všechna kola tohoto předmětu!");
+            showMenu();
+        }
     }
 
     const subjectNames = {
@@ -819,6 +832,15 @@
         document.getElementById("trophy-title").innerText = trophyTitle;
         document.getElementById("final-stats").innerText = `${currentUser}, získal(a) jsi ${score} z ${questions.length} bodů v testu [${currentSubjectName}]!`;
 
+        // Zobrazení tlačítka pro pokračování na další kolo, pokud nejsme v posledním kole
+        let nextBtn = document.getElementById("next-level-btn");
+        if (currentLevel < 10) {
+            nextBtn.classList.remove("hidden");
+            nextBtn.innerText = `🚀 Pokračovat na Kolo ${currentLevel + 1}`;
+        } else {
+            nextBtn.classList.add("hidden");
+        }
+
         hideAllScreens();
         document.getElementById("result-screen").classList.remove("hidden");
     }
@@ -869,6 +891,7 @@
         document.getElementById("trophy-icon").innerText = "🏆";
         document.getElementById("trophy-title").innerText = "Zlatý pohár za Doplňovačku!";
         document.getElementById("final-stats").innerText = `${currentUser}, získal(a) jsi ${fillScore} bodů!`;
+        document.getElementById("next-level-btn").classList.add("hidden");
         hideAllScreens();
         document.getElementById("result-screen").classList.remove("hidden");
     }
@@ -968,7 +991,6 @@
         }
     }
 
-    // Bezpečná a plynulá logika pro tah počítače
     function computerTurn() {
         if (matchedPairs === 12) return;
         let unmasked = memoryCards.map((c, idx) => ({ card: c, index: idx })).filter(item => !item.card.matched && !item.card.flipped && !item.card.isBonus);
@@ -1032,6 +1054,7 @@
             document.getElementById("trophy-icon").innerText = "🏆🧩";
             document.getElementById("trophy-title").innerText = `Mistr Pexesa - ${winnerText}`;
             document.getElementById("final-stats").innerText = `${currentUser}: ${p1Score} bodů | ${p2Name}: ${p2Score} bodů`;
+            document.getElementById("next-level-btn").classList.add("hidden");
             hideAllScreens();
             document.getElementById("result-screen").classList.remove("hidden");
         }
@@ -1059,6 +1082,7 @@
             document.getElementById("trophy-icon").innerText = "🐍🏆";
             document.getElementById("trophy-title").innerText = "Konec hry Had!";
             document.getElementById("final-stats").innerText = `${currentUser}, získal(a) jsi ve hře Had celkem ${snakeScore} bodů!`;
+            document.getElementById("next-level-btn").classList.add("hidden");
             hideAllScreens();
             document.getElementById("result-screen").classList.remove("hidden");
             return;
