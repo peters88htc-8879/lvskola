@@ -471,7 +471,7 @@
             <h3 id="fill-title" style="margin-top:0; font-size:20px;">Nápověda</h3>
             <div id="fill-word-display" style="font-size: 34px; font-weight: bold; letter-spacing: 4px; margin: 15px 0; color: #4f46e5;"></div>
         </div>
-        <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno..." style="width:100%; margin-bottom:12px;" oninput="checkFillAnswerAuto(this)">
+        <div id="fill-options-box" class="workbook-options" style="margin-bottom:12px;"></div>
         <div id="fill-feedback" style="font-weight:bold; font-size: 18px; margin: 12px 0; min-height: 28px;"></div>
         <button class="btn btn-danger" onclick="showMenu()" style="font-size:17px;">🏠 Zpět do menu</button>
     </div>
@@ -1056,39 +1056,39 @@
     };
 
     const fillDatabaseCz = [
-        { hint: "Čeština: Doplň ě/je ve slově p_na", missing: "Ě", display: "P_NA" },
-        { hint: "Čeština: Doplň i/y ve slově b_t (bydlet)", missing: "Ý", display: "B_T" },
-        { hint: "Čeština: Doplň i/y ve slově m_š", missing: "Y", display: "M_Š" },
-        { hint: "Čeština: Doplň i/y ve slově p_cha", missing: "Ý", display: "P_CHA" },
-        { hint: "Čeština: Doplň i/y ve slově s_r", missing: "Ý", display: "S_R" },
-        { hint: "Čeština: Doplň i/y ve slově v_t (vítr fouká)", missing: "Í", display: "V_T" },
-        { hint: "Čeština: Doplň mě/mně ve tvaru: vzpomeň si na m_.", missing: "MĚ", display: "NA M__" },
-        { hint: "Čeština: Doplň mě/mně ve tvaru: nic o tom mn_ neříkej", missing: "MNĚ", display: "O TOM MN__" },
-        { hint: "Čeština: Doplň předponu s-/z-: _balit kufr", missing: "S", display: "_BALIT" },
-        { hint: "Čeština: Doplň předponu s-/z-: _hasit žízeň", missing: "Z", display: "_HASIT" },
-        { hint: "Čeština: Doplň i/y ve slově l_že", missing: "Y", display: "L_ŽE" },
-        { hint: "Čeština: Doplň ě/je ve slově ob_t", missing: "Ě", display: "OB_T" },
-        { hint: "Čeština: Doplň i/y ve slově m_n (mletí v mlýně)", missing: "Ý", display: "ML_N" },
-        { hint: "Čeština: Doplň i/y ve slově z_tra", missing: "I", display: "Z_TRA" },
-        { hint: "Čeština: Doplň i/y ve slově br_zy", missing: "Z", display: "BR_ZY" }
+        { hint: "Čeština: Doplň ě/je ve slově p_na", missing: "Ě", display: "P_NA", options: ["Ě", "JE"] },
+        { hint: "Čeština: Doplň i/y ve slově b_t (bydlet)", missing: "Ý", display: "B_T", options: ["Ý", "Í"] },
+        { hint: "Čeština: Doplň i/y ve slově m_š", missing: "Y", display: "M_Š", options: ["Y", "I"] },
+        { hint: "Čeština: Doplň i/y ve slově p_cha", missing: "Ý", display: "P_CHA", options: ["Ý", "Í"] },
+        { hint: "Čeština: Doplň i/y ve slově s_r", missing: "Ý", display: "S_R", options: ["Ý", "Í"] },
+        { hint: "Čeština: Doplň i/y ve slově v_t (vítr fouká)", missing: "Í", display: "V_T", options: ["Í", "Ý"] },
+        { hint: "Čeština: Doplň mě/mně ve tvaru: vzpomeň si na m_.", missing: "MĚ", display: "NA M__", options: ["MĚ", "MNĚ"] },
+        { hint: "Čeština: Doplň mě/mně ve tvaru: nic o tom mn_ neříkej", missing: "MNĚ", display: "O TOM MN__", options: ["MĚ", "MNĚ"] },
+        { hint: "Čeština: Doplň předponu s-/z-: _balit kufr", missing: "S", display: "_BALIT", options: ["S", "Z"] },
+        { hint: "Čeština: Doplň předponu s-/z-: _hasit žízeň", missing: "Z", display: "_HASIT", options: ["S", "Z"] },
+        { hint: "Čeština: Doplň i/y ve slově l_že", missing: "Y", display: "L_ŽE", options: ["Y", "I"] },
+        { hint: "Čeština: Doplň ě/je ve slově ob_t", missing: "Ě", display: "OB_T", options: ["Ě", "JE"] },
+        { hint: "Čeština: Doplň i/y ve slově m_n (mletí v mlýně)", missing: "Ý", display: "ML_N", options: ["Ý", "Í"] },
+        { hint: "Čeština: Doplň i/y ve slově z_tra", missing: "I", display: "Z_TRA", options: ["I", "Y"] },
+        { hint: "Čeština: Doplň i/y ve slově br_zy", missing: "Z", display: "BR_ZY", options: ["Z", "S"] }
     ];
 
     const fillDatabaseEng = [
-        { hint: "Anglicky: Škola", missing: "H", display: "SC_OOL" },
-        { hint: "Anglicky: Jablko", missing: "P", display: "A_PLE" },
-        { hint: "Anglicky: Bratr", missing: "T", display: "BRO_HER" },
-        { hint: "Anglicky: Učitel", missing: "C", display: "TEA_HER" },
-        { hint: "Anglicky: Zahrada", missing: "R", display: "GA_DEN" },
-        { hint: "Anglicky: Zima", missing: "N", display: "WI_TER" },
-        { hint: "Anglicky: Léto", missing: "M", display: "SU_MER" },
-        { hint: "Anglicky: Kamarád", missing: "I", display: "FR_END" },
-        { hint: "Anglicky: Rodina", missing: "M", display: "FA_ILY" },
-        { hint: "Anglicky: Tužka", missing: "N", display: "PEN_IL" },
-        { hint: "Anglicky: Okno", missing: "D", display: "WIN_OW" },
-        { hint: "Anglicky: Pomeranč", missing: "G", display: "ORAN_E" },
-        { hint: "Anglicky: Květina", missing: "W", display: "FLOW_R" },
-        { hint: "Anglicky: Štěně", missing: "U", display: "P_PPY" },
-        { hint: "Anglicky: Opice", missing: "K", display: "MON_EY" }
+        { hint: "Anglicky: Škola", missing: "H", display: "SC_OOL", options: ["H", "K", "L"] },
+        { hint: "Anglicky: Jablko", missing: "P", display: "A_PLE", options: ["P", "B", "T"] },
+        { hint: "Anglicky: Bratr", missing: "T", display: "BRO_HER", options: ["T", "D", "S"] },
+        { hint: "Anglicky: Učitel", missing: "C", display: "TEA_HER", options: ["C", "CH", "S"] },
+        { hint: "Anglicky: Zahrada", missing: "R", display: "GA_DEN", options: ["R", "L", "N"] },
+        { hint: "Anglicky: Zima", missing: "N", display: "WI_TER", options: ["N", "M", "L"] },
+        { hint: "Anglicky: Léto", missing: "M", display: "SU_MER", options: ["M", "N", "P"] },
+        { hint: "Anglicky: Kamarád", missing: "I", display: "FR_END", options: ["I", "E", "A"] },
+        { hint: "Anglicky: Rodina", missing: "M", display: "FA_ILY", options: ["M", "N", "L"] },
+        { hint: "Anglicky: Tužka", missing: "N", display: "PEN_IL", options: ["N", "M", "L"] },
+        { hint: "Anglicky: Okno", missing: "D", display: "WIN_OW", options: ["D", "T", "G"] },
+        { hint: "Anglicky: Pomeranč", missing: "G", display: "ORAN_E", options: ["G", "J", "K"] },
+        { hint: "Anglicky: Květina", missing: "W", display: "FLOW_R", options: ["W", "E", "A"] },
+        { hint: "Anglicky: Štěně", missing: "U", display: "P_PPY", options: ["U", "A", "O"] },
+        { hint: "Anglicky: Opice", missing: "K", display: "MON_EY", options: ["K", "C", "S"] }
     ];
 
     let currentFillLang = 'cz';
@@ -1326,7 +1326,7 @@
         let fq = fillQuestions[fillIndex];
         
         let fillScreen = document.getElementById("fill-screen");
-        if (!document.getElementById("fill-answer")) {
+        if (!document.getElementById("fill-options-box")) {
             fillScreen.innerHTML = `
                 <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:17px;">
                     <span id="fill-count" style="color: #0284c7;">✍️ Doplňovačka: 1/10</span>
@@ -1337,7 +1337,7 @@
                     <h3 id="fill-title" style="margin-top:0; font-size:20px;">Nápověda</h3>
                     <div id="fill-word-display" style="font-size: 34px; font-weight: bold; letter-spacing: 4px; margin: 15px 0; color: #4f46e5;"></div>
                 </div>
-                <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno..." style="width:100%; margin-bottom:12px;" oninput="checkFillAnswerAuto(this)">
+                <div id="fill-options-box" class="workbook-options" style="margin-bottom:12px;"></div>
                 <div id="fill-feedback" style="font-weight:bold; font-size: 18px; margin: 12px 0; min-height: 28px;"></div>
                 <button class="btn btn-danger" onclick="showMenu()" style="font-size:17px;">🏠 Zpět do menu</button>
             `;
@@ -1347,32 +1347,43 @@
         document.getElementById("fill-score").innerText = `⭐ Body: ${fillScore}`;
         document.getElementById("fill-title").innerText = fq.hint;
         document.getElementById("fill-word-display").innerText = fq.display;
-        let ansField = document.getElementById("fill-answer");
-        ansField.value = "";
-        ansField.disabled = false;
-        ansField.focus();
         document.getElementById("fill-feedback").innerText = "";
+
+        let optsBox = document.getElementById("fill-options-box");
+        let shuffledOpts = shuffleArray(fq.options);
+        let html = "";
+        shuffledOpts.forEach(opt => {
+            html += `<button class="wb-opt-btn" onclick="checkFillOption('${opt.replace(/'/g, "\\'")}', '${fq.missing.replace(/'/g, "\\'")}', this)">${opt}</button>`;
+        });
+        optsBox.innerHTML = html;
     }
 
-    function checkFillAnswerAuto(inputEl) {
-        let ans = inputEl.value.trim().toUpperCase();
-        let fq = fillQuestions[fillIndex];
+    function checkFillOption(selected, correct, btnElement) {
+        let parent = btnElement.parentElement;
+        let buttons = parent.getElementsByTagName("button");
+        for (let b of buttons) {
+            b.disabled = true;
+        }
+
         let fb = document.getElementById("fill-feedback");
 
-        if (ans === fq.missing) {
-            inputEl.disabled = true;
+        if (selected === correct) {
+            btnElement.classList.add("correct");
             fillScore += 2;
             fb.innerText = "🎉 Správně!";
             fb.style.color = "var(--success)";
-            fillIndex++;
-            setTimeout(showFillQuestion, 1100);
-        } else if (ans.length >= fq.missing.length) {
-            inputEl.disabled = true;
-            fb.innerText = `❌ Chyba! Správně bylo: ${fq.missing}`;
+        } else {
+            btnElement.classList.add("wrong");
+            for (let b of buttons) {
+                if (b.innerText.trim() === correct) b.classList.add("correct");
+            }
+            fb.innerText = `❌ Chyba! Správně bylo: ${correct}`;
             fb.style.color = "var(--danger)";
-            fillIndex++;
-            setTimeout(showFillQuestion, 1300);
         }
+
+        document.getElementById("fill-score").innerText = `⭐ Body: ${fillScore}`;
+        fillIndex++;
+        setTimeout(showFillQuestion, 1200);
     }
 
     // PEXESO LOGIKA
