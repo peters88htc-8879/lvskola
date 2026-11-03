@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎓 Celoroční Digitální Sešit & Učebnice (Verze 3.0) - Pohádková Akademie</title>
+    <title>🎓 Celoroční Digitální Sešit & Učebnice (Verze 6.0) - Pohádková Akademie</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
 
@@ -153,7 +153,6 @@
 
         .hidden { display: none !important; }
 
-        /* SEŠIT A OSNOVA */
         .theory-box {
             background: #ffffff;
             border: 3px solid #cbd5e1;
@@ -292,7 +291,7 @@
 
     <!-- HLAVNÍ MENU -->
     <div id="menu-screen">
-        <div class="version-badge">🚀 Verze 3.0 (Kompletní učebnice 89+ stran)</div>
+        <div class="version-badge">🚀 Verze 6.0 (Kompletní učebnice pro 4. a 6. třídu)</div>
         <h1>🌟 Celoroční Digitální Sešit & Učebnice 🎓</h1>
         <div class="user-box">
             <span style="font-size: 14px; color: #475569; font-weight: 600;">👤 Aktivní žák / hrdina:</span><br>
@@ -300,13 +299,13 @@
             <button class="btn btn-warning" onclick="openStartPlayerModal()" style="margin-top: 8px; font-size: 13px; padding: 8px;">🔄 Změnit profil žáka</button>
         </div>
 
-        <h3>📁 Celoroční předměty a osnovy:</h3>
+        <h3>📁 Výběr ročníku:</h3>
         <div class="class-grid">
             <button class="btn btn-class" onclick="openClass('class4')">
-                <span>🎒</span> 4. TŘÍDA <br><span style="font-size:11px; font-weight:normal; opacity:0.9;">(Vyjmenovaná slova, matika, přírodověda)</span>
+                <span>🎒</span> 4. TŘÍDA <br><span style="font-size:11px; font-weight:normal; opacity:0.9;">(Čeština, Angličtina, Matika, Přírodověda)</span>
             </button>
             <button class="btn btn-class" onclick="openClass('class6')">
-                <span>🎒</span> 6. TŘÍDA <br><span style="font-size:11px; font-weight:normal; opacity:0.9;">(Project Explore 1 - 89 stran, mluvnice)</span>
+                <span>🎒</span> 6. TŘÍDA <br><span style="font-size:11px; font-weight:normal; opacity:0.9;">(Project Explore 1, Čeština, Matika, Fyzika)</span>
             </button>
         </div>
 
@@ -335,14 +334,20 @@
 
     <!-- PŘEDMĚTY PRO 4. TŘÍDU -->
     <div id="class4-screen" class="hidden">
-        <div class="version-badge">Verze 3.0 - 4. Třída</div>
-        <h1>🎒 4. TŘÍDA - Celoroční Osnova</h1>
+        <div class="version-badge">Verze 6.0 - 4. Třída</div>
+        <h1>🎒 4. TŘÍDA - Celoroční Předměty</h1>
         <div class="subject-grid">
-            <button class="btn btn-subject" onclick="openSubjectHub('cz4_vyj', '4.tř: Vyjmenovaná slova (Komplet)')">
-                <span>🇨🇿</span> Vyjmenovaná slova <br><span style="font-size:11px; font-weight:normal;">B, L, M, P, S, V, Z</span>
+            <button class="btn btn-subject" onclick="openSubjectHub('cz4_all', '4.tř: Český jazyk (Komplet)')">
+                <span>🇨🇿</span> Český jazyk <br><span style="font-size:11px; font-weight:normal;">Stavba slova, ě/je, vyjmenovaná slova</span>
             </button>
-            <button class="btn btn-subject" onclick="openSubjectHub('math4', '4.tř: Matematika do 1000 a pod sebou')">
-                <span>🔢</span> Matematika <br><span style="font-size:11px; font-weight:normal;">Příklady pod sebou & rovnice</span>
+            <button class="btn btn-subject" onclick="openSubjectHub('eng4_all', '4.tř: Anglický jazyk (Základy)')">
+                <span>🇬🇧</span> Anglický jazyk <br><span style="font-size:11px; font-weight:normal;">Rodina, škola, jídlo, oblečení</span>
+            </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('math4', '4.tř: Matematika (Do 1000)')">
+                <span>🔢</span> Matematika <br><span style="font-size:11px; font-weight:normal;">Počítání pod sebou, násobilka</span>
+            </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('sci4', '4.tř: Přírodověda (Celý rok)')">
+                <span>🌿</span> Přírodověda <br><span style="font-size:11px; font-weight:normal;">Příroda, vesmír, lidské tělo</span>
             </button>
         </div>
         <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
@@ -350,17 +355,20 @@
 
     <!-- PŘEDMĚTY PRO 6. TŘÍDU -->
     <div id="class6-screen" class="hidden">
-        <div class="version-badge">Verze 3.0 - 6. Třída</div>
-        <h1>🎒 6. TŘÍDA - Celoroční Osnova & Učebnice</h1>
+        <div class="version-badge">Verze 6.0 - 6. Třída</div>
+        <h1>🎒 6. TŘÍDA - Celoroční Předměty</h1>
         <div class="subject-grid">
             <button class="btn btn-subject" onclick="openSubjectHub('eng6_project', 'Project Explore 1: Kompletní učebnice (89 stran)')" style="grid-column: span 2; background: linear-gradient(145deg, #e0f2fe, #bae6fd); border-color: #38bdf8;">
-                <span style="font-size:32px;">🇬🇧</span> <strong>Project Explore 1 (Kompletní učebnice 89 stran)</strong> <br><span style="font-size:12px; font-weight:normal;">Všech 8 podrobných kapitol od Starteru po Unit 6, slovíčka a gramatika</span>
+                <span style="font-size:32px;">🇬🇧</span> <strong>Project Explore 1 (89 stran)</strong> <br><span style="font-size:12px; font-weight:normal;">Všech 8 kapitol od Starteru po Unit 6, slovíčka a gramatika</span>
             </button>
             <button class="btn btn-subject" onclick="openSubjectHub('cz6_gram', '6.tř: Český jazyk (Mluvnice)')">
                 <span>🇨🇿</span> Český jazyk <br><span style="font-size:11px; font-weight:normal;">Shoda přísudku, vzory podstatných jmen</span>
             </button>
-            <button class="btn btn-subject" onclick="openSubjectHub('math6', '6.tř: Matematika (Rovnice & Desetinná čísla)')">
-                <span>🔢</span> Matematika <br><span style="font-size:11px; font-weight:normal;">Rovnice se závorkami, desetinná čísla</span>
+            <button class="btn btn-subject" onclick="openSubjectHub('math6', '6.tř: Matematika (Rovnice, Desetinná čísla)')">
+                <span>🔢</span> Matematika <br><span style="font-size:11px; font-weight:normal;">Rovnice se závorkami, desetinná čísla, zlomky</span>
+            </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('phy6', '6.tř: Fyzika (Skupenství, Měření, Síla)')" style="grid-column: span 2;">
+                <span>⚡</span> Fyzika <br><span style="font-size:11px; font-weight:normal;">Vlastnosti látek, měření veličin, gravitační síla</span>
             </button>
         </div>
         <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
@@ -375,7 +383,7 @@
             📖 Pokračovat v učení (Kde jsem skončil)
         </button>
         <button class="btn btn-warning" onclick="openTableOfContents()" style="padding:14px; font-size:16px; margin-bottom:10px;">
-            📑 Obsah / Osnova (Vybrat lekci z 89 stran)
+            📑 Obsah / Osnova (Vybrat kapitolu)
         </button>
         <button class="btn btn-success" onclick="openWorkbookMode()" style="padding:16px; font-size:18px; margin-bottom:15px;">
             ✍️ Spustit test na známky
@@ -405,7 +413,7 @@
             <button class="btn btn-warning" onclick="changeTheoryPage(-1)" id="prev-page-btn" style="width: 48%; margin:0;">⬅️ Předchozí kapitola</button>
             <button class="btn btn-warning" onclick="changeTheoryPage(1)" id="next-page-btn" style="width: 48%; margin:0;">Další kapitola ➡️</button>
         </div>
-        <button class="btn btn-warning" onclick="openTableOfContents()" style="margin-top:8px;">📑 Vybrat z obsahu (Všechny stránky)</button>
+        <button class="btn btn-warning" onclick="openTableOfContents()" style="margin-top:8px;">📑 Vybrat z obsahu</button>
         <button class="btn btn-danger" onclick="backToHub()" style="margin-top:6px;">🏠 Zpět do rozcestníku</button>
     </div>
 
@@ -474,7 +482,7 @@
 <!-- MODAL: VÝBĚR HRÁČE -->
 <div id="start-player-modal" class="modal">
     <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">✨ Vítejte ve školním sešitu (Verze 3.0)!</h3>
+        <h3 style="color:#4f46e5; margin-top:0;">✨ Vítejte ve školním sešitu (Verze 6.0)!</h3>
         <p style="font-size:14px; color:#475569; margin-bottom:12px;">Zadej své jméno a heslo:</p>
         <div style="margin-bottom: 12px; background: #f8fafc; padding: 10px; border-radius: 14px; border: 2px solid #cbd5e1;">
             <input type="text" id="modal-username-input" placeholder="Jméno (např. Lucinka)..." style="width:100%; margin-bottom: 6px;">
@@ -544,8 +552,90 @@
         return arr;
     }
 
-    // PLNÁ 89+ STRÁNKOVÁ DATABÁZE PROJECT EXPLORE 1 A DALŠÍCH PŘEDMĚTŮ
     const database = {
+        cz4_all: {
+            title: "Český jazyk (4. třída - Kompletní ročník)",
+            theoryPages: [
+                `<h3>📖 1. Stavba slova a tvoření slov</h3>
+                 <p>Slova se skládají z kořene, předpony, přípony a koncovky. Příbuzná slova mají společný kořen (např. <em>les – lesní – prales</em>).</p>`,
+                `<h3>📖 2. Pravopis ě / je a mě / mně</h3>
+                 <p>Písmeno <strong>ě</strong> píšeme po souhláskách p, b, v, m, f, d, t, n (např. <em>pěna, běhat, větev, město</em>). U zájmena já rozlišujeme <em>mě</em> (2. a 4. pád) a <em>mně</em> (3. a 6. pád).</p>`,
+                `<h3>📖 3. Vyjmenovaná slova (Komplet B, L, M, P, S, V, Z)</h3>
+                 <table class="theory-table">
+                     <tr><th>Písmeno</th><th>Seznam vyjmenovaných slov</th></tr>
+                     <tr><td><strong>B</strong></td><td>být, bydlit, obyvatel, byt, příbytek, nábytek, dobytek, obyčej, bystrý, bylina, kobyla</td></tr>
+                     <tr><td><strong>L</strong></td><td>slyšet, mlýn, blýskat se, plynout, plýtvat, lýko, lýtko, lyže, pelyněk</td></tr>
+                     <tr><td><strong>M</strong></td><td>my, mýt, mykat, mýtit, myš, hlemýžď, mýdlo, mýto, myslit, mým</td></tr>
+                     <tr><td><strong>P</strong></td><td>pýcha, pytel, pysk, netopýr, slepýš, pápěří, pyl, kopyto, chropět</td></tr>
+                     <tr><td><strong>S</strong></td><td>syn, sít, sýr, syrový, sychravý, usychat, sýkora, sýček, syčet, sypat</td></tr>
+                     <tr><td><strong>V</strong></td><td>vy, vykat, vysoký, výt, výskat, zvykat, žvýkat, vydra, výr, výheň</td></tr>
+                     <tr><td><strong>Z</strong></td><td>brzy, jazyk, zítra, zříti, ozývat se</td></tr>
+                 </table>`,
+                `<h3>📖 4. Pravopis předpon s-, z-, vz-</h3>
+                 <p>Předpona <em>s-</em> vyjadřuje směr dohromady nebo z povrchu pryč (<em>shodit, sbalit</em>). Předpona <em>z-</em> vyjadřuje dokončení děje nebo změnu stavu (<em>zaset, zchladit</em>). Předpona <em>vz-</em> vyjadřuje směr vzhůru (<em>vzhůru, vzlétnout</em>).</p>`,
+                `<h3>📖 5. Přehled 10 slovních druhů</h3>
+                 <p>Ve škole rozlišujeme 10 slovních druhů: podstatná jména, přídavná jména, zájmena, číslovky, slovesa, příslovce, předložky, spojky, částice a citoslovce.</p>`
+            ],
+            items: [
+                {q: "Vyjmenované slovo po B: b_t (bydlet)", options: ["ý", "í"], correct: "ý"},
+                {q: "Vyjmenované slovo po M: m_š (zvíře)", options: ["y", "i"], correct: "y"},
+                {q: "Vyjmenované slovo po P: p_cha (povýšenost)", options: ["ý", "í"], correct: "ý"},
+                {q: "Doplňte předponu: _balit kufry na dovolenou", options: ["S", "Z"], correct: "S"},
+                {q: "Které slovo je podstatným jménem?", options: ["stůl", "běžet", "velmi"], correct: "stůl"}
+            ]
+        },
+        eng4_all: {
+            title: "Anglický jazyk (4. třída - Základní okruhy)",
+            theoryPages: [
+                `<h3>📖 1. Family & Friends (Rodina a přátelé)</h3>
+                 <p>Základní fráze pro představení se a členy rodiny: mother (matka), father (otec), brother (bratr), sister (sestra), grandmother (babička), grandfather (dědeček).</p>`,
+                `<h3>📖 2. School & Classroom (Škola)</h3>
+                 <p>Školní potřeby a pokyny: pen (pero), pencil (tužka), rubber (guma), ruler (pravítko), schoolbag (školní taška), notebook (sešit).</p>`,
+                `<h3>📖 3. Food & Drink (Jídlo a pití)</h3>
+                 <p>Oblíbené jídlo a pití, vyjadřování chutí pomocí: <em>I like apples. / I don't like milk.</em></p>`,
+                `<h3>📖 4. Clothes & Weather (Oblečení a počasí)</h3>
+                 <p>Popis oblečení (trousers, shoes, jacket, T-shirt) a aktuálního počasí (It's sunny, it's rainy, it's cold).</p>`
+            ],
+            items: [
+                {q: "Anglicky 'bratr' je:", options: ["brother", "sister", "mother"], correct: "brother"},
+                {q: "Anglicky 'tužka' je:", options: ["pencil", "pen", "ruler"], correct: "pencil"},
+                {q: "Jak řeknete 'mám rád jablka':", options: ["I like apples", "I don't like apples", "I have apples"], correct: "I like apples"}
+            ]
+        },
+        math4: {
+            title: "Matematika (4. třída - Počítání do 1000)",
+            theoryPages: [
+                `<h3>📖 1. Sčítání a odčítání do 1000</h3>
+                 <p>Příklady s přechodem desítky i stovky. Pamětné počítání i orientace na číselné ose.</p>`,
+                `<h3>📖 2. Písemné sčítání a odčítání pod sebou</h3>
+                 <p>Jednotky pod jednotkami, desítky pod desítkami, stovky pod stovkami. Pozor na přechody přes desítku.</p>`,
+                `<h3>📖 3. Malá násobilka a dělení se zbytkem</h3>
+                 <p>Rychlé opakování malé násobilky a počítání příkladů se zbytkem (např. 23 děleno 5 je 4 a zbytek 3).</p>`
+            ],
+            items: [
+                {q: "Kolik je 450 + 230?", options: ["680", "670", "690"], correct: "680"},
+                {q: "Vyřešte rovnici: x + 15 = 40. Kolik je x?", options: ["25", "35", "15"], correct: "25"},
+                {q: "Kolik je 81 děleno 9?", options: ["9", "8", "7"], correct: "9"}
+            ]
+        },
+        sci4: {
+            title: "Přírodověda (4. třída - Celoroční přehled)",
+            theoryPages: [
+                `<h3>📖 1. Živá a neživá příroda, Vesmír</h3>
+                 <p>Střídání ročních období, Sluneční soustava, planety obíhající kolem Slunce a Země jako naše planeta.</p>`,
+                `<h3>📖 2. Rostliny a houby</h3>
+                 <p>Státem chráněné rostliny, stromy (listnaté a jehličnaté), jedlé a jedovaté houby v českých lesích.</p>`,
+                `<h3>📖 3. Živočichové</h3>
+                 <p>Obratlovci (savci, ptáci, plazi, obojživelníci, ryby) a bezobratlí (hmyz, měkkýši).</p>`,
+                `<h3>📖 4. Lidské tělo</h3>
+                 <p>Základní přehled kostry, svalstva, dýchací soustavy a krevního oběhu.</p>`
+            ],
+            items: [
+                {q: "Který živočich patří mezi savce?", options: ["Pes", "Krokodýl", "Žába"], correct: "Pes"},
+                {q: "Co obíhá kolem Země?", options: ["Měsíc", "Slunce", "Mars"], correct: "Měsíc"},
+                {q: "Čím dýchají ryby ve vodě?", options: ["Žábrami", "Plícemi", "Kůží"], correct: "Žábrami"}
+            ]
+        },
         eng6_project: {
             title: "Project Explore 1: Kompletní učebnice (89 stran)",
             theoryPages: [
@@ -553,38 +643,31 @@
                  <p>Úvodní lekce učebnice. Seznámení s abecedou, hláskováním (spelling), základními pokyny ve třídě a barvami.</p>
                  <table class="theory-table">
                      <tr><th>Téma</th><th>Slovní zásoba</th></tr>
-                     <tr><td>Classroom objects</td><td>pen, rubber, ruler, pencil case, notebook, schoolbag, desk</td></tr>
-                     <tr><td>Alphabet & Spelling</td><td>A to Z pronunciation, "How do you spell your name?"</td></tr>
+                     <tr><td>Classroom objects</td><td>pen, rubber, ruler, pencil case, notebook, schoolbag</td></tr>
+                     <tr><td>Alphabet & Spelling</td><td>A to Z pronunciation, hláskování jmen</td></tr>
                  </table>`,
-
                 `<h3>📖 Strana 11–22: Unit 1 - My family and friends</h3>
                  <p>Gramatické téma: Sloveso <strong>have got</strong> (mít) v kladné formě, záporu i otázkách a krátkých odpovědích.<br>
-                 Slovní zásoba: Členové rodiny (mother, father, brother, sister, grandmother, grandfather, aunt, uncle, cousins).</p>
-                 <p><em>Příklad:</em> I have got a brother. He has got a blue car. Have you got a sister? Yes, I have.</p>`,
-
+                 Slovní zásoba: Členové rodiny (mother, father, brother, sister, grandmother, grandfather, aunt, uncle).</p>
+                 <p><em>Příklad:</em> I have got a brother. Have you got a sister? Yes, I have.</p>`,
                 `<h3>📖 Strana 23–34: Unit 2 - Animals and abilities</h3>
-                 <p>Gramatické téma: Způsobové sloveso <strong>can / can't</strong> (umět / neumět) pro vyjádření schopností a dovedností.<br>
-                 Slovní zásoba: Zvířata (elephant, monkey, tiger, penguin, giraffe, dolphin) a přídavná jména (fast, slow, dangerous, strong).</p>
-                 <p><em>Příklad:</em> Birds can fly, but cats can't fly. Can a fish swim? Yes, it can.</p>`,
-
+                 <p>Gramatické téma: Způsobové sloveso <strong>can / can't</strong> (umět / neumět) pro vyjádření schopností.<br>
+                 Slovní zásoba: Zvířata (elephant, monkey, tiger, penguin, giraffe) a vlastnosti (fast, slow, dangerous).</p>
+                 <p><em>Příklad:</em> Birds can fly, but cats can't fly.</p>`,
                 `<h3>📖 Strana 35–46: Unit 3 - Daily routine and school</h3>
-                 <p>Gramatické téma: Přítomný čas prostý (Present Simple) – 1. a 2. osoba jednotného a množného čísla pro každodenní rutinu.<br>
-                 Slovní zásoba: Činnosti během dne (get up, have breakfast, go to school, start lessons, do homework, watch TV).</p>`,
-
+                 <p>Gramatické téma: Přítomný čas prostý (Present Simple) pro vyjádření každodenních rutin.<br>
+                 Slovní zásoba: Činnosti během dne (get up, have breakfast, go to school, start lessons, do homework).</p>`,
                 `<h3>📖 Strana 47–58: Unit 4 - Free time and hobbies</h3>
-                 <p>Gramatické téma: Přítomný průběhový čas (Present Continuous) – vyjadřuje děje probíhající právě teď (am/is/are + -ing).<br>
-                 Slovní zásoba: Sporty a koníčky (swimming, playing football, reading a book, listening to music, skateboarding).</p>`,
-
+                 <p>Gramatické téma: Přítomný průběhový čas (Present Continuous) – co se děje právě teď (am/is/are + -ing).<br>
+                 Slovní zásoba: Sporty a koníčky (swimming, playing football, reading a book, listening to music).</p>`,
                 `<h3>📖 Strana 59–72: Unit 5 - Towns and places</h3>
-                 <p>Gramatické téma: Vazba <strong>There is / There are</strong> (Tam je / Tam jsou) v kladné, záporné formě a v otázkách.<br>
-                 Slovní zásoba: Místa ve městě (supermarket, cinema, railway station, park, museum, hospital, restaurant, shop).</p>`,
-
+                 <p>Gramatické téma: Vazba <strong>There is / There are</strong> (Tam je / Tam jsou) pro popis míst a měst.<br>
+                 Slovní zásoba: Místa ve městě (supermarket, cinema, railway station, park, museum, hospital).</p>`,
                 `<h3>📖 Strana 73–82: Unit 6 - Clothes and weather</h3>
-                 <p>Gramatické téma: Popisování oblečení a aktuálního počasí pomocí přítomného průběhového času.<br>
-                 Slovní zásoba: Oblečení (trousers, shoes, jacket, T-shirt, skirt, hat, boots) a počasí (sunny, rainy, windy, cold, hot).</p>`,
-
+                 <p>Gramatické téma: Popisování oblečení a aktuálního počasí v přítomném průběhovém čase.<br>
+                 Slovní zásoba: Oblečení (trousers, shoes, jacket, T-shirt, skirt) a počasí (sunny, rainy, windy, cold).</p>`,
                 `<h3>📖 Strana 83–89: Závěrečný přehled a opakování (Review)</h3>
-                 <p>Kompletní opakování celé učebnice Project Explore 1. Gramatické tabulky a souhrnný slovníček pro přípravu na závěrečné testy a přechod do 7. ročníku.</p>`
+                 <p>Kompletní opakování celé učebnice Project Explore 1. Souhrnné tabulky a slovníček.</p>`
             ],
             items: [
                 {q: "Project 1 (Unit 1): Doplňte: I ___ got a blue bike.", options: ["have", "has", "is", "are"], correct: "have"},
@@ -597,65 +680,13 @@
                 {q: "Napište anglicky: <strong>supermarket</strong> (Napiš slovo):", type: "spelling", correct: "supermarket"}
             ]
         },
-        cz4_vyj: {
-            title: "Čeština: Vyjmenovaná slova (Celoroční přehled)",
-            theoryPages: [
-                `<h3>📖 1. Úvod do vyjmenovaných slov</h3>
-                 <p>Po obojetných souhláskách (B, L, M, P, S, V, Z) píšeme v domácích slovech standardně měkké i/í, ale ve vyjmenovaných slovech tvrdé Y/Ý.</p>`,
-                `<h3>📖 2. Vyjmenovaná slova po B a L</h3>
-                 <table class="theory-table">
-                     <tr><th>Písmeno</th><th>Seznam slov</th></tr>
-                     <tr><td><strong>B</strong></td><td>být, bydlit, obyvatel, byt, příbytek, nábytek, dobytek, obyčej, bystrý, bylina, kobyla</td></tr>
-                     <tr><td><strong>L</strong></td><td>slyšet, mlýn, blýskat se, plynout, plýtvat, lýko, lýtko, lyže, pelyněk</td></tr>
-                 </table>`,
-                `<h3>📖 3. Vyjmenovaná slova po M a P</h3>
-                 <table class="theory-table">
-                     <tr><th>Písmeno</th><th>Seznam slov</th></tr>
-                     <tr><td><strong>M</strong></td><td>my, mýt, mykat, mýtit, myš, hlemýžď, mýdlo, mýto, myslit, mým</td></tr>
-                     <tr><td><strong>P</strong></td><td>pýcha, pytel, pysk, netopýr, slepýš, pápěří, pyl, kopyto, chropět</td></tr>
-                 </table>`,
-                `<h3>📖 4. Vyjmenovaná slova po S, V a Z</h3>
-                 <table class="theory-table">
-                     <tr><th>Písmeno</th><th>Seznam slov</th></tr>
-                     <tr><td><strong>S</strong></td><td>syn, sít, sýr, syrový, sychravý, usychat, sýkora, sýček, syčet, sypat</td></tr>
-                     <tr><td><strong>V</strong></td><td>vy, vykat, vysoký, výt, výskat, zvykat, žvýkat, vydra, výr, výheň</td></tr>
-                     <tr><td><strong>Z</strong></td><td>brzy, jazyk, zítra, zříti, ozývat se</td></tr>
-                 </table>`
-            ],
-            items: [
-                {q: "Vyjmenované slovo po B: b_t (bydlet)", options: ["ý", "í"], correct: "ý"},
-                {q: "Vyjmenované slovo po M: m_š (zvíře)", options: ["y", "i"], correct: "y"},
-                {q: "Vyjmenované slovo po P: p_cha (povýšenost)", options: ["ý", "í"], correct: "ý"},
-                {q: "Vyjmenované slovo po S: s_n (syn rodičů)", options: ["y", "i"], correct: "y"},
-                {q: "Slovo příbuzné k 'bydlet': ob_vatel", options: ["ý", "í"], correct: "ý"}
-            ]
-        },
-        math4: {
-            title: "Matematika: Počítání do 1000 a pod sebou",
-            theoryPages: [
-                `<h3>📖 Písemné sčítání a odčítání</h3>
-                 <p>Při písemném počítání sčítáme čísla pod sebou: jednotky pod jednotkami, desítky pod desítkami.</p>
-                 <div class="math-column-box">  432<br>+ 245<br>-----</div>`,
-                `<h3>📖 Jednoduché rovnice</h3>
-                 <p>Hledáme neznámou $x$, např. $x + 15 = 40 \rightarrow x = 25$.</p>`
-            ],
-            items: [
-                {
-                    q: "Sečtěte písemně pod sebou:<br><div class='math-column-box'>  432<br>+ 245<br>-----</div>",
-                    options: ["677", "667", "577"],
-                    correct: "677"
-                },
-                {q: "Kolik je 450 + 230?", options: ["680", "670", "690"], correct: "680"},
-                {q: "Vyřešte rovnici: x + 15 = 40. Kolik je x?", options: ["25", "35", "15"], correct: "25"}
-            ]
-        },
         cz6_gram: {
-            title: "Čeština: Shoda přísudku s podmětem a vzory",
+            title: "Český jazyk (6. třída - Shoda přísudku a vzory)",
             theoryPages: [
-                `<h3>📖 Shoda přísudku s podmětem</h3>
-                 <p>Chlapci běhal<strong>i</strong> (mužský životný = -i) x Dívky tancoval<strong>y</strong> (ženský rod = -y).</p>`,
-                `<h3>📖 Vzory podstatných jmen</h3>
-                 <p>Mužský rod (pán, hrad, muž, stroj), ženský rod (žena, róza, píseň, kost), střední rod (město, kuře, stavení).</p>`
+                `<h3>📖 1. Shoda přísudku s podmětem</h3>
+                 <p>Při psaní koncovək příčestí minulého (<em>-i / -y / -a</em>) se řídíme rodem a životností podmětu. Mužský životný rod vyžaduje měkké <strong>-i</strong> (<em>chlapci běhali</em>), ženský rod vyžaduje tvrdé <strong>-y</strong> (<em>dívky tancovaly</em>).</p>`,
+                `<h3>📖 2. Vzory podstatných jmen</h3>
+                 <p>Podstatná jména dělíme na rod mužský (pán, hrad, muž, stroj), ženský (žena, róza, píseň, kost) a střední (město, kuře, stavení). Znalost vzorů je klíčová pro správný pravopis koncovək.</p>`
             ],
             items: [
                 {q: "Doplň i/y: Chlapci si hrál_ na hřišti.", options: ["i", "y"], correct: "i"},
@@ -664,17 +695,38 @@
             ]
         },
         math6: {
-            title: "Matematika: Rovnice a desetinná čísla",
+            title: "Matematika (6. třída - Rovnice, Desetinná čísla)",
             theoryPages: [
-                `<h3>📖 Rovnice se závorkami</h3>
-                 <p>2(x + 3) = 14 $\rightarrow$ roznásobením získáme $2x + 6 = 14 \rightarrow x = 4$.</p>`,
-                `<h3>📖 Desetinná čísla</h3>
-                 <p>Sčítání a odčítání desetinných čísel pod sebou se zarovnanou desetinnou čárkou.</p>`
+                `<h3>📖 1. Desetinná čísla</h3>
+                 <p>Zápis desetinných čísel, zaokrouhlování a sčítání/odčítání pod sebou se zarovnanou desetinnou čárkou.</p>`,
+                `<h3>📖 2. Rovnice se závorkami</h3>
+                 <p>Postup řešení rovnic: 2(x + 3) = 14. Roznásobením získáme 2x + 6 = 14, odkud 2x = 8 a x = 4.</p>`,
+                `<h3>📖 3. Zlomky a smíšená čísla</h3>
+                 <p>Čitatel, jmenovatel, zlomky větší než celá jednotka a jejich převod na smíšená čísla.</p>`,
+                `<h3>📖 4. Úhly a trojúhelníky</h3>
+                 <p>Měření úhlů v trojúhelníku (součet vnitřních úhlů je vždy 180 stupňů).</p>`
             ],
             items: [
                 {q: "Vyřešte rovnici: 3x = 21. Kolik je x?", options: ["7", "6", "8"], correct: "7"},
                 {q: "Vyřešte rovnici: 2x + 4 = 16. Kolik je x?", options: ["6", "5", "7"], correct: "6"},
-                {q: "Vypočítejte: 2,5 + 3,4 =", options: ["5,9", "5,8", "6,1"], correct: "5,9"}
+                {q: "Vypočítejte: 2,5 + 3,4 =", options: ["5,9", "5,8", "6,1"], correct: "5,9"},
+                {q: "Kolik stupňů má součet vnitřních úhlů v trojúhelníku?", options: ["180", "360", "90"], correct: "180"}
+            ]
+        },
+        phy6: {
+            title: "Fyzika (6. třída - Skupenství, Měření, Síla)",
+            theoryPages: [
+                `<h3>📖 1. Vlastnosti látek a těles</h3>
+                 <p>Látky existují ve třech skupenstvích: pevné (stálý tvar i objem), kapalné (stálý objem, mění tvar) a plynné (nemají stálý tvar ani objem).</p>`,
+                `<h3>📖 2. Měření fyzikálních veličin</h3>
+                 <p>Měříme délku (metr, m), objem (litr, l, m³), hmotnost (kilogram, kg) a čas (sekunda, s). Každá veličina má svou jednotku soustavy SI.</p>`,
+                `<h3>📖 3. Síla a gravitační působení</h3>
+                 <p>Síla je veličina označovaná písmenem $F$, měří se v newtonech (N) pomocí dynamometru. Země na tělesa působí gravitační silou směrem k jejímu středu.</p>`
+            ],
+            items: [
+                {q: "Jaká je základní jednotka délky v soustavě SI?", options: ["Metr", "Kilogram", "Sekunda"], correct: "Metr"},
+                {q: "V čem se měří fyzikální síla?", options: ["Newtonech", "Wattech", "Joulech"], correct: "Newtonech"},
+                {q: "Jaké skupenství má pevný tvar i objem?", options: ["Pevné", "Kapalné", "Plynné"], correct: "Pevné"}
             ]
         }
     };
@@ -705,7 +757,6 @@
         document.getElementById("subject-hub-screen").classList.remove("hidden");
     }
 
-    // ULOŽENÍ A NAČTENÍ POZICE V UČENÍ (PAMĚŤ STRÁNEK)
     function getStoredProgress() {
         let prog = JSON.parse(localStorage.getItem("school_progress") || "{}");
         return prog[currentUser] || {};
@@ -740,7 +791,7 @@
             let headingText = tmpDiv.querySelector("h3") ? tmpDiv.querySelector("h3").innerText : `Kapitola ${idx + 1}`;
             html += `<div class="toc-item" onclick="jumpToPage(${idx})">
                 <span>📚 ${headingText}</span>
-                <span style="color:var(--primary); font-size:12px;">Strana ➔</span>
+                <span style="color:var(--primary); font-size:12px;">Přejít ➔</span>
             </div>`;
         });
         document.getElementById("toc-list-box").innerHTML = html;
@@ -868,7 +919,6 @@
         showMenu();
     }
 
-    // --- HRY ---
     let fillIndex = 0, fillQuestions = [], fillScore = 0;
     function startFillGame() {
         if (!currentUser) { openStartPlayerModal(); return; }
@@ -1018,161 +1068,4 @@
         });
     }
     function changeSnakeDir(dir) {
-        if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -tileSize; }
-        if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = tileSize; }
-        if (dir === 'LEFT' && dx === 0) { nextDx = -tileSize; nextDy = 0; }
-        if (dir === 'RIGHT' && dx === 0) { nextDx = tileSize; nextDy = 0; }
-    }
-
-    // --- UŽIVATELÉ A SKÓRE ---
-    function getStoredPasswords() { return JSON.parse(localStorage.getItem("school_passwords") || "{}"); }
-    function saveUserPassword(name, password) {
-        let pass = getStoredPasswords(); pass[name] = password;
-        localStorage.setItem("school_passwords", JSON.stringify(pass));
-    }
-    
-    function openStartPlayerModal() {
-        let rememberedUser = localStorage.getItem("school_current_active_user");
-        if (rememberedUser) {
-            currentUser = rememberedUser;
-            document.getElementById("current-user-display").innerText = currentUser;
-            loadLeaderboard(); return;
-        }
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let listHtml = "", uniquePlayers = {};
-        board.forEach(item => { if (item.name) uniquePlayers[item.name] = true; });
-        let playerNames = Object.keys(uniquePlayers);
-        if (playerNames.length === 0) { listHtml = "<p style='color:#64748b; font-size:13px; text-align:center;'>Zatím žádní uložení žáci.</p>"; }
-        else {
-            playerNames.forEach(name => {
-                listHtml += `<div class="score-item-detailed" onclick="requestLoginPassword('${name}')" style="cursor:pointer;">
-                    <span>🔒 <strong>${name}</strong></span><span style="color:var(--primary); font-weight:bold;">Zvolit ➔</span>
-                </div>`;
-            });
-        }
-        document.getElementById("modal-player-list").innerHTML = listHtml;
-        document.getElementById("start-player-modal").classList.remove("hidden");
-    }
-
-    function createNewUserWithPassword() {
-        let nameInput = document.getElementById("modal-username-input").value.trim();
-        let passInput = document.getElementById("modal-password-input").value.trim();
-        if (!nameInput || !passInput) { showAppAlert("⚠️ Zadej jméno i heslo!"); return; }
-        saveUserPassword(nameInput, passInput);
-        currentUser = nameInput;
-        localStorage.setItem("school_current_active_user", currentUser);
-        document.getElementById("current-user-display").innerText = currentUser;
-        document.getElementById("start-player-modal").classList.add("hidden");
-        loadLeaderboard();
-    }
-
-    function requestLoginPassword(name) {
-        pendingPlayerToLogin = name;
-        document.getElementById("login-password-title").innerText = `Zadej heslo pro: ${name}`;
-        document.getElementById("check-password-input").value = "";
-        document.getElementById("start-player-modal").classList.add("hidden");
-        document.getElementById("login-password-modal").classList.remove("hidden");
-    }
-
-    function verifyLoginPassword() {
-        let enteredPass = document.getElementById("check-password-input").value.trim();
-        let passwords = getStoredPasswords();
-        if (passwords[pendingPlayerToLogin] === enteredPass) {
-            currentUser = pendingPlayerToLogin;
-            localStorage.setItem("school_current_active_user", currentUser);
-            document.getElementById("current-user-display").innerText = currentUser;
-            document.getElementById("login-password-modal").classList.add("hidden");
-            loadLeaderboard();
-        } else { showAppAlert("❌ Nesprávné heslo!"); }
-    }
-
-    function closeLoginPasswordModal() { document.getElementById("login-password-modal").classList.add("hidden"); openStartPlayerModal(); }
-    
-    function closeStartPlayerModal() { 
-        if (!currentUser) { 
-            currentUser = "Hráč";
-            localStorage.setItem("school_current_active_user", currentUser);
-            document.getElementById("current-user-display").innerText = currentUser;
-        } 
-        document.getElementById("start-player-modal").classList.add("hidden"); 
-    }
-
-    function forceCloseModal() {
-        currentUser = "Hráč";
-        localStorage.setItem("school_current_active_user", currentUser);
-        document.getElementById("current-user-display").innerText = currentUser;
-        document.getElementById("start-player-modal").classList.add("hidden");
-        document.getElementById("login-password-modal").classList.add("hidden");
-        document.getElementById("password-modal").classList.add("hidden");
-        document.getElementById("memory-modal").classList.add("hidden");
-    }
-
-    function emergencyReset() {
-        if (confirm("Opravdu vymazat paměť a restartovat aplikaci?")) {
-            localStorage.clear();
-            location.reload();
-        }
-    }
-
-    function hideAllScreens() {
-        if (snakeInterval) clearInterval(snakeInterval);
-        document.getElementById("menu-screen").classList.add("hidden");
-        document.getElementById("class4-screen").classList.add("hidden");
-        document.getElementById("class6-screen").classList.add("hidden");
-        document.getElementById("subject-hub-screen").classList.add("hidden");
-        document.getElementById("toc-screen").classList.add("hidden");
-        document.getElementById("theory-screen").classList.add("hidden");
-        document.getElementById("workbook-screen").classList.add("hidden");
-        document.getElementById("memory-screen").classList.add("hidden");
-        document.getElementById("snake-screen").classList.add("hidden");
-        document.getElementById("fill-screen").classList.add("hidden");
-    }
-
-    function showMenu() {
-        hideAllScreens();
-        document.getElementById("menu-screen").classList.remove("hidden");
-        loadLeaderboard();
-    }
-
-    function saveLeaderboard(name, pts, subjectName, subjectKey) {
-        if (!name) return;
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        board.unshift({ name: name, score: pts, subject: subjectName, subjectKey: subjectKey, date: new Date().toLocaleDateString() });
-        localStorage.setItem("school_leaderboard", JSON.stringify(board));
-        loadLeaderboard();
-    }
-
-    function loadLeaderboard() {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let playerTotals = {};
-        board.forEach(item => { if (item.name) playerTotals[item.name] = (playerTotals[item.name] || 0) + item.score; });
-        let sortedPlayers = Object.keys(playerTotals).map(name => ({ name: name, totalScore: playerTotals[name] })).sort((a,b) => b.totalScore - a.totalScore);
-        let playerBox = document.getElementById("player-leaderboard-box");
-        if (sortedPlayers.length === 0) { playerBox.innerHTML = "<p style='color:#64748b; font-size:12px; text-align:center;'>Zatím žádné skóre.</p>"; }
-        else {
-            let medals = ["🥇", "🥈", "🥉"], html = "";
-            sortedPlayers.forEach((p, idx) => {
-                let badge = idx < 3 ? medals[idx] : ` #${idx+1}`;
-                html += `<div class="score-item-detailed"><span><strong>${badge} ${p.name}</strong></span><span style="color:#059669; font-weight:bold;">Celkem: ${p.totalScore} ⭐</span></div>`;
-            });
-            playerBox.innerHTML = html;
-        }
-    }
-
-    function promptResetLeaderboard() { document.getElementById("reset-password-input").value = ""; document.getElementById("password-modal").classList.remove("hidden"); }
-    function closePasswordModal() { document.getElementById("password-modal").classList.add("hidden"); }
-    
-    function verifyResetPassword() {
-        let pass = document.getElementById("reset-password-input").value.trim();
-        if (pass === "9876") {
-            localStorage.removeItem("school_leaderboard"); localStorage.removeItem("school_passwords"); localStorage.removeItem("school_current_active_user");
-            currentUser = ""; document.getElementById("current-user-display").innerText = "Zatím nikdo";
-            loadLeaderboard(); closePasswordModal(); showAppAlert("🗑️ Úspěšně vymazáno!"); openStartPlayerModal();
-        } else { showAppAlert("❌ Nesprávné heslo!"); }
-    }
-
-    window.onload = function() { openStartPlayerModal(); };
-</script>
-
-</body>
-</html>
+        if (dir === 'UP' && dy === 0) { next
