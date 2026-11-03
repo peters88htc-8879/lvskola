@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎓 Celoroční Digitální Sešit & Učebnice (Verze 6.0 - Finální) - Pohádková Akademie</title>
+    <title>🎓 Celoroční Digitální Sešit & Učebnice (Stabilní verze bez přihlášení) - Pohádková Akademie</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
 
@@ -65,16 +65,7 @@
             text-shadow: 2px 3px 6px rgba(0,0,0,0.1);
         }
 
-        .user-box {
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-            padding: 12px;
-            border-radius: 20px;
-            margin-bottom: 15px;
-            border: 3px solid #cbd5e1;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-        }
-
-        input[type="text"], input[type="password"] {
+        input[type="text"] {
             width: 85%;
             padding: 12px;
             font-size: 16px;
@@ -262,43 +253,16 @@
             display: grid; grid-template-columns: repeat(3, 55px); gap: 8px; justify-content: center; margin: 10px 0;
         }
         .ctrl-btn { background: #38bdf8; color: white; border: none; font-size: 20px; height: 45px; border-radius: 14px; cursor: pointer; font-weight: bold; }
-
-        .score-board {
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-            border: 3px solid #cbd5e1; padding: 12px; border-radius: 20px; margin-top: 12px; text-align: left;
-        }
-        .score-item-detailed {
-            background: #f1f5f9; padding: 6px 10px; border-radius: 12px; margin-bottom: 5px; border: 2px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; font-size: 13px;
-        }
-
-        .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.75); display: flex; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(8px);
-        }
-        .modal-content {
-            background: linear-gradient(145deg, #ffffff, #f1f5f9); color: #1e1b4b; padding: 25px; border-radius: 30px; width: 90%; max-width: 450px; max-height: 90vh; overflow-y: auto; text-align: center; border: 5px solid var(--primary);
-        }
-
-        #custom-alert-box {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #ffffff; border: 4px solid var(--primary); color: #1e1b4b; padding: 12px 22px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); font-size: 16px; font-weight: bold; z-index: 2000; transition: transform 0.3s;
-        }
-        #custom-alert-box.show { transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
-
-<div id="custom-alert-box">Oznámení</div>
 
 <div class="container">
 
     <!-- HLAVNÍ MENU -->
     <div id="menu-screen">
-        <div class="version-badge">🚀 Verze 6.0 (Kompletní a finální)</div>
+        <div class="version-badge">🚀 Verze 7.0 (Bez přihlašování a bez chyb)</div>
         <h1>🌟 Celoroční Digitální Sešit & Učebnice 🎓</h1>
-        <div class="user-box">
-            <span style="font-size: 14px; color: #475569; font-weight: 600;">👤 Aktivní žák / hrdina:</span><br>
-            <strong id="current-user-display" style="font-size: 18px; color: var(--primary);">Zatím nikdo</strong><br>
-            <button class="btn btn-warning" onclick="openStartPlayerModal()" style="margin-top: 8px; font-size: 13px; padding: 8px;">🔄 Změnit profil žáka</button>
-        </div>
 
         <h3>📁 Výběr ročníku:</h3>
         <div class="class-grid">
@@ -319,27 +283,18 @@
             <button class="btn btn-subject btn-game" onclick="startFillGame()">
                 <span>✍️</span> Doplňovačka
             </button>
-            <button class="btn btn-subject btn-game" onclick="openMemoryModal()">
+            <button class="btn btn-subject btn-game" onclick="startMemoryGame()">
                 <span>🃏</span> Pexeso
             </button>
             <button class="btn btn-subject btn-game" onclick="startSnakeGame()">
                 <span>🐍</span> Had
             </button>
         </div>
-
-        <!-- ŽEBŘÍČEK -->
-        <div class="score-board">
-            <h4 style="margin-top:0; color:#b45309; display:flex; justify-content:space-between; align-items:center; font-size:14px;">
-                <span>🥇 Žebříček žáků:</span>
-                <button onclick="promptResetLeaderboard()" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:8px; cursor:pointer; font-size:11px; font-weight:bold;">🗑️ Vynulovat</button>
-            </h4>
-            <div id="player-leaderboard-box"></div>
-        </div>
     </div>
 
     <!-- PŘEDMĚTY PRO 4. TŘÍDU -->
     <div id="class4-screen" class="hidden">
-        <div class="version-badge">Verze 6.0 - 4. Třída</div>
+        <div class="version-badge">4. Třída</div>
         <h1>🎒 4. TŘÍDA - Celoroční Předměty</h1>
         <div class="subject-grid">
             <button class="btn btn-subject" onclick="openSubjectHub('cz4_all', '4.tř: Český jazyk (Komplet)')">
@@ -363,7 +318,7 @@
 
     <!-- PŘEDMĚTY PRO 6. TŘÍDU -->
     <div id="class6-screen" class="hidden">
-        <div class="version-badge">Verze 6.0 - 6. Třída</div>
+        <div class="version-badge">6. Třída</div>
         <h1>🎒 6. TŘÍDA - Celoroční Předměty</h1>
         <div class="subject-grid">
             <button class="btn btn-subject" onclick="openSubjectHub('eng6_project', 'Project Explore 1: Kompletní učebnice (89 stran)')" style="grid-column: span 2; background: linear-gradient(145deg, #e0f2fe, #bae6fd); border-color: #38bdf8;">
@@ -391,13 +346,13 @@
         <p style="color:#475569; font-size:14px; margin-bottom:15px;">Vyber si, zda chceš pokračovat v četbě učebnice, prohlédnout si obsah, nebo spustit test!</p>
         
         <button class="btn btn-theory" onclick="resumeTheory()" style="padding:16px; font-size:18px; margin-bottom:10px;" id="hub-read-btn">
-            📖 Pokračovat v učení (Kde jsem skončil)
+            📖 Pokračovat v učení
         </button>
         <button class="btn btn-warning" onclick="openTableOfContents()" style="padding:14px; font-size:16px; margin-bottom:10px;" id="hub-toc-btn">
             📑 Obsah / Osnova (Vybrat kapitolu)
         </button>
         <button class="btn btn-success" onclick="openWorkbookMode()" style="padding:16px; font-size:18px; margin-bottom:15px;">
-            ✍️ Spustit test na známky
+            ✍️ Spustit test
         </button>
         
         <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
@@ -411,7 +366,7 @@
         <button class="btn btn-warning" onclick="backToHub()">Zpět do rozcestníku</button>
     </div>
 
-    <!-- OBRAZOVKA: CELOROČNÍ SEŠIT (S PAMĚTÍ POZICE) -->
+    <!-- OBRAZOVKA: CELOROČNÍ SEŠIT -->
     <div id="theory-screen" class="hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <span id="theory-header-title" style="font-weight:bold; color:#4f46e5; font-size:15px;">📖 Učebnice</span>
@@ -438,7 +393,7 @@
 
         <div class="workbook-container" id="workbook-items-box"></div>
 
-        <button class="btn btn-success" onclick="finishWorkbook()" style="margin-top:8px;">💾 Dokončit test a uložit výsledek</button>
+        <button class="btn btn-success" onclick="showMenu()" style="margin-top:8px;">💾 Dokončit test</button>
         <button class="btn btn-warning" onclick="resumeTheory()" id="wb-return-theory-btn">📖 Vrátit se k učení</button>
         <button class="btn btn-danger" onclick="showMenu()">🏠 Zavřít do menu</button>
     </div>
@@ -447,7 +402,7 @@
     <div id="memory-screen" class="hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:14px;">
             <span>🃏 Pexeso</span>
-            <span id="memory-scores">H1: 0</span>
+            <span id="memory-scores">Skóre: 0</span>
         </div>
         <hr style="border: 1px solid #cbd5e1; margin: 8px 0;">
         <div class="memory-grid" id="memory-board"></div>
@@ -490,69 +445,11 @@
 
 </div>
 
-<!-- MODAL: VÝBĚR HRÁČE -->
-<div id="start-player-modal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">✨ Vítejte ve školním sešitu (Verze 6.0)!</h3>
-        <p style="font-size:14px; color:#475569; margin-bottom:12px;">Zadej své jméno a heslo:</p>
-        <div style="margin-bottom: 12px; background: #f8fafc; padding: 10px; border-radius: 14px; border: 2px solid #cbd5e1;">
-            <input type="text" id="modal-username-input" placeholder="Jméno (např. Lucinka)..." style="width:100%; margin-bottom: 6px;">
-            <input type="password" id="modal-password-input" placeholder="Heslo..." style="width:100%;">
-            <button class="btn btn-success" onclick="createNewUserWithPassword()" style="margin-top: 8px;">✨ Vstoupit</button>
-        </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
-        <p style="font-size:13px; font-weight:700; color:#b45309; margin-bottom:6px;">Nebo vyber stávající profil:</p>
-        <div id="modal-player-list" style="max-height: 120px; overflow-y: auto; text-align: left; margin-bottom: 10px;"></div>
-        
-        <button class="btn btn-warning" onclick="forceCloseModal()" style="margin-top:6px;">Zavřít okno</button>
-        <button class="btn btn-danger" onclick="emergencyReset()" style="margin-top:6px; font-size:13px; padding:10px;">🗑️ Nouzový reset paměti</button>
-    </div>
-</div>
-
-<!-- MODAL: HESLO PRO LOGIN -->
-<div id="login-password-modal" class="modal hidden">
-    <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">🔒 Ověření profilu</h3>
-        <p id="login-password-title" style="font-size:14px; color:#475569; margin-bottom:10px;">Zadej heslo:</p>
-        <input type="password" id="check-password-input" placeholder="Heslo..." style="width:100%; margin-bottom: 10px;">
-        <button class="btn btn-success" onclick="verifyLoginPassword()">🔑 Otevřít</button>
-        <button class="btn btn-warning" onclick="closeLoginPasswordModal()" style="margin-top:8px;">Zpět</button>
-    </div>
-</div>
-
-<!-- MODAL: HESLO PRO VYNULOVÁNÍ -->
-<div id="password-modal" class="modal hidden">
-    <div class="modal-content">
-        <h3 style="color:#ef4444; margin-top:0;">🔒 Zabezpečené vymazání</h3>
-        <input type="password" id="reset-password-input" placeholder="Zadej heslo (9876)..." style="width:100%; margin-bottom: 10px;">
-        <button class="btn btn-danger" onclick="verifyResetPassword()">🗑️ Potvrdit</button>
-        <button class="btn btn-warning" onclick="closePasswordModal()" style="margin-top:8px;">Zavřít</button>
-    </div>
-</div>
-
-<!-- MODAL: PEXESO VÝBĚR -->
-<div id="memory-modal" class="modal hidden">
-    <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">🃏 Kouzelné Pexeso</h3>
-        <button class="btn btn-game" onclick="selectMemoryMode()" style="margin-bottom:10px;">🎮 Spustit Pexeso</button>
-        <button class="btn btn-warning" onclick="closeMemoryModal()" style="margin-top:8px;">Zavřít</button>
-    </div>
-</div>
-
 <script>
-    let currentUser = "";
-    let pendingPlayerToLogin = "";
     let activeSubjectKey = "";
     let activeSubjectTitle = "";
     let currentTheoryPage = 0;
     let userAnswers = {};
-
-    function showAppAlert(message) {
-        const alertBox = document.getElementById("custom-alert-box");
-        alertBox.innerText = message;
-        alertBox.classList.add("show");
-        setTimeout(() => alertBox.classList.remove("show"), 3000);
-    }
 
     function shuffleArray(array) {
         let arr = [...array];
@@ -609,513 +506,4 @@
             ],
             items: [
                 {q: "Anglicky 'bratr' je:", options: ["brother", "sister", "mother"], correct: "brother"},
-                {q: "Anglicky 'tužka' je:", options: ["pencil", "pen", "ruler"], correct: "pencil"},
-                {q: "Jak řeknete 'mám rád jablka':", options: ["I like apples", "I don't like apples", "I have apples"], correct: "I like apples"}
-            ]
-        },
-        math4: {
-            title: "Matematika (4. třída - Počítání do 1000)",
-            theoryPages: [
-                `<h3>📖 1. Sčítání a odčítání do 1000</h3>
-                 <p>Příklady s přechodem desítky i stovky. Pamětné počítání i orientace na číselné ose.</p>`,
-                `<h3>📖 2. Písemné sčítání a odčítání pod sebou</h3>
-                 <p>Jednotky pod jednotkami, desítky pod desítkami, stovky pod stovkami. Pozor na přechody přes desítku.</p>`,
-                `<h3>📖 3. Malá násobilka a dělení se zbytkem</h3>
-                 <p>Rychlé opakování malé násobilky a počítání příkladů se zbytkem (např. 23 děleno 5 je 4 a zbytek 3).</p>`
-            ],
-            items: [
-                {q: "Kolik je 450 + 230?", options: ["680", "670", "690"], correct: "680"},
-                {q: "Vyřešte rovnici: x + 15 = 40. Kolik je x?", options: ["25", "35", "15"], correct: "25"},
-                {q: "Kolik je 81 děleno 9?", options: ["9", "8", "7"], correct: "9"}
-            ]
-        },
-        sci4: {
-            title: "Přírodověda (4. třída - Celoroční přehled)",
-            theoryPages: [
-                `<h3>📖 1. Živá a neživá příroda, Vesmír</h3>
-                 <p>Střídání ročních období, Sluneční soustava, planety obíhající kolem Slunce a Země jako naše planeta.</p>`,
-                `<h3>📖 2. Rostliny a houby</h3>
-                 <p>Státem chráněné rostliny, stromy (listnaté a jehličnaté), jedlé a jedovaté houby v českých lesích.</p>`,
-                `<h3>📖 3. Živočichové</h3>
-                 <p>Obratlovci (savci, ptáci, plazi, obojživelníci, ryby) a bezobratlí (hmyz, měkkýši).</p>`,
-                `<h3>📖 4. Lidské tělo</h3>
-                 <p>Základní přehled kostry, svalstva, dýchací soustavy a krevního oběhu.</p>`
-            ],
-            items: [
-                {q: "Který živočich patří mezi savce?", options: ["Pes", "Krokodýl", "Žába"], correct: "Pes"},
-                {q: "Co obíhá kolem Země?", options: ["Měsíc", "Slunce", "Mars"], correct: "Měsíc"},
-                {q: "Čím dýchají ryby ve vodě?", options: ["Žábrami", "Plícemi", "Kůží"], correct: "Žábrami"}
-            ]
-        },
-        eng6_project: {
-            title: "Project Explore 1: Kompletní učebnice (89 stran)",
-            theoryPages: [
-                `<h3>📖 Strana 4–10: Starter Unit - Welcome to English</h3>
-                 <p>Úvodní lekce učebnice. Seznámení s abecedou, hláskováním (spelling), základními pokyny ve třídě a barvami.</p>`,
-                `<h3>📖 Strana 11–22: Unit 1 - My family and friends</h3>
-                 <p>Sloveso <strong>have got</strong> (mít) v kladné formě, záporu i otázkách a členové rodiny.</p>`,
-                `<h3>📖 Strana 23–34: Unit 2 - Animals and abilities</h3>
-                 <p>Způsobové sloveso <strong>can / can't</strong> (umět / neumět) a názvy zvířat.</p>`,
-                `<h3>📖 Strana 35–46: Unit 3 - Daily routine and school</h3>
-                 <p>Přítomný čas prostý (Present Simple) pro vyjádření každodenních rutin.</p>`,
-                `<h3>📖 Strana 47–58: Unit 4 - Free time and hobbies</h3>
-                 <p>Přítomný průběhový čas (Present Continuous) – co se děje právě teď.</p>`,
-                `<h3>📖 Strana 59–89: Units 5-6 & Review</h3>
-                 <p>Města, obchody, oblečení, počasí a závěrečné opakování.</p>`
-            ],
-            items: [
-                {q: "Project 1 (Unit 1): Doplňte: I ___ got a blue bike.", options: ["have", "has", "is", "are"], correct: "have"},
-                {q: "Project 1 (Unit 2): Ptáci umějí létat: Birds ___ fly.", options: ["can", "can't", "is", "are"], correct: "can"},
-                {q: "Project 1 (Unit 4): Co se děje právě teď vyjadřujeme pomocí ___ času.", options: ["průběhového", "prostého", "minulého"], correct: "průběhového"},
-                {q: "Project 1 (Unit 5): Pro jednotné číslo místa ve městě používáme vazbu There ___", options: ["is", "are", "have"], correct: "is"}
-            ]
-        },
-        cz6_gram: {
-            title: "Český jazyk (6. třída - Shoda přísudku a vzory)",
-            theoryPages: [
-                `<h3>📖 1. Shoda přísudku s podmětem</h3>
-                 <p>Mužský životný rod vyžaduje měkké <strong>-i</strong> (<em>chlapci běhali</em>), ženský rod vyžaduje tvrdé <strong>-y</strong> (<em>dívky tancovaly</em>).</p>`,
-                `<h3>📖 2. Vzory podstatných jmen</h3>
-                 <p>Mužský (pán, hrad, muž, stroj), ženský (žena, róza, píseň, kost) a střední rod (město, kuře, stavení).</p>`
-            ],
-            items: [
-                {q: "Doplň i/y: Chlapci si hrál_ na hřišti.", options: ["i", "y"], correct: "i"},
-                {q: "Doplň i/y: Dívky tancoval_ na pódiu.", options: ["y", "i"], correct: "y"},
-                {q: "Který vzor je mužský neživotný?", options: ["hrad", "pán", "muž"], correct: "hrad"}
-            ]
-        },
-        math6: {
-            title: "Matematika (6. třída - Rovnice, Desetinná čísla)",
-            theoryPages: [
-                `<h3>📖 1. Desetinná čísla a rovnice</h3>
-                 <p>Sčítání a odčítání desetinných čísel pod sebou a řešení rovnic se závorkami (např. 2(x + 3) = 14).</p>`
-            ],
-            items: [
-                {q: "Vyřešte rovnici: 3x = 21. Kolik je x?", options: ["7", "6", "8"], correct: "7"},
-                {q: "Vyřešte rovnici: 2x + 4 = 16. Kolik je x?", options: ["6", "5", "7"], correct: "6"},
-                {q: "Vypočítejte: 2,5 + 3,4 =", options: ["5,9", "5,8", "6,1"], correct: "5,9"},
-                {q: "Kolik stupňů má součet vnitřních úhlů v trojúhelníku?", options: ["180", "360", "90"], correct: "180"}
-            ]
-        },
-        phy6: {
-            title: "Fyzika (6. třída - Skupenství, Měření, Síla)",
-            theoryPages: [
-                `<h3>📖 1. Vlastnosti látek, měření a síla</h3>
-                 <p>Skupenství látek (pevné, kapalné, plynné), měření veličin v SI a gravitační síla působící na tělesa.</p>`
-            ],
-            items: [
-                {q: "Jaká je základní jednotka délky v soustavě SI?", options: ["Metr", "Kilogram", "Sekunda"], correct: "Metr"},
-                {q: "V čem se měří fyzikální síla?", options: ["Newtonech", "Wattech", "Joulech"], correct: "Newtonech"},
-                {q: "Jaké skupenství má pevný tvar i objem?", options: ["Pevné", "Kapalné", "Plynné"], correct: "Pevné"}
-            ]
-        },
-        shared_test: {
-            title: "🌟 Společný vědomostní test (Pro obě třídy)",
-            theoryPages: [
-                `<h3>📖 Společný vědomostní přehled</h3>
-                 <p>Tento test je určený pro žáky 4. i 6. třídy k procvičení obecných vědomostí, vlastivědy, logiky a základů vědy.</p>
-                 <p>Projděte si otázky a ověřte své znalosti! Za každou správnou odpověď získáte body do celkového žebříčku.</p>`
-            ],
-            items: [
-                {q: "Kolik kontinentů má naše Země?", options: ["7", "5", "6", "8"], correct: "7"},
-                {q: "Které hlavní město má Česká republika?", options: ["Praha", "Brno", "Plzeň", "Ostrava"], correct: "Praha"},
-                {q: "Která planeta naší soustavy je nejblíže Slunci?", options: ["Merkur", "Venuše", "Země", "Mars"], correct: "Merkur"},
-                {q: "Kolik minut má jedna celá hodina?", options: ["60", "100", "24", "30"], correct: "60"},
-                {q: "Který z následujících žáků je savec dýchající plícemi?", options: ["Delfín", "Žralok", "Pstruh", "Krokodýl"], correct: "Delfín"}
-            ]
-        }
-    };
-
-    const fillDatabase = [
-        { word: "SCHOOL", hint: "Anglicky: Škola", missing: "H", display: "SC_OOL" },
-        { word: "APPLE", hint: "Anglicky: Jablko", missing: "P", display: "A_PLE" },
-        { word: "BROTHER", hint: "Anglicky: Bratr", missing: "T", display: "BRO_HER" }
-    ];
-
-    function openClass(screenId) {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        hideAllScreens();
-        document.getElementById(screenId + "-screen").classList.remove("hidden");
-    }
-
-    function openSubjectHub(key, title) {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        activeSubjectKey = key;
-        activeSubjectTitle = title;
-        document.getElementById("hub-title").innerText = title;
-        
-        if (key === 'shared_test') {
-            document.getElementById("hub-read-btn").style.display = "none";
-            document.getElementById("hub-toc-btn").style.display = "none";
-        } else {
-            document.getElementById("hub-read-btn").style.display = "flex";
-            document.getElementById("hub-toc-btn").style.display = "flex";
-        }
-
-        hideAllScreens();
-        document.getElementById("subject-hub-screen").classList.remove("hidden");
-    }
-
-    function backToHub() {
-        hideAllScreens();
-        document.getElementById("subject-hub-screen").classList.remove("hidden");
-    }
-
-    function getStoredProgress() {
-        let prog = JSON.parse(localStorage.getItem("school_progress") || "{}");
-        return prog[currentUser] || {};
-    }
-
-    function saveCurrentPage(pageIndex) {
-        if (!currentUser || !activeSubjectKey) return;
-        let prog = JSON.parse(localStorage.getItem("school_progress") || "{}");
-        if (!prog[currentUser]) prog[currentUser] = {};
-        prog[currentUser][activeSubjectKey] = pageIndex;
-        localStorage.setItem("school_progress", JSON.stringify(prog));
-    }
-
-    function resumeTheory() {
-        let sub = database[activeSubjectKey];
-        if (!sub) return;
-        if (activeSubjectKey === 'shared_test') {
-            openWorkbookMode();
-            return;
-        }
-        let savedProg = getStoredProgress();
-        currentTheoryPage = savedProg[activeSubjectKey] !== undefined ? savedProg[activeSubjectKey] : 0;
-        renderTheoryPage();
-        hideAllScreens();
-        document.getElementById("theory-screen").classList.remove("hidden");
-    }
-
-    function openTableOfContents() {
-        let sub = database[activeSubjectKey];
-        if (!sub) return;
-        let pages = sub.theoryPages || [];
-        let html = "";
-        pages.forEach((p, idx) => {
-            let tmpDiv = document.createElement("div");
-            tmpDiv.innerHTML = p;
-            let headingText = tmpDiv.querySelector("h3") ? tmpDiv.querySelector("h3").innerText : `Kapitola ${idx + 1}`;
-            html += `<div class="toc-item" onclick="jumpToPage(${idx})">
-                <span>📚 ${headingText}</span>
-                <span style="color:var(--primary); font-size:12px;">Přejít ➔</span>
-            </div>`;
-        });
-        document.getElementById("toc-list-box").innerHTML = html;
-        hideAllScreens();
-        document.getElementById("toc-screen").classList.remove("hidden");
-    }
-
-    function jumpToPage(pageIndex) {
-        currentTheoryPage = pageIndex;
-        saveCurrentPage(currentTheoryPage);
-        renderTheoryPage();
-        hideAllScreens();
-        document.getElementById("theory-screen").classList.remove("hidden");
-    }
-
-    function renderTheoryPage() {
-        let sub = database[activeSubjectKey];
-        let pages = sub.theoryPages || ["<p>Učivo se připravuje...</p>"];
-        
-        if (currentTheoryPage >= pages.length) currentTheoryPage = pages.length - 1;
-        if (currentTheoryPage < 0) currentTheoryPage = 0;
-
-        saveCurrentPage(currentTheoryPage);
-
-        document.getElementById("theory-header-title").innerText = `📖 Učebnice: ${activeSubjectTitle} (Kapitola ${currentTheoryPage + 1}/${pages.length})`;
-        document.getElementById("theory-content-box").innerHTML = pages[currentTheoryPage];
-
-        document.getElementById("prev-page-btn").style.visibility = currentTheoryPage === 0 ? "hidden" : "visible";
-        document.getElementById("next-page-btn").innerText = currentTheoryPage === pages.length - 1 ? "Dokončit čtení ➔" : "Další kapitola ➡️";
-    }
-
-    function changeTheoryPage(direction) {
-        let sub = database[activeSubjectKey];
-        let pages = sub.theoryPages || [];
-        currentTheoryPage += direction;
-
-        if (currentTheoryPage >= pages.length) {
-            openWorkbookMode();
-        } else {
-            renderTheoryPage();
-        }
-    }
-
-    function openWorkbookMode() {
-        let sub = database[activeSubjectKey];
-        if (!sub) return;
-        userAnswers = {};
-
-        document.getElementById("workbook-title").innerText = `Test: ${activeSubjectTitle}`;
-        document.getElementById("workbook-score").innerText = `⭐ Body: 0/${sub.items.length}`;
-
-        document.getElementById("wb-return-theory-btn").style.display = (activeSubjectKey === 'shared_test') ? "none" : "block";
-
-        let box = document.getElementById("workbook-items-box");
-        let html = "";
-
-        sub.items.forEach((item, index) => {
-            html += `<div class="workbook-item" id="wb-item-${index}">
-                <div class="workbook-question"><strong>${index + 1}.</strong> ${item.q}</div>`;
-            
-            let shuffledOpts = shuffleArray(item.options);
-            html += `<div class="workbook-options">`;
-            shuffledOpts.forEach(opt => {
-                html += `<button class="wb-opt-btn" onclick="selectWorkbookAnswer(${index}, '${opt}', '${item.correct}', this)">${opt}</button>`;
-            });
-            html += `</div></div>`;
-        });
-
-        box.innerHTML = html;
-        hideAllScreens();
-        document.getElementById("workbook-screen").classList.remove("hidden");
-    }
-
-    function selectWorkbookAnswer(itemIndex, selected, correct, btnElement) {
-        let parent = btnElement.parentElement;
-        let buttons = parent.getElementsByTagName("button");
-        for (let b of buttons) {
-            b.classList.remove("correct", "wrong");
-            b.disabled = true;
-        }
-
-        if (selected === correct) {
-            btnElement.classList.add("correct");
-            userAnswers[itemIndex] = true;
-        } else {
-            btnElement.classList.add("wrong");
-            for (let b of buttons) {
-                if (b.innerText === correct) b.classList.add("correct");
-            }
-        }
-
-        let totalCorrect = Object.values(userAnswers).filter(val => val === true).length;
-        let totalItems = database[activeSubjectKey].items.length;
-        document.getElementById("workbook-score").innerText = `⭐ Body: ${totalCorrect}/${totalItems}`;
-    }
-
-    function finishWorkbook() {
-        let totalCorrect = Object.values(userAnswers).filter(val => val === true).length;
-        let totalItems = database[activeSubjectKey].items.length;
-        let scoreEarned = totalCorrect * 2;
-
-        saveLeaderboard(currentUser, scoreEarned, activeSubjectTitle, activeSubjectKey);
-        showAppAlert(`🎉 Výborně! Získal(a) jsi ${scoreEarned} bodů. Výsledek byl uložen.`);
-        showMenu();
-    }
-
-    let fillIndex = 0, fillQuestions = [], fillScore = 0;
-    function startFillGame() {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        fillIndex = 0; fillScore = 0;
-        fillQuestions = shuffleArray(fillDatabase).slice(0, 3);
-        hideAllScreens();
-        document.getElementById("fill-screen").classList.remove("hidden");
-        showFillQuestion();
-    }
-    function showFillQuestion() {
-        if (fillIndex >= fillQuestions.length) {
-            endFillGame();
-            return;
-        }
-        let fq = fillQuestions[fillIndex];
-        document.getElementById("fill-count").innerText = `✍️ Doplňovačka: ${fillIndex + 1}/3`;
-        document.getElementById("fill-score").innerText = `⭐ Body: ${fillScore}`;
-        document.getElementById("fill-title").innerText = fq.hint;
-        document.getElementById("fill-word-display").innerText = fq.display;
-        document.getElementById("fill-answer").value = "";
-        document.getElementById("fill-feedback").innerText = "";
-    }
-    function checkFillAnswer() {
-        let ans = document.getElementById("fill-answer").value.trim().toUpperCase();
-        let fq = fillQuestions[fillIndex];
-        let fb = document.getElementById("fill-feedback");
-        if (ans === fq.missing) {
-            fillScore += 2;
-            fb.innerText = "🎉 Správně!";
-            fb.style.color = "var(--success)";
-        } else {
-            fb.innerText = `❌ Chyba! Mělo být: ${fq.missing}`;
-            fb.style.color = "var(--danger)";
-        }
-        fillIndex++;
-        setTimeout(showFillQuestion, 1200);
-    }
-    function endFillGame() {
-        saveLeaderboard(currentUser, fillScore, "Doplňovačka ✍️", "fill");
-        showAppAlert(`🏆 Konec doplňovačky! Získal jsi ${fillScore} bodů.`);
-        showMenu();
-    }
-
-    let memoryCards = [], flippedCards = [], matchedPairs = 0, p1Score = 0, canFlip = true;
-    function openMemoryModal() {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        document.getElementById("memory-modal").classList.remove("hidden");
-    }
-    function closeMemoryModal() { document.getElementById("memory-modal").classList.add("hidden"); }
-    function selectMemoryMode() {
-        closeMemoryModal();
-        startMemoryGame();
-    }
-    function startMemoryGame() {
-        p1Score = 0; matchedPairs = 0; flippedCards = []; canFlip = true;
-        let emojis = ['🍎', '🍌', '🍇', '🍉', '🍓', '🍒'];
-        let pairCards = [...emojis, ...emojis].map((emoji, idx) => ({ id: idx, emoji: emoji, flipped: false, matched: false }));
-        memoryCards = shuffleArray(pairCards);
-        hideAllScreens();
-        document.getElementById("memory-screen").classList.remove("hidden");
-        renderMemoryBoard();
-    }
-    function renderMemoryBoard() {
-        let board = document.getElementById("memory-board");
-        board.innerHTML = "";
-        memoryCards.forEach((card, index) => {
-            let el = document.createElement("div");
-            el.className = `memory-card ${card.flipped ? 'flipped' : ''} ${card.matched ? 'matched' : ''}`;
-            el.innerText = (card.flipped || card.matched) ? card.emoji : "❓";
-            el.onclick = () => flipCard(index);
-            board.appendChild(el);
-        });
-        document.getElementById("memory-scores").innerText = `${currentUser}: ${p1Score}`;
-    }
-    function flipCard(index) {
-        if (!canFlip || memoryCards[index].flipped || memoryCards[index].matched) return;
-        memoryCards[index].flipped = true;
-        flippedCards.push(index);
-        renderMemoryBoard();
-        if (flippedCards.length === 2) {
-            canFlip = false;
-            let [i1, i2] = flippedCards;
-            if (memoryCards[i1].emoji === memoryCards[i2].emoji) {
-                memoryCards[i1].matched = true; memoryCards[i2].matched = true;
-                matchedPairs++; p1Score++;
-                flippedCards = []; canFlip = true;
-                renderMemoryBoard();
-                if (matchedPairs === 6) {
-                    saveLeaderboard(currentUser, p1Score * 2, "Pexeso 🃏", "memory");
-                    showAppAlert("🏆 Pexeso dokončeno!");
-                    showMenu();
-                }
-            } else {
-                setTimeout(() => {
-                    memoryCards[i1].flipped = false; memoryCards[i2].flipped = false;
-                    flippedCards = []; canFlip = true; renderMemoryBoard();
-                }, 1000);
-            }
-        }
-    }
-
-    let snakeInterval = null, snake = [], food = {}, dx = 15, dy = 0, nextDx = 15, nextDy = 0, snakeScore = 0, tileSize = 15;
-    function startSnakeGame() {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        snakeScore = 0;
-        snake = [{x: 105, y: 105}, {x: 90, y: 105}, {x: 75, y: 105}];
-        dx = tileSize; dy = 0; nextDx = tileSize; nextDy = 0;
-        hideAllScreens();
-        document.getElementById("snake-screen").classList.remove("hidden");
-        spawnFood();
-        if (snakeInterval) clearInterval(snakeInterval);
-        snakeInterval = setInterval(mainSnakeLoop, 130);
-    }
-    function mainSnakeLoop() {
-        dx = nextDx; dy = nextDy;
-        let head = {x: snake[0].x + dx, y: snake[0].y + dy};
-        if (head.x < 0 || head.x >= 280 || head.y < 0 || head.y >= 280 || checkSnakeCollision(head)) {
-            clearInterval(snakeInterval);
-            saveLeaderboard(currentUser, snakeScore, "Had 🐍", "snake");
-            showAppAlert(`🐍 Konec hry Had! Skóre: ${snakeScore}`);
-            showMenu();
-            return;
-        }
-        snake.unshift(head);
-        if (Math.abs(head.x - food.x) < tileSize && Math.abs(head.y - food.y) < tileSize) {
-            snakeScore += 2; spawnFood();
-        } else { snake.pop(); }
-        drawSnakeGame();
-        document.getElementById("snake-score").innerText = `⭐ Skóre: ${snakeScore}`;
-    }
-    function spawnFood() {
-        let maxCount = Math.floor(280 / tileSize);
-        food = { x: Math.floor(Math.random() * maxCount) * tileSize, y: Math.floor(Math.random() * maxCount) * tileSize };
-    }
-    function checkSnakeCollision(head) {
-        for (let i = 1; i < snake.length; i++) { if (head.x === snake[i].x && head.y === snake[i].y) return true; }
-        return false;
-    }
-    function drawSnakeGame() {
-        const canvas = document.getElementById("snake-canvas");
-        const ctx = canvas.getContext("2d");
-        ctx.fillStyle = "#0f172a"; ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#ef4444"; ctx.beginPath(); ctx.arc(food.x + tileSize/2, food.y + tileSize/2, tileSize/2 - 2, 0, 2 * Math.PI); ctx.fill();
-        snake.forEach((part, idx) => {
-            ctx.fillStyle = idx === 0 ? "#10b981" : "#34d399";
-            ctx.fillRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2);
-        });
-    }
-    function changeSnakeDir(dir) {
-        if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -tileSize; }
-        if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = tileSize; }
-        if (dir === 'LEFT' && dx === 0) { nextDx = -tileSize; nextDy = 0; }
-        if (dir === 'RIGHT' && dx === 0) { nextDx = tileSize; nextDy = 0; }
-    }
-
-    function getStoredPasswords() { return JSON.parse(localStorage.getItem("school_passwords") || "{}"); }
-    function saveUserPassword(name, password) {
-        let pass = getStoredPasswords(); pass[name] = password;
-        localStorage.setItem("school_passwords", JSON.stringify(pass));
-    }
-    
-    function openStartPlayerModal() {
-        let rememberedUser = localStorage.getItem("school_current_active_user");
-        if (rememberedUser && !currentUser) {
-            currentUser = rememberedUser;
-            document.getElementById("current-user-display").innerText = currentUser;
-            loadLeaderboard(); return;
-        }
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let listHtml = "", uniquePlayers = {};
-        board.forEach(item => { if (item.name) uniquePlayers[item.name] = true; });
-        let playerNames = Object.keys(uniquePlayers);
-        if (playerNames.length === 0) { listHtml = "<p style='color:#64748b; font-size:13px; text-align:center;'>Zatím žádní uložení žáci.</p>"; }
-        else {
-            playerNames.forEach(name => {
-                listHtml += `<div class="score-item-detailed" onclick="requestLoginPassword('${name}')" style="cursor:pointer;">
-                    <span>🔒 <strong>${name}</strong></span><span style="color:var(--primary); font-weight:bold;">Zvolit ➔</span>
-                </div>`;
-            });
-        }
-        document.getElementById("modal-player-list").innerHTML = listHtml;
-        document.getElementById("start-player-modal").classList.remove("hidden");
-    }
-
-    function createNewUserWithPassword() {
-        let nameInput = document.getElementById("modal-username-input").value.trim();
-        let passInput = document.getElementById("modal-password-input").value.trim();
-        if (!nameInput || !passInput) { showAppAlert("⚠️ Zadej jméno i heslo!"); return; }
-        saveUserPassword(nameInput, passInput);
-        currentUser = nameInput;
-        localStorage.setItem("school_current_active_user", currentUser);
-        document.getElementById("current-user-display").innerText = currentUser;
-        document.getElementById("start-player-modal").classList.add("hidden");
-        loadLeaderboard();
-    }
-
-    function requestLoginPassword(name) {
-        pendingPlayerToLogin = name;
-        document.getElementById("login-password-title").innerText = `Zadej heslo pro: ${name}`;
-        document.getElementById("check-password-input").value = "";
-        document.getElementById("start-player-modal").classList.add("hidden");
-        document.getElementById("login-password-modal").classList.remove("hidden");
-    }
-
-    function verifyLoginPassword() {
-        let enteredPass = document.getElementById("check-password-input").value.trim();
-        let passwords = getStoredPasswords();
-        if (passwords[pendingPlayerToLogin] === enteredPass) {
-            currentUser = pendingPlayerToLogin;
-            localStorage.setItem("school_current_active_user", currentUser);
-            document.getElementById("current-user-display").innerText = currentUser;
-            document.getElementById("login-password-modal").classList.add("hidden");
-            loadLeaderboard();
+                {q
