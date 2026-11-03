@@ -222,20 +222,6 @@
         .wb-opt-btn.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #14532d !important; }
         .wb-opt-btn.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #7f1d1d !important; }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 16px;
-            font-size: 18px;
-            border: 3px solid #cbd5e1;
-            border-radius: 16px;
-            margin-top: 10px;
-            text-align: center;
-            font-weight: 600;
-            outline: none;
-            background: #f8fafc;
-            color: #1e1b4b;
-        }
-
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -275,7 +261,7 @@
 
     <!-- HLAVNÍ MENU -->
     <div id="menu-screen">
-        <div class="version-badge">🚀 Verze 8.8 (Oprava tlačítek & stabilita)</div>
+        <div class="version-badge">🚀 Verze 8.9 (Oprava doplňovačky & velká zásoba slov)</div>
         <h1>🌟 Celoroční Digitální Sešit & Učebnice 🎓</h1>
 
         <h3>📁 Výběr ročníku:</h3>
@@ -1070,7 +1056,17 @@
         { hint: "Čeština: Doplň ě/je ve slově ob_t", missing: "Ě", display: "OB_T", options: ["Ě", "JE"] },
         { hint: "Čeština: Doplň i/y ve slově m_n (mletí v mlýně)", missing: "Ý", display: "ML_N", options: ["Ý", "Í"] },
         { hint: "Čeština: Doplň i/y ve slově z_tra", missing: "I", display: "Z_TRA", options: ["I", "Y"] },
-        { hint: "Čeština: Doplň i/y ve slově br_zy", missing: "Z", display: "BR_ZY", options: ["Z", "S"] }
+        { hint: "Čeština: Doplň i/y ve slově br_zy", missing: "Z", display: "BR_ZY", options: ["Z", "S"] },
+        { hint: "Čeština: Vyjmenované slovo po B: odb_t", missing: "Ý", display: "ODB_T", options: ["Ý", "Í"] },
+        { hint: "Čeština: Vyjmenované slovo po M: m_t (mýt nádobí)", missing: "Ý", display: "M_T", options: ["Ý", "Í"] },
+        { hint: "Čeština: Vyjmenované slovo po P: p_tla", missing: "Ý", display: "P_TLA", options: ["Ý", "Í"] },
+        { hint: "Čeština: Vyjmenované slovo po S: s_n", missing: "Ý", display: "S_N", options: ["Ý", "Í"] },
+        { hint: "Čeština: Vyjmenované slovo po V: v_skat", missing: "Ý", display: "V_SKAT", options: ["Ý", "Í"] },
+        { hint: "Čeština: Doplň ě/je ve slově ob_tí", missing: "Ě", display: "OB_TÍ", options: ["Ě", "JE"] },
+        { hint: "Čeština: Doplň mě/mně ve tvaru: nemám na m_ čas", missing: "MĚ", display: "NEMÁM NA M__ ČAS", options: ["MĚ", "MNĚ"] },
+        { hint: "Čeština: Doplň ě/je ve slově v_tr (nebo větrák)", missing: "Ě", display: "V_TR", options: ["Ě", "JE"] },
+        { hint: "Čeština: Doplň předponu s-/z-: _těžknout", missing: "Z", display: "_TĚŽKNOUT", options: ["S", "Z"] },
+        { hint: "Čeština: Doplň předponu s-/z-: _kácet strom", missing: "S", display: "_KÁCET STROM", options: ["S", "Z"] }
     ];
 
     const fillDatabaseEng = [
@@ -1088,7 +1084,12 @@
         { hint: "Anglicky: Pomeranč", missing: "G", display: "ORAN_E", options: ["G", "J", "K"] },
         { hint: "Anglicky: Květina", missing: "W", display: "FLOW_R", options: ["W", "E", "A"] },
         { hint: "Anglicky: Štěně", missing: "U", display: "P_PPY", options: ["U", "A", "O"] },
-        { hint: "Anglicky: Opice", missing: "K", display: "MON_EY", options: ["K", "C", "S"] }
+        { hint: "Anglicky: Opice", missing: "K", display: "MON_EY", options: ["K", "C", "S"] },
+        { hint: "Anglicky: Pes", missing: "G", display: "DO_", options: ["G", "B", "D"] },
+        { hint: "Anglicky: Kočka", missing: "C", display: "_AT", options: ["C", "K", "S"] },
+        { hint: "Anglicky: Kniha", missing: "O", display: "B__K", options: ["OO", "EE", "AA"] },
+        { hint: "Anglicky: Voda", missing: "A", display: "W_TER", options: ["A", "E", "O"] },
+        { hint: "Anglicky: Dům", missing: "O", display: "H_USE", options: ["O", "U", "A"] }
     ];
 
     let currentFillLang = 'cz';
@@ -1367,7 +1368,7 @@
 
         let fb = document.getElementById("fill-feedback");
 
-        if (selected === correct) {
+        if (selected.trim().toUpperCase() === correct.trim().toUpperCase()) {
             btnElement.classList.add("correct");
             fillScore += 2;
             fb.innerText = "🎉 Správně!";
@@ -1375,7 +1376,7 @@
         } else {
             btnElement.classList.add("wrong");
             for (let b of buttons) {
-                if (b.innerText.trim() === correct) b.classList.add("correct");
+                if (b.innerText.trim().toUpperCase() === correct.trim().toUpperCase()) b.classList.add("correct");
             }
             fb.innerText = `❌ Chyba! Správně bylo: ${correct}`;
             fb.style.color = "var(--danger)";
@@ -1383,7 +1384,7 @@
 
         document.getElementById("fill-score").innerText = `⭐ Body: ${fillScore}`;
         fillIndex++;
-        setTimeout(showFillQuestion, 1200);
+        setTimeout(showFillQuestion, 1300);
     }
 
     // PEXESO LOGIKA
