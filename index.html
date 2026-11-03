@@ -238,15 +238,15 @@
 
         .memory-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
             margin: 15px 0;
         }
         .memory-card {
             background: linear-gradient(145deg, #94a3b8, #64748b);
-            height: 75px;
-            border-radius: 16px;
-            display: flex; justify-content: center; align-items: center; font-size: 32px; cursor: pointer;
+            height: 65px;
+            border-radius: 14px;
+            display: flex; justify-content: center; align-items: center; font-size: 28px; cursor: pointer;
         }
         .memory-card.flipped { background: #ffffff; border: 3px solid #4f46e5; }
         .memory-card.matched { background: #34d399; color: white; }
@@ -275,7 +275,7 @@
 
     <!-- HLAVNÍ MENU -->
     <div id="menu-screen">
-        <div class="version-badge">🚀 Verze 8.7 (Rozšířená databáze & algoritmus proti opakování)</div>
+        <div class="version-badge">🚀 Verze 8.8 (Oprava tlačítek & stabilita)</div>
         <h1>🌟 Celoroční Digitální Sešit & Učebnice 🎓</h1>
 
         <h3>📁 Výběr ročníku:</h3>
@@ -436,11 +436,11 @@
     <div id="memory-screen" class="hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:17px;">
             <span id="memory-turn-indicator">🃏 Na řadě: Hráč 1</span>
-            <span id="memory-scores" style="font-size: 16px;">Hráč 1: 0 | Hráč 2: 0</span>
+            <span id="memory-scores" style="font-size: 15px;">Hráč 1: 0 | Hráč 2: 0</span>
         </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
+        <hr style="border: 1px solid #cbd5e1; margin: 8px 0;">
         <div class="memory-grid" id="memory-board"></div>
-        <button class="btn btn-danger" onclick="showMenu()" style="font-size:17px;">🏠 Zpět do menu</button>
+        <button class="btn btn-danger" onclick="showMenu()" style="font-size:17px; margin-top:10px;">🏠 Zpět do menu</button>
     </div>
 
     <!-- HAD -->
@@ -508,7 +508,6 @@
     let currentTestIndex = 0;
     let testScore = 0;
 
-    // Sledování historie otázek pro eliminaci okamžiků opakování za sebou
     let questionHistory = {};
 
     function shuffleArray(array) {
@@ -520,21 +519,16 @@
         return arr;
     }
 
-    // Pokročilý výběr otázek zaručující rotaci bez opakování v krátkém sledu
     function getRotatedQuestions(subjectKey, allItems) {
         if (!questionHistory[subjectKey]) {
             questionHistory[subjectKey] = [];
         }
-        
         let shuffled = shuffleArray(allItems);
-        // Vybereme např. 10 otázek z velké zásoby, preferujeme ty, které nebyly použity minule
         let pool = shuffled.filter(item => !questionHistory[subjectKey].includes(item.q));
         if (pool.length < 10) {
-            // Pokud dojdou, resetujeme historii
             questionHistory[subjectKey] = [];
             pool = shuffled;
         }
-        
         let selected = shuffleArray(pool).slice(0, 10);
         questionHistory[subjectKey] = selected.map(i => i.q);
         return selected;
@@ -591,7 +585,7 @@
         eng4_vocab: {
             title: "4. třída: Test slovní zásoby",
             theoryPages: [
-                `<h3>📖 Slovní zásoba pro 4. třídu</h3><p>Procvičování základních slovíček: rodina, zvířata, barvy a čísla.</p>`
+                `<h3>📖 Slovní zásoba pro 4. třídu</h3>`
             ],
             items: [
                 {q: "Jak je anglicky 'babička'?", options: ["grandmother", "grandfather", "mother"], correct: "grandmother"},
@@ -611,7 +605,7 @@
         math4: {
             title: "Matematika (4. třída - Počítání do 1000)",
             theoryPages: [
-                `<h3>📖 1. Sčítání a odčítání do 1000</h3><p>Příklady s přechodem desítky i stovky.</p>`
+                `<h3>📖 1. Sčítání a odčítání do 1000</h3>`
             ],
             items: [
                 {q: "Kolik je 450 + 230?", options: ["680", "670", "690"], correct: "680"},
@@ -768,7 +762,7 @@
         sci4: {
             title: "Přírodověda (4. třída - Celoroční přehled)",
             theoryPages: [
-                `<h3>📖 1. Živá a neživá příroda</h3><p>Střídání ročních období, Sluneční soustava.</p>`
+                `<h3>📖 1. Živá a neživá příroda</h3>`
             ],
             items: [
                 {q: "Který živočich patří mezi savce?", options: ["Pes", "Krokodýl", "Žába"], correct: "Pes"},
@@ -788,7 +782,7 @@
         eng6_project: {
             title: "Project Explore 1: Kompletní učebnice (89 stran)",
             theoryPages: [
-                `<h3>📖 Starter & Unit 1</h3><p>Welcome to English & Family and friends.</p>`
+                `<h3>📖 Starter & Unit 1</h3>`
             ],
             items: [
                 {q: "Project 1 (Unit 1): Doplňte: I ___ got a blue bike.", options: ["have", "has", "is", "are"], correct: "have"},
@@ -1106,9 +1100,19 @@
         document.getElementById("fill-modal").classList.add("hidden");
     }
 
+    function openMemoryModal() {
+        document.getElementById("memory-modal").classList.remove("hidden");
+    }
+    function closeMemoryModal() {
+        document.getElementById("memory-modal").classList.add("hidden");
+    }
+
     function openClass(screenId) {
         hideAllScreens();
-        document.getElementById(screenId + "-screen").classList.remove("hidden");
+        let target = document.getElementById(screenId + "-screen");
+        if (target) {
+            target.classList.remove("hidden");
+        }
     }
 
     function openSubjectHub(key, title) {
@@ -1202,7 +1206,6 @@
         let sub = database[activeSubjectKey];
         if (!sub) return;
 
-        // Použití nového algoritmu proti opakování otázek ze zásoby
         testQuestionsQueue = getRotatedQuestions(activeSubjectKey, sub.items);
         currentTestIndex = 0;
         testScore = 0;
@@ -1306,6 +1309,7 @@
         document.getElementById("fill-screen").classList.remove("hidden");
         showFillQuestion();
     }
+
     function showFillQuestion() {
         if (fillIndex >= fillQuestions.length) {
             let fillBox = document.getElementById("fill-screen");
@@ -1321,7 +1325,6 @@
         }
         let fq = fillQuestions[fillIndex];
         
-        // Zajištění struktury doplňovačky
         let fillScreen = document.getElementById("fill-screen");
         if (!document.getElementById("fill-answer")) {
             fillScreen.innerHTML = `
@@ -1356,7 +1359,6 @@
         let fq = fillQuestions[fillIndex];
         let fb = document.getElementById("fill-feedback");
 
-        // Pokud uživatel zadá správnou délku nebo shodný text
         if (ans === fq.missing) {
             inputEl.disabled = true;
             fillScore += 2;
@@ -1373,10 +1375,57 @@
         }
     }
 
+    // PEXESO LOGIKA
+    let memoryCards = [], flippedCards = [], canFlip = true, matchedPairs = 0, p1Score = 0, p2Score = 0, pcScore = 0, memoryMode = 'solo', activePlayer = 1, pcMemory = {};
+    const memoryEmojis = ["🍎", "🍌", "🚗", "🐶", "🐱", "⚽", "⭐", "🚀"];
+
+    function startMemoryGame(mode) {
+        closeMemoryModal();
+        memoryMode = mode;
+        p1Score = 0; p2Score = 0; pcScore = 0; matchedPairs = 0; flippedCards = []; canFlip = true; activePlayer = 1; isPcTurn = false; pcMemory = {};
+        
+        let deck = [...memoryEmojis, ...memoryEmojis];
+        deck = shuffleArray(deck);
+        memoryCards = deck.map(emoji => ({ emoji, flipped: false, matched: false }));
+
+        hideAllScreens();
+        document.getElementById("memory-screen").classList.remove("hidden");
+        updateTurnIndicator();
+        renderMemoryBoard();
+    }
+
+    function renderMemoryBoard() {
+        let board = document.getElementById("memory-board");
+        let html = "";
+        memoryCards.forEach((card, idx) => {
+            let cls = "memory-card";
+            let content = "❓";
+            if (card.flipped || card.matched) {
+                cls += " flipped";
+                content = card.emoji;
+            }
+            if (card.matched) {
+                cls += " matched";
+            }
+            html += `<div class="${cls}" onclick="playerFlipCard(${idx})">${content}</div>`;
+        });
+        board.innerHTML = html;
+
+        let scBox = document.getElementById("memory-scores");
+        if (memoryMode === 'solo') {
+            scBox.innerText = `Nalezené páry: ${matchedPairs} / 8`;
+        } else if (memoryMode === 'pvp') {
+            scBox.innerText = `Hráč 1: ${p1Score} | Hráč 2: ${p2Score}`;
+        } else {
+            scBox.innerText = `Ty: ${p1Score} | Počítač: ${pcScore}`;
+        }
+    }
+
     function playerFlipCard(index) {
         if (!canFlip || memoryCards[index].flipped || memoryCards[index].matched) return;
-        
-        if (memoryMode === 'pc' && Math.random() < 0.5) {
+        if (memoryMode === 'pc' && isPcTurn) return;
+
+        if (memoryMode === 'pc' && Math.random() < 0.6) {
             pcMemory[memoryCards[index].emoji] = index;
         }
 
@@ -1410,11 +1459,10 @@
             canFlip = true;
             renderMemoryBoard();
 
-            let totalPairs = memoryCards.length / 2;
-            if (matchedPairs === totalPairs) {
+            if (matchedPairs === 8) {
                 setTimeout(() => {
                     showMenu();
-                }, 800);
+                }, 1200);
             } else if (memoryMode === 'pc' && isPcTurn) {
                 setTimeout(pcTurn, 1000);
             }
@@ -1441,7 +1489,6 @@
         }
     }
 
-    let isPcTurn = false;
     function updateTurnIndicator() {
         let ind = document.getElementById("memory-turn-indicator");
         if (memoryMode === 'pc') {
@@ -1449,12 +1496,12 @@
         } else if (memoryMode === 'pvp') {
             ind.innerText = `🃏 Na řadě: Hráč ${activePlayer}`;
         } else {
-            ind.innerText = "🃏 Pexeso";
+            ind.innerText = "🃏 Cvičné pexeso";
         }
     }
 
     function pcTurn() {
-        if (!isPcTurn || matchedPairs === memoryCards.length / 2) return;
+        if (!isPcTurn || matchedPairs === 8) return;
         
         let available = [];
         memoryCards.forEach((c, idx) => {
@@ -1505,6 +1552,7 @@
         if (snakeInterval) clearInterval(snakeInterval);
         snakeInterval = setInterval(mainSnakeLoop, 220);
     }
+
     function mainSnakeLoop() {
         dx = nextDx; dy = nextDy;
         let head = {x: snake[0].x + dx, y: snake[0].y + dy};
@@ -1520,14 +1568,17 @@
         drawSnakeGame();
         document.getElementById("snake-score").innerText = `⭐ Skóre: ${snakeScore}`;
     }
+
     function spawnFood() {
         let maxCount = Math.floor(280 / tileSize);
         food = { x: Math.floor(Math.random() * maxCount) * tileSize, y: Math.floor(Math.random() * maxCount) * tileSize };
     }
+
     function checkSnakeCollision(head) {
         for (let i = 1; i < snake.length; i++) { if (head.x === snake[i].x && head.y === snake[i].y) return true; }
         return false;
     }
+
     function drawSnakeGame() {
         const canvas = document.getElementById("snake-canvas");
         const ctx = canvas.getContext("2d");
@@ -1538,6 +1589,7 @@
             ctx.fillRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2);
         });
     }
+
     function changeSnakeDir(dir) {
         if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -tileSize; }
         if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = tileSize; }
