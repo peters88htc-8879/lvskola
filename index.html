@@ -202,7 +202,6 @@
             justify-content: space-between;
             align-items: center;
             font-size: 16px;
-            cursor: pointer;
         }
 
         #feedback {
@@ -363,7 +362,7 @@
         <div class="user-box">
             <span style="font-size: 16px; color: #475569; font-weight: 600;">👤 Aktivní hrdina:</span><br>
             <strong id="current-user-display" style="font-size: 22px; color: var(--primary);">Zatím nikdo</strong><br>
-            <button class="btn btn-warning" onclick="openStartPlayerModal()" style="margin-top: 12px; font-size: 15px; padding: 12px;">🔄 Změnit hráče / Vybrat ze skóre</button>
+            <button class="btn btn-warning" onclick="openStartPlayerModal()" style="margin-top: 12px; font-size: 15px; padding: 12px;">🔄 Změnit hráče / Profil</button>
         </div>
 
         <h3>🎯 Vyber si předmět (10 kol obtížnosti):</h3>
@@ -397,7 +396,7 @@
 
         <div class="score-board">
             <h4>
-                <span>🏆 Síň slávy (testy i hry):</span>
+                <span>🏆 Síň slávy (uložené výsledky):</span>
                 <button onclick="resetLeaderboard()" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:10px; cursor:pointer; font-size:13px; font-weight:bold;">🗑️ Vynulovat</button>
             </h4>
             <ul class="score-list" id="leaderboard"></ul>
@@ -407,7 +406,7 @@
     <!-- KVÍZOVÁ OBRAZOVKA (TESTY) -->
     <div id="quiz-screen" class="hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:17px;">
-            <span id="question-count" style="color: #4f46e5;">📌 Otázka: 1/5</span>
+            <span id="question-count" style="color: #4f46e5;">📌 Otázka: 1/10</span>
             <span id="score-display" style="color: #059669; font-size: 19px;">⭐ Body: 0</span>
         </div>
         <hr style="border: 1px solid #cbd5e1; margin: 12px 0;">
@@ -477,7 +476,7 @@
         <button class="btn btn-danger" onclick="showMenu()" style="margin-top:8px;">🏠 Zpět do menu</button>
     </div>
 
-    <!-- VÝHODNOCENÍ S POHÁRY A MOŽNOSTÍ POKRAČOVAT NA DALŠÍ KOLO -->
+    <!-- VÝHODNOCENÍ S POHÁRY A POKRAČOVÁNÍM -->
     <div id="result-screen" class="hidden">
         <div class="question-card" style="border: 5px solid #fbbf24; background: linear-gradient(145deg, #fffbeb, #fef3c7);">
             <h2 style="color: #b45309; margin-top:0;">🎉 Skvělá práce a odměna!</h2>
@@ -486,7 +485,7 @@
             <p id="final-stats" style="font-size: 20px; font-weight: 700; color: #1e1b4b; margin: 15px 0;">Získal jsi 0 bodů.</p>
             
             <button id="next-level-btn" class="btn btn-success hidden" onclick="startNextLevel()" style="margin-bottom: 10px;">🚀 Pokračovat na další kolo</button>
-            <button class="btn btn-warning" onclick="showMenu()" style="margin-bottom: 10px;">🏠 Uložit a zpět do hlavního menu</button>
+            <button class="btn btn-warning" onclick="showMenu()" style="margin-bottom: 10px;">🏠 Uložit výsledek a zpět do menu</button>
         </div>
     </div>
 
@@ -496,7 +495,7 @@
 <div id="level-modal" class="modal hidden">
     <div class="modal-content">
         <h3 id="level-modal-title" style="color:#4f46e5; margin-top:0;">Vyber kolo (1 až 10)</h3>
-        <p style="color: #475569; font-size: 15px;">Každé další kolo je o něco těžší. Zvládneš je všechny?</p>
+        <p style="color: #475569; font-size: 15px;">Každé kolo obsahuje velké množství náhodných otázek bez opakování!</p>
         <div class="level-grid" id="level-buttons-grid"></div>
         <button class="btn btn-warning" onclick="closeLevelModal()" style="margin-top:15px;">Zavřít</button>
     </div>
@@ -506,7 +505,7 @@
 <div id="start-player-modal" class="modal">
     <div class="modal-content">
         <h3 style="color:#4f46e5; margin-top:0;">✨ Vítejte v pohádkové akademii!</h3>
-        <p style="font-size:16px; color:#475569; margin-bottom:15px;">Zadej jméno nového hrdiny, nebo vyber ze seznamu:</p>
+        <p style="font-size:16px; color:#475569; margin-bottom:15px;">Zadej jméno hrdiny, aby se ti ukládalo skóre:</p>
         
         <div style="margin-bottom: 18px;">
             <input type="text" id="modal-username-input" placeholder="Jméno hrdiny (např. Anička)..." style="width:100%;">
@@ -514,7 +513,7 @@
         </div>
 
         <hr style="border: 1px solid #cbd5e1; margin: 15px 0;">
-        <p style="font-size:15px; font-weight:700; color:#b45309; margin-bottom:10px;">Nebo vyber hrdinu ze síně slávy:</p>
+        <p style="font-size:15px; font-weight:700; color:#b45309; margin-bottom:10px;">Nebo pokračuj pod uloženým profilem:</p>
         <div id="modal-player-list" style="max-height: 150px; overflow-y: auto; text-align: left; margin-bottom: 15px;"></div>
 
         <button class="btn btn-warning" onclick="closeStartPlayerModal()" id="close-modal-btn">Zavřít</button>
@@ -598,54 +597,380 @@
         } catch(e) {}
     }
 
+    // OBROVSKÁ DATABÁZE OTÁZEK PRO KAŽDÉ KOLO (BEZ DUPLICIT, MNOHO VARIANT)
     const database = {
         math: {
-            1: [{q: "5 + 3 =", a: ["7", "8", "9", "6"], correct: "8"}, {q: "4 + 2 =", a: ["6", "5", "7", "8"], correct: "6"}, {q: "10 - 3 =", a: ["6", "7", "8", "5"], correct: "7"}, {q: "6 + 4 =", a: ["9", "10", "11", "8"], correct: "10"}, {q: "8 - 5 =", a: ["2", "3", "4", "1"], correct: "3"}],
-            2: [{q: "12 + 8 =", a: ["18", "20", "22", "19"], correct: "20"}, {q: "15 - 6 =", a: ["8", "9", "7", "10"], correct: "9"}, {q: "7 + 7 =", a: ["13", "14", "15", "12"], correct: "14"}, {q: "20 - 4 =", a: ["15", "16", "17", "14"], correct: "16"}, {q: "9 + 5 =", a: ["13", "14", "15", "12"], correct: "14"}],
-            3: [{q: "25 + 15 =", a: ["35", "40", "45", "30"], correct: "40"}, {q: "30 - 12 =", a: ["18", "16", "20", "15"], correct: "18"}, {q: "6 × 3 =", a: ["15", "18", "21", "12"], correct: "18"}, {q: "16 ÷ 2 =", a: ["6", "7", "8", "9"], correct: "8"}, {q: "14 + 18 =", a: ["30", "32", "34", "28"], correct: "32"}],
-            4: [{q: "45 + 27 =", a: ["70", "72", "75", "68"], correct: "72"}, {q: "50 - 23 =", a: ["25", "27", "28", "23"], correct: "27"}, {q: "7 × 6 =", a: ["42", "36", "48", "40"], correct: "42"}, {q: "27 ÷ 3 =", a: ["8", "9", "7", "6"], correct: "9"}, {q: "33 + 19 =", a: ["51", "52", "53", "50"], correct: "52"}],
-            5: [{q: "64 + 28 =", a: ["90", "92", "94", "88"], correct: "92"}, {q: "80 - 35 =", a: ["45", "55", "40", "50"], correct: "45"}, {q: "8 × 7 =", a: ["54", "56", "64", "49"], correct: "56"}, {q: "48 ÷ 6 =", a: ["7", "8", "9", "6"], correct: "8"}, {q: "55 + 38 =", a: ["93", "92", "95", "91"], correct: "93"}],
-            6: [{q: "125 + 135 =", a: ["250", "260", "240", "270"], correct: "250"}, {q: "200 - 85 =", a: ["115", "125", "105", "120"], correct: "115"}, {q: "9 × 9 =", a: ["81", "72", "90", "88"], correct: "81"}, {q: "54 ÷ 9 =", a: ["5", "6", "7", "8"], correct: "6"}, {q: "140 + 160 =", a: ["280", "300", "290", "310"], correct: "300"}],
-            7: [{q: "240 + 175 =", a: ["405", "415", "395", "425"], correct: "415"}, {q: "350 - 120 =", a: ["220", "230", "240", "210"], correct: "230"}, {q: "12 × 4 =", a: ["44", "48", "52", "42"], correct: "48"}, {q: "72 ÷ 8 =", a: ["8", "9", "7", "6"], correct: "9"}, {q: "180 + 220 =", a: ["390", "400", "410", "380"], correct: "400"}],
-            8: [{q: "385 + 245 =", a: ["620", "630", "610", "640"], correct: "630"}, {q: "500 - 215 =", a: ["275", "285", "295", "265"], correct: "285"}, {q: "11 × 11 =", a: ["111", "121", "131", "110"], correct: "121"}, {q: "81 ÷ 9 =", a: ["8", "9", "7", "6"], correct: "9"}, {q: "275 + 325 =", a: ["590", "600", "610", "580"], correct: "600"}],
-            9: [{q: "458 + 367 =", a: ["815", "825", "835", "805"], correct: "825"}, {q: "750 - 325 =", a: ["415", "425", "435", "405"], correct: "425"}, {q: "12 × 12 =", a: ["134", "144", "154", "124"], correct: "144"}, {q: "96 ÷ 8 =", a: ["11", "12", "13", "10"], correct: "12"}, {q: "520 + 390 =", a: ["900", "910", "920", "890"], correct: "910"}],
-            10: [{q: "678 + 495 =", a: ["1163", "1173", "1153", "1183"], correct: "1173"}, {q: "1000 - 438 =", a: ["562", "572", "552", "582"], correct: "562"}, {q: "15 × 10 =", a: ["140", "150", "160", "130"], correct: "150"}, {q: "108 ÷ 9 =", a: ["11", "12", "13", "10"], correct: "12"}, {q: "850 + 675 =", a: ["1515", "1525", "1535", "1505"], correct: "1525"}]
+            1: [
+                {q: "5 + 3 =", a: ["7", "8", "9", "6"], correct: "8"}, {q: "4 + 2 =", a: ["6", "5", "7", "8"], correct: "6"}, 
+                {q: "10 - 3 =", a: ["6", "7", "8", "5"], correct: "7"}, {q: "6 + 4 =", a: ["9", "10", "11", "8"], correct: "10"}, 
+                {q: "8 - 5 =", a: ["2", "3", "4", "1"], correct: "3"}, {q: "2 + 7 =", a: ["8", "9", "10", "6"], correct: "9"},
+                {q: "9 - 4 =", a: ["4", "5", "6", "3"], correct: "5"}, {q: "1 + 8 =", a: ["7", "8", "9", "10"], correct: "9"},
+                {q: "7 - 2 =", a: ["4", "5", "6", "3"], correct: "5"}, {q: "3 + 3 =", a: ["5", "6", "7", "8"], correct: "6"}
+            ],
+            2: [
+                {q: "12 + 8 =", a: ["18", "20", "22", "19"], correct: "20"}, {q: "15 - 6 =", a: ["8", "9", "7", "10"], correct: "9"}, 
+                {q: "7 + 7 =", a: ["13", "14", "15", "12"], correct: "14"}, {q: "20 - 4 =", a: ["15", "16", "17", "14"], correct: "16"}, 
+                {q: "9 + 5 =", a: ["13", "14", "15", "12"], correct: "14"}, {q: "11 + 6 =", a: ["16", "17", "18", "15"], correct: "17"},
+                {q: "18 - 9 =", a: ["8", "9", "10", "7"], correct: "9"}, {q: "13 + 5 =", a: ["17", "18", "19", "16"], correct: "18"},
+                {q: "14 - 7 =", a: ["6", "7", "8", "5"], correct: "7"}, {q: "8 + 8 =", a: ["15", "16", "17", "14"], correct: "16"}
+            ],
+            3: [
+                {q: "25 + 15 =", a: ["35", "40", "45", "30"], correct: "40"}, {q: "30 - 12 =", a: ["18", "16", "20", "15"], correct: "18"}, 
+                {q: "6 × 3 =", a: ["15", "18", "21", "12"], correct: "18"}, {q: "16 ÷ 2 =", a: ["6", "7", "8", "9"], correct: "8"}, 
+                {q: "14 + 18 =", a: ["30", "32", "34", "28"], correct: "32"}, {q: "50 - 22 =", a: ["28", "26", "30", "24"], correct: "28"},
+                {q: "4 × 5 =", a: ["16", "20", "24", "18"], correct: "20"}, {q: "21 ÷ 3 =", a: ["6", "7", "8", "9"], correct: "7"},
+                {q: "19 + 13 =", a: ["30", "32", "34", "31"], correct: "32"}, {q: "40 - 15 =", a: ["25", "20", "30", "35"], correct: "25"}
+            ],
+            4: [
+                {q: "45 + 27 =", a: ["70", "72", "75", "68"], correct: "72"}, {q: "50 - 23 =", a: ["25", "27", "28", "23"], correct: "27"}, 
+                {q: "7 × 6 =", a: ["42", "36", "48", "40"], correct: "42"}, {q: "27 ÷ 3 =", a: ["8", "9", "7", "6"], correct: "9"}, 
+                {q: "33 + 19 =", a: ["51", "52", "53", "50"], correct: "52"}, {q: "60 - 34 =", a: ["26", "24", "28", "22"], correct: "26"},
+                {q: "8 × 4 =", a: ["28", "32", "36", "30"], correct: "32"}, {q: "36 ÷ 4 =", a: ["8", "9", "7", "6"], correct: "9"},
+                {q: "52 + 18 =", a: ["70", "68", "72", "75"], correct: "70"}, {q: "70 - 45 =", a: ["25", "35", "20", "30"], correct: "25"}
+            ],
+            5: [
+                {q: "64 + 28 =", a: ["90", "92", "94", "88"], correct: "92"}, {q: "80 - 35 =", a: ["45", "55", "40", "50"], correct: "45"}, 
+                {q: "8 × 7 =", a: ["54", "56", "64", "49"], correct: "56"}, {q: "48 ÷ 6 =", a: ["7", "8", "9", "6"], correct: "8"}, 
+                {q: "55 + 38 =", a: ["93", "92", "95", "91"], correct: "93"}, {q: "90 - 46 =", a: ["44", "46", "42", "48"], correct: "44"},
+                {q: "9 × 6 =", a: ["54", "48", "56", "63"], correct: "54"}, {q: "56 ÷ 7 =", a: ["7", "8", "9", "6"], correct: "8"},
+                {q: "47 + 36 =", a: ["83", "81", "85", "82"], correct: "83"}, {q: "100 - 54 =", a: ["46", "56", "44", "36"], correct: "46"}
+            ],
+            6: [
+                {q: "125 + 135 =", a: ["250", "260", "240", "270"], correct: "250"}, {q: "200 - 85 =", a: ["115", "125", "105", "120"], correct: "115"}, 
+                {q: "9 × 9 =", a: ["81", "72", "90", "88"], correct: "81"}, {q: "54 ÷ 9 =", a: ["5", "6", "7", "8"], correct: "6"}, 
+                {q: "140 + 160 =", a: ["280", "300", "290", "310"], correct: "300"}, {q: "350 - 150 =", a: ["200", "180", "220", "190"], correct: "200"},
+                {q: "8 × 9 =", a: ["72", "64", "81", "56"], correct: "72"}, {q: "63 ÷ 7 =", a: ["8", "9", "7", "6"], correct: "9"},
+                {q: "210 + 190 =", a: ["400", "390", "410", "420"], correct: "400"}, {q: "500 - 230 =", a: ["270", "280", "260", "290"], correct: "270"}
+            ],
+            7: [
+                {q: "240 + 175 =", a: ["405", "415", "395", "425"], correct: "415"}, {q: "350 - 120 =", a: ["220", "230", "240", "210"], correct: "230"}, 
+                {q: "12 × 4 =", a: ["44", "48", "52", "42"], correct: "48"}, {q: "72 ÷ 8 =", a: ["8", "9", "7", "6"], correct: "9"}, 
+                {q: "180 + 220 =", a: ["390", "400", "410", "380"], correct: "400"}, {q: "450 - 170 =", a: ["280", "290", "270", "300"], correct: "280"},
+                {q: "15 × 3 =", a: ["45", "40", "50", "35"], correct: "45"}, {q: "84 ÷ 6 =", a: ["12", "14", "13", "15"], correct: "14"},
+                {q: "310 + 290 =", a: ["600", "590", "610", "580"], correct: "600"}, {q: "600 - 340 =", a: ["260", "250", "270", "240"], correct: "260"}
+            ],
+            8: [
+                {q: "385 + 245 =", a: ["620", "630", "610", "640"], correct: "630"}, {q: "500 - 215 =", a: ["275", "285", "295", "265"], correct: "285"}, 
+                {q: "11 × 11 =", a: ["111", "121", "131", "110"], correct: "121"}, {q: "81 ÷ 9 =", a: ["8", "9", "7", "6"], correct: "9"}, 
+                {q: "275 + 325 =", a: ["590", "600", "610", "580"], correct: "600"}, {q: "750 - 380 =", a: ["370", "380", "360", "390"], correct: "370"},
+                {q: "13 × 5 =", a: ["65", "60", "70", "55"], correct: "65"}, {q: "96 ÷ 8 =", a: ["11", "12", "13", "10"], correct: "12"},
+                {q: "440 + 360 =", a: ["800", "790", "810", "820"], correct: "800"}, {q: "800 - 425 =", a: ["375", "385", "365", "395"], correct: "375"}
+            ],
+            9: [
+                {q: "458 + 367 =", a: ["815", "825", "835", "805"], correct: "825"}, {q: "750 - 325 =", a: ["415", "425", "435", "405"], correct: "425"}, 
+                {q: "12 × 12 =", a: ["134", "144", "154", "124"], correct: "144"}, {q: "96 ÷ 8 =", a: ["11", "12", "13", "10"], correct: "12"}, 
+                {q: "520 + 390 =", a: ["900", "910", "920", "890"], correct: "910"}, {q: "920 - 470 =", a: ["450", "460", "440", "470"], correct: "450"},
+                {q: "14 × 6 =", a: ["84", "80", "88", "76"], correct: "84"}, {q: "108 ÷ 9 =", a: ["11", "12", "13", "10"], correct: "12"},
+                {q: "560 + 380 =", a: ["940", "930", "950", "920"], correct: "940"}, {q: "900 - 485 =", a: ["415", "425", "405", "435"], correct: "415"}
+            ],
+            10: [
+                {q: "678 + 495 =", a: ["1163", "1173", "1153", "1183"], correct: "1173"}, {q: "1000 - 438 =", a: ["562", "572", "552", "582"], correct: "562"}, 
+                {q: "15 × 10 =", a: ["140", "150", "160", "130"], correct: "150"}, {q: "108 ÷ 9 =", a: ["11", "12", "13", "10"], correct: "12"}, 
+                {q: "850 + 675 =", a: ["1515", "1525", "1535", "1505"], correct: "1525"}, {q: "1500 - 645 =", a: ["855", "865", "845", "875"], correct: "855"},
+                {q: "15 × 15 =", a: ["225", "215", "235", "245"], correct: "225"}, {q: "144 ÷ 12 =", a: ["11", "12", "13", "10"], correct: "12"},
+                {q: "999 + 888 =", a: ["1887", "1877", "1897", "1867"], correct: "1887"}, {q: "2000 - 755 =", a: ["1245", "1255", "1235", "1265"], correct: "1245"}
+            ]
         },
         eng: {
-            1: [{q: "Překlad: 'Cat'", a: ["pes", "kočka", "myš", "kráva"], correct: "kočka"}, {q: "Překlad: 'Dog'", a: ["pes", "kočka", "pták", "ryba"], correct: "pes"}, {q: "Překlad: 'Red'", a: ["modrá", "červená", "zelená", "žlutá"], correct: "červená"}, {q: "Překlad: 'Sun'", a: ["slunce", "měsíc", "hvězda", "nebe"], correct: "slunce"}, {q: "Překlad: 'Book'", a: ["kniha", "sešit", "pero", "tužka"], correct: "kniha"}],
-            2: [{q: "Překlad: 'Apple'", a: ["banán", "jablko", "hruška", "pomeranč"], correct: "jablko"}, {q: "Překlad: 'School'", a: ["škola", "třída", "lavice", "okno"], correct: "škola"}, {q: "Překlad: 'Water'", a: ["mléko", "čaj", "voda", "džus"], correct: "voda"}, {q: "Překlad: 'Milk'", a: ["voda", "mléko", "limonáda", "čaj"], correct: "mléko"}, {q: "Překlad: 'House'", a: ["auto", "dům", "strom", "zahrada"], correct: "dům"}],
-            3: [{q: "Překlad: 'Teacher'", a: ["žák", "učitel", "ředitel", "školník"], correct: "učitel"}, {q: "Překlad: 'Friend'", a: ["nepřítel", "bratranec", "kamarád", "soused"], correct: "kamarád"}, {q: "Překlad: 'Weather'", a: ["vítr", "slunce", "počasí", "voda"], correct: "počasí"}, {q: "Překlad: 'Pen'", a: ["pero", "tužka", "guma", "pravítko"], correct: "pero"}, {q: "Překlad: 'Green'", a: ["červená", "modrá", "zelená", "žlutá"], correct: "zelená"}],
-            4: [{q: "She ___ 12 years old.", a: ["is", "are", "am", "be"], correct: "is"}, {q: "I ___ a dog.", a: ["has", "have", "is", "are"], correct: "have"}, {q: "They ___ like apples.", a: ["don't", "doesn't", "isn't", "aren't"], correct: "don't"}, {q: "He ___ football every day.", a: ["play", "plays", "playing", "played"], correct: "plays"}, {q: "We ___ in Prague.", a: ["lives", "live", "living", "lived"], correct: "live"}],
-            5: [{q: "Where ___ my pen?", a: ["is", "are", "am", "be"], correct: "is"}, {q: "What ___ your name?", a: ["is", "are", "am", "be"], correct: "is"}, {q: "Cats ___ fish.", a: ["eat", "eats", "eating", "ate"], correct: "eat"}, {q: "Birds can ___.", a: ["fly", "swim", "run", "walk"], correct: "fly"}, {q: "Fish can ___.", a: ["fly", "swim", "run", "jump"], correct: "swim"}],
-            6: [{q: "Opposite of 'Big' is:", a: ["small", "tall", "short", "long"], correct: "small"}, {q: "Opposite of 'Hot' is:", a: ["cold", "warm", "cool", "ice"], correct: "cold"}, {q: "Opposite of 'Happy' is:", a: ["sad", "angry", "tired", "bad"], correct: "sad"}, {q: "Opposite of 'Fast' is:", a: ["slow", "quick", "late", "weak"], correct: "slow"}, {q: "Opposite of 'Good' is:", a: ["bad", "poor", "wrong", "sad"], correct: "bad"}],
-            7: [{q: "Past tense of 'Go':", a: ["went", "goed", "gone", "going"], correct: "went"}, {q: "Past tense of 'Have':", a: ["had", "hasd", "haved", "have"], correct: "had"}, {q: "Past tense of 'See':", a: ["saw", "seen", "seed", "seeing"], correct: "saw"}, {q: "Past tense of 'Eat':", a: ["eated", "ate", "eten", "eating"], correct: "ate"}, {q: "Past tense of 'Run':", a: ["ran", "runned", "run", "running"], correct: "ran"}],
-            8: [{q: "Translate: 'Včera pršelo.'", a: ["It rained yesterday.", "It rains today.", "It will rain.", "It is raining."], correct: "It rained yesterday."}, {q: "Translate: 'Zítra půjdu ven.'", a: ["I will go out tomorrow.", "I went out.", "I go out.", "I am going."], correct: "I will go out tomorrow."}, {q: "Translate: 'Mám rád angličtinu.'", a: ["I like English.", "I love math.", "I speak Czech.", "I read books."], correct: "I like English."}, {q: "Translate: 'Kde bydlíš?'", a: ["Where do you live?", "Where are you?", "Who are you?", "What is this?"], correct: "Where do you live?"}, {q: "Translate: 'Kolik je ti let?'", a: ["How old are you?", "How are you?", "What time is it?", "How much is it?"], correct: "How old are you?"}],
-            9: [{q: "Choose correct spelling:", a: ["beautiful", "beutiful", "beatiful", "beatifull"], correct: "beautiful"}, {q: "Choose correct spelling:", a: ["friend", "freind", "freand", "frined"], correct: "friend"}, {q: "Choose correct spelling:", a: ["because", "becaus", "becouse", "bicoase"], correct: "because"}, {q: "Choose correct spelling:", a: ["tomorrow", "tomorow", "tommorow", "tomorrow"], correct: "tomorrow"}, {q: "Choose correct spelling:", a: ["language", "langvage", "langugae", "languege"], correct: "language"}],
-            10: [{q: "Advanced: 'If I ___ rich, I would travel.'", a: ["were", "was", "am", "be"], correct: "were"}, {q: "Advanced: 'The book was written ___ Shakespeare.'", a: ["by", "with", "from", "at"], correct: "by"}, {q: "Advanced: 'She has been living here ___ 3 years.'", a: ["for", "since", "during", "from"], correct: "for"}, {q: "Advanced: 'I look forward to ___ you.'", a: ["seeing", "see", "saw", "seen"], correct: "seeing"}, {q: "Advanced: 'Neither John ___ Mary came.'", a: ["nor", "or", "and", "but"], correct: "nor"}]
+            1: [
+                {q: "Překlad: 'Cat'", a: ["pes", "kočka", "myš", "kráva"], correct: "kočka"}, {q: "Překlad: 'Dog'", a: ["pes", "kočka", "pták", "ryba"], correct: "pes"}, 
+                {q: "Překlad: 'Red'", a: ["modrá", "červená", "zelená", "žlutá"], correct: "červená"}, {q: "Překlad: 'Sun'", a: ["slunce", "měsíc", "hvězda", "nebe"], correct: "slunce"}, 
+                {q: "Překlad: 'Book'", a: ["kniha", "sešit", "pero", "tužka"], correct: "kniha"}, {q: "Překlad: 'Blue'", a: ["modrá", "červená", "zelená", "žlutá"], correct: "modrá"},
+                {q: "Překlad: 'Green'", a: ["žlutá", "červená", "zelená", "modrá"], correct: "zelená"}, {q: "Překlad: 'Milk'", a: ["voda", "čaj", "mléko", "džus"], correct: "mléko"},
+                {q: "Překlad: 'Apple'", a: ["banán", "jablko", "hruška", "pomeranč"], correct: "jablko"}, {q: "Překlad: 'Water'", a: ["voda", "mléko", "limonáda", "čaj"], correct: "voda"}
+            ],
+            2: [
+                {q: "Překlad: 'School'", a: ["škola", "třída", "lavice", "okno"], correct: "škola"}, {q: "Překlad: 'House'", a: ["auto", "dům", "strom", "zahrada"], correct: "dům"}, 
+                {q: "Překlad: 'Teacher'", a: ["žák", "učitel", "ředitel", "školník"], correct: "učitel"}, {q: "Překlad: 'Friend'", a: ["nepřítel", "bratranec", "kamarád", "soused"], correct: "kamarád"}, 
+                {q: "Překlad: 'Weather'", a: ["vítr", "slunce", "počasí", "voda"], correct: "počasí"}, {q: "Překlad: 'Pen'", a: ["pero", "tužka", "guma", "pravítko"], correct: "pero"},
+                {q: "Překlad: 'Car'", a: ["kolo", "auto", "vlak", "autobus"], correct: "auto"}, {q: "Překlad: 'Tree'", a: ["květina", "tráva", "strom", "keř"], correct: "strom"},
+                {q: "Překlad: 'Fish'", a: ["pták", "pes", "ryba", "kočka"], correct: "ryba"}, {q: "Překlad: 'Bird'", a: ["ryba", "pták", "hmyz", "zvíře"], correct: "pták"}
+            ],
+            3: [
+                {q: "She ___ 12 years old.", a: ["is", "are", "am", "be"], correct: "is"}, {q: "I ___ a dog.", a: ["has", "have", "is", "are"], correct: "have"}, 
+                {q: "They ___ like apples.", a: ["don't", "doesn't", "isn't", "aren't"], correct: "don't"}, {q: "He ___ football every day.", a: ["play", "plays", "playing", "played"], correct: "plays"}, 
+                {q: "We ___ in Prague.", a: ["lives", "live", "living", "lived"], correct: "live"}, {q: "You ___ nice.", a: ["is", "am", "are", "be"], correct: "are"},
+                {q: "She ___ English.", a: ["speak", "speaks", "speaking", "spoke"], correct: "speaks"}, {q: "I ___ got a pen.", a: ["has", "have", "is", "are"], correct: "have"},
+                {q: "They ___ playing football.", a: ["is", "am", "are", "be"], correct: "are"}, {q: "He ___ like milk.", a: ["don't", "doesn't", "isn't", "aren't"], correct: "doesn't"}
+            ],
+            4: [
+                {q: "Where ___ my pen?", a: ["is", "are", "am", "be"], correct: "is"}, {q: "What ___ your name?", a: ["is", "are", "am", "be"], correct: "is"}, 
+                {q: "Cats ___ fish.", a: ["eat", "eats", "eating", "ate"], correct: "eat"}, {q: "Birds can ___.", a: ["fly", "swim", "run", "walk"], correct: "fly"}, 
+                {q: "Fish can ___.", a: ["fly", "swim", "run", "jump"], correct: "swim"}, {q: "Where ___ you live?", a: ["do", "does", "is", "are"], correct: "do"},
+                {q: "What ___ she do?", a: ["do", "does", "is", "are"], correct: "does"}, {q: "Dogs can ___.", a: ["fly", "run", "swim", "climb"], correct: "run"},
+                {q: "Monkeys can ___.", a: ["climb", "fly", "swim", "drive"], correct: "climb"}, {q: "Horses can ___.", a: ["run", "fly", "swim", "climb"], correct: "run"}
+            ],
+            5: [
+                {q: "Opposite of 'Big' is:", a: ["small", "tall", "short", "long"], correct: "small"}, {q: "Opposite of 'Hot' is:", a: ["cold", "warm", "cool", "ice"], correct: "cold"}, 
+                {q: "Opposite of 'Happy' is:", a: ["sad", "angry", "tired", "bad"], correct: "sad"}, {q: "Opposite of 'Fast' is:", a: ["slow", "quick", "late", "weak"], correct: "slow"}, 
+                {q: "Opposite of 'Good' is:", a: ["bad", "poor", "wrong", "sad"], correct: "bad"}, {q: "Opposite of 'Tall' is:", a: ["short", "small", "low", "thin"], correct: "short"},
+                {q: "Opposite of 'New' is:", a: ["old", "bad", "cold", "late"], correct: "old"}, {q: "Opposite of 'Clean' is:", a: ["dirty", "bad", "black", "wet"], correct: "dirty"},
+                {q: "Opposite of 'Open' is:", a: ["closed", "shut", "locked", "near"], correct: "closed"}, {q: "Opposite of 'Young' is:", a: ["old", "tall", "big", "sad"], correct: "old"}
+            ],
+            6: [
+                {q: "Past tense of 'Go':", a: ["went", "goed", "gone", "going"], correct: "went"}, {q: "Past tense of 'Have':", a: ["had", "hasd", "haved", "have"], correct: "had"}, 
+                {q: "Past tense of 'See':", a: ["saw", "seen", "seed", "seeing"], correct: "saw"}, {q: "Past tense of 'Eat':", a: ["eated", "ate", "eten", "eating"], correct: "ate"}, 
+                {q: "Past tense of 'Run':", a: ["ran", "runned", "run", "running"], correct: "ran"}, {q: "Past tense of 'Make':", a: ["maked", "made", "make", "making"], correct: "made"},
+                {q: "Past tense of 'Take':", a: ["took", "taked", "taken", "taking"], correct: "took"}, {q: "Past tense of 'Come':", a: ["comed", "came", "come", "coming"], correct: "came"},
+                {q: "Past tense of 'Get':", a: ["got", "getted", "gotten", "getting"], correct: "got"}, {q: "Past tense of 'Say':", a: ["said", "sayed", "say", "saying"], correct: "said"}
+            ],
+            7: [
+                {q: "Translate: 'Včera pršelo.'", a: ["It rained yesterday.", "It rains today.", "It will rain.", "It is raining."], correct: "It rained yesterday."}, 
+                {q: "Translate: 'Zítra půjdu ven.'", a: ["I will go out tomorrow.", "I went out.", "I go out.", "I am going."], correct: "I will go out tomorrow."}, 
+                {q: "Translate: 'Mám rád angličtinu.'", a: ["I like English.", "I love math.", "I speak Czech.", "I read books."], correct: "I like English."}, 
+                {q: "Translate: 'Kde bydlíš?'", a: ["Where do you live?", "Where are you?", "Who are you?", "What is this?"], correct: "Where do you live?"}, 
+                {q: "Translate: 'Kolik je ti let?'", a: ["How old are you?", "How are you?", "What time is it?", "How much is it?"], correct: "How old are you?"},
+                {q: "Translate: 'Nemám čas.'", a: ["I have no time.", "I am free.", "I like time.", "I am busy today."], correct: "I have no time."},
+                {q: "Translate: 'Odkud jsi?'", a: ["Where are you from?", "Where are you?", "Who are you?", "What are you?"], correct: "Where are you from?"},
+                {q: "Translate: 'To je skvělé!'", a: ["That's great!", "This is bad.", "It is boring.", "It's small."], correct: "That's great!"},
+                {q: "Translate: 'Pomoz mi prosím.'", a: ["Help me please.", "Give me a book.", "Look at me.", "Listen to me."], correct: "Help me please."},
+                {q: "Translate: 'Rozumím tomu.'", a: ["I understand.", "I don't know.", "I think so.", "I hope so."], correct: "I understand."}
+            ],
+            8: [
+                {q: "Choose correct spelling:", a: ["beautiful", "beutiful", "beatiful", "beatifull"], correct: "beautiful"}, 
+                {q: "Choose correct spelling:", a: ["friend", "freind", "freand", "frined"], correct: "friend"}, 
+                {q: "Choose correct spelling:", a: ["because", "becaus", "becouse", "bicoase"], correct: "because"}, 
+                {q: "Choose correct spelling:", a: ["tomorrow", "tomorow", "tommorow", "tomorrow"], correct: "tomorrow"}, 
+                {q: "Choose correct spelling:", a: ["language", "langvage", "langugae", "languege"], correct: "language"},
+                {q: "Choose correct spelling:", a: ["restaurant", "restourant", "restarant", "resturant"], correct: "restaurant"},
+                {q: "Choose correct spelling:", a: ["necessary", "neccessary", "necesary", "nesecary"], correct: "necessary"},
+                {q: "Choose correct spelling:", a: ["definitely", "definitly", "definatly", "definitely"], correct: "definitely"},
+                {q: "Choose correct spelling:", a: ["separate", "seperate", "seperat", "sepparate"], correct: "separate"},
+                {q: "Choose correct spelling:", a: ["piece", "peice", "peese", "pece"], correct: "piece"}
+            ],
+            9: [
+                {q: "Advanced: 'If I ___ rich, I would travel.'", a: ["were", "was", "am", "be"], correct: "were"}, 
+                {q: "Advanced: 'The book was written ___ Shakespeare.'", a: ["by", "with", "from", "at"], correct: "by"}, 
+                {q: "Advanced: 'She has been living here ___ 3 years.'", a: ["for", "since", "during", "from"], correct: "for"}, 
+                {q: "Advanced: 'I look forward to ___ you.'", a: ["seeing", "see", "saw", "seen"], correct: "seeing"}, 
+                {q: "Advanced: 'Neither John ___ Mary came.'", a: ["nor", "or", "and", "but"], correct: "nor"},
+                {q: "Advanced: 'I wish I ___ a car.'", a: ["had", "have", "has", "having"], correct: "had"},
+                {q: "Advanced: 'He is taller ___ his brother.'", a: ["than", "as", "that", "then"], correct: "than"},
+                {q: "Advanced: 'This is the house ___ I was born.'", a: ["where", "which", "who", "when"], correct: "where"},
+                {q: "Advanced: 'Unless you hurry, you ___ miss the train.'", a: ["will", "would", "did", "have"], correct: "will"},
+                {q: "Advanced: 'She asked me where ___.'", a: ["I lived", "did I live", "do I live", "lived I"], correct: "I lived"}
+            ],
+            10: [
+                {q: "Expert: 'Hardly had I arrived ___ the phone rang.'", a: ["when", "than", "then", "until"], correct: "when"}, 
+                {q: "Expert: 'Despite ___ tired, he finished his work.'", a: ["being", "be", "to be", "been"], correct: "being"}, 
+                {q: "Expert: 'I'd rather you ___ do that.'", a: ["didn't", "don't", "won't", "haven't"], correct: "didn't"}, 
+                {q: "Expert: 'Had I known, I ___ help you.'", a: ["would have helped", "will help", "helped", "would help"], correct: "would have helped"}, 
+                {q: "Expert: 'It's high time we ___.'", a: ["left", "leave", "leaving", "have left"], correct: "left"},
+                {q: "Expert: 'Not only ___ late, but he also forgot his keys.'", a: ["was he", "he was", "did he", "he did"], correct: "was he"},
+                {q: "Expert: 'Supposing ___, what would you do?'", a: ["it rains", "it rained", "it rain", "raining"], correct: "it rains"},
+                {q: "Expert: 'There is no point ___ arguing.'", a: ["in", "to", "for", "at"], correct: "in"},
+                {q: "Expert: 'He is said ___ the exam.'", a: ["to have passed", "passed", "passing", "to pass"], correct: "to have passed"},
+                {q: "Expert: 'Scarcely had we stepped outside ___ it started to rain.'", a: ["when", "than", "then", "as"], correct: "when"}
+            ]
         },
         cz: {
-            1: [{q: "Myš_čka běhá po dvoře.", a: ["i", "y"], correct: "i"}, {q: "Ry_ka v akváriu.", a: ["b", "p"], correct: "b"}, {q: "Ko_ka mňouká.", a: ["č", "š"], correct: "č"}, {q: "P_cha předchází pádem.", a: ["ý", "í"], correct: "ý"}, {q: "B_lý sníh.", a: ["í", "ý"], correct: "í"}],
-            2: [{q: "Dělal to pro m_.", a: ["ě", "e"], correct: "ě"}, {q: "S_kora je pták.", a: ["y", "i"], correct: "y"}, {q: "B_žel do školy.", a: ["ě", "e"], correct: "ě"}, {q: "Vyjmenované slovo po B: B_t", a: ["y", "i"], correct: "y"}, {q: "Na louce kvetou kv_ty.", a: ["ě", "e"], correct: "ě"}],
-            3: [{q: "Vyber správné slovo:", a: ["bystrý", "bistrý", "bistrí", "bystrí"], correct: "bystrý"}, {q: "Děti s_hrály divadlo.", a: ["e", "i", "y"], correct: "e"}, {q: "B_lit stěnu na bílo.", a: ["í", "ý"], correct: "í"}, {q: "Zapom_l na úkol.", a: ["ně", "ě"], correct: "ně"}, {q: "Město Litomyš_.", a: ["l", "ľ"], correct: "l"}],
-            4: [{q: "Mocn_ síla.", a: ["ný", "ní"], correct: "ný"}, {q: "Nezv_klý jev.", a: ["vy", "vi"], correct: "vy"}, {q: "Divný p_skot.", a: ["š", "s", "z"], correct: "š"}, {q: "Rozum_š úkolu?", a: ["ě", "je"], correct: "ě"}, {q: "Křiv_ stůl.", a: ["ý", "í"], correct: "ý"}],
-            5: [{q: "Vyjmenuj po M: m_t (nádobí)", a: ["ý", "í"], correct: "ý"}, {q: "M_sto v tramvaji.", a: ["í", "ý"], correct: "í"}, {q: "Hmyz b_zučí.", a: ["u", "ú"], correct: "u"}, {q: "Včela št_pe.", a: ["í", "ý"], correct: "í"}, {q: "Zpívá p_seň.", a: ["í", "ý"], correct: "í"}],
-            6: [{q: "Učitel vysvětloval m_vnicu.", a: ["u", "ú"], correct: "u"}, {q: "Běželi o_závod.", a: ["z", "s"], correct: "z"}, {q: "Na stromě zraje o_ech.", a: ["ř", "š"], correct: "ř"}, {q: "Dědeček p_je čaj.", a: ["i", "y"], correct: "i"}, {q: "Na zahradě rostou r_že.", a: ["ů", "ú"], correct: "ů"}],
-            7: [{q: "Napsal úkol bez ch_by.", a: ["y", "i"], correct: "y"}, {q: "V lese šum_ listí.", a: ["í", "ý"], correct: "í"}, {q: "Děti hl_dají hřiště.", a: ["í", "ý"], correct: "í"}, {q: "Na silnici je l_d.", a: ["e", "ě"], correct: "e"}, {q: "Koupil nové p_ero.", a: ["í", "ý"], correct: "í"}],
-            8: [{q: "Slovo s předponou s- / se- (směr dohromady):", a: ["sbalit", "zbalit", "zhubnout", "zbrousit"], correct: "sbalit"}, {q: "Slovo s předponou vz- (směr nahoru):", a: ["vzhůru", "zhůru", "shůru", "szůru"], correct: "vzhůru"}, {q: "Vzor podstatného jména 'předseda':", a: ["předseda", "pán", "muž", "žena"], correct: "předseda"}, {q: "Vzor podstatného jména 'stroj':", a: ["stroj", "hrad", "muž", "žena"], correct: "stroj"}, {q: "Vzor podstatného jména 'kniha':", a: ["kniha", "žena", "má kost", "píseň"], correct: "žena"}],
-            9: [{q: "Urči slovní druh slova 'Rychle':", a: ["příslovce", "přídavné jméno", "sloveso", "podstatné jméno"], correct: "příslovce"}, {q: "Urči slovní druh slova 'Běhat':", a: ["sloveso", "příslovce", "podstatné jméno", "zájmeno"], correct: "sloveso"}, {q: "Urči slovní druh slova 'Náš':", a: ["zájmeno", "přídavné jméno", "číslovka", "předložka"], correct: "zájmeno"}, {q: "Urči slovní druh slova 'Sedm':", a: ["číslovka", "přídavné jméno", "podstatné jméno", "zájmeno"], correct: "číslovka"}, {q: "Urči slovní druh slova 'Pod':", a: ["předložka", "spojka", "částice", "citoslovce"], correct: "předložka"}],
-            10: [{q: "Vlastní jména píšeme s:", a: ["velkým písmenem", "malým písmenem", "záleží na náladě", "vždy kurzívou"], correct: "velkým písmenem"}, {q: "Vybíráme podmět ve větě: 'Karel čistí auto.'", a: ["Karel", "čistí", "auto", "žádný"], correct: "Karel"}, {q: "Vybíráme přísudek ve větě: 'Děti zpívají písničku.'", a: ["zpívají", "Děti", "písničku", "žádný"], correct: "zpívají"}, {q: "Vyjmenovaná slova po S:", a: ["syn, syt, souſed...", "byl, pýcha...", "mít, my...", "vy, výr..."], correct: "syn, syt, souſed..."}, {q: "Souhlásky obojetné jsou:", a: ["b, f, l, m, p, s, v, z", "a, e, i, o, u", "c, č, š, ž", "d, t, n"], correct: "b, f, l, m, p, s, v, z"}]
+            1: [
+                {q: "Myš_čka běhá po dvoře.", a: ["i", "y"], correct: "i"}, {q: "Ry_ka v akváriu.", a: ["b", "p"], correct: "b"}, 
+                {q: "Ko_ka mňouká.", a: ["č", "š"], correct: "č"}, {q: "P_cha předchází pádem.", a: ["ý", "í"], correct: "ý"}, 
+                {q: "B_lý sníh.", a: ["í", "ý"], correct: "í"}, {q: "L_ce plné jablek.", a: ["i", "y"], correct: "i"},
+                {q: "Květ_na na louce.", a: ["ě", "e"], correct: "ě"}, {q: "Včelka št_pe.", a: ["í", "ý"], correct: "í"},
+                {q: "Hrad_čany v Praze.", a: ["u", "ú"], correct: "u"}, {q: "Zeměp_s je předmět.", a: ["i", "y"], correct: "i"}
+            ],
+            2: [
+                {q: "Dělal to pro m_.", a: ["ě", "e"], correct: "ě"}, {q: "S_kora je pták.", a: ["y", "i"], correct: "y"}, 
+                {q: "B_žel do školy.", a: ["ě", "e"], correct: "ě"}, {q: "Vyjmenované slovo po B: B_t", a: ["y", "i"], correct: "y"}, 
+                {q: "Na louce kvetou kv_ty.", a: ["ě", "e"], correct: "ě"}, {q: "Zpívám p_seň.", a: ["í", "ý"], correct: "í"},
+                {q: "V_tr fouká.", a: ["í", "ý"], correct: "í"}, {q: "M_sto k sezení.", a: ["í", "ý"], correct: "í"},
+                {q: "Dědeček p_je čaj.", a: ["i", "y"], correct: "i"}, {q: "Lesní zv_řena.", a: ["ě", "e"], correct: "ě"}
+            ],
+            3: [
+                {q: "Vyber správné slovo:", a: ["bystrý", "bistrý", "bistrí", "bystrí"], correct: "bystrý"}, {q: "Děti s_hrály divadlo.", a: ["e", "i", "y"], correct: "e"}, 
+                {q: "B_lit stěnu na bílo.", a: ["í", "ý"], correct: "í"}, {q: "Zapom_l na úkol.", a: ["ně", "ě"], correct: "ně"}, 
+                {q: "Město Litomyš_.", a: ["l", "ľ"], correct: "l"}, {q: "Nová vyhl_dka.", a: ["í", "ý"], correct: "í"},
+                {q: "Rychlý přeb_h.", a: ["ě", "e"], correct: "ě"}, {q: "Vysoký hradní v_tah.", a: ["ý", "í"], correct: "ý"},
+                {q: "S_rová zelenina.", a: ["y", "i"], correct: "y"}, {q: "Zpívající p_snička.", a: ["í", "ý"], correct: "í"}
+            ],
+            4: [
+                {q: "Mocn_ síla.", a: ["ný", "ní"], correct: "ný"}, {q: "Nezv_klý jev.", a: ["vy", "vi"], correct: "vy"}, 
+                {q: "Divný p_skot.", a: ["š", "s", "z"], correct: "š"}, {q: "Rozum_š úkolu?", a: ["ě", "je"], correct: "ě"}, 
+                {q: "Křiv_ stůl.", a: ["ý", "í"], correct: "ý"}, {q: "Neznámý p_vod.", a: ["ů", "ú"], correct: "ů"},
+                {q: "Starobylý zám_k.", a: ["e", "ě"], correct: "e"}, {q: "Vzácný r_kopis.", a: ["u", "ú"], correct: "u"},
+                {q: "Pohádková b_tost.", a: ["y", "i"], correct: "y"}, {q: "Hluboké údol_.", a: ["í", "ý"], correct: "í"}
+            ],
+            5: [
+                {q: "Vyjmenuj po M: m_t (nádobí)", a: ["ý", "í"], correct: "ý"}, {q: "M_sto v tramvaji.", a: ["í", "ý"], correct: "í"}, 
+                {q: "Hmyz b_zučí.", a: ["u", "ú"], correct: "u"}, {q: "Včela št_pe.", a: ["í", "ý"], correct: "í"}, 
+                {q: "Zpívá p_seň.", a: ["í", "ý"], correct: "í"}, {q: "M_šutka je řeka.", a: ["y", "i"], correct: "y"},
+                {q: "Malý m_ch.", a: ["í", "ý"], correct: "í"}, {q: "Dětský m_slivec.", a: ["y", "i"], correct: "y"},
+                {q: "M_t ruce mýdlem.", a: ["ý", "í"], correct: "ý"}, {q: "Vysoký kom_n.", a: ["í", "ý"], correct: "í"}
+            ],
+            6: [
+                {q: "Učitel vysvětloval m_vnicu.", a: ["u", "ú"], correct: "u"}, {q: "Běželi o_závod.", a: ["z", "s"], correct: "z"}, 
+                {q: "Na stromě zraje o_ech.", a: ["ř", "š"], correct: "ř"}, {q: "Dědeček p_je čaj.", a: ["i", "y"], correct: "i"}, 
+                {q: "Na zahradě rostou r_že.", a: ["ů", "ú"], correct: "ů"}, {q: "Rychlý v_let.", a: ["ý", "í"], correct: "ý"},
+                {q: "Ostrý nů_.", a: ["ž", "š"], correct: "ž"}, {q: "Průzračná vod_čka.", a: ["i", "y"], correct: "i"},
+                {q: "Zimní mra_y.", a: ["z", "s"], correct: "z"}, {q: "Teplý kabá_.", a: ["t", "d"], correct: "t"}
+            ],
+            7: [
+                {q: "Napsal úkol bez ch_by.", a: ["y", "i"], correct: "y"}, {q: "V lese šum_ listí.", a: ["í", "ý"], correct: "í"}, 
+                {q: "Děti hl_dají hřiště.", a: ["í", "ý"], correct: "í"}, {q: "Na silnici je l_d.", a: ["e", "ě"], correct: "e"}, 
+                {q: "Koupil nové p_ero.", a: ["í", "ý"], correct: "í"}, {q: "Vlajka vl_je.", a: ["je", "ě"], correct: "je"},
+                {q: "Zelená tr_va.", a: ["á", "a"], correct: "á"}, {q: "Jarní květ_ny.", a: ["ě", "e"], correct: "ě"},
+                {q: "Pilný žá_.", a: ["k", "g"], correct: "k"}, {q: "Slunečný den_.", a: ["e", "ě"], correct: "e"}
+            ],
+            8: [
+                {q: "Slovo s předponou s- / se- (směr dohromady):", a: ["sbalit", "zbalit", "zhubnout", "zbrousit"], correct: "sbalit"}, 
+                {q: "Slovo s předponou vz- (směr nahoru):", a: ["vzhůru", "zhůru", "shůru", "szůru"], correct: "vzhůru"}, 
+                {q: "Vzor podstatného jména 'předseda':", a: ["předseda", "pán", "muž", "žena"], correct: "předseda"}, 
+                {q: "Vzor podstatného jména 'stroj':", a: ["stroj", "hrad", "muž", "žena"], correct: "stroj"}, 
+                {q: "Vzor podstatného jména 'kniha':", a: ["kniha", "žena", "má kost", "píseň"], correct: "žena"},
+                {q: "Předpona s- vyjadřuje:", a: ["směr dohromady / z povrchu pryč", "směr nahoru", "přibližování", "opakování"], correct: "směr dohromady / z povrchu pryč"},
+                {q: "Předpona z- vyjadřuje:", a: ["změnu stavu / vytvoření", "směr dolů", "uvnitř", "oddělení"], correct: "změnu stavu / vytvoření"},
+                {q: "Vzor podstatného jména 'pán':", a: ["pán", "hrad", "muž", "předseda"], correct: "pán"},
+                {q: "Vzor podstatného jména 'žena':", a: ["žena", "róba", "dívka", "paní"], correct: "žena"},
+                {q: "Vzor podstatného jména 'město':", a: ["město", "stavení", "pole", "kuře"], correct: "město"}
+            ],
+            9: [
+                {q: "Urči slovní druh slova 'Rychle':", a: ["příslovce", "přídavné jméno", "sloveso", "podstatné jméno"], correct: "příslovce"}, 
+                {q: "Urči slovní druh slova 'Běhat':", a: ["sloveso", "příslovce", "podstatné jméno", "zájmeno"], correct: "sloveso"}, 
+                {q: "Urči slovní druh slova 'Náš':", a: ["zájmeno", "přídavné jméno", "číslovka", "předložka"], correct: "zájmeno"}, 
+                {q: "Urči slovní druh slova 'Sedm':", a: ["číslovka", "přídavné jméno", "podstatné jméno", "zájmeno"], correct: "číslovka"}, 
+                {q: "Urči slovní druh slova 'Pod':", a: ["předložka", "spojka", "částice", "citoslovce"], correct: "předložka"},
+                {q: "Urči slovní druh slova 'Ale':", a: ["spojka", "předložka", "citoslovce", "částice"], correct: "spojka"},
+                {q: "Urči slovní druh slova 'Krásný':", a: ["přídavné jméno", "podstatné jméno", "příslovce", "sloveso"], correct: "přídavné jméno"},
+                {q: "Urči slovní druh slova 'Ach':", a: ["citoslovce", "spojka", "předložka", "částice"], correct: "citoslovce"},
+                {q: "Urči slovní druh slova 'Kniha':", a: ["podstatné jméno", "přídavné jméno", "sloveso", "příslovce"], correct: "podstatné jméno"},
+                {q: "Kolik máme v češtině slovních druhů?", a: ["10", "8", "9", "7"], correct: "10"}
+            ],
+            10: [
+                {q: "Vlastní jména píšeme s:", a: ["velkým písmenem", "malým písmenem", "záleží na náladě", "vždy kurzívou"], correct: "velkým písmenem"}, 
+                {q: "Vybíráme podmět ve větě: 'Karel čistí auto.'", a: ["Karel", "čistí", "auto", "žádný"], correct: "Karel"}, 
+                {q: "Vybíráme přísudek ve větě: 'Děti zpívají písničku.'", a: ["zpívají", "Děti", "písničku", "žádný"], correct: "zpívají"}, 
+                {q: "Vyjmenovaná slova po S:", a: ["syn, syt, souſed...", "byl, pýcha...", "mít, my...", "vy, výr..."], correct: "syn, syt, souſed..."}, 
+                {q: "Souhlásky obojetné jsou:", a: ["b, f, l, m, p, s, v, z", "a, e, i, o, u", "c, č, š, ž", "d, t, n"], correct: "b, f, l, m, p, s, v, z"},
+                {q: "Věta je:", a: ["myšlenkově ucelený výrok", "pouhé slovo", "seznam písmen", "číslo"], correct: "myšlenkově ucelený výrok"},
+                {q: "Synonyma jsou slova:", a: ["stejného nebo podobného významu", "opačného významu", "znějící stejně", "cizího původu"], correct: "stejného nebo podobného významu"},
+                {q: "Antonyma jsou slova:", a: ["opačného významu", "stejného významu", "stejného znění", "bez významu"], correct: "opačného významu"},
+                {q: "Homonyma jsou slova:", a: ["stejně znějící, ale různého významu", "opačného významu", "stejného původu", "pouze v cizích jazycích"], correct: "stejně znějící, ale různého významu"},
+                {q: "Hlavním větným členem je:", a: ["podmět a přísudek", "předmět a přívlastek", "příslovečné určení", "pouze podmět"], correct: "podmět a přísudek"}
+            ]
         },
         phy: {
-            1: [{q: "Čím měříme hmotnost?", a: ["Váhami", "Pravítkem", "Teploměrem", "Stopkami"], correct: "Váhami"}, {q: "Základní jednotka délky:", a: ["Metr", "Kilogram", "Sekunda", "Litr"], correct: "Metr"}, {q: "1 km má metrů:", a: ["1000", "100", "10", "10000"], correct: "1000"}, {q: "Značka pro sílu:", a: ["F", "m", "s", "v"], correct: "F"}, {q: "Jednotka síly:", a: ["Newton", "Joule", "Watt", "Pascal"], correct: "Newton"}],
-            2: [{q: "1 kg má gramů:", a: ["1000", "100", "10", "500"], correct: "1000"}, {q: "Čím měříme objem kapalin?", a: ["Odmerným válcem", "Váhou", "Siloměrem", "Pásmem"], correct: "Odmerným válcem"}, {q: "Skupenství vody při 0 °C:", a: ["Led (pevné)", "Pára", "Plazma", "Plyn"], correct: "Led (pevné)"}, {q: "Co způsobuje pád k zemi?", a: ["Gravitační síla", "Magnetismus", "Tlak vzduchu", "Tření"], correct: "Gravitační síla"}, {q: "Značka pro hmotnost:", a: ["m", "H", "kg", "V"], correct: "m"}],
-            3: [{q: "Vzorec pro rychlost (v):", a: ["s / t", "s × t", "t / s", "m × g"], correct: "s / t"}, {q: "Atmosférický tlak měříme:", a: ["Barometrem", "Teploměrem", "Manometrem", "Váhou"], correct: "Barometrem"}, {q: "1 litr vody má hmotnost:", a: ["1 kg", "10 kg", "100 g", "5 kg"], correct: "1 kg"}, {q: "Tlak vypočítáme jako sílu dělenou:", a: ["Obsahem plochy", "Objemem", "Délkou", "Časem"], correct: "Obsahem plochy"}, {q: "Lidské ucho slyší od kmitočtu:", a: ["20 Hz", "200 Hz", "2000 Hz", "1 Hz"], correct: "20 Hz"}],
-            4: [{q: "Tělesa se přitahují silou:", a: ["Gravitační", "Magickou", "Elektrickou", "Žádnou"], correct: "Gravitační"}, {q: "Rychlost 72 km/h je v m/s:", a: ["20 m/s", "10 m/s", "25 m/s", "15 m/s"], correct: "20 m/s"}, {q: "Jednotka práce a energie:", a: ["Joule", "Newton", "Watt", "Pascal"], correct: "Joule"}, {q: "Při rovnoměrném pohybu těleso:", a: ["Ujíždí konstantní rychlostí", "Zrychluje", "Zpomaluje", "Stojí"], correct: "Ujíždí konstantní rychlostí"}, {q: "Značka pro objem je:", a: ["V", "m", "s", "t"], correct: "V"}],
-            5: [{q: "Kinetická energie závisí na:", a: ["Hmotnosti a rychlosti", "Teplotě", "Tlaku", "Barvě"], correct: "Hmotnosti a rychlosti"}, {q: "Potenciální energie závisí na:", a: ["Výšce a hmotnosti", "Rychlosti", "Tlaku", "Času"], correct: "Výšce a hmotnosti"}, {q: "Jednotka výkonu (P):", a: ["Watt", "Joule", "Newton", "Volt"], correct: "Watt"}, {q: "Archimédův zákon platí pro:", a: ["Kapaliny a plyny", "Pouze pevná tělesa", "Vakuum", "Světlo"], correct: "Kapaliny a plyny"}, {q: "Tlak v hloubce kapaliny závisí na:", a: ["Hloubce a hustotě", "Barvě", "Nádobě", "Teplotě vzduchu"], correct: "Hloubce a hustotě"}],
-            6: [{q: "Bod varu vody za normálního tlaku:", a: ["100 °C", "0 °C", "50 °C", "200 °C"], correct: "100 °C"}, {q: "Hustota čisté vody je:", a: ["1000 kg/m³", "100 kg/m³", "10 kg/m³", "1 kg/m³"], correct: "1000 kg/m³"}, {q: "Pevná látka s krystalickou mřížkou:", a: ["Sůl / Křemen", "Voda", "Vzduch", "Olej"], correct: "Sůl / Křemen"}, {q: "Země obíhá kolem:", a: ["Slunce", "Měsíce", "Marsu", "Jupiteru"], correct: "Slunce"}, {q: "Měsíc obíhá kolem:", a: ["Země", "Slunce", "Venuše", "Stojí"], correct: "Země"}],
-            7: [{q: "Elektrický proud měříme:", a: ["Ampérmetrem", "Voltmetrem", "Ohmmetrem", "Wattmetrem"], correct: "Ampérmetrem"}, {q: "Elektrické napětí měříme:", a: ["Voltmetrem", "Ampérmetrem", "Barometrem", "Manometrem"], correct: "Voltmetrem"}, {q: "Ohmův zákon definuje vztah:", a: ["U = R × I", "P = U × I", "F = m × a", "s = v × t"], correct: "U = R × I"}, {q: "Jednotka elektrického odporu:", a: ["Ohm", "Ampér", "Volt", "Watt"], correct: "Ohm"}, {q: "Magnetické pole vytváří:", a: ["Pohybující se náboj", "Pouze plast", "Dřevo", "Sklo"], correct: "Pohybující se náboj"}],
-            8: [{q: "Úhel dopadu se rovná úhlu:", a: ["Odrazu", "Lomu", "Kmitu", "Tlaku"], correct: "Odrazu"}, {q: "Rychlost světla ve vákuu je cca:", a: ["300 000 km/s", "340 m/s", "1500 m/s", "3000 km/s"], correct: "300 000 km/s"}, {q: "Rychlost zvuku ve vzduchu je cca:", a: ["340 m/s", "300 000 km/s", "100 m/s", "1000 m/s"], correct: "340 m/s"}, {q: "Konvexní čočka je:", a: ["Spojitka", "Rozptylka", "Zrcadlo", "Hranol"], correct: "Spojitka"}, {q: "Konkávní čočka je:", a: ["Rozptylka", "Spojitka", "Deska", "Válec"], correct: "Rozptylka"}],
-            9: [{q: "Teplo dodané tělesu vypočítáme jako:", a: ["c × m × Δt", "m × g × h", "F × s", "p × V"], correct: "c × m × Δt"}, {q: "Měrná tepelná kapacita vyjadřuje:", a: ["Teplo na ohřátí 1kg o 1°C", "Hmotnost tělesa", "Rychlost varu", "Tlak páry"], correct: "Teplo na ohřátí 1kg o 1°C"}, {q: "Při tání těleso teplo:", a: ["Přijímá", "Vydává", "Nemění", "Ztrácí"], correct: "Přijímá"}, {q: "Při tuhnutí těleso teplo:", a: ["Vydává", "Přijímá", "Nemění", "Absorbuje"], correct: "Vydává"}, {q: "Absolutní nula je teplota v kelvinech:", a: ["0 K", "273 K", "-273 K", "100 K"], correct: "0 K"}],
-            10: [{q: "Radioaktivitu objevil(a):", a: ["Marie a Pierre Curie / Becquerel", "Albert Einstein", "Isaac Newton", "Nikola Tesla"], correct: "Marie a Pierre Curie / Becquerel"}, {q: "Teorie relativity autorem je:", a: ["Albert Einstein", "Isaac Newton", "Galileo Galilei", "Thomas Edison"], correct: "Albert Einstein"}, {q: "Zákon zachování energie formuluje, že energie se:", a: ["Neztrácí ani nevzniká", "Vždy ztrácí", "Může vyrobit z ničeho", "Postupně ničí"], correct: "Neztrácí ani nevzniká"}, {q: "V jaderné elektrárně probíhá:", a: ["Štěpení jader uranu", "Spalování uhlí", "Solární přeměna", "Větrná turbína"], correct: "Štěpení jader uranu"}, {q: "Vesmírné těleso s obrovskou gravitací, odkud neuteče světlo:", a: ["Černá díra", "Bílý trpaslík", "Kometa", "Neutronová hvězda"], correct: "Černá díra"}]
+            1: [
+                {q: "Čím měříme hmotnost?", a: ["Váhami", "Pravítkem", "Teploměrem", "Stopkami"], correct: "Váhami"}, 
+                {q: "Základní jednotka délky:", a: ["Metr", "Kilogram", "Sekunda", "Litr"], correct: "Metr"}, 
+                {q: "1 km má metrů:", a: ["1000", "100", "10", "10000"], correct: "1000"}, 
+                {q: "Značka pro sílu:", a: ["F", "m", "s", "v"], correct: "F"}, 
+                {q: "Jednotka síly:", a: ["Newton", "Joule", "Watt", "Pascal"], correct: "Newton"},
+                {q: "Čím měříme čas?", a: ["Hodinkami / stopkami", "Váhami", "Pravítkem", "Teploměrem"], correct: "Hodinkami / stopkami"},
+                {q: "Základní jednotka času:", a: ["Sekunda", "Minuta", "Hodina", "Den"], correct: "Sekunda"},
+                {q: "1 hodina má minut:", a: ["60", "100", "24", "30"], correct: "60"},
+                {q: "Značka pro dráhu:", a: ["s", "t", "v", "m"], correct: "s"},
+                {q: "Jednotka rychlosti je:", a: ["m/s", "kg", "N", "J"], correct: "m/s"}
+            ],
+            2: [
+                {q: "1 kg má gramů:", a: ["1000", "100", "10", "500"], correct: "1000"}, 
+                {q: "Čím měříme objem kapalin?", a: ["Odmerným válcem", "Váhou", "Siloměrem", "Pásmem"], correct: "Odmerným válcem"}, 
+                {q: "Skupenství vody při 0 °C:", a: ["Led (pevné)", "Pára", "Plazma", "Plyn"], correct: "Led (pevné)"}, 
+                {q: "Co způsobuje pád k zemi?", a: ["Gravitační síla", "Magnetismus", "Tlak vzduchu", "Tření"], correct: "Gravitační síla"}, 
+                {q: "Značka pro hmotnost:", a: ["m", "H", "kg", "V"], correct: "m"},
+                {q: "Bod varu vody je:", a: ["100 °C", "0 °C", "50 °C", "200 °C"], correct: "100 °C"},
+                {q: "Plynné skupenství vody je:", a: ["Vodní pára", "Led", "Voda", "Sněhová vločka"], correct: "Vodní pára"},
+                {q: "Značka pro objem:", a: ["V", "m", "s", "t"], correct: "V"},
+                {q: "Jednotka objemu je:", a: ["Litr / m³", "Kg", "Newton", "Metr"], correct: "Litr / m³"},
+                {q: "Těleso plave na vodě, pokud má hustotu:", a: ["Menší než voda", "Větší než voda", "Stejnou", "Nulovou"], correct: "Menší než voda"}
+            ],
+            3: [
+                {q: "Vzorec pro rychlost (v):", a: ["s / t", "s × t", "t / s", "m × g"], correct: "s / t"}, 
+                {q: "Atmosférický tlak měříme:", a: ["Barometrem", "Teploměrem", "Manometrem", "Váhou"], correct: "Barometrem"}, 
+                {q: "1 litr vody má hmotnost:", a: ["1 kg", "10 kg", "100 g", "5 kg"], correct: "1 kg"}, 
+                {q: "Tlak vypočítáme jako sílu dělenou:", a: ["Obsahem plochy", "Objemem", "Délkou", "Časem"], correct: "Obsahem plochy"}, 
+                {q: "Lidské ucho slyší od kmitočtu:", a: ["20 Hz", "200 Hz", "2000 Hz", "1 Hz"], correct: "20 Hz"},
+                {q: "Jednotka tlaku je:", a: ["Pascal", "Newton", "Joule", "Watt"], correct: "Pascal"},
+                {q: "Značka pro tlak:", a: ["p", "F", "S", "W"], correct: "p"},
+                {q: "Síla se měří:", a: ["Siloměrem", "Váhou", "Pravítkem", "Barometrem"], correct: "Siloměrem"},
+                {q: "Pružná síla vzniká při:", a: ["Deformaci tělesa", "Zahřátí", "Ochlazení", "Klidovém stavu"], correct: "Deformaci tělesa"},
+                {q: "Třecí síla působí:", a: ["Proti směru pohybu", "Po směru pohybu", "Kolmo", "Vůbec nepůsobí"], correct: "Proti směru pohybu"}
+            ],
+            4: [
+                {q: "Tělesa se přitahují silou:", a: ["Gravitační", "Magickou", "Elektrickou", "Žádnou"], correct: "Gravitační"}, 
+                {q: "Rychlost 72 km/h je v m/s:", a: ["20 m/s", "10 m/s", "25 m/s", "15 m/s"], correct: "20 m/s"}, 
+                {q: "Jednotka práce a energie:", a: ["Joule", "Newton", "Watt", "Pascal"], correct: "Joule"}, 
+                {q: "Při rovnoměrném pohybu těleso:", a: ["Ujíždí konstantní rychlostí", "Zrychluje", "Zpomaluje", "Stojí"], correct: "Ujíždí konstantní rychlostí"}, 
+                {q: "Značka pro objem je:", a: ["V", "m", "s", "t"], correct: "V"},
+                {q: "Mechanická práce se vypočítá jako:", a: ["W = F × s", "W = m × g", "W = s / t", "W = p × S"], correct: "W = F × s"},
+                {q: "Výkon vypočítáme jako:", a: ["P = W / t", "P = F × s", "P = m × v", "P = U × I"], correct: "P = W / t"},
+                {q: "Jednotka výkonu:", a: ["Watt", "Joule", "Newton", "Pascal"], correct: "Watt"},
+                {q: "Kinetická energie souvisí s:", a: ["Pohybem tělesa", "Výškou tělesa", "Teplotou", "Barvou"], correct: "Pohybem tělesa"},
+                {q: "Potenciální energie souvisí s:", a: ["Polohou / výškou tělesa", "Rychlostí", "Třením", "Objemem"], correct: "Polohou / výškou tělesa"}
+            ],
+            5: [
+                {q: "Kinetická energie závisí na:", a: ["Hmotnosti a rychlosti", "Teplotě", "Tlaku", "Barvě"], correct: "Hmotnosti a rychlosti"}, 
+                {q: "Potenciální energie závisí na:", a: ["Výšce a hmotnosti", "Rychlosti", "Tlaku", "Času"], correct: "Výšce a hmotnosti"}, 
+                {q: "Jednotka výkonu (P):", a: ["Watt", "Joule", "Newton", "Volt"], correct: "Watt"}, 
+                {q: "Archimédův zákon platí pro:", a: ["Kapaliny a plyny", "Pouze pevná tělesa", "Vakuum", "Světlo"], correct: "Kapaliny a plyny"}, 
+                {q: "Tlak v hloubce kapaliny závisí na:", a: ["Hloubce a hustotě", "Barvě", "Nádobě", "Teplotě vzduchu"], correct: "Hloubce a hustotě"},
+                {q: "Tlak v kapalinách vyjadřuje:", a: ["Pascalův zákon", "Ohmův zákon", "Archimédův zákon", "Newtonův zákon"], correct: "Pascalův zákon"},
+                {q: "Hydrostatický tlak nezávisí na:", a: ["Tvaru nádoby", "Hloubce", "Hustotě kapaliny", "Tíhovém zrychlení"], correct: "Tvaru nádoby"},
+                {q: "Těleso ponořené do kapaliny je nadlehčováno:", a: ["Uzákoněnou vztlakovou silou", "Gravitací", "Tlakem vzduchu", "Třením"], correct: "Uzákoněnou vztlakovou silou"},
+                {q: "Na těleso v kapalině působí vztlaková síla směrem:", a: ["Nahoru", "Dolů", "Do stran", "Nikam"], correct: "Nahoru"},
+                {q: "Hmotnost tělesa v kapalině se ve srovnání se vzduchem:", a: ["Zdá se menší", "Zdá se větší", "Je stejná", "Nulová"], correct: "Zdá se menší"}
+            ],
+            6: [
+                {q: "Bod varu vody za normálního tlaku:", a: ["100 °C", "0 °C", "50 °C", "200 °C"], correct: "100 °C"}, 
+                {q: "Hustota čisté vody je:", a: ["1000 kg/m³", "100 kg/m³", "10 kg/m³", "1 kg/m³"], correct: "1000 kg/m³"}, 
+                {q: "Pevná látka s krystalickou mřížkou:", a: ["Sůl / Křemen", "Voda", "Vzduch", "Olej"], correct: "Sůl / Křemen"}, 
+                {q: "Země obíhá kolem:", a: ["Slunce", "Měsíce", "Marsu", "Jupiteru"], correct: "Slunce"}, 
+                {q: "Měsíc obíhá kolem:", a: ["Země", "Slunce", "Venuše", "Stojí"], correct: "Země"},
+                {q: "Teplo dodané tělese se značí:", a: ["Q", "T", "E", "W"], correct: "Q"},
+                {q: "Měrná tepelná kapacita vyjadřuje teplo potřebné k ohřátí:", a: ["1 kg látky o 1 °C", "1 g o 10 °C", "Celého tělesa", "Všeho"], correct: "1 kg látky o 1 °C"},
+                {q: "Při tání těleso teplo:", a: ["Přijímá", "Vydává", "Nemění", "Ztrácí"], correct: "Přijímá"},
+                {q: "Při tuhnutí těleso teplo:", a: ["Vydává", "Přijímá", "Nemění", "Absorbuje"], correct: "Vydává"},
+                {q: "Vnitřní energii tělesa můžeme zvýšit:", a: ["Konáním práce nebo tepelnou výměnou", "Pouze chlazením", "Zastavením", "Nic neděláním"], correct: "Konáním práce nebo tepelnou výměnou"}
+            ],
+            7: [
+                {q: "Elektrický proud měříme:", a: ["Ampérmetrem", "Voltmetrem", "Ohmmetrem", "Wattmetrem"], correct: "Ampérmetrem"}, 
+                {q: "Elektrické napětí měříme:", a: ["Voltmetrem", "Ampérmetrem", "Barometrem", "Manometrem"], correct: "Voltmetrem"}, 
+                {q: "Ohmův zákon definuje vztah:", a: ["U = R × I", "P = U × I", "F = m × a", "s = v × t"], correct: "U = R × I"}, 
+                {q: "Jednotka elektrického odporu:", a: ["Ohm", "Ampér", "Volt", "Watt"], correct: "Ohm"}, 
+                {q: "Magnetické pole vytváří:", a: ["Pohybující se náboj", "Pouze plast", "Dřevo", "Sklo"], correct: "Pohybující se náboj"},
+                {q: "Značka pro elektrický proud:", a: ["I", "U", "R", "P"], correct: "I"},
+                {q: "Značka pro elektrické napětí:", a: ["U", "I", "R", "Q"], correct: "U"},
+                {q: "Jednotka elektrického proudu:", a: ["Ampér", "Volt", "Ohm", "Watt"], correct: "Ampér"},
+                {q: "Jednotka elektrického napětí:", a: ["Volt", "Ampér", "Ohm", "Joule"], correct: "Volt"},
+                {q: "Zdroj elektrického napětí je např.:", a: ["Baterie / akumulátor", "Dřevěná tyč", "Plastový hřeben", "Sklo"], correct: "Baterie / akumulátor"}
+            ],
+            8: [
+                {q: "Úhel dopadu se rovná úhlu:", a: ["Odrazu", "Lomu", "Kmitu", "Tlaku"], correct: "Odrazu"}, 
+                {q: "Rychlost světla ve vákuu je cca:", a: ["300 000 km/s", "340 m/s", "1500 m/s", "3000 km/s"], correct: "300 000 km/s"}, 
+                {q: "Rychlost zvuku ve vzduchu je cca:", a: ["340 m/s", "300 000 km/s", "100 m/s", "1000 m/s"], correct: "340 m/s"}, 
+                {q: "Konvexní čočka je:", a: ["Spojitka", "Rozptylka", "Zrcadlo", "Hranol"], correct: "Spojitka"}, 
+                {q: "Konkávní čočka je:", a: ["Rozptylka", "Spojitka", "Deska", "Válec"], correct: "Rozptylka"},
+                {q: "Zákon odrazu světla říká, že úhel dopadu se rovná úhlu:", a: ["Odrazu", "Lomu", "Dopadu", "Zlomu"], correct: "Odrazu"},
+                {q: "Optické prostředí, kterým světlo prochází, se nazývá:", a: ["Průhledné prostředí", "Vakuum", "Zrcadlo", "Stěna"], correct: "Průhledné prostředí"},
+                {q: "Lupa je v podstatě:", a: ["Spojitka", "Rozptylka", "Zrcadlo", "Hranol"], correct: "Spojitka"},
+                {q: "Krátkozraké oko se korigovalo čočkou:", a: ["Rozptylkou", "Spojitkou", "Bez čočky", "Zrcadlem"], correct: "Rozptylkou"},
+                {q: "Dalekozraké oko se korigovalo čočkou:", a: ["Spojitkou", "Rozptylkou", "Hranolem", "Plochým sklem"], correct: "Spojitkou"}
+            ],
+            9: [
+                {q: "Teplo dodané tělesu vypočítáme jako:", a: ["c × m × Δt", "m × g × h", "F × s", "p × V"], correct: "c × m × Δt"}, 
+                {q: "Měrná tepelná kapacita vyjadřuje:", a: ["Teplo na ohřátí 1kg o 1°C", "Hmotnost tělesa", "Rychlost varu", "Tlak páry"], correct: "Teplo na ohřátí 1kg o 1°C"}, 
+                {q: "Při tání těleso teplo:", a: ["Přijímá", "Vydává", "Nemění", "Ztrácí"], correct: "Přijímá"}, 
+                {q: "Při tuhnutí těleso teplo:", a: ["Vydává", "Přijímá", "Nemění", "Absorbuje"], correct: "Vydává"}, 
+                {q: "Absolutní nula je teplota v kelvinech:", a: ["0 K", "273 K", "-273 K", "100 K"], correct: "0 K"},
+                {q: "Celsius a Kelvin jsou jednotky:", a: ["Teploty", "Tlaku", "Energie", "Hmotnosti"], correct: "Teploty"},
+                {q: "Var je přeměna skupenství:", a: ["Kapalného v plynné v celém objemu", "Pevného v kapalné", "Plynného v kapalné", "Bez změn"], correct: "Kapalného v plynné v celém objemu"},
+                {q: "Vyzařováním se šíří teplo:", a: ["I ve vákuu bez dotyku", "Pouze v pevných tělesech", "Pouze v kapalinách", "Nikdy"], correct: "I ve vákuu bez dotyku"},
+                {q: "Vedením tepla se šíří energie hlavně v:", a: ["Pevných látkách", "Vakuum", "Prázdném prostoru", "Všude stejně"], correct: "Pevných látkách"},
+                {q: "Prouděním tepla se šíří energie v:", a: ["Kapalinách a plynech", "Pouze v kovech", "V zrcadlech", "Ve vakuu"], correct: "Kapalinách a plynech"}
+            ],
+            10: [
+                {q: "Radioaktivitu objevil(a):", a: ["Marie a Pierre Curie / Becquerel", "Albert Einstein", "Isaac Newton", "Nikola Tesla"], correct: "Marie a Pierre Curie / Becquerel"}, 
+                {q: "Teorie relativity autorem je:", a: ["Albert Einstein", "Isaac Newton", "Galileo Galilei", "Thomas Edison"], correct: "Albert Einstein"}, 
+                {q: "Zákon zachování energie formuluje, že energie se:", a: ["Neztrácí ani nevzniká", "Vždy ztrácí", "Může vyrobit z ničeho", "Postupně ničí"], correct: "Neztrácí ani nevzniká"}, 
+                {q: "V jaderné elektrárně probíhá:", a: ["Štěpení jader uranu", "Spalování uhlí", "Solární přeměna", "Větrná turbína"], correct: "Štěpení jader uranu"}, 
+                {q: "Vesmírné těleso s obrovskou gravitací, odkud neuteče světlo:", a: ["Černá díra", "Bílý trpaslík", "Kometa", "Neutronová hvězda"], correct: "Černá díra"},
+                {q: "Planeta naší sluneční soustavy nejblíže Slunci:", a: ["Merkur", "Venuše", "Země", "Mars"], correct: "Merkur"},
+                {q: "Největší planeta sluneční soustavy:", a: ["Jupiter", "Saturn", "Neptun", "Země"], correct: "Jupiter"},
+                {q: "Rychlost světla ve vesmíru činí přibližně:", a: ["300 000 km/s", "340 m/s", "1500 km/s", "30 000 km/s"], correct: "300 000 km/s"},
+                {q: "Jednotka pro měření velkých vzdáleností ve vesmíru:", a: ["Světelný rok", "Kilometr", "Metr", "Hodinový rok"], correct: "Světelný rok"},
+                {q: "Naše galaxie se nazývá:", a: ["Mléčná dráha", "Andromeda", "Velký Magellanův oblak", "Sombréro"], correct: "Mléčná dráha"}
+            ]
         }
     };
 
@@ -682,8 +1007,8 @@
         questionIndex = 0;
         score = 0;
         
-        // Zajištění náhodného výběru bez duplicit
-        let rawQuestions = database[currentSubjectKey][level];
+        // Získání otázek pro dané kolo a jejich náhodné zamíchání bez opakování
+        let rawQuestions = database[currentSubjectKey][level] || database.math[1];
         questions = [...rawQuestions].sort(() => Math.random() - 0.5);
 
         hideAllScreens();
@@ -691,7 +1016,6 @@
         showQuestion();
     }
 
-    // Funkce pro plynulý přechod na další kolo po dokončení testu
     function startNextLevel() {
         if (currentLevel < 10) {
             startSelectedLevel(currentLevel + 1);
@@ -720,10 +1044,10 @@
 
         let sorted = Object.values(uniquePlayers).sort((a,b) => b.score - a.score);
         if (sorted.length === 0) {
-            listHtml = "<p style='color:#64748b; font-size:15px; text-align:center;'>Zatím žádní uložení hrdinové.</p>";
+            listHtml = "<p style='color:#64748b; font-size:15px; text-align:center;'>Zatím žádní uložení hrdinové. Zadej jméno nahoře.</p>";
         } else {
             sorted.forEach(item => {
-                listHtml += `<div class="score-item" onclick="selectModalPlayer('${item.name}')">
+                listHtml += `<div class="score-item" onclick="selectModalPlayer('${item.name}')" style="cursor:pointer; margin-bottom: 6px; padding: 10px; border-radius: 12px; background: #f1f5f9;">
                     <span>👤 <strong>${item.name}</strong></span>
                     <span style="color:#059669; font-weight:bold;">Max: ${item.score} b.</span>
                 </div>`;
@@ -737,6 +1061,7 @@
         currentUser = name;
         document.getElementById("current-user-display").innerText = name;
         document.getElementById("start-player-modal").classList.add("hidden");
+        loadLeaderboard();
     }
 
     function confirmNewUserModal() {
@@ -745,10 +1070,11 @@
         currentUser = nameInput;
         document.getElementById("current-user-display").innerText = nameInput;
         document.getElementById("start-player-modal").classList.add("hidden");
+        loadLeaderboard();
     }
 
     function closeStartPlayerModal() {
-        if (!currentUser) { showAppAlert("⚠️ Nejprve vyber nebo zadej jméno!"); return; }
+        if (!currentUser) { showAppAlert("⚠️ Nejprve vyber nebo zadej jméno hrdiny!"); return; }
         document.getElementById("start-player-modal").classList.add("hidden");
     }
 
@@ -815,24 +1141,23 @@
         let trophyIcon = "🏆";
         let trophyTitle = "Zlatý pohár šampióna!";
         
-        if (score <= 2) {
+        if (score <= 3) {
             trophyIcon = "🥉";
-            trophyTitle = "Bronzový pohár - Skvělá snaha!";
-        } else if (score <= 4) {
+            trophyTitle = "Bronzový pohár - Snaha byla!";
+        } else if (score <= 7) {
             trophyIcon = "🥈";
             trophyTitle = "Stříbrný pohár - Skvělý výkon!";
         } else {
             if (currentLevel >= 8) {
                 trophyIcon = "👑🏆";
-                trophyTitle = "Veličenstvo - Mistrovský Zlatý pohár!";
+                trophyTitle = "Mistrovský Zlatý pohár!";
             }
         }
 
         document.getElementById("trophy-icon").innerText = trophyIcon;
         document.getElementById("trophy-title").innerText = trophyTitle;
-        document.getElementById("final-stats").innerText = `${currentUser}, získal(a) jsi ${score} z ${questions.length} bodů v testu [${currentSubjectName}]!`;
+        document.getElementById("final-stats").innerText = `${currentUser}, získal(a) jsi ${score} z ${questions.length} bodů v testu [${currentSubjectName}]! Výsledek byl uložen.`;
 
-        // Zobrazení tlačítka pro pokračování na další kolo, pokud nejsme v posledním kole
         let nextBtn = document.getElementById("next-level-btn");
         if (currentLevel < 10) {
             nextBtn.classList.remove("hidden");
@@ -890,7 +1215,7 @@
         saveLeaderboard(currentUser, fillScore, "Doplňovačka ✍️");
         document.getElementById("trophy-icon").innerText = "🏆";
         document.getElementById("trophy-title").innerText = "Zlatý pohár za Doplňovačku!";
-        document.getElementById("final-stats").innerText = `${currentUser}, získal(a) jsi ${fillScore} bodů!`;
+        document.getElementById("final-stats").innerText = `${currentUser}, získal(a) jsi ${fillScore} bodů! Výsledek uložen.`;
         document.getElementById("next-level-btn").classList.add("hidden");
         hideAllScreens();
         document.getElementById("result-screen").classList.remove("hidden");
@@ -1053,7 +1378,7 @@
             saveLeaderboard(currentUser, p1Score * 2, "Pexeso 🃏");
             document.getElementById("trophy-icon").innerText = "🏆🧩";
             document.getElementById("trophy-title").innerText = `Mistr Pexesa - ${winnerText}`;
-            document.getElementById("final-stats").innerText = `${currentUser}: ${p1Score} bodů | ${p2Name}: ${p2Score} bodů`;
+            document.getElementById("final-stats").innerText = `${currentUser}: ${p1Score} bodů | ${p2Name}: ${p2Score} bodů. Výsledek uložen.`;
             document.getElementById("next-level-btn").classList.add("hidden");
             hideAllScreens();
             document.getElementById("result-screen").classList.remove("hidden");
@@ -1081,7 +1406,7 @@
             saveLeaderboard(currentUser, snakeScore, "Had 🐍");
             document.getElementById("trophy-icon").innerText = "🐍🏆";
             document.getElementById("trophy-title").innerText = "Konec hry Had!";
-            document.getElementById("final-stats").innerText = `${currentUser}, získal(a) jsi ve hře Had celkem ${snakeScore} bodů!`;
+            document.getElementById("final-stats").innerText = `${currentUser}, získal(a) jsi ve hře Had celkem ${snakeScore} bodů! Výsledek uložen.`;
             document.getElementById("next-level-btn").classList.add("hidden");
             hideAllScreens();
             document.getElementById("result-screen").classList.remove("hidden");
@@ -1136,70 +1461,4 @@
     window.addEventListener('keydown', e => {
         if (e.key === "ArrowUp") changeSnakeDir('UP');
         if (e.key === "ArrowDown") changeSnakeDir('DOWN');
-        if (e.key === "ArrowLeft") changeSnakeDir('LEFT');
-        if (e.key === "ArrowRight") changeSnakeDir('RIGHT');
-    });
-
-    function hideAllScreens() {
-        if (snakeInterval) clearInterval(snakeInterval);
-        document.getElementById("menu-screen").classList.add("hidden");
-        document.getElementById("quiz-screen").classList.add("hidden");
-        document.getElementById("fill-screen").classList.add("hidden");
-        document.getElementById("memory-screen").classList.add("hidden");
-        document.getElementById("snake-screen").classList.add("hidden");
-        document.getElementById("result-screen").classList.add("hidden");
-    }
-
-    function showMenu() {
-        hideAllScreens();
-        document.getElementById("menu-screen").classList.remove("hidden");
-        loadLeaderboard();
-    }
-
-    function saveLeaderboard(name, pts, subjectName) {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        board.push({ name: name, score: pts, subject: subjectName || "Test", date: new Date().toLocaleDateString() });
-        localStorage.setItem("school_leaderboard", JSON.stringify(board));
-    }
-
-    function loadLeaderboard() {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let listHtml = "";
-        if (board.length === 0) {
-            listHtml = "<li style='text-align:center; color:#64748b; padding:12px;'>Zatím žádné výsledky v síni slávy.</li>";
-        } else {
-            let uniquePlayers = {};
-            board.forEach(item => {
-                if (!uniquePlayers[item.name] || item.score > uniquePlayers[item.name].score) {
-                    uniquePlayers[item.name] = item;
-                }
-            });
-            let sortedPlayers = Object.values(uniquePlayers).sort((a, b) => b.score - a.score);
-            sortedPlayers.forEach((item, index) => {
-                listHtml += `<li class="score-item">
-                    <span>#${index+1} 👤 ${item.name}</span>
-                    <span style="font-weight:bold; color:#059669;">⭐ Max: ${item.score} b.</span>
-                </li>`;
-            });
-        }
-        document.getElementById("leaderboard").innerHTML = listHtml;
-    }
-
-    function resetLeaderboard() {
-        if (confirm("Opravdu chceš vymazat síň slávy?")) {
-            localStorage.removeItem("school_leaderboard");
-            currentUser = "";
-            document.getElementById("current-user-display").innerText = "Zatím nikdo";
-            loadLeaderboard();
-            openStartPlayerModal();
-        }
-    }
-
-    window.onload = function() {
-        loadLeaderboard();
-        openStartPlayerModal();
-    };
-</script>
-
-</body>
-</html>
+        if (e.key === "Arrow
