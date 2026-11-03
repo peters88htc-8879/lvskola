@@ -111,6 +111,7 @@
             border-radius: 18px;
             box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
         }
+        /* Sjednocená barva všech herních tlačítek */
         .btn-game { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
 
         .subject-grid {
@@ -279,14 +280,14 @@
             cursor: default;
         }
 
-        /* STYLY PRO HRU HAD */
+        /* STYLY PRO VYLEPŠENOU HRU HAD */
         #snake-canvas {
             background: #0f172a;
             border: 4px solid #334155;
             border-radius: 16px;
             display: block;
             margin: 10px auto;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
         }
         .snake-controls {
             display: grid;
@@ -306,7 +307,7 @@
             font-weight: bold;
             box-shadow: 0 3px 6px rgba(0,0,0,0.2);
         }
-        .ctrl-btn:active { background: #0284c7; transform: scale(0.95); }
+        .ctrl-btn:active { background: #0369a1; transform: scale(0.95); }
 
         .modal {
             position: fixed;
@@ -383,7 +384,7 @@
             <button class="btn btn-subject btn-game" onclick="openMemoryModal()">
                 <span>🃏</span> Pexeso
             </button>
-            <button class="btn btn-subject btn-game" onclick="startSnakeGame()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+            <button class="btn btn-subject btn-game" onclick="startSnakeGame()">
                 <span>🐍</span> Had
             </button>
         </div>
@@ -457,9 +458,10 @@
 
     <!-- HRÁČSKÁ OBRAZOVKA: HAD (SNAKE) -->
     <div id="snake-screen" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:16px;">
-            <span style="color: #10b981;">🐍 Had (Retro 90s)</span>
-            <span id="snake-score" style="color: #059669; font-size: 18px;">⭐ Skóre: 0</span>
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:14px;">
+            <span style="color: #10b981;" id="snake-info-level">🐍 Kolo: 1</span>
+            <span id="snake-info-symbols" style="color: #f59e0b;">🍎 Sebráno: 0/4</span>
+            <span id="snake-score" style="color: #059669;">⭐ Skóre: 0</span>
         </div>
         <hr style="border: 1px solid #cbd5e1; margin: 6px 0;">
 
@@ -562,17 +564,18 @@
     let p2Name = "Počítač 🤖";
     let canFlip = true;
 
-    // Proměnné pro hru Had
+    // Proměnné pro vylepšenou hru Had
     let snakeInterval = null;
     let snake = [];
     let food = {};
-    let dx = 10;
+    let dx = 15;
     let dy = 0;
-    let nextDx = 10;
+    let nextDx = 15;
     let nextDy = 0;
     let snakeScore = 0;
-    const gridSize = 15;
-    const tileCount = 20;
+    let snakeLevel = 1;
+    let symbolsCollectedInLevel = 0;
+    let tileSize = 15; // Zvětšující se políčko podle kol
 
     function playVictorySound() {
         try {
@@ -1173,7 +1176,7 @@
         }
     }
 
-    // --- HRÁČSKÁ OBRAZOVKA: HAD (SNAKE) ---
+    // --- VYLEPŠENÁ HRA HAD (SNAKE) S KOLY A ZVĚTŠOVÁNÍM ---
     function startSnakeGame() {
         let nameInput = document.getElementById("username").value.trim();
         if (!nameInput) {
@@ -1182,14 +1185,18 @@
         }
         currentUser = nameInput;
         snakeScore = 0;
+        snakeLevel = 1;
+        symbolsCollectedInLevel = 0;
+        tileSize = 15; // Výchozí velikost políčka
+
         snake = [
-            {x: 100, y: 100},
-            {x: 90, y: 100},
-            {x: 80, y: 100}
+            {x: 105, y: 105},
+            {x: 90, y: 105},
+            {x: 75, y: 105}
         ];
-        dx = 10;
+        dx = tileSize;
         dy = 0;
-        nextDx = 10;
+        nextDx = tileSize;
         nextDy = 0;
 
         hideAllScreens();
@@ -1197,7 +1204,7 @@
         spawnFood();
 
         if (snakeInterval) clearInterval(snakeInterval);
-        snakeInterval = setInterval(mainSnakeLoop, 110);
+        snakeInterval = setInterval(mainSnakeLoop, 120);
     }
 
     function mainSnakeLoop() {
@@ -1210,29 +1217,41 @@
             clearInterval(snakeInterval);
             playVictorySound();
             saveLeaderboard(currentUser, snakeScore, subjectNames['snake']);
-            alert(`🐍 Konec hry! Získal(a) jsi ${snakeScore} bodů.`);
+            alert(`🐍 Konec hry! Narazil jsi do zdi nebo do sebe. Skóre: ${snakeScore} bodů.`);
             showMenu();
             return;
         }
 
         snake.unshift(head);
 
-        // Jídlo
-        if (head.x === food.x && head.y === food.y) {
+        // Sebrání jablíčka / symbolu
+        if (Math.abs(head.x - food.x) < tileSize && Math.abs(head.y - food.y) < tileSize) {
             snakeScore += 2;
+            symbolsCollectedInLevel++;
             spawnFood();
+
+            // Pokud sebere 4 symboly -> další kolo a zvětšení hrací plochy/políček
+            if (symbolsCollectedInLevel >= 4) {
+                snakeLevel++;
+                symbolsCollectedInLevel = 0;
+                tileSize = Math.min(20, tileSize + 1); // Zvětšení políčka o 1 pixel (max 20)
+                playVictorySound();
+            }
         } else {
             snake.pop();
         }
 
         drawSnakeGame();
         document.getElementById("snake-score").innerText = `⭐ Skóre: ${snakeScore}`;
+        document.getElementById("snake-info-level").innerText = `🐍 Kolo: ${snakeLevel}`;
+        document.getElementById("snake-info-symbols").innerText = `🍎 Sebráno: ${symbolsCollectedInLevel}/4`;
     }
 
     function spawnFood() {
+        let maxCount = Math.floor(300 / tileSize);
         food = {
-            x: Math.floor(Math.random() * (300 / gridSize)) * gridSize,
-            y: Math.floor(Math.random() * (300 / gridSize)) * gridSize
+            x: Math.floor(Math.random() * maxCount) * tileSize,
+            y: Math.floor(Math.random() * maxCount) * tileSize
         };
         snake.forEach(part => {
             if (part.x === food.x && part.y === food.y) spawnFood();
@@ -1249,25 +1268,53 @@
     function drawSnakeGame() {
         const canvas = document.getElementById("snake-canvas");
         const ctx = canvas.getContext("2d");
+        
+        // Vyčištění plátna
         ctx.fillStyle = "#0f172a";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Kreslení jablíčka
-        ctx.fillStyle = "#ef4444";
-        ctx.fillRect(food.x, food.y, gridSize - 2, gridSize - 2);
+        // Kreslení mřížky pozadí
+        ctx.strokeStyle = "#1e293b";
+        ctx.lineWidth = 0.5;
+        for(let i=0; i<=300; i+=tileSize) {
+            ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, 300); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(300, i); ctx.stroke();
+        }
 
-        // Kreslení hada
+        // Kreslení jablíčka (symbolu) s efektem záře
+        ctx.fillStyle = "#ef4444";
+        ctx.shadowColor = "#f87171";
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.arc(food.x + tileSize/2, food.y + tileSize/2, tileSize/2 - 2, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.shadowBlur = 0; // Vypnutí stínu pro hada
+
+        // Kreslení vylepšeného hada
         snake.forEach((part, idx) => {
-            ctx.fillStyle = idx === 0 ? "#10b981" : "#34d399";
-            ctx.fillRect(part.x, part.y, gridSize - 2, gridSize - 2);
+            if (idx === 0) {
+                // Hlava hada
+                ctx.fillStyle = "#10b981";
+                ctx.fillRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2);
+                // Očička hada
+                ctx.fillStyle = "#ffffff";
+                ctx.fillRect(part.x + 3, part.y + 3, 3, 3);
+                ctx.fillRect(part.x + tileSize - 6, part.y + 3, 3, 3);
+            } else {
+                // Tělo hada
+                ctx.fillStyle = "#34d399";
+                ctx.beginPath();
+                ctx.roundRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2, 4);
+                ctx.fill();
+            }
         });
     }
 
     function changeSnakeDir(dir) {
-        if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -10; }
-        if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = 10; }
-        if (dir === 'LEFT' && dx === 0) { nextDx = -10; nextDy = 0; }
-        if (dir === 'RIGHT' && dx === 0) { nextDx = 10; nextDy = 0; }
+        if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -tileSize; }
+        if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = tileSize; }
+        if (dir === 'LEFT' && dx === 0) { nextDx = -tileSize; nextDy = 0; }
+        if (dir === 'RIGHT' && dx === 0) { nextDx = tileSize; nextDy = 0; }
     }
 
     // Podpora pro klávesnici (šipky)
