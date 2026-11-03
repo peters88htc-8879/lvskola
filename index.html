@@ -46,7 +46,6 @@
             overflow: hidden;
         }
 
-        /* Pohádková 3D záře v pozadí */
         .container::before {
             content: '';
             position: absolute;
@@ -100,7 +99,6 @@
             box-shadow: 0 0 15px rgba(99, 102, 241, 0.4), inset 0 3px 6px rgba(0,0,0,0.05);
         }
 
-        /* Pohádková 3D tlačítka */
         .btn {
             background: linear-gradient(145deg, #818cf8, #4f46e5);
             color: white;
@@ -300,7 +298,6 @@
             padding-bottom: 40px;
         }
 
-        /* 3D Pohádkové Pexeso */
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -334,7 +331,6 @@
             box-shadow: inset 0 3px 6px rgba(255,255,255,0.5);
         }
 
-        /* 3D Pohádková Hra Had */
         #snake-canvas {
             background: radial-gradient(circle, #312e81 0%, #0f172a 100%);
             border: 6px solid #4f46e5;
@@ -558,10 +554,10 @@
         </div>
 
         <hr style="border: 1px solid #cbd5e1; margin: 15px 0;">
-        <p style="font-size:15px; font-weight:700; color:#b45309; margin-bottom:10px;">Nebo vyber hrdinu ze síňe slávy:</p>
+        <p style="font-size:15px; font-weight:700; color:#b45309; margin-bottom:10px;">Nebo vyber hrdinu ze síně slávy:</p>
         <div id="modal-player-list" style="max-height: 150px; overflow-y: auto; text-align: left; margin-bottom: 15px;"></div>
 
-        <button class="btn btn-warning" onclick="closeStartPlayerModal()" id="close-modal-btn" style="display:none;">Zavřít</button>
+        <button class="btn btn-warning" onclick="closeStartPlayerModal()" id="close-modal-btn">Zavřít</button>
     </div>
 </div>
 
@@ -639,7 +635,6 @@
     let p2Name = "Počítač 🤖";
     let canFlip = true;
 
-    // Had (stabilní rychlost pro 8leté děti)
     let snakeInterval = null;
     let snake = [];
     let food = {};
@@ -815,7 +810,6 @@
         return mathQ;
     }
 
-    // --- SPRÁVA STARTU A VÝBĚRU HRÁČE ---
     function openStartPlayerModal() {
         let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
         let listHtml = "";
@@ -831,7 +825,6 @@
 
         if (sorted.length === 0) {
             listHtml = "<p style='color:#64748b; font-size:15px; text-align:center;'>Zatím žádní uložení hrdinové. Zadejte jméno výše.</p>";
-            document.getElementById("close-modal-btn").style.display = "block";
         } else {
             sorted.forEach(item => {
                 listHtml += `<div class="score-item" onclick="selectModalPlayer('${item.name}')">
@@ -839,7 +832,6 @@
                     <span style="color:#059669; font-weight:bold;">Max: ${item.score} b.</span>
                 </div>`;
             });
-            document.getElementById("close-modal-btn").style.display = currentUser ? "block" : "none";
         }
 
         document.getElementById("modal-player-list").innerHTML = listHtml;
@@ -873,7 +865,6 @@
         document.getElementById("start-player-modal").classList.add("hidden");
     }
 
-    // --- OVLÁDÁNÍ MENU ---
     function openMathMenu() {
         if (!currentUser) { openStartPlayerModal(); return; }
         document.getElementById("math-modal").classList.remove("hidden");
@@ -1074,7 +1065,6 @@
         document.getElementById("result-action-btn").setAttribute("onclick", `showMenu()`);
     }
 
-    // --- DOPLŇOVAČKA ---
     function startFillGame() {
         if (!currentUser) { openStartPlayerModal(); return; }
         fillIndex = 0;
@@ -1127,7 +1117,6 @@
         document.getElementById("result-action-btn").setAttribute("onclick", `showMenu()`);
     }
 
-    // --- PEXESO 5x5 ---
     function openMemoryModal() {
         if (!currentUser) { openStartPlayerModal(); return; }
         document.getElementById("p2-input-box").classList.add("hidden");
@@ -1258,4 +1247,281 @@
                     matchedPairs++;
                     p2Score++;
                     renderMemoryBoard();
-                    checkMemoryEnd
+                    checkMemoryEnd();
+                    
+                    if (matchedPairs < 12 && currentPlayer === 2) {
+                        setTimeout(computerTurn, 900);
+                    }
+                } else {
+                    memoryCards[card1Index].flipped = false;
+                    memoryCards[card2Index].flipped = false;
+                    currentPlayer = 1;
+                    updateTurnIndicator();
+                    renderMemoryBoard();
+                }
+            }, 1000);
+        }, 700);
+    }
+
+    function checkMemoryEnd() {
+        if (matchedPairs === 12) {
+            playVictorySound();
+            setTimeout(() => {
+                let winnerText = p1Score > p2Score ? `${currentUser} vyhrává!` : (p2Score > p1Score ? `${p2Name} vyhrává!` : `Remíza!`);
+                saveLeaderboard(currentUser, p1Score * 2, subjectNames['memory']);
+                alert(`🏆 Pexeso skončilo! ${winnerText}`);
+                showMenu();
+            }, 500);
+        }
+    }
+
+    function startSnakeGame() {
+        if (!currentUser) { openStartPlayerModal(); return; }
+        snakeScore = 0;
+        snakeLevel = 1;
+        symbolsCollectedInLevel = 0;
+        tileSize = 15;
+
+        snake = [
+            {x: 105, y: 105},
+            {x: 90, y: 105},
+            {x: 75, y: 105}
+        ];
+        dx = tileSize;
+        dy = 0;
+        nextDx = tileSize;
+        nextDy = 0;
+
+        hideAllScreens();
+        document.getElementById("snake-screen").classList.remove("hidden");
+        spawnFood();
+
+        if (snakeInterval) clearInterval(snakeInterval);
+        snakeInterval = setInterval(mainSnakeLoop, 145);
+    }
+
+    function mainSnakeLoop() {
+        dx = nextDx;
+        dy = nextDy;
+        let head = {x: snake[0].x + dx, y: snake[0].y + dy};
+
+        if (head.x < 0 || head.x >= 300 || head.y < 0 || head.y >= 300 || checkSnakeCollision(head)) {
+            clearInterval(snakeInterval);
+            playVictorySound();
+            saveLeaderboard(currentUser, snakeScore, subjectNames['snake']);
+            alert(`🐍 Konec hry! Narazil jsi do zdi nebo do sebe. Skóre: ${snakeScore} bodů.`);
+            showMenu();
+            return;
+        }
+
+        snake.unshift(head);
+
+        if (Math.abs(head.x - food.x) < tileSize && Math.abs(head.y - food.y) < tileSize) {
+            snakeScore += 2;
+            symbolsCollectedInLevel++;
+            spawnFood();
+
+            if (symbolsCollectedInLevel >= 4) {
+                snakeLevel++;
+                symbolsCollectedInLevel = 0;
+                tileSize = Math.min(20, tileSize + 1);
+                playVictorySound();
+            }
+        } else {
+            snake.pop();
+        }
+
+        drawSnakeGame();
+        document.getElementById("snake-score").innerText = `⭐ Skóre: ${snakeScore}`;
+        document.getElementById("snake-info-level").innerText = `🐍 Kolo: ${snakeLevel}`;
+        document.getElementById("snake-info-symbols").innerText = `🍎 Sebráno: ${symbolsCollectedInLevel}/4`;
+    }
+
+    function spawnFood() {
+        let maxCount = Math.floor(300 / tileSize);
+        food = {
+            x: Math.floor(Math.random() * maxCount) * tileSize,
+            y: Math.floor(Math.random() * maxCount) * tileSize
+        };
+        snake.forEach(part => {
+            if (part.x === food.x && part.y === food.y) spawnFood();
+        });
+    }
+
+    function checkSnakeCollision(head) {
+        for (let i = 1; i < snake.length; i++) {
+            if (head.x === snake[i].x && head.y === snake[i].y) return true;
+        }
+        return false;
+    }
+
+    function drawSnakeGame() {
+        const canvas = document.getElementById("snake-canvas");
+        const ctx = canvas.getContext("2d");
+        
+        ctx.fillStyle = "#0f172a";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = "#1e293b";
+        ctx.lineWidth = 0.5;
+        for(let i=0; i<=300; i+=tileSize) {
+            ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, 300); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(300, i); ctx.stroke();
+        }
+
+        ctx.fillStyle = "#ef4444";
+        ctx.shadowColor = "#f87171";
+        ctx.shadowBlur = 14;
+        ctx.beginPath();
+        ctx.arc(food.x + tileSize/2, food.y + tileSize/2, tileSize/2 - 2, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        snake.forEach((part, idx) => {
+            if (idx === 0) {
+                ctx.fillStyle = "#10b981";
+                ctx.fillRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2);
+                ctx.fillStyle = "#ffffff";
+                ctx.fillRect(part.x + 3, part.y + 3, 3, 3);
+                ctx.fillRect(part.x + tileSize - 6, part.y + 3, 3, 3);
+            } else {
+                ctx.fillStyle = "#34d399";
+                ctx.beginPath();
+                ctx.roundRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2, 5);
+                ctx.fill();
+            }
+        });
+    }
+
+    function changeSnakeDir(dir) {
+        if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -tileSize; }
+        if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = tileSize; }
+        if (dir === 'LEFT' && dx === 0) { nextDx = -tileSize; nextDy = 0; }
+        if (dir === 'RIGHT' && dx === 0) { nextDx = tileSize; nextDy = 0; }
+    }
+
+    window.addEventListener('keydown', e => {
+        if (e.key === "ArrowUp") changeSnakeDir('UP');
+        if (e.key === "ArrowDown") changeSnakeDir('DOWN');
+        if (e.key === "ArrowLeft") changeSnakeDir('LEFT');
+        if (e.key === "ArrowRight") changeSnakeDir('RIGHT');
+    });
+
+    function hideAllScreens() {
+        if (snakeInterval) clearInterval(snakeInterval);
+        document.getElementById("menu-screen").classList.add("hidden");
+        document.getElementById("quiz-screen").classList.add("hidden");
+        document.getElementById("fill-screen").classList.add("hidden");
+        document.getElementById("memory-screen").classList.add("hidden");
+        document.getElementById("snake-screen").classList.add("hidden");
+        document.getElementById("result-screen").classList.add("hidden");
+    }
+
+    function showMenu() {
+        hideAllScreens();
+        document.getElementById("menu-screen").classList.remove("hidden");
+        loadLeaderboard();
+        checkSavedState();
+    }
+
+    function saveLeaderboard(name, pts, subjectName) {
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        board.push({ 
+            name: name, 
+            score: pts, 
+            subject: subjectName || "Matematika 🔢",
+            date: new Date().toLocaleDateString() 
+        });
+        localStorage.setItem("school_leaderboard", JSON.stringify(board));
+    }
+
+    function loadLeaderboard() {
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        let listHtml = "";
+
+        if (board.length === 0) {
+            listHtml = "<li style='text-align:center; color:#64748b; padding:12px;'>Zatím žádné výsledky v síni slávy. Hraj testy nebo hry! 🎮</li>";
+        } else {
+            let uniquePlayers = {};
+            board.forEach(item => {
+                if (!uniquePlayers[item.name] || item.score > uniquePlayers[item.name].score) {
+                    uniquePlayers[item.name] = item;
+                }
+            });
+
+            let sortedPlayers = Object.values(uniquePlayers).sort((a, b) => b.score - a.score);
+
+            sortedPlayers.forEach((item, index) => {
+                let subj = item.subject || "Matematika 🔢";
+                listHtml += `
+                    <li class="score-item" onclick="showUserDetail('${item.name}')">
+                        <div>
+                            <strong>#${index+1} 👤 ${item.name}</strong><br>
+                            <span class="badge-subject">${subj}</span>
+                        </div>
+                        <div style="text-align:right;">
+                            <span style="font-weight:bold; font-size:16px; color:#059669;">⭐ Max: ${item.score} b.</span><br>
+                            <small style="color:#64748b;">${item.date}</small>
+                        </div>
+                    </li>`;
+            });
+        }
+        document.getElementById("leaderboard").innerHTML = listHtml;
+    }
+
+    function showUserDetail(name) {
+        selectedPlayerFromModal = name;
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        let userRecords = board.filter(item => item.name === name);
+        
+        let bySubject = {};
+        userRecords.forEach(r => {
+            let subj = r.subject || "Matematika 🔢";
+            if (!bySubject[subj]) bySubject[subj] = [];
+            bySubject[subj].push(r);
+        });
+
+        let html = `<strong>Hrdina:</strong> ${name}<br><br><strong>📈 Poslední výsledky:</strong>`;
+        
+        for (let subj in bySubject) {
+            let lastThree = bySubject[subj].slice(-3);
+            html += `<div style="margin-top:10px; background:#f1f5f9; padding:10px; border-radius:12px; border:2px solid #cbd5e1;">`;
+            html += `<b>${subj}:</b><ul style="padding-left:20px; margin:4px 0;">`;
+            lastThree.forEach(r => {
+                html += `<li><b>${r.score} bodů</b> <small style="color:#64748b;">(${r.date})</small></li>`;
+            });
+            html += `</ul></div>`;
+        }
+
+        document.getElementById("modal-title").innerText = `📊 Profil hrdiny: ${name}`;
+        document.getElementById("modal-body").innerHTML = html;
+        document.getElementById("detail-modal").classList.remove("hidden");
+    }
+
+    function selectUserFromModal() {
+        currentUser = selectedPlayerFromModal;
+        document.getElementById("current-user-display").innerText = currentUser;
+        closeModal();
+        checkSavedState();
+    }
+
+    function closeModal() { document.getElementById("detail-modal").classList.add("hidden"); }
+
+    function resetLeaderboard() {
+        if (confirm("Opravdu chceš vymazat celou síň slávy?")) {
+            localStorage.removeItem("school_leaderboard");
+            currentUser = "";
+            document.getElementById("current-user-display").innerText = "Zatím nikdo";
+            loadLeaderboard();
+            openStartPlayerModal();
+        }
+    }
+
+    window.onload = function() {
+        loadLeaderboard();
+        openStartPlayerModal();
+    };
+</script>
+
+</body>
+</html>
