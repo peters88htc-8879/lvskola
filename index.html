@@ -10,18 +10,16 @@
             --primary-hover: #357ABD;
             --success: #2ECC71;
             --danger: #E74C3C;
-            --accent: #F1C40F;
-            --bg: #EEF2F7;
+            --accent: #F39C12;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --card-bg: #FFFFFF;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+            background: var(--bg-gradient);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -33,45 +31,48 @@
         .container {
             background: var(--card-bg);
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             width: 100%;
-            max-width: 520px;
+            max-width: 540px;
             text-align: center;
-            border: 4px solid #ffffff;
+            border: 5px solid rgba(255,255,255,0.8);
         }
 
         h1 {
             color: #2C3E50;
-            font-size: 28px;
+            font-size: 30px;
             margin-top: 0;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .user-box {
-            background: #E8F4F8;
-            padding: 15px;
-            border-radius: 12px;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            padding: 18px;
+            border-radius: 16px;
             margin-bottom: 20px;
-            border: 2px dashed #3498DB;
+            border: 2px dashed #0284c7;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
 
         input[type="text"] {
             width: 85%;
             padding: 12px;
             font-size: 18px;
-            border: 2px solid #BDC3C7;
-            border-radius: 10px;
+            border: 2px solid #CBD5E1;
+            border-radius: 12px;
             margin-top: 8px;
             text-align: center;
             font-weight: bold;
             outline: none;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            background: #FFFFFF;
         }
 
         input[type="text"]:focus {
             border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(74, 144, 226, 0.4);
         }
 
         .btn {
@@ -80,13 +81,13 @@
             border: none;
             padding: 14px 20px;
             font-size: 18px;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             width: 100%;
             margin: 8px 0;
             transition: all 0.2s ease;
             font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -95,111 +96,147 @@
 
         .btn:hover {
             background-color: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
 
-        .btn:active {
-            transform: translateY(0);
-        }
+        .btn:active { transform: translateY(0); }
 
-        .btn-success { background-color: var(--success); }
-        .btn-success:hover { background-color: #27AE60; }
-
-        .btn-danger { background-color: var(--danger); }
-        .btn-danger:hover { background-color: #C0392B; }
+        .btn-success { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); }
+        .btn-danger { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); font-size: 15px; padding: 10px; }
+        .btn-warning { background: linear-gradient(135deg, #f39c12 0%, #d35400 100%); font-size: 15px; padding: 10px; }
 
         .btn-subject {
-            background: linear-gradient(45deg, #6C5CE7, #a29bfe);
-            font-size: 17px;
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            font-size: 18px;
+            border-radius: 16px;
+            padding: 16px;
         }
 
         .hidden { display: none !important; }
 
         .option-btn {
-            background: #F8F9FA;
+            background: #F8FAFC;
             border: 2px solid #E2E8F0;
-            color: #2D3748;
-            margin: 8px 0;
-            font-size: 17px;
+            color: #1E293B;
+            margin: 10px 0;
+            font-size: 18px;
+            border-radius: 14px;
         }
 
         .option-btn:hover {
             border-color: var(--primary);
-            background: #EBF8FF;
+            background: #EFF6FF;
+            transform: scale(1.01);
         }
 
         .score-board {
-            background: #FFF9E6;
-            border: 2px solid #F39C12;
-            padding: 15px;
-            border-radius: 15px;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 2px solid #f59e0b;
+            padding: 18px;
+            border-radius: 18px;
             margin-top: 20px;
             text-align: left;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .score-board h4 {
             margin-top: 0;
-            color: #D35400;
+            color: #b45309;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: space-between;
+            font-size: 17px;
         }
 
         .score-list {
             list-style: none;
             padding: 0;
             margin: 0;
+            max-height: 200px;
+            overflow-y: auto;
         }
 
         .score-item {
             background: #FFFFFF;
-            padding: 10px 12px;
-            border-radius: 8px;
+            padding: 12px 14px;
+            border-radius: 12px;
             margin-bottom: 8px;
-            border: 1px solid #F1C40F;
+            border: 1px solid #fde68a;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .score-item:hover {
+            background: #fff8e1;
+            transform: scale(1.02);
+            border-color: #f59e0b;
         }
 
         .badge-subject {
-            background: #34495E;
+            background: #334155;
             color: white;
-            padding: 3px 8px;
-            border-radius: 6px;
+            padding: 3px 10px;
+            border-radius: 8px;
             font-size: 12px;
             font-weight: bold;
         }
 
         .vertical-math {
             font-family: 'Courier New', Courier, monospace;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: bold;
             text-align: right;
             display: inline-block;
-            border-bottom: 4px solid #2C3E50;
-            padding: 10px 20px;
+            border-bottom: 4px solid #1E293B;
+            padding: 10px 25px;
             margin: 15px 0;
-            background: #F4F6F7;
-            border-radius: 8px;
-            letter-spacing: 2px;
+            background: #F1F5F9;
+            border-radius: 12px;
+            letter-spacing: 3px;
+            color: #0F172A;
         }
 
         #feedback {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             margin-top: 15px;
-            min-height: 30px;
+            min-height: 35px;
         }
 
         .question-card {
-            background: #F7FAFC;
-            padding: 18px;
-            border-radius: 12px;
+            background: #F8FAFC;
+            padding: 20px;
+            border-radius: 16px;
             border: 2px solid #E2E8F0;
             margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        /* MODÁLNÍ OKNO PRO DETAIL SKÓRE */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border: 4px solid var(--primary);
         }
     </style>
 </head>
@@ -222,7 +259,10 @@
         <button class="btn btn-subject" onclick="startQuiz('phy')">⚡ Fyzika (6. třída)</button>
 
         <div class="score-board">
-            <h4>🏆 Nejlepší výsledky s předmětem:</h4>
+            <h4>
+                <span>🏆 Tabulka skóre (klikni pro detail):</span>
+                <button onclick="resetLeaderboard()" style="background:#e74c3c; color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:12px;" title="Vymazat skóre">🗑️ Vynulovat</button>
+            </h4>
             <ul class="score-list" id="leaderboard"></ul>
         </div>
     </div>
@@ -231,12 +271,12 @@
     <div id="quiz-screen" class="hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:16px;">
             <span id="question-count">📌 Otázka: 1/10</span>
-            <span id="score-display" style="color: #27AE60;">⭐ Body: 0</span>
+            <span id="score-display" style="color: #27AE60; font-size: 18px;">⭐ Body: 0</span>
         </div>
         <hr style="border: 1px solid #E2E8F0; margin: 12px 0;">
 
         <div class="question-card">
-            <h2 id="question-title" style="margin:0; color:#2C3E50; font-size:22px;">Otázka</h2>
+            <h2 id="question-title" style="margin:0; color:#1E293B; font-size:22px;">Otázka</h2>
             
             <div id="vertical-box" class="hidden">
                 <div class="vertical-math" id="vertical-content"></div>
@@ -250,19 +290,27 @@
         <div id="feedback"></div>
         <button id="next-btn" class="btn hidden" onclick="nextQuestion()">Další otázka ➔</button>
         
-        <!-- Tlačítko pro předčasné ukončení testu -->
-        <button class="btn btn-danger" style="margin-top: 20px; font-size: 15px; padding: 10px;" onclick="confirmExit()">🏠 Ukončit test a zpět do menu</button>
+        <button class="btn btn-danger" onclick="confirmExit()">🏠 Ukončit test a zpět do menu</button>
     </div>
 
     <!-- VYHODNOCENÍ -->
     <div id="result-screen" class="hidden">
         <h2>🎉 Skvělá práce!</h2>
-        <div style="font-size: 60px; margin: 10px 0;">🏆</div>
-        <p id="final-stats" style="font-size: 20px; font-weight: bold; color: #2C3E50;">Získal jsi 0 bodů z 10.</p>
-        <button class="btn btn-success" onclick="saveScoreAndRestart()">💾 Uložit výsledek a pokračovat</button>
-        <button class="btn" onclick="showMenu()">🏠 Zpět do menu</button>
+        <div style="font-size: 70px; margin: 10px 0;">🏆</div>
+        <p id="final-stats" style="font-size: 20px; font-weight: bold; color: #1E293B;">Získal jsi 0 bodů z 10.</p>
+        <button class="btn btn-success" onclick="saveScoreAndRestart()">💾 Uložit výsledek do tabulky</button>
+        <button class="btn btn-warning" onclick="showMenu()">🏠 Zpět do menu bez uložení</button>
     </div>
 
+</div>
+
+<!-- DETAILNÍ OKNO PO KLIKNUTÍ NA SKÓRE -->
+<div id="detail-modal" class="modal hidden">
+    <div class="modal-content">
+        <h3 id="modal-title" style="color:#2C3E50; margin-top:0;">📊 Detail hráče</h3>
+        <div id="modal-body" style="max-height: 250px; overflow-y: auto; text-align: left; margin: 15px 0; font-size: 15px;"></div>
+        <button class="btn" onclick="closeModal()">Zavřít křížek</button>
+    </div>
 </div>
 
 <script>
@@ -295,243 +343,4 @@
         ],
         cz: [
             { q: "🇨🇿 Doplň i/y: Myš_čka běhá po dvoře.", a: ["i", "y"], correct: "i" },
-            { q: "🇨🇿 Doplň vyjmenované slovo: P_cha přchází před pádem.", a: ["ý", "í"], correct: "ý" },
-            { q: "🇨🇿 Doplň e/ě: Dělal to pro m_.", a: ["ě", "ě (mě)", "e", "ně"], correct: "ě" },
-            { q: "🇨🇿 Doplň i/y: S_kora je užitečný pták.", a: ["y", "i"], correct: "y" },
-            { q: "🇨🇿 Doplň e/ě: B_žel rychle do školy.", a: ["ě", "e"], correct: "ě" },
-            { q: "🇨🇿 Vyber správně napsané slovo:", a: ["bystrý", "bistrý", "bystrí", "bistrí"], correct: "bystrý" },
-            { q: "🇨🇿 Doplň i/y: Děti s_hrály divadlo.", a: ["e", "i", "y"], correct: "e" },
-            { q: "🇨🇿 Doplň i/y: B_lit stěnu na bílo.", a: ["í", "ý"], correct: "í" },
-            { q: "🇨🇿 Doplň e/ě: Zapom_l na úkol.", a: ["ně", "ě"], correct: "ně" },
-            { q: "🇨🇿 Doplň vyjmenované slovo: Litomyš_ je město.", a: ["l", "ľ", "l (Litomyšl)", "š"], correct: "l (Litomyšl)" }
-        ],
-        phy: [
-            { q: "⚖️ Čím měříme hmotnost tělesa?", a: ["Váhami", "Pravítkem", "Teploměrem", "Stopkami"], correct: "Váhami" },
-            { q: "📏 Jaká je základní jednotka délky?", a: ["Metr (m)", "Kilogram (kg)", "Sekunda (s)", "Litr (l)"], correct: "Metr (m)" },
-            { q: "🚗 Převod jednotek: 1 km má kolik metrů?", a: ["1000 m", "100 m", "10 m", "10000 m"], correct: "1000 m" },
-            { q: "💪 Jakou značku má síla ve fyzice?", a: ["F", "m", "v", "s"], correct: "F" },
-            { q: "🍏 Jednotkou fyzikální síly je:", a: ["Newton (N)", "Joule (J)", "Pascal (Pa)", "Watt (W)"], correct: "Newton (N)" },
-            { q: "⚖️ Převod jednotek: 1 kg má kolik gramů?", a: ["1000 g", "100 g", "10 g", "500 g"], correct: "1000 g" },
-            { q: "🧪 Čím měříme objem kapalin?", a: ["Odmerným válcem", "Váhou", "Siloměrem", "Pásmem"], correct: "Odmerným válcem" },
-            { q: "🧊 Skupenství vody při 0 °C přechází na:", a: ["Led (pevné)", "Páru (plynné)", "Plazmu", "Žádné z uvedených"], correct: "Led (pevné)" },
-            { q: "🌍 Co způsobuje, že padáme k zemi?", a: ["Gravitační síla", "Tlak vzduchu", "Magnetická síla", "Elektrická síla"], correct: "Gravitační síla" },
-            { q: "📦 Jaká je značka pro hmotnost?", a: ["m", "H", "kg", "V"], correct: "m" }
-        ]
-    };
-
-    function generateMathQuestions() {
-        let mathQ = [];
-        for(let i=0; i<10; i++) {
-            let type = Math.floor(Math.random() * 5);
-            let n1, n2, ans, text, isVertical = false;
-
-            if (type === 0) {
-                n1 = Math.floor(Math.random() * 500) + 50;
-                n2 = Math.floor(Math.random() * 400) + 50;
-                ans = n1 + n2;
-                text = `➕ Spočítej: ${n1} + ${n2}`;
-            } else if (type === 1) {
-                n1 = Math.floor(Math.random() * 800) + 100;
-                n2 = Math.floor(Math.random() * n1);
-                ans = n1 - n2;
-                text = `➖ Spočítej: ${n1} - ${n2}`;
-            } else if (type === 2) {
-                n1 = Math.floor(Math.random() * 12) + 2;
-                n2 = Math.floor(Math.random() * 20) + 2;
-                ans = n1 * n2;
-                text = `✖️ Spočítej: ${n1} × ${n2}`;
-            } else if (type === 3) {
-                n2 = Math.floor(Math.random() * 9) + 2;
-                ans = Math.floor(Math.random() * 50) + 2;
-                n1 = n2 * ans;
-                text = `➗ Spočítej: ${n1} ÷ ${n2}`;
-            } else {
-                n1 = Math.floor(Math.random() * 400) + 100;
-                n2 = Math.floor(Math.random() * 400) + 100;
-                ans = n1 + n2;
-                text = "📝 Spočítej pod sebou:";
-                isVertical = true;
-            }
-
-            mathQ.push({
-                q: text,
-                isMath: true,
-                isVertical: isVertical,
-                v1: n1,
-                v2: n2,
-                correct: ans.toString()
-            });
-        }
-        return mathQ;
-    }
-
-    function startQuiz(subject) {
-        currentUser = document.getElementById("username").value.trim() || "Školák";
-        currentSubjectKey = subject;
-        currentSubjectName = subjectNames[subject];
-        questionIndex = 0;
-        score = 0;
-
-        if (subject === 'math') {
-            questions = generateMathQuestions();
-        } else {
-            questions = [...database[subject]].sort(() => Math.random() - 0.5);
-        }
-
-        document.getElementById("menu-screen").classList.add("hidden");
-        document.getElementById("result-screen").classList.add("hidden");
-        document.getElementById("quiz-screen").classList.remove("hidden");
-
-        showQuestion();
-    }
-
-    function showQuestion() {
-        let q = questions[questionIndex];
-        document.getElementById("question-count").innerText = `📌 Otázka: ${questionIndex + 1}/10`;
-        document.getElementById("score-display").innerText = `⭐ Body: ${score}`;
-        document.getElementById("question-title").innerText = q.q;
-        document.getElementById("feedback").innerText = "";
-        document.getElementById("next-btn").classList.add("hidden");
-
-        const optBox = document.getElementById("options-box");
-        const vertBox = document.getElementById("vertical-box");
-        const textAns = document.getElementById("text-answer");
-        const subBtn = document.getElementById("submit-text-btn");
-
-        optBox.innerHTML = "";
-        vertBox.classList.add("hidden");
-        textAns.classList.add("hidden");
-        subBtn.classList.add("hidden");
-
-        if (q.isMath) {
-            if (q.isVertical) {
-                vertBox.classList.remove("hidden");
-                document.getElementById("vertical-content").innerHTML = `&nbsp;${q.v1}<br>+${q.v2}`;
-            }
-            textAns.classList.remove("hidden");
-            textAns.value = "";
-            textAns.focus();
-            subBtn.classList.remove("hidden");
-        } else {
-            let shuffled = [...q.a].sort(() => Math.random() - 0.5);
-            shuffled.forEach(opt => {
-                let btn = document.createElement("button");
-                btn.className = "btn option-btn";
-                btn.innerText = opt;
-                btn.onclick = () => checkOptionAnswer(opt, q.correct);
-                optBox.appendChild(btn);
-            });
-        }
-    }
-
-    function checkOptionAnswer(selected, correct) {
-        disableOptions();
-        if (selected === correct) {
-            score++;
-            showFeedback("🎉 Správně!", "green");
-        } else {
-            showFeedback(`❌ Špatně! Správná odpověď byla: ${correct}`, "red");
-        }
-    }
-
-    function checkTextAnswer() {
-        let userAns = document.getElementById("text-answer").value.trim();
-        let correct = questions[questionIndex].correct;
-        
-        document.getElementById("submit-text-btn").classList.add("hidden");
-
-        if (userAns === correct) {
-            score++;
-            showFeedback("🎉 Správně!", "green");
-        } else {
-            showFeedback(`❌ Špatně! Správný výsledek je: ${correct}`, "red");
-        }
-    }
-
-    function disableOptions() {
-        const btns = document.querySelectorAll(".option-btn");
-        btns.forEach(b => b.disabled = true);
-    }
-
-    function showFeedback(text, color) {
-        const fb = document.getElementById("feedback");
-        fb.innerText = text;
-        fb.style.color = color === "green" ? "var(--success)" : "var(--danger)";
-        document.getElementById("score-display").innerText = `⭐ Body: ${score}`;
-        document.getElementById("next-btn").classList.remove("hidden");
-    }
-
-    function nextQuestion() {
-        questionIndex++;
-        if (questionIndex < 10) {
-            showQuestion();
-        } else {
-            endQuiz();
-        }
-    }
-
-    function confirmExit() {
-        if (confirm("Opravdu chceš ukončit test? Dosavadní skóre v tomto testu se neuloží.")) {
-            showMenu();
-        }
-    }
-
-    function endQuiz() {
-        document.getElementById("quiz-screen").classList.add("hidden");
-        document.getElementById("result-screen").classList.remove("hidden");
-        document.getElementById("final-stats").innerText = `${currentUser}, v testu [${currentSubjectName}] jsi získal(a) ${score} bodů z 10!`;
-    }
-
-    function saveScoreAndRestart() {
-        saveLeaderboard(currentUser, score, currentSubjectName);
-        showMenu();
-    }
-
-    function showMenu() {
-        document.getElementById("quiz-screen").classList.add("hidden");
-        document.getElementById("result-screen").classList.add("hidden");
-        document.getElementById("menu-screen").classList.remove("hidden");
-        loadLeaderboard();
-    }
-
-    function saveLeaderboard(name, pts, subjectName) {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        board.push({ 
-            name: name, 
-            score: pts, 
-            subject: subjectName,
-            date: new Date().toLocaleDateString() 
-        });
-        board.sort((a, b) => b.score - a.score);
-        board = board.slice(0, 5);
-        localStorage.setItem("school_leaderboard", JSON.stringify(board));
-    }
-
-    function loadLeaderboard() {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let listHtml = "";
-        if (board.length === 0) {
-            listHtml = "<li style='text-align:center; color:#7F8C8D;'>Zatím žádné výsledky. Buď první!</li>";
-        } else {
-            board.forEach(item => {
-                let subj = item.subject || "Škola";
-                listHtml += `
-                    <li class="score-item">
-                        <div>
-                            <strong>👤 ${item.name}</strong><br>
-                            <span class="badge-subject">${subj}</span>
-                        </div>
-                        <div style="font-weight:bold; font-size:16px; color:#27AE60;">
-                            ⭐ ${item.score}/10
-                        </div>
-                    </li>`;
-            });
-        }
-        document.getElementById("leaderboard").innerHTML = listHtml;
-    }
-
-    loadLeaderboard();
-</script>
-
-</body>
-</html>
+            { q: "🇨🇿 Doplň vyjmenované slovo: P_cha přchází před
