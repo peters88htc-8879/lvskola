@@ -106,6 +106,9 @@
         .btn-success { background-color: var(--success); }
         .btn-success:hover { background-color: #27AE60; }
 
+        .btn-danger { background-color: var(--danger); }
+        .btn-danger:hover { background-color: #C0392B; }
+
         .btn-subject {
             background: linear-gradient(45deg, #6C5CE7, #a29bfe);
             font-size: 17px;
@@ -234,3 +237,301 @@
 
         <div class="question-card">
             <h2 id="question-title" style="margin:0; color:#2C3E50; font-size:22px;">Otázka</h2>
+            
+            <div id="vertical-box" class="hidden">
+                <div class="vertical-math" id="vertical-content"></div>
+            </div>
+        </div>
+
+        <div id="options-box"></div>
+        <input type="text" id="text-answer" class="hidden" placeholder="Napiš výsledek...">
+        <button id="submit-text-btn" class="btn btn-success hidden" onclick="checkTextAnswer()">✅ Odeslat odpověď</button>
+
+        <div id="feedback"></div>
+        <button id="next-btn" class="btn hidden" onclick="nextQuestion()">Další otázka ➔</button>
+        
+        <!-- Tlačítko pro předčasné ukončení testu -->
+        <button class="btn btn-danger" style="margin-top: 20px; font-size: 15px; padding: 10px;" onclick="confirmExit()">🏠 Ukončit test a zpět do menu</button>
+    </div>
+
+    <!-- VYHODNOCENÍ -->
+    <div id="result-screen" class="hidden">
+        <h2>🎉 Skvělá práce!</h2>
+        <div style="font-size: 60px; margin: 10px 0;">🏆</div>
+        <p id="final-stats" style="font-size: 20px; font-weight: bold; color: #2C3E50;">Získal jsi 0 bodů z 10.</p>
+        <button class="btn btn-success" onclick="saveScoreAndRestart()">💾 Uložit výsledek a pokračovat</button>
+        <button class="btn" onclick="showMenu()">🏠 Zpět do menu</button>
+    </div>
+
+</div>
+
+<script>
+    let currentUser = "Školák";
+    let currentSubjectKey = "";
+    let currentSubjectName = "";
+    let questionIndex = 0;
+    let score = 0;
+    let questions = [];
+
+    const subjectNames = {
+        math: "Matematika 🔢",
+        eng: "Angličtina 🇬🇧",
+        cz: "Čeština 🇨🇿",
+        phy: "Fyzika ⚡"
+    };
+
+    const database = {
+        eng: [
+            { q: "🇬🇧 Přelož slovíčko: 'Book'", a: ["kniha", "sešit", "taška", "tužka"], correct: "kniha" },
+            { q: "🇬🇧 Doplň sloveso: 'She ___ 12 years old.'", a: ["is", "are", "am", "be"], correct: "is" },
+            { q: "🇬🇧 Přelož slovíčko: 'Teacher'", a: ["učitel", "žák", "ředitel", "školník"], correct: "učitel" },
+            { q: "🇬🇧 Přelož větu: 'I have a dog.'", a: ["Mám psa.", "Vidím psa.", "Pes spí.", "To je pes."], correct: "Mám psa." },
+            { q: "🇬🇧 Doplň zápor: 'They ___ like apples.'", a: ["don't", "doesn't", "isn't", "aren't"], correct: "don't" },
+            { q: "🇬🇧 Přelož slovíčko: 'Weather'", a: ["počasí", "voda", "vítr", "slunce"], correct: "počasí" },
+            { q: "🇬🇧 Přelož větu: 'Where is my pen?'", a: ["Kde je moje pero?", "Kdo má moje pero?", "Kam jdeš?", "To je moje pero."], correct: "Kde je moje pero?" },
+            { q: "🇬🇧 Doplň: 'He usually ___ basketball.'", a: ["plays", "play", "playing", "played"], correct: "plays" },
+            { q: "🇬🇧 Přelož slovíčko: 'Always'", a: ["vždy", "nikdy", "často", "občas"], correct: "vždy" },
+            { q: "🇬🇧 Přelož větu: 'We live in a house.'", a: ["Bydlíme v domě.", "Stavíme dům.", "Máme velký dům.", "Dům je starý."], correct: "Bydlíme v domě." }
+        ],
+        cz: [
+            { q: "🇨🇿 Doplň i/y: Myš_čka běhá po dvoře.", a: ["i", "y"], correct: "i" },
+            { q: "🇨🇿 Doplň vyjmenované slovo: P_cha přchází před pádem.", a: ["ý", "í"], correct: "ý" },
+            { q: "🇨🇿 Doplň e/ě: Dělal to pro m_.", a: ["ě", "ě (mě)", "e", "ně"], correct: "ě" },
+            { q: "🇨🇿 Doplň i/y: S_kora je užitečný pták.", a: ["y", "i"], correct: "y" },
+            { q: "🇨🇿 Doplň e/ě: B_žel rychle do školy.", a: ["ě", "e"], correct: "ě" },
+            { q: "🇨🇿 Vyber správně napsané slovo:", a: ["bystrý", "bistrý", "bystrí", "bistrí"], correct: "bystrý" },
+            { q: "🇨🇿 Doplň i/y: Děti s_hrály divadlo.", a: ["e", "i", "y"], correct: "e" },
+            { q: "🇨🇿 Doplň i/y: B_lit stěnu na bílo.", a: ["í", "ý"], correct: "í" },
+            { q: "🇨🇿 Doplň e/ě: Zapom_l na úkol.", a: ["ně", "ě"], correct: "ně" },
+            { q: "🇨🇿 Doplň vyjmenované slovo: Litomyš_ je město.", a: ["l", "ľ", "l (Litomyšl)", "š"], correct: "l (Litomyšl)" }
+        ],
+        phy: [
+            { q: "⚖️ Čím měříme hmotnost tělesa?", a: ["Váhami", "Pravítkem", "Teploměrem", "Stopkami"], correct: "Váhami" },
+            { q: "📏 Jaká je základní jednotka délky?", a: ["Metr (m)", "Kilogram (kg)", "Sekunda (s)", "Litr (l)"], correct: "Metr (m)" },
+            { q: "🚗 Převod jednotek: 1 km má kolik metrů?", a: ["1000 m", "100 m", "10 m", "10000 m"], correct: "1000 m" },
+            { q: "💪 Jakou značku má síla ve fyzice?", a: ["F", "m", "v", "s"], correct: "F" },
+            { q: "🍏 Jednotkou fyzikální síly je:", a: ["Newton (N)", "Joule (J)", "Pascal (Pa)", "Watt (W)"], correct: "Newton (N)" },
+            { q: "⚖️ Převod jednotek: 1 kg má kolik gramů?", a: ["1000 g", "100 g", "10 g", "500 g"], correct: "1000 g" },
+            { q: "🧪 Čím měříme objem kapalin?", a: ["Odmerným válcem", "Váhou", "Siloměrem", "Pásmem"], correct: "Odmerným válcem" },
+            { q: "🧊 Skupenství vody při 0 °C přechází na:", a: ["Led (pevné)", "Páru (plynné)", "Plazmu", "Žádné z uvedených"], correct: "Led (pevné)" },
+            { q: "🌍 Co způsobuje, že padáme k zemi?", a: ["Gravitační síla", "Tlak vzduchu", "Magnetická síla", "Elektrická síla"], correct: "Gravitační síla" },
+            { q: "📦 Jaká je značka pro hmotnost?", a: ["m", "H", "kg", "V"], correct: "m" }
+        ]
+    };
+
+    function generateMathQuestions() {
+        let mathQ = [];
+        for(let i=0; i<10; i++) {
+            let type = Math.floor(Math.random() * 5);
+            let n1, n2, ans, text, isVertical = false;
+
+            if (type === 0) {
+                n1 = Math.floor(Math.random() * 500) + 50;
+                n2 = Math.floor(Math.random() * 400) + 50;
+                ans = n1 + n2;
+                text = `➕ Spočítej: ${n1} + ${n2}`;
+            } else if (type === 1) {
+                n1 = Math.floor(Math.random() * 800) + 100;
+                n2 = Math.floor(Math.random() * n1);
+                ans = n1 - n2;
+                text = `➖ Spočítej: ${n1} - ${n2}`;
+            } else if (type === 2) {
+                n1 = Math.floor(Math.random() * 12) + 2;
+                n2 = Math.floor(Math.random() * 20) + 2;
+                ans = n1 * n2;
+                text = `✖️ Spočítej: ${n1} × ${n2}`;
+            } else if (type === 3) {
+                n2 = Math.floor(Math.random() * 9) + 2;
+                ans = Math.floor(Math.random() * 50) + 2;
+                n1 = n2 * ans;
+                text = `➗ Spočítej: ${n1} ÷ ${n2}`;
+            } else {
+                n1 = Math.floor(Math.random() * 400) + 100;
+                n2 = Math.floor(Math.random() * 400) + 100;
+                ans = n1 + n2;
+                text = "📝 Spočítej pod sebou:";
+                isVertical = true;
+            }
+
+            mathQ.push({
+                q: text,
+                isMath: true,
+                isVertical: isVertical,
+                v1: n1,
+                v2: n2,
+                correct: ans.toString()
+            });
+        }
+        return mathQ;
+    }
+
+    function startQuiz(subject) {
+        currentUser = document.getElementById("username").value.trim() || "Školák";
+        currentSubjectKey = subject;
+        currentSubjectName = subjectNames[subject];
+        questionIndex = 0;
+        score = 0;
+
+        if (subject === 'math') {
+            questions = generateMathQuestions();
+        } else {
+            questions = [...database[subject]].sort(() => Math.random() - 0.5);
+        }
+
+        document.getElementById("menu-screen").classList.add("hidden");
+        document.getElementById("result-screen").classList.add("hidden");
+        document.getElementById("quiz-screen").classList.remove("hidden");
+
+        showQuestion();
+    }
+
+    function showQuestion() {
+        let q = questions[questionIndex];
+        document.getElementById("question-count").innerText = `📌 Otázka: ${questionIndex + 1}/10`;
+        document.getElementById("score-display").innerText = `⭐ Body: ${score}`;
+        document.getElementById("question-title").innerText = q.q;
+        document.getElementById("feedback").innerText = "";
+        document.getElementById("next-btn").classList.add("hidden");
+
+        const optBox = document.getElementById("options-box");
+        const vertBox = document.getElementById("vertical-box");
+        const textAns = document.getElementById("text-answer");
+        const subBtn = document.getElementById("submit-text-btn");
+
+        optBox.innerHTML = "";
+        vertBox.classList.add("hidden");
+        textAns.classList.add("hidden");
+        subBtn.classList.add("hidden");
+
+        if (q.isMath) {
+            if (q.isVertical) {
+                vertBox.classList.remove("hidden");
+                document.getElementById("vertical-content").innerHTML = `&nbsp;${q.v1}<br>+${q.v2}`;
+            }
+            textAns.classList.remove("hidden");
+            textAns.value = "";
+            textAns.focus();
+            subBtn.classList.remove("hidden");
+        } else {
+            let shuffled = [...q.a].sort(() => Math.random() - 0.5);
+            shuffled.forEach(opt => {
+                let btn = document.createElement("button");
+                btn.className = "btn option-btn";
+                btn.innerText = opt;
+                btn.onclick = () => checkOptionAnswer(opt, q.correct);
+                optBox.appendChild(btn);
+            });
+        }
+    }
+
+    function checkOptionAnswer(selected, correct) {
+        disableOptions();
+        if (selected === correct) {
+            score++;
+            showFeedback("🎉 Správně!", "green");
+        } else {
+            showFeedback(`❌ Špatně! Správná odpověď byla: ${correct}`, "red");
+        }
+    }
+
+    function checkTextAnswer() {
+        let userAns = document.getElementById("text-answer").value.trim();
+        let correct = questions[questionIndex].correct;
+        
+        document.getElementById("submit-text-btn").classList.add("hidden");
+
+        if (userAns === correct) {
+            score++;
+            showFeedback("🎉 Správně!", "green");
+        } else {
+            showFeedback(`❌ Špatně! Správný výsledek je: ${correct}`, "red");
+        }
+    }
+
+    function disableOptions() {
+        const btns = document.querySelectorAll(".option-btn");
+        btns.forEach(b => b.disabled = true);
+    }
+
+    function showFeedback(text, color) {
+        const fb = document.getElementById("feedback");
+        fb.innerText = text;
+        fb.style.color = color === "green" ? "var(--success)" : "var(--danger)";
+        document.getElementById("score-display").innerText = `⭐ Body: ${score}`;
+        document.getElementById("next-btn").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+        questionIndex++;
+        if (questionIndex < 10) {
+            showQuestion();
+        } else {
+            endQuiz();
+        }
+    }
+
+    function confirmExit() {
+        if (confirm("Opravdu chceš ukončit test? Dosavadní skóre v tomto testu se neuloží.")) {
+            showMenu();
+        }
+    }
+
+    function endQuiz() {
+        document.getElementById("quiz-screen").classList.add("hidden");
+        document.getElementById("result-screen").classList.remove("hidden");
+        document.getElementById("final-stats").innerText = `${currentUser}, v testu [${currentSubjectName}] jsi získal(a) ${score} bodů z 10!`;
+    }
+
+    function saveScoreAndRestart() {
+        saveLeaderboard(currentUser, score, currentSubjectName);
+        showMenu();
+    }
+
+    function showMenu() {
+        document.getElementById("quiz-screen").classList.add("hidden");
+        document.getElementById("result-screen").classList.add("hidden");
+        document.getElementById("menu-screen").classList.remove("hidden");
+        loadLeaderboard();
+    }
+
+    function saveLeaderboard(name, pts, subjectName) {
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        board.push({ 
+            name: name, 
+            score: pts, 
+            subject: subjectName,
+            date: new Date().toLocaleDateString() 
+        });
+        board.sort((a, b) => b.score - a.score);
+        board = board.slice(0, 5);
+        localStorage.setItem("school_leaderboard", JSON.stringify(board));
+    }
+
+    function loadLeaderboard() {
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        let listHtml = "";
+        if (board.length === 0) {
+            listHtml = "<li style='text-align:center; color:#7F8C8D;'>Zatím žádné výsledky. Buď první!</li>";
+        } else {
+            board.forEach(item => {
+                let subj = item.subject || "Škola";
+                listHtml += `
+                    <li class="score-item">
+                        <div>
+                            <strong>👤 ${item.name}</strong><br>
+                            <span class="badge-subject">${subj}</span>
+                        </div>
+                        <div style="font-weight:bold; font-size:16px; color:#27AE60;">
+                            ⭐ ${item.score}/10
+                        </div>
+                    </li>`;
+            });
+        }
+        document.getElementById("leaderboard").innerHTML = listHtml;
+    }
+
+    loadLeaderboard();
+</script>
+
+</body>
+</html>
