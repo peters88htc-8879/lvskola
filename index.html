@@ -6,19 +6,20 @@
     <title>🎓 Školní Trénink - Zábavné Učení</title>
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
             --success: #10b981;
             --danger: #ef4444;
             --accent: #f59e0b;
-            --bg-gradient: linear-gradient(135deg, #f0abfc 0%, #818cf8 50%, #38bdf8 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
+            --bg-gradient: linear-gradient(135deg, #0f172a 1e-3%, #1e293b 50%, #0f172a 100%);
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
         }
 
         * { box-sizing: border-box; }
 
         body {
-            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--bg-gradient);
             background-attachment: fixed;
             margin: 0;
@@ -27,54 +28,53 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            color: var(--text-color);
         }
 
         .container {
             background: var(--card-bg);
             padding: 30px;
             border-radius: 30px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
             width: 100%;
             max-width: 560px;
             text-align: center;
-            backdrop-filter: blur(10px);
-            border: 6px solid #ffffff;
+            border: 3px solid #334155;
         }
 
         h1 {
-            color: #4f46e5;
-            font-size: 32px;
+            color: #60a5fa;
+            font-size: 30px;
             margin-top: 0;
             margin-bottom: 15px;
-            text-shadow: 2px 2px 0px #e0e7ff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .user-box {
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            background: #0f172a;
             padding: 16px;
             border-radius: 20px;
             margin-bottom: 20px;
-            border: 3px dashed #0284c7;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+            border: 2px dashed #475569;
         }
 
         input[type="text"] {
             width: 85%;
             padding: 12px;
             font-size: 18px;
-            border: 3px solid #7dd3fc;
+            border: 2px solid #475569;
             border-radius: 15px;
             margin-top: 8px;
             text-align: center;
             font-weight: bold;
             outline: none;
-            background: #FFFFFF;
-            color: #0369a1;
+            background: #1e293b;
+            color: #f8fafc;
         }
 
         input[type="text"]:focus {
-            border-color: #0284c7;
-            box-shadow: 0 0 15px rgba(2, 132, 199, 0.4);
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
         }
 
         .btn {
@@ -89,7 +89,7 @@
             margin: 8px 0;
             transition: all 0.2s ease;
             font-weight: bold;
-            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -98,15 +98,21 @@
 
         .btn:hover {
             background-color: var(--primary-hover);
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
         }
 
         .btn:active { transform: translateY(0); }
 
-        .btn-success { background: linear-gradient(135deg, #34d399 0%, #059669 100%); }
-        .btn-danger { background: linear-gradient(135deg, #f87171 0%, #dc2626 100%); font-size: 15px; padding: 10px; border-radius: 14px; }
-        .btn-warning { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); font-size: 15px; padding: 10px; border-radius: 14px; }
+        .btn-success { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .btn-danger { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); font-size: 15px; padding: 12px; border-radius: 14px; }
+        .btn-warning { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); font-size: 15px; padding: 12px; border-radius: 14px; color: #fff; }
+        .btn-continue { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); animation: pulse 1.5s infinite; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
 
         .subject-grid {
             display: grid;
@@ -116,58 +122,53 @@
         }
 
         .btn-subject {
-            background: white;
-            border: 3px solid #e0e7ff;
-            color: #312e81;
+            background: #0f172a;
+            border: 2px solid #334155;
+            color: #e2e8f0;
             font-size: 16px;
             border-radius: 20px;
             padding: 18px 10px;
             flex-direction: column;
             gap: 8px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
             transition: all 0.2s;
         }
 
-        .btn-subject span { font-size: 32px; }
+        .btn-subject span { font-size: 30px; }
 
         .btn-subject:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             border-color: var(--primary);
-            background: #f5f3ff;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.15);
+            background: #1e293b;
         }
 
         .hidden { display: none !important; }
 
         .option-btn {
-            background: #ffffff;
-            border: 3px solid #e2e8f0;
-            color: #1e293b;
+            background: #0f172a;
+            border: 2px solid #334155;
+            color: #f1f5f9;
             margin: 10px 0;
             font-size: 18px;
             border-radius: 16px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
 
         .option-btn:hover {
             border-color: var(--primary);
-            background: #eef2ff;
-            transform: scale(1.02);
+            background: #1e293b;
         }
 
         .score-board {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border: 3px solid #f59e0b;
+            background: #0f172a;
+            border: 2px solid #475569;
             padding: 16px;
             border-radius: 22px;
             margin-top: 15px;
             text-align: left;
-            box-shadow: 0 8px 15px rgba(245, 158, 11, 0.15);
         }
 
         .score-board h4 {
             margin-top: 0;
-            color: #b45309;
+            color: #fbbf24;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -183,28 +184,27 @@
         }
 
         .score-item {
-            background: #FFFFFF;
+            background: #1e293b;
             padding: 12px 14px;
             border-radius: 14px;
             margin-bottom: 8px;
-            border: 2px solid #fef08a;
+            border: 1px solid #334155;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+            color: #f1f5f9;
         }
 
         .score-item:hover {
-            background: #e0f2fe;
-            transform: scale(1.02);
-            border-color: #0284c7;
+            background: #334155;
+            border-color: #60a5fa;
         }
 
         .badge-subject {
-            background: #4f46e5;
+            background: #3b82f6;
             color: white;
             padding: 3px 10px;
             border-radius: 10px;
@@ -218,13 +218,13 @@
             font-weight: bold;
             text-align: right;
             display: inline-block;
-            border-bottom: 4px solid #312e81;
+            border-bottom: 4px solid #f1f5f9;
             padding: 10px 25px;
             margin: 10px 0;
-            background: #f8fafc;
+            background: #0f172a;
             border-radius: 16px;
             letter-spacing: 4px;
-            color: #1e1b4b;
+            color: #f8fafc;
         }
 
         #feedback {
@@ -235,18 +235,17 @@
         }
 
         .question-card {
-            background: #f8fafc;
+            background: #0f172a;
             padding: 20px;
             border-radius: 20px;
-            border: 3px solid #e2e8f0;
+            border: 2px solid #334155;
             margin-bottom: 15px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.7);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -254,14 +253,15 @@
             backdrop-filter: blur(5px);
         }
         .modal-content {
-            background: white;
+            background: #1e293b;
+            color: #f1f5f9;
             padding: 25px;
             border-radius: 25px;
             width: 90%;
             max-width: 450px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border: 5px solid var(--primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 3px solid var(--primary);
         }
     </style>
 </head>
@@ -273,8 +273,15 @@
     <div id="menu-screen">
         <h1>🌟 Školní Trénink 🌟</h1>
         <div class="user-box">
-            <label for="username"><strong>👤 Napiš své jméno nebo vyber v tabulce:</strong></label><br>
-            <input type="text" id="username" placeholder="Např. Anička / Honzík...">
+            <label for="username"><strong>👤 Zadej jméno nebo vyber v tabulce:</strong></label><br>
+            <input type="text" id="username" placeholder="Např. Anička / Tata...">
+        </div>
+
+        <!-- TLAČÍTKO PRO POKRAČOVÁNÍ V ROZEPSANÉM TESTU (ZOBRAZÍ SE POUZE POKUD EXISTUJE) -->
+        <div id="resume-container" class="hidden" style="margin-bottom: 15px;">
+            <button class="btn btn-continue" onclick="resumeQuiz()">
+                ▶️ Pokračovat v rozestavěném testu (<span id="resume-subject-name"></span>)
+            </button>
         </div>
 
         <h3>🎯 Vyber si předmět:</h3>
@@ -305,13 +312,13 @@
     <!-- KVÍZOVÁ OBRAZOVKA -->
     <div id="quiz-screen" class="hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:16px;">
-            <span id="question-count" style="color: #4f46e5;">📌 Otázka: 1/10</span>
-            <span id="score-display" style="color: #059669; font-size: 18px;">⭐ Body: 0</span>
+            <span id="question-count" style="color: #60a5fa;">📌 Otázka: 1/10</span>
+            <span id="score-display" style="color: #34d399; font-size: 18px;">⭐ Body: 0</span>
         </div>
-        <hr style="border: 2px solid #e2e8f0; margin: 12px 0; border-radius: 2px;">
+        <hr style="border: 1px solid #334155; margin: 12px 0;">
 
         <div class="question-card">
-            <h2 id="question-title" style="margin:0; color:#1e293b; font-size:22px;">Otázka</h2>
+            <h2 id="question-title" style="margin:0; color:#f8fafc; font-size:22px;">Otázka</h2>
             
             <div id="vertical-box" class="hidden">
                 <div class="vertical-math" id="vertical-content"></div>
@@ -325,16 +332,17 @@
         <div id="feedback"></div>
         <button id="next-btn" class="btn hidden" onclick="nextQuestion()">Další otázka ➔</button>
         
-        <button class="btn btn-danger" onclick="confirmExit()">🏠 Ukončit test a zpět do menu</button>
+        <button class="btn btn-warning" onclick="saveAndExitQuiz()">💾 Uložit rozdělaný test a odejít</button>
+        <button class="btn btn-danger" onclick="confirmExitWithoutSaving()">❌ Ukončit bez uložení</button>
     </div>
 
     <!-- VYHODNOCENÍ -->
     <div id="result-screen" class="hidden">
         <h2>🎉 Skvělá práce!</h2>
         <div style="font-size: 70px; margin: 10px 0;">🏆</div>
-        <p id="final-stats" style="font-size: 20px; font-weight: bold; color: #1e293b;">Získal jsi 0 bodů z 10.</p>
-        <button class="btn btn-success" onclick="saveScoreAndRestart()">💾 Uložit výsledek do tabulky</button>
-        <button class="btn btn-warning" onclick="showMenu()">🏠 Zpět do menu bez uložení</button>
+        <p id="final-stats" style="font-size: 20px; font-weight: bold; color: #f8fafc;">Získal jsi 0 bodů z 10.</p>
+        <button class="btn btn-success" onclick="startQuiz(currentSubjectKey)">🔄 Další test (znovu)</button>
+        <button class="btn btn-warning" onclick="showMenu()">🏠 Zpět do menu</button>
     </div>
 
 </div>
@@ -342,7 +350,7 @@
 <!-- DETAILNÍ OKNO PRO HISTORII POKUSŮ -->
 <div id="detail-modal" class="modal hidden">
     <div class="modal-content">
-        <h3 id="modal-title" style="color:#4f46e5; margin-top:0;">📊 Profil hráče</h3>
+        <h3 id="modal-title" style="color:#60a5fa; margin-top:0;">📊 Profil hráče</h3>
         <div id="modal-body" style="max-height: 280px; overflow-y: auto; text-align: left; margin: 15px 0; font-size: 15px;"></div>
         <button class="btn btn-success" onclick="selectUserFromModal()">✅ Pokračovat za tohoto hráče</button>
         <button class="btn btn-warning" onclick="closeModal()">Zavřít</button>
@@ -450,6 +458,18 @@
         return mathQ;
     }
 
+    function checkSavedState() {
+        let saved = localStorage.getItem("school_saved_quiz");
+        const resumeBox = document.getElementById("resume-container");
+        if (saved) {
+            let data = JSON.parse(saved);
+            document.getElementById("resume-subject-name").innerText = `${data.userName} (${subjectNames[data.subjectKey]})`;
+            resumeBox.classList.remove("hidden");
+        } else {
+            resumeBox.classList.add("hidden");
+        }
+    }
+
     function startQuiz(subject) {
         let nameInput = document.getElementById("username").value.trim();
         if (!nameInput) {
@@ -469,11 +489,55 @@
             questions = [...database[subject]].sort(() => Math.random() - 0.5);
         }
 
+        // Smažeme případný starý rozepsaný test pro tohoto hráče
+        localStorage.removeItem("school_saved_quiz");
+
         document.getElementById("menu-screen").classList.add("hidden");
         document.getElementById("result-screen").classList.add("hidden");
         document.getElementById("quiz-screen").classList.remove("hidden");
 
         showQuestion();
+    }
+
+    function resumeQuiz() {
+        let saved = localStorage.getItem("school_saved_quiz");
+        if (!saved) return;
+
+        let data = JSON.parse(saved);
+        currentUser = data.userName;
+        currentSubjectKey = data.subjectKey;
+        currentSubjectName = subjectNames[data.subjectKey];
+        questionIndex = data.questionIndex;
+        score = data.score;
+        questions = data.questions;
+
+        document.getElementById("username").value = currentUser;
+        localStorage.removeItem("school_saved_quiz");
+
+        document.getElementById("menu-screen").classList.add("hidden");
+        document.getElementById("quiz-screen").classList.remove("hidden");
+
+        showQuestion();
+    }
+
+    function saveAndExitQuiz() {
+        let savedData = {
+            userName: currentUser,
+            subjectKey: currentSubjectKey,
+            questionIndex: questionIndex,
+            score: score,
+            questions: questions
+        };
+        localStorage.setItem("school_saved_quiz", JSON.stringify(savedData));
+        alert("💾 Test byl úspěšně uložen. Můžeš se k němu kdykoliv vrátit z hlavního menu!");
+        showMenu();
+    }
+
+    function confirmExitWithoutSaving() {
+        if (confirm("Opravdu chceš odejít bez uložení rozehraného testu?")) {
+            localStorage.removeItem("school_saved_quiz");
+            showMenu();
+        }
     }
 
     function showQuestion() {
@@ -561,21 +625,22 @@
         }
     }
 
-    function confirmExit() {
-        if (confirm("Opravdu chceš ukončit test? Skóre se tentokrát neuloží.")) {
-            showMenu();
-        }
-    }
-
     function endQuiz() {
+        // Automatické uložení skóre do tabulky na konci testu
+        saveLeaderboard(currentUser, score, currentSubjectName);
+        localStorage.removeItem("school_saved_quiz");
+
         document.getElementById("quiz-screen").classList.add("hidden");
         document.getElementById("result-screen").classList.remove("hidden");
-        document.getElementById("final-stats").innerText = `${currentUser}, v testu [${currentSubjectName}] jsi získal(a) ${score} bodů z 10!`;
+        document.getElementById("final-stats").innerText = `${currentUser}, v testu [${currentSubjectName}] jsi získal(a) ${score} bodů z 10! (Skóre bylo automaticky uloženo 🏆)`;
     }
 
-    function saveScoreAndRestart() {
-        saveLeaderboard(currentUser, score, currentSubjectName);
-        showMenu();
+    function showMenu() {
+        document.getElementById("quiz-screen").classList.add("hidden");
+        document.getElementById("result-screen").classList.add("hidden");
+        document.getElementById("menu-screen").classList.remove("hidden");
+        loadLeaderboard();
+        checkSavedState();
     }
 
     function saveLeaderboard(name, pts, subjectName) {
@@ -594,7 +659,7 @@
         let listHtml = "";
 
         if (board.length === 0) {
-            listHtml = "<li style='text-align:center; color:#7F8C8D; padding:10px;'>Zatím žádné výsledky. Napiš jméno a hraj! 🎮</li>";
+            listHtml = "<li style='text-align:center; color:#94a3b8; padding:10px;'>Zatím žádné výsledky. Napiš jméno a hraj! 🎮</li>";
         } else {
             let uniquePlayers = {};
             board.forEach(item => {
@@ -614,8 +679,8 @@
                             <span class="badge-subject">${subj}</span>
                         </div>
                         <div style="text-align:right;">
-                            <span style="font-weight:bold; font-size:16px; color:#059669;">⭐ Max: ${item.score}/10</span><br>
-                            <small style="color:#64748b;">${item.date}</small>
+                            <span style="font-weight:bold; font-size:16px; color:#34d399;">⭐ Max: ${item.score}/10</span><br>
+                            <small style="color:#94a3b8;">${item.date}</small>
                         </div>
                     </li>`;
             });
@@ -639,10 +704,10 @@
         
         for (let subj in bySubject) {
             let lastThree = bySubject[subj].slice(-3);
-            html += `<div style="margin-top:10px; background:#f8fafc; padding:8px; border-radius:10px; border:1px solid #cbd5e1;">`;
+            html += `<div style="margin-top:10px; background:#0f172a; padding:8px; border-radius:10px; border:1px solid #475569;">`;
             html += `<b>${subj}:</b><ul style="padding-left:20px; margin:3px 0;">`;
             lastThree.forEach(r => {
-                html += `<li><b>${r.score}/10 bodů</b> <small style="color:#64748b;">(${r.date})</small></li>`;
+                html += `<li><b>${r.score}/10 bodů</b> <small style="color:#94a3b8;">(${r.date})</small></li>`;
             });
             html += `</ul></div>`;
         }
@@ -670,6 +735,7 @@
     }
 
     loadLeaderboard();
+    checkSavedState();
 </script>
 
 </body>
