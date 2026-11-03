@@ -14,7 +14,6 @@
             --danger: #ef4444;
             --warning: #f59e0b;
             --bg-gradient: radial-gradient(circle at center, #312e81 0%, #1e1b4b 100%);
-            --card-glass: rgba(255, 255, 255, 0.9);
             --text-color: #1e1b4b;
         }
 
@@ -46,25 +45,12 @@
             overflow: hidden;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50px; left: -50px;
-            width: 150px; height: 150px;
-            background: rgba(99, 102, 241, 0.15);
-            border-radius: 50%;
-            filter: blur(40px);
-            z-index: 0;
-        }
-
         h1 {
             color: #312e81;
             font-size: 34px;
             margin-top: 0;
             margin-bottom: 20px;
             text-shadow: 2px 3px 6px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 1;
         }
 
         .user-box {
@@ -74,8 +60,6 @@
             margin-bottom: 20px;
             border: 3px solid #cbd5e1;
             box-shadow: 0 10px 20px rgba(0,0,0,0.06), inset 0 3px 5px rgba(255,255,255,0.8);
-            position: relative;
-            z-index: 1;
         }
 
         input[type="text"] {
@@ -96,7 +80,7 @@
 
         input[type="text"]:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4), inset 0 3px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
         }
 
         .btn {
@@ -116,39 +100,25 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            position: relative;
-            z-index: 1;
         }
 
         .btn:hover {
             transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 12px 25px rgba(79, 70, 229, 0.6), inset 0 3px 4px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 25px rgba(79, 70, 229, 0.6);
         }
 
-        .btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.4);
-        }
+        .btn:active { transform: translateY(2px); }
 
-        .btn-success { background: linear-gradient(145deg, #34d399, #059669); box-shadow: 0 8px 20px rgba(5, 150, 105, 0.4), inset 0 3px 4px rgba(255, 255, 255, 0.4); }
-        .btn-danger { background: linear-gradient(145deg, #f87171, #dc2626); font-size: 16px; padding: 14px; box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4), inset 0 3px 4px rgba(255, 255, 255, 0.4); }
-        .btn-warning { background: linear-gradient(145deg, #fbbf24, #d97706); font-size: 16px; padding: 14px; color: #fff; box-shadow: 0 8px 20px rgba(217, 119, 6, 0.4), inset 0 3px 4px rgba(255, 255, 255, 0.4); }
-        .btn-continue { 
-            background: linear-gradient(145deg, #c084fc, #9333ea); 
-            font-size: 17px; 
-            padding: 16px; 
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(147, 51, 234, 0.4), inset 0 3px 4px rgba(255, 255, 255, 0.4);
-        }
-        .btn-game { background: linear-gradient(145deg, #38bdf8, #0284c7); box-shadow: 0 8px 20px rgba(2, 132, 199, 0.4), inset 0 3px 4px rgba(255, 255, 255, 0.4); }
+        .btn-success { background: linear-gradient(145deg, #34d399, #059669); }
+        .btn-danger { background: linear-gradient(145deg, #f87171, #dc2626); font-size: 16px; padding: 14px; }
+        .btn-warning { background: linear-gradient(145deg, #fbbf24, #d97706); font-size: 16px; padding: 14px; color: #fff; }
+        .btn-game { background: linear-gradient(145deg, #38bdf8, #0284c7); }
 
         .subject-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
         }
 
         @keyframes floatIcon {
@@ -165,13 +135,12 @@
             padding: 18px 12px;
             flex-direction: column;
             gap: 8px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.06), inset 0 3px 4px rgba(255,255,255,0.9);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.06);
             transition: all 0.3s;
         }
 
         .btn-subject span { 
             font-size: 36px; 
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
             animation: floatIcon 3s ease-in-out infinite;
         }
 
@@ -179,8 +148,6 @@
             transform: translateY(-5px);
             border-color: var(--primary);
             background: linear-gradient(145deg, #e0f2fe, #bae6fd);
-            color: #0f172a;
-            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.25), inset 0 3px 5px rgba(255,255,255,1);
         }
 
         .hidden { display: none !important; }
@@ -192,13 +159,11 @@
             margin: 10px 0;
             font-size: 18px;
             border-radius: 20px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.05), inset 0 3px 3px rgba(255,255,255,0.9);
         }
 
         .option-btn:hover {
             border-color: var(--primary);
             background: linear-gradient(145deg, #e0f2fe, #bae6fd);
-            transform: translateY(-2px);
         }
 
         .score-board {
@@ -208,9 +173,6 @@
             border-radius: 28px;
             margin-top: 20px;
             text-align: left;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05), inset 0 3px 5px rgba(255,255,255,0.9);
-            position: relative;
-            z-index: 1;
         }
 
         .score-board h4 {
@@ -241,40 +203,6 @@
             align-items: center;
             font-size: 16px;
             cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
-        }
-
-        .score-item:hover {
-            background: linear-gradient(145deg, #e2e8f0, #cbd5e1);
-            border-color: var(--primary);
-            transform: scale(1.01);
-        }
-
-        .badge-subject {
-            background: #4f46e5;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: bold;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-        }
-
-        .vertical-math {
-            font-family: 'Fredoka', monospace;
-            font-size: 38px;
-            font-weight: 700;
-            text-align: right;
-            display: inline-block;
-            border-bottom: 5px solid #1e1b4b;
-            padding: 10px 25px;
-            margin: 10px 0;
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-            border-radius: 20px;
-            letter-spacing: 5px;
-            color: #1e1b4b;
-            box-shadow: inset 0 3px 6px rgba(0,0,0,0.1), 0 6px 12px rgba(0,0,0,0.06);
         }
 
         #feedback {
@@ -282,7 +210,6 @@
             font-weight: 700;
             margin-top: 12px;
             min-height: 35px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
 
         .question-card {
@@ -291,11 +218,6 @@
             border-radius: 25px;
             border: 3px solid #cbd5e1;
             margin-bottom: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.06), inset 0 3px 5px rgba(255,255,255,0.9);
-        }
-
-        #quiz-screen, #fill-screen {
-            padding-bottom: 40px;
         }
 
         .memory-grid {
@@ -313,22 +235,15 @@
             align-items: center;
             font-size: 28px;
             cursor: pointer;
-            user-select: none;
-            transition: transform 0.25s, background 0.3s;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.25), inset 0 3px 4px rgba(255,255,255,0.5);
         }
-        .memory-card:hover { transform: translateY(-3px) scale(1.03); }
         .memory-card.flipped {
             background: linear-gradient(145deg, #ffffff, #f1f5f9);
             transform: scale(1.08);
             border: 3px solid #4f46e5;
-            box-shadow: 0 12px 25px rgba(79, 70, 229, 0.4);
         }
         .memory-card.matched {
             background: linear-gradient(145deg, #34d399, #059669);
             color: white;
-            cursor: default;
-            box-shadow: inset 0 3px 6px rgba(255,255,255,0.5);
         }
 
         #snake-canvas {
@@ -337,7 +252,6 @@
             border-radius: 24px;
             display: block;
             margin: 15px auto;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 12px 25px rgba(0,0,0,0.4);
         }
         .snake-controls {
             display: grid;
@@ -355,9 +269,7 @@
             border-radius: 18px;
             cursor: pointer;
             font-weight: 700;
-            box-shadow: 0 8px 18px rgba(2, 132, 199, 0.4), inset 0 3px 4px rgba(255,255,255,0.5);
         }
-        .ctrl-btn:active { background: #0369a1; transform: scale(0.92); }
 
         .modal {
             position: fixed;
@@ -374,1154 +286,4 @@
             color: #1e1b4b;
             padding: 35px;
             border-radius: 35px;
-            width: 90%;
-            max-width: 480px;
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 4px 8px rgba(255,255,255,1);
-            border: 5px solid var(--primary);
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        .trophy-animation {
-            font-size: 85px;
-            margin: 15px 0;
-            animation: bounce 1s infinite;
-            filter: drop-shadow(0 12px 15px rgba(0,0,0,0.3));
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-
-    <!-- HLAVNÍ MENU -->
-    <div id="menu-screen">
-        <h1>🌟 Školní Trénink 🌟</h1>
-        <div class="user-box">
-            <span style="font-size: 16px; color: #475569; font-weight: 600;">👤 Aktivní hrdina:</span><br>
-            <strong id="current-user-display" style="font-size: 22px; color: var(--primary);">Zatím nikdo</strong><br>
-            <button class="btn btn-warning" onclick="openStartPlayerModal()" style="margin-top: 12px; font-size: 15px; padding: 12px;">🔄 Změnit hráče / Vybrat ze skóre</button>
-        </div>
-
-        <div id="resume-container" class="hidden" style="margin-bottom: 18px;">
-            <button class="btn btn-continue" onclick="resumeQuiz()">
-                ▶️ Pokračovat v testu: <span id="resume-subject-name"></span>
-            </button>
-        </div>
-
-        <h3>🎯 Vyber si předmět:</h3>
-        <div class="subject-grid">
-            <button class="btn btn-subject" onclick="openMathMenu()">
-                <span>🔢</span> Matematika
-            </button>
-            <button class="btn btn-subject" onclick="openEngMenu()">
-                <span>🇬🇧</span> Angličtina
-            </button>
-            <button class="btn btn-subject" onclick="startQuiz('cz')">
-                <span>🇨🇿</span> Čeština
-            </button>
-            <button class="btn btn-subject" onclick="startQuiz('phy')">
-                <span>⚡</span> Fyzika
-            </button>
-        </div>
-
-        <h3>🎮 Zábavné hry:</h3>
-        <div class="subject-grid" style="grid-template-columns: 1fr 1fr 1fr;">
-            <button class="btn btn-subject btn-game" onclick="startFillGame()">
-                <span>✍️</span> Doplňovačka
-            </button>
-            <button class="btn btn-subject btn-game" onclick="openMemoryModal()">
-                <span>🃏</span> Pexeso
-            </button>
-            <button class="btn btn-subject btn-game" onclick="startSnakeGame()">
-                <span>🐍</span> Had
-            </button>
-        </div>
-
-        <div class="score-board">
-            <h4>
-                <span>🏆 Síň slávy (testy i hry):</span>
-                <button onclick="resetLeaderboard()" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:10px; cursor:pointer; font-size:13px; font-weight:bold;" title="Vymazat skóre">🗑️ Vynulovat</button>
-            </h4>
-            <ul class="score-list" id="leaderboard"></ul>
-        </div>
-    </div>
-
-    <!-- KVÍZOVÁ OBRAZOVKA (TESTY) -->
-    <div id="quiz-screen" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:17px;">
-            <span id="question-count" style="color: #4f46e5;">📌 Otázka: 1/10</span>
-            <span id="score-display" style="color: #059669; font-size: 19px;">⭐ Body: 0</span>
-        </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 12px 0;">
-
-        <div class="question-card">
-            <h2 id="question-title" style="margin:0; color:#1e1b4b; font-size:22px;">Otázka</h2>
-            <div id="vertical-box" class="hidden">
-                <div class="vertical-math" id="vertical-content"></div>
-            </div>
-        </div>
-
-        <div id="options-box"></div>
-        <input type="text" id="text-answer" class="hidden" placeholder="Napiš výsledek...">
-        <button id="submit-text-btn" class="btn btn-success hidden" onclick="checkTextAnswer()">✅ Odeslat odpověď</button>
-
-        <div id="feedback"></div>
-        <button id="next-btn" class="btn hidden" onclick="nextQuestion()">Další otázka ➔</button>
-        
-        <button class="btn btn-warning" onclick="saveAndExitQuiz()">💾 Uložit rozdělaný test a odejít</button>
-        <button class="btn btn-danger" onclick="confirmExitWithoutSaving()">❌ Ukončit bez uložení</button>
-    </div>
-
-    <!-- HRÁČSKÁ OBRAZOVKA: DOPLŇOVAČKA -->
-    <div id="fill-screen" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:17px;">
-            <span id="fill-count" style="color: #0284c7;">✍️ Doplňovačka: 1/5</span>
-            <span id="fill-score" style="color: #059669; font-size: 19px;">⭐ Body: 0</span>
-        </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 12px 0;">
-
-        <div class="question-card">
-            <h2 id="fill-title" style="margin:0; color:#1e1b4b; font-size:20px;">Doplň písmeno</h2>
-            <div id="fill-word-display" style="font-size: 34px; font-weight: 700; letter-spacing: 6px; margin: 15px 0; color: #4f46e5;"></div>
-        </div>
-
-        <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno...">
-        <button class="btn btn-success" onclick="checkFillAnswer()">✅ Zkontrolovat</button>
-        <div id="fill-feedback"></div>
-        <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
-    </div>
-
-    <!-- HRÁČSKÁ OBRAZOVKA: PEXESO -->
-    <div id="memory-screen" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:15px;">
-            <span id="player-turn-indicator" style="padding: 8px 14px; border-radius: 12px; color: white; background: #4f46e5;">Hráč 1 na tahu</span>
-            <span>🃏 Pexeso 5x5</span>
-            <span id="memory-scores">H1: 0 | H2: 0</span>
-        </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
-
-        <div class="memory-grid" id="memory-board"></div>
-        <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
-    </div>
-
-    <!-- HRÁČSKÁ OBRAZOVKA: HAD (SNAKE) -->
-    <div id="snake-screen" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:15px;">
-            <span style="color: #10b981;" id="snake-info-level">🐍 Kolo: 1</span>
-            <span id="snake-info-symbols" style="color: #f59e0b;">🍎 Sebráno: 0/4</span>
-            <span id="snake-score" style="color: #059669;">⭐ Skóre: 0</span>
-        </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 8px 0;">
-
-        <canvas id="snake-canvas" width="300" height="300"></canvas>
-
-        <div class="snake-controls">
-            <div></div>
-            <button class="ctrl-btn" onclick="changeSnakeDir('UP')">⬆️</button>
-            <div></div>
-            <button class="ctrl-btn" onclick="changeSnakeDir('LEFT')">⬅️</button>
-            <button class="ctrl-btn" onclick="changeSnakeDir('DOWN')">⬇️</button>
-            <button class="ctrl-btn" onclick="changeSnakeDir('RIGHT')">➡️</button>
-        </div>
-
-        <button class="btn btn-danger" onclick="showMenu()" style="margin-top:8px;">🏠 Zpět do menu</button>
-    </div>
-
-    <!-- VYHODNOCENÍ TESTU / HRY -->
-    <div id="result-screen" class="hidden">
-        <h2>🎉 Skvělá práce!</h2>
-        <div class="trophy-animation">🏆</div>
-        <p id="final-stats" style="font-size: 20px; font-weight: 700; color: #1e1b4b;">Získal jsi 0 bodů.</p>
-        <button class="btn btn-success" id="result-action-btn" onclick="showMenu()">🔄 Pokračovat</button>
-        <button class="btn btn-warning" onclick="showMenu()">🏠 Zpět do menu</button>
-    </div>
-
-</div>
-
-<!-- MODAL: VÝBĚR HRÁČE / NOVÝ HRÁČ PŘI STARTU -->
-<div id="start-player-modal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">✨ Vítejte v pohádkové akademii!</h3>
-        <p style="font-size:16px; color:#475569; margin-bottom:15px;">Zadej jméno nového hrdiny, nebo vyber ze seznamu:</p>
-        
-        <div style="margin-bottom: 18px;">
-            <input type="text" id="modal-username-input" placeholder="Jméno hrdiny (např. Anička)..." style="width:100%;">
-            <button class="btn btn-success" onclick="confirmNewUserModal()" style="margin-top: 12px;">✨ Vstoupit do hry</button>
-        </div>
-
-        <hr style="border: 1px solid #cbd5e1; margin: 15px 0;">
-        <p style="font-size:15px; font-weight:700; color:#b45309; margin-bottom:10px;">Nebo vyber hrdinu ze síně slávy:</p>
-        <div id="modal-player-list" style="max-height: 150px; overflow-y: auto; text-align: left; margin-bottom: 15px;"></div>
-
-        <button class="btn btn-warning" onclick="closeStartPlayerModal()" id="close-modal-btn">Zavřít</button>
-    </div>
-</div>
-
-<!-- DIALOGOVÉ OKNO: VÝBĚR MATEMATIKY -->
-<div id="math-modal" class="modal hidden">
-    <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">🔢 Matematická dobrodružství</h3>
-        <button class="btn btn-game" onclick="startMathMode('add')" style="margin-bottom:10px;">➕ Sčítání</button>
-        <button class="btn btn-game" onclick="startMathMode('sub')" style="margin-bottom:10px;">➖ Odčítání</button>
-        <button class="btn btn-game" onclick="startMathMode('mul')" style="margin-bottom:10px;">✖️ Násobení</button>
-        <button class="btn btn-game" onclick="startMathMode('div')" style="margin-bottom:10px;">➗ Dělení</button>
-        <button class="btn btn-game" onclick="startMathMode('vert')" style="margin-bottom:10px; background:linear-gradient(145deg, #34d399, #059669);">📝 Příklady pod sebou (+ - × ÷)</button>
-        <button class="btn btn-game" onclick="startMathMode('mix')" style="margin-bottom:10px; background:linear-gradient(145deg, #c084fc, #9333ea);">🎓 Velký zkouškový test</button>
-        <button class="btn btn-warning" onclick="closeMathMenu()" style="margin-top:12px;">Zavřít</button>
-    </div>
-</div>
-
-<!-- DIALOGOVÉ OKNO: VÝBĚR ANGLIČTINY -->
-<div id="eng-modal" class="modal hidden">
-    <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">🇬🇧 Anglický svět</h3>
-        <button class="btn btn-game" onclick="startEngMode('vocab')" style="margin-bottom:12px;">📖 Slovíčka (překlady)</button>
-        <button class="btn btn-game" onclick="startEngMode('fill')" style="margin-bottom:12px; background:linear-gradient(145deg, #38bdf8, #0284c7);">✍️ Doplňovačka písmen</button>
-        <button class="btn btn-game" onclick="startEngMode('test')" style="margin-bottom:12px; background:linear-gradient(145deg, #c084fc, #9333ea);">🎓 Velký gramatický test</button>
-        <button class="btn btn-warning" onclick="closeEngMenu()" style="margin-top:12px;">Zavřít</button>
-    </div>
-</div>
-
-<!-- DIALOGOVÉ OKNO: PEXESO -->
-<div id="memory-modal" class="modal hidden">
-    <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">🃏 Kouzelné Pexeso 5x5</h3>
-        <p style="font-size:16px; color:#475569; margin-bottom:18px;">S kým si chceš zahrát?</p>
-        <button class="btn btn-game" onclick="selectMemoryMode('vs-pc')" style="margin-bottom:14px;">🤖 Hráč vs Počítač (přátelský soupeř)</button>
-        <button class="btn btn-game" onclick="showP2Input()" style="margin-bottom:14px; background:linear-gradient(145deg, #c084fc, #9333ea);">👥 Dva hráči (na jednom zařízení)</button>
-        <div id="p2-input-box" class="hidden" style="margin-top:12px; background:#f8fafc; padding:15px; border-radius:18px; border: 2px solid #cbd5e1;">
-            <label for="p2-name-input"><strong>👤 Jméno 2. hráče:</strong></label><br>
-            <input type="text" id="p2-name-input" placeholder="Např. Máma / Brácha" style="width:100%; margin-bottom:12px;">
-            <button class="btn btn-success" onclick="selectMemoryMode('vs-player')">🎮 Spustit souboj</button>
-        </div>
-        <button class="btn btn-warning" onclick="closeMemoryModal()" style="margin-top:12px;">Zavřít</button>
-    </div>
-</div>
-
-<!-- DETAILNÍ OKNO PRO HISTORII POKUSŮ -->
-<div id="detail-modal" class="modal hidden">
-    <div class="modal-content">
-        <h3 id="modal-title" style="color:#4f46e5; margin-top:0;">📊 Profil hrdiny</h3>
-        <div id="modal-body" style="max-height: 250px; overflow-y: auto; text-align: left; margin: 15px 0; font-size: 16px;"></div>
-        <button class="btn btn-success" onclick="selectUserFromModal()">✅ Pokračovat za tohoto hrdinu</button>
-        <button class="btn btn-warning" onclick="closeModal()">Zavřít</button>
-    </div>
-</div>
-
-<script>
-    let currentUser = "";
-    let selectedPlayerFromModal = "";
-    let currentSubjectKey = "";
-    let currentSubjectName = "";
-    let questionIndex = 0;
-    let score = 0;
-    let questions = [];
-
-    let fillIndex = 0;
-    let fillQuestions = [];
-    let fillScore = 0;
-
-    let memoryCards = [];
-    let flippedCards = [];
-    let matchedPairs = 0;
-    let p1Score = 0;
-    let p2Score = 0;
-    let currentPlayer = 1;
-    let isVsComputer = false;
-    let p2Name = "Počítač 🤖";
-    let canFlip = true;
-
-    let snakeInterval = null;
-    let snake = [];
-    let food = {};
-    let dx = 15;
-    let dy = 0;
-    let nextDx = 15;
-    let nextDy = 0;
-    let snakeScore = 0;
-    let snakeLevel = 1;
-    let symbolsCollectedInLevel = 0;
-    let tileSize = 15;
-
-    function playVictorySound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const notes = [523.25, 659.25, 783.99, 1046.50];
-            notes.forEach((freq, index) => {
-                let osc = audioCtx.createOscillator();
-                let gain = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.value = freq;
-                gain.gain.setValueAtTime(0.2, audioCtx.currentTime + index * 0.15);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + index * 0.15 + 0.4);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(audioCtx.currentTime + index * 0.15);
-                osc.stop(audioCtx.currentTime + index * 0.15 + 0.4);
-            });
-        } catch(e) { console.log(e); }
-    }
-
-    const subjectNames = {
-        math: "Matematika 🔢",
-        math_add: "Sčítání ➕",
-        math_sub: "Odčítání ➖",
-        math_mul: "Násobení ✖️",
-        math_div: "Dělení ➗",
-        math_vert: "Pod sebou 📝",
-        eng: "Angličtina 🇬🇧",
-        eng_vocab: "Slovíčka 📖",
-        eng_fill: "Doplňovačka ✍️",
-        eng_test: "Test Angličtina 🇬🇧",
-        cz: "Čeština 🇨🇿",
-        phy: "Fyzika ⚡",
-        fill: "Doplňovačka ✍️",
-        memory: "Pexeso 🃏",
-        snake: "Had 🐍"
-    };
-
-    const database = {
-        eng: [
-            { q: "🇬🇧 Přelož slovíčko: 'Book'", a: ["kniha", "sešit", "taška", "tužka"], correct: "kniha" },
-            { q: "🇬🇧 Doplň sloveso: 'She ___ 12 years old.'", a: ["is", "are", "am", "be"], correct: "is" },
-            { q: "🇬🇧 Přelož slovíčko: 'Teacher'", a: ["učitel", "žák", "ředitel", "školník"], correct: "učitel" },
-            { q: "🇬🇧 Přelož větu: 'I have a dog.'", a: ["Mám psa.", "Vidím psa.", "Pes spí.", "To je pes."], correct: "Mám psa." },
-            { q: "🇬🇧 Doplň zápor: 'They ___ like apples.'", a: ["don't", "doesn't", "isn't", "aren't"], correct: "don't" },
-            { q: "🇬🇧 Přelož slovíčko: 'Weather'", a: ["počasí", "voda", "vítr", "slunce"], correct: "počasí" },
-            { q: "🇬🇧 Přelož větu: 'Where is my pen?'", a: ["Kde je moje pero?", "Kdo má moje pero?", "Kam jdeš?", "To je moje pero."], correct: "Kde je moje pero?" },
-            { q: "🇬🇧 Doplň: 'He usually ___ basketball.'", a: ["plays", "play", "playing", "played"], correct: "plays" },
-            { q: "🇬🇧 Přelož slovíčko: 'Always'", a: ["vždy", "nikdy", "často", "občas"], correct: "vždy" },
-            { q: "🇬🇧 Přelož větu: 'We live in a house.'", a: ["Bydlíme v domě.", "Stavíme dům.", "Máme velký dům.", "Dům je starý."], correct: "Bydlíme v domě." }
-        ],
-        eng_vocab: [
-            { q: "🇬🇧 Přelož slovíčko: 'Cat'", a: ["pes", "kočka", "králík", "myš"], correct: "kočka" },
-            { q: "🇬🇧 Přelož slovíčko: 'Apple'", a: ["jablko", "banán", "pomeranč", "hruška"], correct: "jablko" },
-            { q: "🇬🇧 Přelož slovíčko: 'School'", a: ["škola", "třída", "lavice", "tužka"], correct: "škola" },
-            { q: "🇬🇧 Přelož slovíčko: 'Water'", a: ["mléko", "čaj", "voda", "džus"], correct: "voda" },
-            { q: "🇬🇧 Přelož slovíčko: 'Sun'", a: ["měsíc", "slunce", "hvězda", "nebe"], correct: "slunce" },
-            { q: "🇬🇧 Přelož slovíčko: 'Red'", a: ["modrá", "zelená", "červená", "žlutá"], correct: "červená" },
-            { q: "🇬🇧 Přelož slovíčko: 'Milk'", a: ["mléko", "voda", "limonáda", "čaj"], correct: "mléko" },
-            { q: "🇬🇧 Přelož slovíčko: 'Friend'", a: ["nepřítel", "bratranec", "kamarád", "učitel"], correct: "kamarád" },
-            { q: "🇬🇧 Přelož slovíčko: 'House'", a: ["auto", "dům", "strom", "zahrada"], correct: "dům" },
-            { q: "🇬🇧 Přelož slovíčko: 'Book'", a: ["kniha", "sešit", "pero", "taška"], correct: "kniha" }
-        ],
-        cz: [
-            { q: "🇨🇿 Doplň i/y: Myš_čka běhá po dvoře.", a: ["i", "y"], correct: "i" },
-            { q: "🇨🇿 Doplň vyjmenované slovo: P_cha přchází před pádem.", a: ["ý", "í"], correct: "ý" },
-            { q: "🇨🇿 Doplň e/ě: Dělal to pro m_.", a: ["ě", "ě (mě)", "e", "ně"], correct: "ě" },
-            { q: "🇨🇿 Doplň i/y: S_kora je užitečný pták.", a: ["y", "i"], correct: "y" },
-            { q: "🇨🇿 Doplň e/ě: B_žel rychle do školy.", a: ["ě", "e"], correct: "ě" },
-            { q: "🇨🇿 Vyber správně napsané slovo:", a: ["bystrý", "bistrý", "bystrí", "bistrí"], correct: "bystrý" },
-            { q: "🇨🇿 Doplň i/y: Děti s_hrály divadlo.", a: ["e", "i", "y"], correct: "e" },
-            { q: "🇨🇿 Doplň i/y: B_lit stěnu na bílo.", a: ["í", "ý"], correct: "í" },
-            { q: "🇨🇿 Doplň e/ě: Zapom_l na úkol.", a: ["ně", "ě"], correct: "ně" },
-            { q: "🇨🇿 Doplň vyjmenované slovo: Litomyš_ je město.", a: ["l", "ľ", "l (Litomyšl)", "š"], correct: "l (Litomyšl)" }
-        ],
-        phy: [
-            { q: "⚖️ Čím měříme hmotnost tělesa?", a: ["Váhami", "Pravítkem", "Teploměrem", "Stopkami"], correct: "Váhami" },
-            { q: "📏 Jaká je základní jednotka délky?", a: ["Metr (m)", "Kilogram (kg)", "Sekunda (s)", "Litr (l)"], correct: "Metr (m)" },
-            { q: "🚗 Převod jednotek: 1 km má kolik metrů?", a: ["1000 m", "100 m", "10 m", "10000 m"], correct: "1000 m" },
-            { q: "💪 Jakou značku má síla ve fyzice?", a: ["F", "m", "v", "s"], correct: "F" },
-            { q: "🍏 Jednotkou fyzikální síly je:", a: ["Newton (N)", "Joule (J)", "Pascal (Pa)", "Watt (W)"], correct: "Newton (N)" },
-            { q: "⚖️ Převod jednotek: 1 kg má kolik gramů?", a: ["1000 g", "100 g", "10 g", "500 g"], correct: "1000 g" },
-            { q: "🧪 Čím měříme objem kapalin?", a: ["Odmerným válcem", "Váhou", "Siloměrem", "Pásmem"], correct: "Odmerným válcem" },
-            { q: "🧊 Skupenství vody při 0 °C přechází na:", a: ["Led (pevné)", "Páru (plynné)", "Plazmu", "Žádné z uvedených"], correct: "Led (pevné)" },
-            { q: "🌍 Co způsobuje, že padáme k zemi?", a: ["Gravitační síla", "Tlak vzduchu", "Magnetická síla", "Elektrická síla"], correct: "Gravitační síla" },
-            { q: "📦 Jaká je značka pro hmotnost?", a: ["m", "H", "kg", "V"], correct: "m" }
-        ]
-    };
-
-    const fillDatabase = [
-        { word: "SCHOOL", hint: "🇬🇧 Anglicky: Škola", missing: "H", display: "SC_OOL" },
-        { word: "APPLE", hint: "🇬🇧 Anglicky: Jablko", missing: "P", display: "A_PLE" },
-        { word: "BYSTRÝ", hint: "🇨🇿 Vyjmenované slovo po B", missing: "Y", display: "B_STRÝ" },
-        { word: "NEWTON", hint: "⚡ Jednotka síly (F)", missing: "W", display: "NE_TON" },
-        { word: "METR", hint: "⚡ Základní jednotka délky", missing: "T", display: "ME_R" }
-    ];
-
-    function generateMathQuestions(mode) {
-        let mathQ = [];
-        for(let i=0; i<10; i++) {
-            let type = mode;
-            if (mode === 'mix') {
-                let types = ['add', 'sub', 'mul', 'div', 'vert'];
-                type = types[Math.floor(Math.random() * types.length)];
-            }
-
-            let n1, n2, ans, text;
-
-            if (type === 'add') {
-                n1 = Math.floor(Math.random() * 500) + 50;
-                n2 = Math.floor(Math.random() * 400) + 50;
-                ans = n1 + n2;
-                text = `➕ Spočítej příklad: ${n1} + ${n2}`;
-            } else if (type === 'sub') {
-                n1 = Math.floor(Math.random() * 800) + 100;
-                n2 = Math.floor(Math.random() * n1);
-                ans = n1 - n2;
-                text = `➖ Spočítej příklad: ${n1} - ${n2}`;
-            } else if (type === 'mul') {
-                n1 = Math.floor(Math.random() * 12) + 2;
-                n2 = Math.floor(Math.random() * 20) + 2;
-                ans = n1 * n2;
-                text = `✖️ Spočítej příklad: ${n1} × ${n2}`;
-            } else if (type === 'div') {
-                n2 = Math.floor(Math.random() * 9) + 2;
-                ans = Math.floor(Math.random() * 50) + 2;
-                n1 = n2 * ans;
-                text = `➗ Spočítej příklad: ${n1} ÷ ${n2}`;
-            } else if (type === 'vert') {
-                n1 = Math.floor(Math.random() * 400) + 100;
-                n2 = Math.floor(Math.random() * 400) + 100;
-                let opType = Math.random() < 0.5 ? '+' : '-';
-                if (opType === '+') {
-                    ans = n1 + n2;
-                    text = "📝 Matematika pod sebou (+):";
-                } else {
-                    if (n2 > n1) { let tmp = n1; n1 = n2; n2 = tmp; }
-                    ans = n1 - n2;
-                    text = "📝 Matematika pod sebou (-):";
-                }
-                mathQ.push({
-                    q: text,
-                    isMath: true,
-                    isVertical: true,
-                    op: opType,
-                    v1: n1,
-                    v2: n2,
-                    correct: ans.toString()
-                });
-                continue;
-            }
-
-            mathQ.push({
-                q: text,
-                isMath: true,
-                isVertical: false,
-                v1: n1,
-                v2: n2,
-                correct: ans.toString()
-            });
-        }
-        return mathQ;
-    }
-
-    function openStartPlayerModal() {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let listHtml = "";
-        
-        let uniquePlayers = {};
-        board.forEach(item => {
-            if (!uniquePlayers[item.name] || item.score > uniquePlayers[item.name].score) {
-                uniquePlayers[item.name] = item;
-            }
-        });
-
-        let sorted = Object.values(uniquePlayers).sort((a,b) => b.score - a.score);
-
-        if (sorted.length === 0) {
-            listHtml = "<p style='color:#64748b; font-size:15px; text-align:center;'>Zatím žádní uložení hrdinové. Zadejte jméno výše.</p>";
-        } else {
-            sorted.forEach(item => {
-                listHtml += `<div class="score-item" onclick="selectModalPlayer('${item.name}')">
-                    <span>👤 <strong>${item.name}</strong></span>
-                    <span style="color:#059669; font-weight:bold;">Max: ${item.score} b.</span>
-                </div>`;
-            });
-        }
-
-        document.getElementById("modal-player-list").innerHTML = listHtml;
-        document.getElementById("start-player-modal").classList.remove("hidden");
-    }
-
-    function selectModalPlayer(name) {
-        currentUser = name;
-        document.getElementById("current-user-display").innerText = name;
-        document.getElementById("start-player-modal").classList.add("hidden");
-        checkSavedState();
-    }
-
-    function confirmNewUserModal() {
-        let nameInput = document.getElementById("modal-username-input").value.trim();
-        if (!nameInput) {
-            alert("⚠️ Zadej prosím platné jméno hrdiny!");
-            return;
-        }
-        currentUser = nameInput;
-        document.getElementById("current-user-display").innerText = nameInput;
-        document.getElementById("start-player-modal").classList.add("hidden");
-        checkSavedState();
-    }
-
-    function closeStartPlayerModal() {
-        if (!currentUser) {
-            alert("⚠️ Nejprve vyber nebo zadej jméno hrdiny!");
-            return;
-        }
-        document.getElementById("start-player-modal").classList.add("hidden");
-    }
-
-    function openMathMenu() {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        document.getElementById("math-modal").classList.remove("hidden");
-    }
-    function closeMathMenu() { document.getElementById("math-modal").classList.add("hidden"); }
-
-    function startMathMode(mode) {
-        closeMathMenu();
-        currentSubjectKey = 'math_' + mode;
-        currentSubjectName = subjectNames[currentSubjectKey] || "Matematika 🔢";
-        questionIndex = 0;
-        score = 0;
-        questions = generateMathQuestions(mode);
-        launchQuizSession();
-    }
-
-    function openEngMenu() {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        document.getElementById("eng-modal").classList.remove("hidden");
-    }
-    function closeEngMenu() { document.getElementById("eng-modal").classList.add("hidden"); }
-
-    function startEngMode(mode) {
-        closeEngMenu();
-        if (mode === 'fill') {
-            startFillGame();
-            return;
-        }
-        currentSubjectKey = 'eng_' + mode;
-        currentSubjectName = mode === 'vocab' ? "Slovíčka 📖" : "Test Angličtina 🇬🇧";
-        questionIndex = 0;
-        score = 0;
-        let dbKey = mode === 'vocab' ? 'eng_vocab' : 'eng';
-        questions = [...database[dbKey]].sort(() => Math.random() - 0.5);
-        launchQuizSession();
-    }
-
-    function launchQuizSession() {
-        localStorage.removeItem("school_saved_quiz");
-        hideAllScreens();
-        document.getElementById("quiz-screen").classList.remove("hidden");
-        showQuestion();
-    }
-
-    function startQuiz(subject) {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        currentSubjectKey = subject;
-        currentSubjectName = subjectNames[subject];
-        questionIndex = 0;
-        score = 0;
-        questions = [...database[subject]].sort(() => Math.random() - 0.5);
-
-        localStorage.removeItem("school_saved_quiz");
-        hideAllScreens();
-        document.getElementById("quiz-screen").classList.remove("hidden");
-        showQuestion();
-    }
-
-    function checkSavedState() {
-        let saved = localStorage.getItem("school_saved_quiz");
-        const resumeBox = document.getElementById("resume-container");
-        if (saved) {
-            let data = JSON.parse(saved);
-            if (data.userName === currentUser) {
-                document.getElementById("resume-subject-name").innerText = `${subjectNames[data.subjectKey] || "Test"} (${data.userName})`;
-                resumeBox.classList.remove("hidden");
-                return;
-            }
-        }
-        resumeBox.classList.add("hidden");
-    }
-
-    function resumeQuiz() {
-        let saved = localStorage.getItem("school_saved_quiz");
-        if (!saved) return;
-        let data = JSON.parse(saved);
-        currentUser = data.userName;
-        document.getElementById("current-user-display").innerText = currentUser;
-        currentSubjectKey = data.subjectKey;
-        currentSubjectName = subjectNames[data.subjectKey] || "Test";
-        questionIndex = data.questionIndex;
-        score = data.score;
-        questions = data.questions;
-
-        localStorage.removeItem("school_saved_quiz");
-        hideAllScreens();
-        document.getElementById("quiz-screen").classList.remove("hidden");
-        showQuestion();
-    }
-
-    function saveAndExitQuiz() {
-        let savedData = { userName: currentUser, subjectKey: currentSubjectKey, questionIndex: questionIndex, score: score, questions: questions };
-        localStorage.setItem("school_saved_quiz", JSON.stringify(savedData));
-        alert("💾 Test byl úspěšně uložen. Můžeš se k němu kdykoliv vrátit z hlavního menu!");
-        showMenu();
-    }
-
-    function confirmExitWithoutSaving() {
-        if (confirm("Opravdu chceš odejít bez uložení rozehraného testu?")) {
-            localStorage.removeItem("school_saved_quiz");
-            showMenu();
-        }
-    }
-
-    function showQuestion() {
-        let q = questions[questionIndex];
-        document.getElementById("question-count").innerText = `📌 Otázka: ${questionIndex + 1}/10`;
-        document.getElementById("score-display").innerText = `⭐ Body: ${score}`;
-        document.getElementById("question-title").innerText = q.q;
-        document.getElementById("feedback").innerText = "";
-        document.getElementById("next-btn").classList.add("hidden");
-
-        const optBox = document.getElementById("options-box");
-        const vertBox = document.getElementById("vertical-box");
-        const textAns = document.getElementById("text-answer");
-        const subBtn = document.getElementById("submit-text-btn");
-
-        optBox.innerHTML = "";
-        vertBox.classList.add("hidden");
-        textAns.classList.add("hidden");
-        subBtn.classList.add("hidden");
-
-        if (q.isMath) {
-            if (q.isVertical) {
-                vertBox.classList.remove("hidden");
-                let sign = q.op || '+';
-                document.getElementById("vertical-content").innerHTML = `&nbsp;${q.v1}<br>${sign}${q.v2}`;
-            }
-            textAns.classList.remove("hidden");
-            textAns.value = "";
-            textAns.focus();
-            subBtn.classList.remove("hidden");
-        } else {
-            let shuffled = [...q.a].sort(() => Math.random() - 0.5);
-            shuffled.forEach(opt => {
-                let btn = document.createElement("button");
-                btn.className = "btn option-btn";
-                btn.innerText = opt;
-                btn.onclick = () => checkOptionAnswer(opt, q.correct);
-                optBox.appendChild(btn);
-            });
-        }
-    }
-
-    function checkOptionAnswer(selected, correct) {
-        disableOptions();
-        if (selected === correct) {
-            score++;
-            showFeedback("🎉 Výborně, správně! 🌟", "green");
-        } else {
-            showFeedback(`❌ Bohužel ne, správně bylo: ${correct}`, "red");
-        }
-    }
-
-    function checkTextAnswer() {
-        let userAns = document.getElementById("text-answer").value.trim();
-        let correct = questions[questionIndex].correct;
-        document.getElementById("submit-text-btn").classList.add("hidden");
-
-        if (userAns === correct) {
-            score++;
-            showFeedback("🎉 Skvělé, správný výsledek! 🚀", "green");
-        } else {
-            showFeedback(`❌ Chybička, správně je: ${correct}`, "red");
-        }
-    }
-
-    function disableOptions() {
-        const btns = document.querySelectorAll(".option-btn");
-        btns.forEach(b => b.disabled = true);
-    }
-
-    function showFeedback(text, color) {
-        const fb = document.getElementById("feedback");
-        fb.innerText = text;
-        fb.style.color = color === "green" ? "var(--success)" : "var(--danger)";
-        document.getElementById("score-display").innerText = `⭐ Body: ${score}`;
-        document.getElementById("next-btn").classList.remove("hidden");
-    }
-
-    function nextQuestion() {
-        questionIndex++;
-        if (questionIndex < 10) {
-            showQuestion();
-        } else {
-            endQuiz();
-        }
-    }
-
-    function endQuiz() {
-        playVictorySound();
-        saveLeaderboard(currentUser, score, currentSubjectName);
-        localStorage.removeItem("school_saved_quiz");
-
-        hideAllScreens();
-        document.getElementById("result-screen").classList.remove("hidden");
-        document.getElementById("final-stats").innerText = `${currentUser}, v testu [${currentSubjectName}] jsi získal(a) ${score} bodů z 10! (Uloženo 🏆)`;
-        document.getElementById("result-action-btn").setAttribute("onclick", `showMenu()`);
-    }
-
-    function startFillGame() {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        fillIndex = 0;
-        fillScore = 0;
-        fillQuestions = [...fillDatabase].sort(() => Math.random() - 0.5);
-
-        hideAllScreens();
-        document.getElementById("fill-screen").classList.remove("hidden");
-        showFillQuestion();
-    }
-
-    function showFillQuestion() {
-        if (fillIndex >= fillQuestions.length) {
-            endFillGame();
-            return;
-        }
-        let fq = fillQuestions[fillIndex];
-        document.getElementById("fill-count").innerText = `✍️ Doplňovačka: ${fillIndex + 1}/5`;
-        document.getElementById("fill-score").innerText = `⭐ Body: ${fillScore}`;
-        document.getElementById("fill-title").innerText = fq.hint;
-        document.getElementById("fill-word-display").innerText = fq.display;
-        document.getElementById("fill-answer").value = "";
-        document.getElementById("fill-feedback").innerText = "";
-    }
-
-    function checkFillAnswer() {
-        let ans = document.getElementById("fill-answer").value.trim().toUpperCase();
-        let fq = fillQuestions[fillIndex];
-        let fb = document.getElementById("fill-feedback");
-
-        if (ans === fq.missing) {
-            fillScore += 2;
-            fb.innerText = "🎉 Správně!";
-            fb.style.color = "var(--success)";
-        } else {
-            fb.innerText = `❌ Chyba! Správně mělo být: ${fq.missing}`;
-            fb.style.color = "var(--danger)";
-        }
-
-        fillIndex++;
-        setTimeout(showFillQuestion, 1500);
-    }
-
-    function endFillGame() {
-        playVictorySound();
-        saveLeaderboard(currentUser, fillScore, subjectNames['fill']);
-        hideAllScreens();
-        document.getElementById("result-screen").classList.remove("hidden");
-        document.getElementById("final-stats").innerText = `${currentUser}, v Doplňovačce jsi získal(a) ${fillScore} bodů! (Uloženo 🏆)`;
-        document.getElementById("result-action-btn").setAttribute("onclick", `showMenu()`);
-    }
-
-    function openMemoryModal() {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        document.getElementById("p2-input-box").classList.add("hidden");
-        document.getElementById("memory-modal").classList.remove("hidden");
-    }
-
-    function showP2Input() { document.getElementById("p2-input-box").classList.remove("hidden"); }
-    function closeMemoryModal() { document.getElementById("memory-modal").classList.add("hidden"); }
-
-    function selectMemoryMode(mode) {
-        if (mode === 'vs-pc') {
-            isVsComputer = true;
-            p2Name = "Počítač 🤖";
-        } else {
-            let p2Input = document.getElementById("p2-name-input").value.trim();
-            p2Name = p2Input ? p2Input : "Hráč 2 👤";
-            isVsComputer = false;
-        }
-        closeMemoryModal();
-        startMemoryGame();
-    }
-
-    function startMemoryGame() {
-        p1Score = 0;
-        p2Score = 0;
-        currentPlayer = 1;
-        matchedPairs = 0;
-        flippedCards = [];
-
-        let emojis = ['🍎', '🍌', '🍇', '🍉', '🍓', '🍒', '🍑', '🍍', '🐶', '🐱', '🐰', '🦊'];
-        let pairCards = [...emojis, ...emojis].map((emoji, idx) => ({ id: idx, emoji: emoji, flipped: false, matched: false, isBonus: false }));
-        let bonusCard = { id: 24, emoji: '⭐', flipped: true, matched: true, isBonus: true };
-
-        memoryCards = pairCards.sort(() => Math.random() - 0.5);
-        memoryCards.splice(12, 0, bonusCard);
-
-        hideAllScreens();
-        document.getElementById("memory-screen").classList.remove("hidden");
-        renderMemoryBoard();
-        updateTurnIndicator();
-    }
-
-    function renderMemoryBoard() {
-        let board = document.getElementById("memory-board");
-        board.innerHTML = "";
-        memoryCards.forEach((card, index) => {
-            let el = document.createElement("div");
-            el.className = `memory-card ${card.flipped ? 'flipped' : ''} ${card.matched ? 'matched' : ''}`;
-            el.innerText = (card.flipped || card.matched) ? card.emoji : "❓";
-            el.onclick = () => flipCard(index);
-            board.appendChild(el);
-        });
-        document.getElementById("memory-scores").innerText = `${currentUser}: ${p1Score} | ${p2Name}: ${p2Score}`;
-    }
-
-    function updateTurnIndicator() {
-        let indicator = document.getElementById("player-turn-indicator");
-        if (currentPlayer === 1) {
-            indicator.innerText = `👤 ${currentUser} na tahu`;
-            indicator.style.background = "#4f46e5";
-        } else {
-            indicator.innerText = `👤 ${p2Name} na tahu`;
-            indicator.style.background = "#d97706";
-        }
-    }
-
-    function flipCard(index) {
-        if (!canFlip || memoryCards[index].flipped || memoryCards[index].matched || memoryCards[index].isBonus) return;
-        if (isVsComputer && currentPlayer === 2) return;
-
-        memoryCards[index].flipped = true;
-        flippedCards.push(index);
-        renderMemoryBoard();
-
-        if (flippedCards.length === 2) {
-            canFlip = false;
-            let [i1, i2] = flippedCards;
-
-            if (memoryCards[i1].emoji === memoryCards[i2].emoji) {
-                memoryCards[i1].matched = true;
-                memoryCards[i2].matched = true;
-                matchedPairs++;
-                if (currentPlayer === 1) p1Score++; else p2Score++;
-                flippedCards = [];
-                canFlip = true;
-                renderMemoryBoard();
-                checkMemoryEnd();
-            } else {
-                setTimeout(() => {
-                    memoryCards[i1].flipped = false;
-                    memoryCards[i2].flipped = false;
-                    flippedCards = [];
-                    currentPlayer = currentPlayer === 1 ? 2 : 1;
-                    updateTurnIndicator();
-                    canFlip = true;
-                    renderMemoryBoard();
-
-                    if (isVsComputer && currentPlayer === 2) {
-                        setTimeout(computerTurn, 900);
-                    }
-                }, 1000);
-            }
-        }
-    }
-
-    function computerTurn() {
-        let unmasked = memoryCards.filter(c => !c.matched && !c.flipped && !c.isBonus);
-        if (unmasked.length < 2) return;
-
-        let card1 = unmasked[Math.floor(Math.random() * unmasked.length)];
-        let card1Index = memoryCards.findIndex(c => c.id === card1.id);
-        memoryCards[card1Index].flipped = true;
-        renderMemoryBoard();
-
-        setTimeout(() => {
-            let remaining = memoryCards.filter(c => !c.matched && !c.flipped && !c.isBonus);
-            let match = remaining.find(c => c.emoji === memoryCards[card1Index].emoji);
-            let targetCard = (match && Math.random() < 0.15) ? match : remaining[Math.floor(Math.random() * remaining.length)];
-            let card2Index = memoryCards.findIndex(c => c.id === targetCard.id);
-
-            memoryCards[card2Index].flipped = true;
-            renderMemoryBoard();
-
-            setTimeout(() => {
-                if (memoryCards[card1Index].emoji === memoryCards[card2Index].emoji) {
-                    memoryCards[card1Index].matched = true;
-                    memoryCards[card2Index].matched = true;
-                    matchedPairs++;
-                    p2Score++;
-                    renderMemoryBoard();
-                    checkMemoryEnd();
-                    
-                    if (matchedPairs < 12 && currentPlayer === 2) {
-                        setTimeout(computerTurn, 900);
-                    }
-                } else {
-                    memoryCards[card1Index].flipped = false;
-                    memoryCards[card2Index].flipped = false;
-                    currentPlayer = 1;
-                    updateTurnIndicator();
-                    renderMemoryBoard();
-                }
-            }, 1000);
-        }, 700);
-    }
-
-    function checkMemoryEnd() {
-        if (matchedPairs === 12) {
-            playVictorySound();
-            setTimeout(() => {
-                let winnerText = p1Score > p2Score ? `${currentUser} vyhrává!` : (p2Score > p1Score ? `${p2Name} vyhrává!` : `Remíza!`);
-                saveLeaderboard(currentUser, p1Score * 2, subjectNames['memory']);
-                alert(`🏆 Pexeso skončilo! ${winnerText}`);
-                showMenu();
-            }, 500);
-        }
-    }
-
-    function startSnakeGame() {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        snakeScore = 0;
-        snakeLevel = 1;
-        symbolsCollectedInLevel = 0;
-        tileSize = 15;
-
-        snake = [
-            {x: 105, y: 105},
-            {x: 90, y: 105},
-            {x: 75, y: 105}
-        ];
-        dx = tileSize;
-        dy = 0;
-        nextDx = tileSize;
-        nextDy = 0;
-
-        hideAllScreens();
-        document.getElementById("snake-screen").classList.remove("hidden");
-        spawnFood();
-
-        if (snakeInterval) clearInterval(snakeInterval);
-        snakeInterval = setInterval(mainSnakeLoop, 145);
-    }
-
-    function mainSnakeLoop() {
-        dx = nextDx;
-        dy = nextDy;
-        let head = {x: snake[0].x + dx, y: snake[0].y + dy};
-
-        if (head.x < 0 || head.x >= 300 || head.y < 0 || head.y >= 300 || checkSnakeCollision(head)) {
-            clearInterval(snakeInterval);
-            playVictorySound();
-            saveLeaderboard(currentUser, snakeScore, subjectNames['snake']);
-            alert(`🐍 Konec hry! Narazil jsi do zdi nebo do sebe. Skóre: ${snakeScore} bodů.`);
-            showMenu();
-            return;
-        }
-
-        snake.unshift(head);
-
-        if (Math.abs(head.x - food.x) < tileSize && Math.abs(head.y - food.y) < tileSize) {
-            snakeScore += 2;
-            symbolsCollectedInLevel++;
-            spawnFood();
-
-            if (symbolsCollectedInLevel >= 4) {
-                snakeLevel++;
-                symbolsCollectedInLevel = 0;
-                tileSize = Math.min(20, tileSize + 1);
-                playVictorySound();
-            }
-        } else {
-            snake.pop();
-        }
-
-        drawSnakeGame();
-        document.getElementById("snake-score").innerText = `⭐ Skóre: ${snakeScore}`;
-        document.getElementById("snake-info-level").innerText = `🐍 Kolo: ${snakeLevel}`;
-        document.getElementById("snake-info-symbols").innerText = `🍎 Sebráno: ${symbolsCollectedInLevel}/4`;
-    }
-
-    function spawnFood() {
-        let maxCount = Math.floor(300 / tileSize);
-        food = {
-            x: Math.floor(Math.random() * maxCount) * tileSize,
-            y: Math.floor(Math.random() * maxCount) * tileSize
-        };
-        snake.forEach(part => {
-            if (part.x === food.x && part.y === food.y) spawnFood();
-        });
-    }
-
-    function checkSnakeCollision(head) {
-        for (let i = 1; i < snake.length; i++) {
-            if (head.x === snake[i].x && head.y === snake[i].y) return true;
-        }
-        return false;
-    }
-
-    function drawSnakeGame() {
-        const canvas = document.getElementById("snake-canvas");
-        const ctx = canvas.getContext("2d");
-        
-        ctx.fillStyle = "#0f172a";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.strokeStyle = "#1e293b";
-        ctx.lineWidth = 0.5;
-        for(let i=0; i<=300; i+=tileSize) {
-            ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, 300); ctx.stroke();
-            ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(300, i); ctx.stroke();
-        }
-
-        ctx.fillStyle = "#ef4444";
-        ctx.shadowColor = "#f87171";
-        ctx.shadowBlur = 14;
-        ctx.beginPath();
-        ctx.arc(food.x + tileSize/2, food.y + tileSize/2, tileSize/2 - 2, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        snake.forEach((part, idx) => {
-            if (idx === 0) {
-                ctx.fillStyle = "#10b981";
-                ctx.fillRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2);
-                ctx.fillStyle = "#ffffff";
-                ctx.fillRect(part.x + 3, part.y + 3, 3, 3);
-                ctx.fillRect(part.x + tileSize - 6, part.y + 3, 3, 3);
-            } else {
-                ctx.fillStyle = "#34d399";
-                ctx.beginPath();
-                ctx.roundRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2, 5);
-                ctx.fill();
-            }
-        });
-    }
-
-    function changeSnakeDir(dir) {
-        if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -tileSize; }
-        if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = tileSize; }
-        if (dir === 'LEFT' && dx === 0) { nextDx = -tileSize; nextDy = 0; }
-        if (dir === 'RIGHT' && dx === 0) { nextDx = tileSize; nextDy = 0; }
-    }
-
-    window.addEventListener('keydown', e => {
-        if (e.key === "ArrowUp") changeSnakeDir('UP');
-        if (e.key === "ArrowDown") changeSnakeDir('DOWN');
-        if (e.key === "ArrowLeft") changeSnakeDir('LEFT');
-        if (e.key === "ArrowRight") changeSnakeDir('RIGHT');
-    });
-
-    function hideAllScreens() {
-        if (snakeInterval) clearInterval(snakeInterval);
-        document.getElementById("menu-screen").classList.add("hidden");
-        document.getElementById("quiz-screen").classList.add("hidden");
-        document.getElementById("fill-screen").classList.add("hidden");
-        document.getElementById("memory-screen").classList.add("hidden");
-        document.getElementById("snake-screen").classList.add("hidden");
-        document.getElementById("result-screen").classList.add("hidden");
-    }
-
-    function showMenu() {
-        hideAllScreens();
-        document.getElementById("menu-screen").classList.remove("hidden");
-        loadLeaderboard();
-        checkSavedState();
-    }
-
-    function saveLeaderboard(name, pts, subjectName) {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        board.push({ 
-            name: name, 
-            score: pts, 
-            subject: subjectName || "Matematika 🔢",
-            date: new Date().toLocaleDateString() 
-        });
-        localStorage.setItem("school_leaderboard", JSON.stringify(board));
-    }
-
-    function loadLeaderboard() {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let listHtml = "";
-
-        if (board.length === 0) {
-            listHtml = "<li style='text-align:center; color:#64748b; padding:12px;'>Zatím žádné výsledky v síni slávy. Hraj testy nebo hry! 🎮</li>";
-        } else {
-            let uniquePlayers = {};
-            board.forEach(item => {
-                if (!uniquePlayers[item.name] || item.score > uniquePlayers[item.name].score) {
-                    uniquePlayers[item.name] = item;
-                }
-            });
-
-            let sortedPlayers = Object.values(uniquePlayers).sort((a, b) => b.score - a.score);
-
-            sortedPlayers.forEach((item, index) => {
-                let subj = item.subject || "Matematika 🔢";
-                listHtml += `
-                    <li class="score-item" onclick="showUserDetail('${item.name}')">
-                        <div>
-                            <strong>#${index+1} 👤 ${item.name}</strong><br>
-                            <span class="badge-subject">${subj}</span>
-                        </div>
-                        <div style="text-align:right;">
-                            <span style="font-weight:bold; font-size:16px; color:#059669;">⭐ Max: ${item.score} b.</span><br>
-                            <small style="color:#64748b;">${item.date}</small>
-                        </div>
-                    </li>`;
-            });
-        }
-        document.getElementById("leaderboard").innerHTML = listHtml;
-    }
-
-    function showUserDetail(name) {
-        selectedPlayerFromModal = name;
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let userRecords = board.filter(item => item.name === name);
-        
-        let bySubject = {};
-        userRecords.forEach(r => {
-            let subj = r.subject || "Matematika 🔢";
-            if (!bySubject[subj]) bySubject[subj] = [];
-            bySubject[subj].push(r);
-        });
-
-        let html = `<strong>Hrdina:</strong> ${name}<br><br><strong>📈 Poslední výsledky:</strong>`;
-        
-        for (let subj in bySubject) {
-            let lastThree = bySubject[subj].slice(-3);
-            html += `<div style="margin-top:10px; background:#f1f5f9; padding:10px; border-radius:12px; border:2px solid #cbd5e1;">`;
-            html += `<b>${subj}:</b><ul style="padding-left:20px; margin:4px 0;">`;
-            lastThree.forEach(r => {
-                html += `<li><b>${r.score} bodů</b> <small style="color:#64748b;">(${r.date})</small></li>`;
-            });
-            html += `</ul></div>`;
-        }
-
-        document.getElementById("modal-title").innerText = `📊 Profil hrdiny: ${name}`;
-        document.getElementById("modal-body").innerHTML = html;
-        document.getElementById("detail-modal").classList.remove("hidden");
-    }
-
-    function selectUserFromModal() {
-        currentUser = selectedPlayerFromModal;
-        document.getElementById("current-user-display").innerText = currentUser;
-        closeModal();
-        checkSavedState();
-    }
-
-    function closeModal() { document.getElementById("detail-modal").classList.add("hidden"); }
-
-    function resetLeaderboard() {
-        if (confirm("Opravdu chceš vymazat celou síň slávy?")) {
-            localStorage.removeItem("school_leaderboard");
-            currentUser = "";
-            document.getElementById("current-user-display").innerText = "Zatím nikdo";
-            loadLeaderboard();
-            openStartPlayerModal();
-        }
-    }
-
-    window.onload = function() {
-        loadLeaderboard();
-        openStartPlayerModal();
-    };
-</script>
-
-</body>
-</html>
+            width:
