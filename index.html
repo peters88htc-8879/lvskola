@@ -948,4 +948,190 @@
                 memoryCards[i2].matched = true;
                 matchedPairs++;
                 if (currentPlayer === 1) p1Score++; else p2Score++;
-                flippedCards
+                flippedCards = [];
+                canFlip = true;
+                renderMemoryBoard();
+
+                checkMemoryEnd();
+            } else {
+                setTimeout(() => {
+                    memoryCards[i1].flipped = false;
+                    memoryCards[i2].flipped = false;
+                    flippedCards = [];
+                    currentPlayer = currentPlayer === 1 ? 2 : 1;
+                    updateTurnIndicator();
+                    canFlip = true;
+                    renderMemoryBoard();
+
+                    if (isVsComputer && currentPlayer === 2) {
+                        setTimeout(computerTurn, 800);
+                    }
+                }, 900);
+            }
+        }
+    }
+
+    // --- PC HRAJE POLO-NAHODNE (NEPORAŽATELNÝ ALGORITMUS BYL ODSTRANĚN) ---
+    function computerTurn() {
+        let unmasked = memoryCards.filter(c => !c.matched && !c.flipped && !c.isBonus);
+        if (unmasked.length < 2) return;
+
+        let card1 = unmasked[Math.floor(Math.random() * unmasked.length)];
+        let card1Index = memoryCards.findIndex(c => c.id === card1.id);
+        memoryCards[card1Index].flipped = true;
+        renderMemoryBoard();
+
+        setTimeout(() => {
+            let remaining = memoryCards.filter(c => !c.matched && !c.flipped && !c.isBonus);
+            
+            // PC má jen 40% šanci, že zkusí spárovat stejnou kartu, jinak vybere náhodně
+            let match = remaining.find(c => c.emoji === memoryCards[card1Index].emoji);
+            let targetCard = (match && Math.random() < 0.4) ? match : remaining[Math.floor(Math.random() * remaining.length)];
+            
+            let card2Index = memoryCards.findIndex(c => c.id === targetCard.id);
+
+            memoryCards[card2Index].flipped = true;
+            renderMemoryBoard();
+
+            setTimeout(() => {
+                if (memoryCards[card1Index].emoji === memoryCards[card2Index].emoji) {
+                    memoryCards[card1Index].matched = true;
+                    memoryCards[card2Index].matched = true;
+                    matchedPairs++;
+                    p2Score++;
+                    renderMemoryBoard();
+                    checkMemoryEnd();
+                    
+                    if (matchedPairs < 12 && currentPlayer === 2) {
+                        setTimeout(computerTurn, 800);
+                    }
+                } else {
+                    memoryCards[card1Index].flipped = false;
+                    memoryCards[card2Index].flipped = false;
+                    currentPlayer = 1;
+                    updateTurnIndicator();
+                    renderMemoryBoard();
+                }
+            }, 900);
+        }, 600);
+    }
+
+    function checkMemoryEnd() {
+        if (matchedPairs === 12) {
+            playVictorySound();
+            setTimeout(() => {
+                let winnerText = p1Score > p2Score ? `${currentUser} vyhrává!` : (p2Score > p1Score ? `${p2Name} vyhrává!` : `Remíza!`);
+                saveLeaderboard(currentUser, p1Score * 2, subjectNames['memory']);
+                alert(`🏆 Pexeso skončilo! ${winnerText}`);
+                showMenu();
+            }, 500);
+        }
+    }
+
+    function showMenu() {
+        document.getElementById("quiz-screen").classList.add("hidden");
+        document.getElementById("fill-screen").classList.add("hidden");
+        document.getElementById("memory-screen").classList.add("hidden");
+        document.getElementById("result-screen").classList.add("hidden");
+        document.getElementById("menu-screen").classList.remove("hidden");
+        loadLeaderboard();
+        checkSavedState();
+    }
+
+    function saveLeaderboard(name, pts, subjectName) {
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        board.push({ 
+            name: name, 
+            score: pts, 
+            subject: subjectName || "Matematika 🔢",
+            date: new Date().toLocaleDateString() 
+        });
+        localStorage.setItem("school_leaderboard", JSON.stringify(board));
+    }
+
+    function loadLeaderboard() {
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        let listHtml = "";
+
+        if (board.length === 0) {
+            listHtml = "<li style='text-align:center; color:#64748b; padding:10px;'>Zatím žádné výsledky. Hraj testy nebo hry! 🎮</li>";
+        } else {
+            let uniquePlayers = {};
+            board.forEach(item => {
+                if (!uniquePlayers[item.name] || item.score > uniquePlayers[item.name].score) {
+                    uniquePlayers[item.name] = item;
+                }
+            });
+
+            let sortedPlayers = Object.values(uniquePlayers).sort((a, b) => b.score - a.score);
+
+            sortedPlayers.forEach((item, index) => {
+                let subj = item.subject || "Matematika 🔢";
+                listHtml += `
+                    <li class="score-item" onclick="showUserDetail('${item.name}')">
+                        <div>
+                            <strong>#${index+1} 👤 ${item.name}</strong><br>
+                            <span class="badge-subject">${subj}</span>
+                        </div>
+                        <div style="text-align:right;">
+                            <span style="font-weight:bold; font-size:15px; color:#059669;">⭐ Max: ${item.score} b.</span><br>
+                            <small style="color:#64748b;">${item.date}</small>
+                        </div>
+                    </li>`;
+            });
+        }
+        document.getElementById("leaderboard").innerHTML = listHtml;
+    }
+
+    function showUserDetail(name) {
+        selectedPlayerFromModal = name;
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        let userRecords = board.filter(item => item.name === name);
+        
+        let bySubject = {};
+        userRecords.forEach(r => {
+            let subj = r.subject || "Matematika 🔢";
+            if (!bySubject[subj]) bySubject[subj] = [];
+            bySubject[subj].push(r);
+        });
+
+        let html = `<strong>Hráč:</strong> ${name}<br><br><strong>📈 Poslední pokusy a hry:</strong>`;
+        
+        for (let subj in bySubject) {
+            let lastThree = bySubject[subj].slice(-3);
+            html += `<div style="margin-top:8px; background:#f1f5f9; padding:8px; border-radius:10px; border:1px solid #cbd5e1;">`;
+            html += `<b>${subj}:</b><ul style="padding-left:20px; margin:3px 0;">`;
+            lastThree.forEach(r => {
+                html += `<li><b>${r.score} bodů</b> <small style="color:#64748b;">(${r.date})</small></li>`;
+            });
+            html += `</ul></div>`;
+        }
+
+        document.getElementById("modal-title").innerText = `📊 Profil hráče: ${name}`;
+        document.getElementById("modal-body").innerHTML = html;
+        document.getElementById("detail-modal").classList.remove("hidden");
+    }
+
+    function selectUserFromModal() {
+        document.getElementById("username").value = selectedPlayerFromModal;
+        closeModal();
+    }
+
+    function closeModal() {
+        document.getElementById("detail-modal").classList.add("hidden");
+    }
+
+    function resetLeaderboard() {
+        if (confirm("Opravdu chceš vymazat celou tabulku skóre?")) {
+            localStorage.removeItem("school_leaderboard");
+            document.getElementById("username").value = "";
+            loadLeaderboard();
+        }
+    }
+
+    loadLeaderboard();
+    checkSavedState();
+</script>
+
+</body>
+</html>
