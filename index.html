@@ -347,6 +347,9 @@
             <button class="btn btn-subject" onclick="openSubjectHub('eng6_project', 'Project Explore 1: Kompletní učebnice (89 stran)')" style="grid-column: span 2; background: linear-gradient(145deg, #e0f2fe, #bae6fd); border-color: #38bdf8;">
                 <span style="font-size:38px;">🇬🇧</span> <strong>Project Explore 1 (89 stran)</strong> <br><span style="font-size:14px; font-weight:normal;">Všech 8 kapitol od Starteru po Unit 6, slovíčka a gramatika</span>
             </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('eng6_family', '6.tř: Rodinní příslušníci (Family members)')">
+                <span>👪</span> Rodinní příslušníci <br><span style="font-size:13px; font-weight:normal;">Pokročilá slovní zásoba rodiny (Aunt, Uncle, Cousin...)</span>
+            </button>
             <button class="btn btn-subject" onclick="openSubjectHub('eng6_vocab', '6.tř: Slovíčka (Project Explore 1)')">
                 <span>🔤</span> Slovíčka (Project 1) <br><span style="font-size:13px; font-weight:normal;">Slovní zásoba z lekcí učebnice</span>
             </button>
@@ -595,6 +598,19 @@
             items: [
                 {q: "Project 1 (Unit 1): Doplňte: I ___ got a blue bike.", options: ["have", "has", "is", "are"], correct: "have"},
                 {q: "Project 1 (Unit 2): Ptáci umějí létat: Birds ___ fly.", options: ["can", "can't", "is", "are"], correct: "can"}
+            ]
+        },
+        eng6_family: {
+            title: "6. třída: Rodinní příslušníci (Family members)",
+            theoryPages: [
+                `<h3>📖 Rozšířená rodina v angličtině (Project Explore 1)</h3><p>Procvičování slovíček jako uncle (strýc), aunt (teta), cousin (bratranec/sestřenice), stepmother (nevlastní matka), twins (dvojčata).</p>`
+            ],
+            items: [
+                {q: "Jak je anglicky 'strýc'?", options: ["uncle", "aunt", "nephew"], correct: "uncle"},
+                {q: "Jak je anglicky 'teta'?", options: ["aunt", "uncle", "niece"], correct: "aunt"},
+                {q: "Co znamená anglické slovo 'cousin'?", options: ["bratranec nebo sestřenice", "strýc", "vnuk"], correct: "bratranec nebo sestřenice"},
+                {q: "Jak se anglicky řeknou 'dvojčata'?", options: ["twins", "brothers", "parents"], correct: "twins"},
+                {q: "Jak je anglicky 'neteř'?", options: ["niece", "nephew", "cousin"], correct: "niece"}
             ]
         },
         eng6_vocab: {
