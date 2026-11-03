@@ -968,13 +968,12 @@
         }
     }
 
-    // Opravená a plynulá logika pro tah počítače
+    // Bezpečná a plynulá logika pro tah počítače
     function computerTurn() {
         if (matchedPairs === 12) return;
         let unmasked = memoryCards.map((c, idx) => ({ card: c, index: idx })).filter(item => !item.card.matched && !item.card.flipped && !item.card.isBonus);
         if (unmasked.length < 2) return;
 
-        // Výběr první karty
         let rand1 = Math.floor(Math.random() * unmasked.length);
         let choice1 = unmasked[rand1];
         memoryCards[choice1.index].flipped = true;
@@ -990,9 +989,13 @@
                 return;
             }
 
-            // Zkusí najít shodu, pokud existuje v zbývajících, nebo vezme náhodnou
-            let match = remaining.find(item => item.card.emoji === memoryCards[choice1.index].emoji);
-            let choice2 = (match && Math.random() < 0.4) ? match : remaining[Math.floor(Math.random() * remaining.length)];
+            let match = remaining.find(item => item.index !== choice1.index && item.card.emoji === memoryCards[choice1.index].emoji);
+            let choice2 = (match && Math.random() < 0.5) ? match : remaining[Math.floor(Math.random() * remaining.length)];
+            
+            if (choice2.index === choice1.index) {
+                let alternatives = remaining.filter(item => item.index !== choice1.index);
+                if (alternatives.length > 0) choice2 = alternatives[0];
+            }
 
             memoryCards[choice2.index].flipped = true;
             renderMemoryBoard();
@@ -1006,7 +1009,6 @@
                     renderMemoryBoard();
                     checkMemoryEnd();
 
-                    // Pokud počítač ubrat pár a hra neskončila, hraje znovu
                     if (matchedPairs < 12) {
                         setTimeout(computerTurn, 1000);
                     }
@@ -1095,4 +1097,85 @@
         ctx.fillStyle = "#ef4444";
         ctx.beginPath(); ctx.arc(food.x + tileSize/2, food.y + tileSize/2, tileSize/2 - 2, 0, 2 * Math.PI); ctx.fill();
         snake.forEach((part, idx) => {
-            ctx.fillStyle = idx === 0 ? "#10b981" : "#34d399
+            ctx.fillStyle = idx === 0 ? "#10b981" : "#34d399";
+            ctx.fillRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2);
+        });
+    }
+
+    function changeSnakeDir(dir) {
+        if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -tileSize; }
+        if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = tileSize; }
+        if (dir === 'LEFT' && dx === 0) { nextDx = -tileSize; nextDy = 0; }
+        if (dir === 'RIGHT' && dx === 0) { nextDx = tileSize; nextDy = 0; }
+    }
+
+    window.addEventListener('keydown', e => {
+        if (e.key === "ArrowUp") changeSnakeDir('UP');
+        if (e.key === "ArrowDown") changeSnakeDir('DOWN');
+        if (e.key === "ArrowLeft") changeSnakeDir('LEFT');
+        if (e.key === "ArrowRight") changeSnakeDir('RIGHT');
+    });
+
+    function hideAllScreens() {
+        if (snakeInterval) clearInterval(snakeInterval);
+        document.getElementById("menu-screen").classList.add("hidden");
+        document.getElementById("quiz-screen").classList.add("hidden");
+        document.getElementById("fill-screen").classList.add("hidden");
+        document.getElementById("memory-screen").classList.add("hidden");
+        document.getElementById("snake-screen").classList.add("hidden");
+        document.getElementById("result-screen").classList.add("hidden");
+    }
+
+    function showMenu() {
+        hideAllScreens();
+        document.getElementById("menu-screen").classList.remove("hidden");
+        loadLeaderboard();
+    }
+
+    function saveLeaderboard(name, pts, subjectName) {
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        board.push({ name: name, score: pts, subject: subjectName || "Test", date: new Date().toLocaleDateString() });
+        localStorage.setItem("school_leaderboard", JSON.stringify(board));
+    }
+
+    function loadLeaderboard() {
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        let listHtml = "";
+        if (board.length === 0) {
+            listHtml = "<li style='text-align:center; color:#64748b; padding:12px;'>Zatím žádné výsledky v síni slávy.</li>";
+        } else {
+            let uniquePlayers = {};
+            board.forEach(item => {
+                if (!uniquePlayers[item.name] || item.score > uniquePlayers[item.name].score) {
+                    uniquePlayers[item.name] = item;
+                }
+            });
+            let sortedPlayers = Object.values(uniquePlayers).sort((a, b) => b.score - a.score);
+            sortedPlayers.forEach((item, index) => {
+                listHtml += `<li class="score-item">
+                    <span>#${index+1} 👤 ${item.name}</span>
+                    <span style="font-weight:bold; color:#059669;">⭐ Max: ${item.score} b.</span>
+                </li>`;
+            });
+        }
+        document.getElementById("leaderboard").innerHTML = listHtml;
+    }
+
+    function resetLeaderboard() {
+        if (confirm("Opravdu chceš vymazat síň slávy?")) {
+            localStorage.removeItem("school_leaderboard");
+            currentUser = "";
+            document.getElementById("current-user-display").innerText = "Zatím nikdo";
+            loadLeaderboard();
+            openStartPlayerModal();
+        }
+    }
+
+    window.onload = function() {
+        loadLeaderboard();
+        openStartPlayerModal();
+    };
+</script>
+
+</body>
+</html>
