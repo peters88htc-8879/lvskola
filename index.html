@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎓 Celoroční Digitální Sešit & Učebnice (Větší písmo & Bez chyb) - Pohádková Akademie</title>
+    <title>🎓 Celoroční Digitální Sešit & Učebnice (Automatický posun v testech) - Pohádková Akademie</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
 
@@ -267,7 +267,7 @@
 
     <!-- HLAVNÍ MENU -->
     <div id="menu-screen">
-        <div class="version-badge">🚀 Verze 7.2 (Zvětšené písmo & Plynulý chod)</div>
+        <div class="version-badge">🚀 Verze 7.3 (Automatický přechod & Nová volba testu)</div>
         <h1>🌟 Celoroční Digitální Sešit & Učebnice 🎓</h1>
 
         <h3>📁 Výběr ročníku:</h3>
@@ -349,7 +349,7 @@
     <!-- ROZCESTNÍK PRO DANÉ TÉMA -->
     <div id="subject-hub-screen" class="hidden">
         <h1 id="hub-title" style="font-size:26px; color:#312e81;">Téma</h1>
-        <p style="color:#475569; font-size:16px; margin-bottom:20px;">Vyber si, zda chceš pokračovat v četbě učebnice, prohlédnout si obsah, nebo spustit test po kolech!</p>
+        <p style="color:#475569; font-size:16px; margin-bottom:20px;">Vyber si, zda chceš pokračovat v četbě učebnice, prohlédnout si obsah, nebo spustit test!</p>
         
         <button class="btn btn-theory" onclick="resumeTheory()" style="padding:18px; font-size:19px; margin-bottom:12px;" id="hub-read-btn">
             📖 Pokračovat v učení
@@ -358,7 +358,7 @@
             📑 Obsah / Osnova (Vybrat kapitolu)
         </button>
         <button class="btn btn-success" onclick="startWorkbookMode()" style="padding:18px; font-size:19px; margin-bottom:15px;">
-            ✍️ Spustit test (po kolech)
+            ✍️ Spustit test
         </button>
         
         <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
@@ -389,7 +389,7 @@
         <button class="btn btn-danger" onclick="backToHub()" style="margin-top:8px; font-size:16px;">🏠 Zpět do rozcestníku</button>
     </div>
 
-    <!-- OBRAZOVKA: TEST PO KOLECH -->
+    <!-- OBRAZOVKA: TEST (S AUTOMATICKÝM POSUNEM A VÝBĚREM NA KONCI) -->
     <div id="workbook-screen" class="hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:17px; margin-bottom:10px;">
             <span id="workbook-title" style="color: #4f46e5;">Test</span>
@@ -401,9 +401,13 @@
 
         <div id="workbook-feedback" style="font-weight: bold; font-size: 18px; margin: 12px 0; min-height: 28px;"></div>
 
-        <button class="btn btn-success hidden" id="next-round-btn" onclick="nextWorkbookQuestion()" style="margin-top:10px;">➡️ Další otázka (kolo)</button>
-        <button class="btn btn-warning" onclick="resumeTheory()" id="wb-return-theory-btn" style="margin-top:10px; font-size:17px;">📖 Vrátit se k učení</button>
-        <button class="btn btn-danger" onclick="showMenu()" style="margin-top:8px; font-size:17px;">🏠 Zavřít do menu</button>
+        <!-- Tlačítka po dokončení testu -->
+        <div id="workbook-end-actions" class="hidden" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+            <button class="btn btn-success" onclick="startWorkbookMode()">🔄 Spustit test znovu (nové míchání)</button>
+            <button class="btn btn-warning" onclick="backToHub()">📑 Zpět do nabídky předmětu</button>
+        </div>
+
+        <button class="btn btn-danger" onclick="showMenu()" style="margin-top:10px; font-size:17px;">🏠 Zavřít do menu</button>
     </div>
 
     <!-- PEXESO -->
@@ -741,6 +745,7 @@
         testScore = 0;
 
         document.getElementById("workbook-title").innerText = `Test: ${activeSubjectTitle}`;
+        document.getElementById("workbook-end-actions").classList.add("hidden");
         
         hideAllScreens();
         document.getElementById("workbook-screen").classList.remove("hidden");
@@ -750,7 +755,7 @@
     function renderCurrentTestQuestion() {
         document.getElementById("workbook-score").innerText = `⭐ Body: ${testScore}/${testQuestionsQueue.length}`;
         document.getElementById("workbook-feedback").innerText = "";
-        document.getElementById("next-round-btn").classList.add("hidden");
+        document.getElementById("workbook-end-actions").classList.add("hidden");
 
         let box = document.getElementById("workbook-items-box");
 
@@ -759,7 +764,7 @@
                 <h3 style="color:#059669; margin-top:0; font-size:24px;">🏆 Test úspěšně dokončen!</h3>
                 <p style="font-size: 20px; font-weight: bold;">Získal(a) jsi celkem ${testScore} z ${testQuestionsQueue.length} bodů!</p>
             </div>`;
-            document.getElementById("wb-return-theory-btn").style.display = "block";
+            document.getElementById("workbook-end-actions").classList.remove("hidden");
             return;
         }
 
@@ -801,12 +806,12 @@
         }
 
         document.getElementById("workbook-score").innerText = `⭐ Body: ${testScore}/${testQuestionsQueue.length}`;
-        document.getElementById("next-round-btn").classList.remove("hidden");
-    }
 
-    function nextWorkbookQuestion() {
-        currentTestIndex++;
-        renderCurrentTestQuestion();
+        // Automatický posun na další otázku po 1.2 sekundě
+        setTimeout(() => {
+            currentTestIndex++;
+            renderCurrentTestQuestion();
+        }, 1200);
     }
 
     let fillIndex = 0, fillQuestions = [], fillScore = 0;
