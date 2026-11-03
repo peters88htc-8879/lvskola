@@ -12,7 +12,7 @@
             --danger: #dc2626;
             --accent: #d97706;
             --bg-gradient: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
-            --card-bg: #e6f4f1; /* Světle modrozelená pro samotnou hru */
+            --card-bg: #e6f4f1;
             --text-color: #0f172a;
         }
 
@@ -104,7 +104,13 @@
         .btn-success { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
         .btn-danger { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); font-size: 15px; padding: 12px; }
         .btn-warning { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); font-size: 15px; padding: 12px; color: #fff; }
-        .btn-continue { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
+        .btn-continue { 
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); 
+            font-size: 16px; 
+            padding: 14px; 
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+        }
         .btn-game { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
 
         .subject-grid {
@@ -242,7 +248,7 @@
             padding-bottom: 40px;
         }
 
-        /* STYLY PRO PEXESO 5x5 (VĚTŠÍ A PŘEHLEDNĚJŠÍ KARTY) */
+        /* STYLY PRO PEXESO 5x5 */
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -318,9 +324,9 @@
             <input type="text" id="username" placeholder="Např. Anička / Tata...">
         </div>
 
-        <div id="resume-container" class="hidden" style="margin-bottom: 12px;">
+        <div id="resume-container" class="hidden" style="margin-bottom: 15px;">
             <button class="btn btn-continue" onclick="resumeQuiz()">
-                ▶️ Pokračovat v rozestavěném testu (<span id="resume-subject-name"></span>)
+                ▶️ Pokračovat: <span id="resume-subject-name"></span>
             </button>
         </div>
 
@@ -345,7 +351,7 @@
             <button class="btn btn-subject btn-game" onclick="startFillGame()">
                 <span>✍️</span> Doplňovačka
             </button>
-            <button class="btn btn-subject btn-game" onclick="promptMemoryMode()">
+            <button class="btn btn-subject btn-game" onclick="openMemoryModal()">
                 <span>🃏</span> Pexeso (5x5)
             </button>
         </div>
@@ -427,6 +433,30 @@
         <button class="btn btn-warning" onclick="showMenu()">🏠 Zpět do menu</button>
     </div>
 
+</div>
+
+<!-- DIALOGOVÉ OKNO VYBERU REŽIMU PEXESA -->
+<div id="memory-modal" class="modal hidden">
+    <div class="modal-content">
+        <h3 style="color:#4f46e5; margin-top:0;">🃏 Vyber si režim Pexesa</h3>
+        <p style="font-size:15px; color:#64748b; margin-bottom:15px;">S kým si chceš zahrát?</p>
+        
+        <button class="btn btn-game" onclick="selectMemoryMode('vs-pc')" style="margin-bottom:12px;">
+            🤖 Hráč vs Počítač
+        </button>
+        
+        <button class="btn btn-game" onclick="showP2Input()" style="margin-bottom:12px; background:linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);">
+            👥 Dva hráči (na jednom mobilu)
+        </button>
+
+        <div id="p2-input-box" class="hidden" style="margin-top:10px; background:#f1f5f9; padding:12px; border-radius:15px;">
+            <label for="p2-name-input"><strong>👤 Jméno 2. hráče:</strong></label><br>
+            <input type="text" id="p2-name-input" placeholder="Např. Máma / Brácha" style="width:100%; margin-bottom:10px;">
+            <button class="btn btn-success" onclick="selectMemoryMode('vs-player')">🎮 Spustit hru 2 hráčů</button>
+        </div>
+
+        <button class="btn btn-warning" onclick="closeMemoryModal()" style="margin-top:10px;">Zavřít</button>
+    </div>
 </div>
 
 <!-- DETAILNÍ OKNO PRO HISTORII POKUSŮ -->
@@ -589,7 +619,7 @@
         const resumeBox = document.getElementById("resume-container");
         if (saved) {
             let data = JSON.parse(saved);
-            document.getElementById("resume-subject-name").innerText = `${data.userName} (${subjectNames[data.subjectKey]})`;
+            document.getElementById("resume-subject-name").innerText = `${subjectNames[data.subjectKey]} (${data.userName})`;
             resumeBox.classList.remove("hidden");
         } else {
             resumeBox.classList.add("hidden");
@@ -766,7 +796,7 @@
         document.getElementById("result-action-btn").setAttribute("onclick", `startQuiz('${currentSubjectKey}')`);
     }
 
-    // --- FUNKCE PRO HRU: DOPLŇOVAČKA ---
+    // --- DOPLŇOVAČKA ---
     function startFillGame() {
         let nameInput = document.getElementById("username").value.trim();
         if (!nameInput) {
@@ -824,28 +854,37 @@
         document.getElementById("result-action-btn").setAttribute("onclick", `startFillGame()`);
     }
 
-    // --- FUNKCE PRO PEXESO 5x5 ---
-    function promptMemoryMode() {
+    // --- NOVÝ MODAL A PEXESO ---
+    function openMemoryModal() {
         let nameInput = document.getElementById("username").value.trim();
         if (!nameInput) {
             alert("⚠️ Prosím, zadej nejprve své jméno do políčka nahoře!");
             return;
         }
         currentUser = nameInput;
+        document.getElementById("p2-input-box").classList.add("hidden");
+        document.getElementById("memory-modal").classList.remove("hidden");
+    }
 
-        let mode = prompt("Zvol režim pexesa:\n1 - Proti počítači 🤖\n2 - Ve dvou hráčích 👥", "1");
-        if (mode === "1") {
+    function showP2Input() {
+        document.getElementById("p2-input-box").classList.remove("hidden");
+    }
+
+    function closeMemoryModal() {
+        document.getElementById("memory-modal").classList.add("hidden");
+    }
+
+    function selectMemoryMode(mode) {
+        if (mode === 'vs-pc') {
             isVsComputer = true;
             p2Name = "Počítač 🤖";
-            startMemoryGame();
-        } else if (mode === "2") {
-            let p2 = prompt("Zadej jméno druhého hráče:", "Hráč 2");
-            if (p2) {
-                isVsComputer = false;
-                p2Name = p2;
-                startMemoryGame();
-            }
+        } else {
+            let p2Input = document.getElementById("p2-name-input").value.trim();
+            p2Name = p2Input ? p2Input : "Hráč 2 👤";
+            isVsComputer = false;
         }
+        closeMemoryModal();
+        startMemoryGame();
     }
 
     function startMemoryGame() {
@@ -855,14 +894,12 @@
         matchedPairs = 0;
         flippedCards = [];
 
-        // 12 párů (24 karet) + 1 bonusová karta ⭐ (celkem 25 karet pro mřížku 5x5)
         let emojis = ['🍎', '🍌', '🍇', '🍉', '🍓', '🍒', '🍑', '🍍', '🐶', '🐱', '🐰', '🦊'];
         let pairCards = [...emojis, ...emojis].map((emoji, idx) => ({ id: idx, emoji: emoji, flipped: false, matched: false, isBonus: false }));
-        
         let bonusCard = { id: 24, emoji: '⭐', flipped: true, matched: true, isBonus: true };
 
         memoryCards = pairCards.sort(() => Math.random() - 0.5);
-        memoryCards.splice(12, 0, bonusCard); // Vložení bonusové stálé karty doprostřed mřížky
+        memoryCards.splice(12, 0, bonusCard);
 
         document.getElementById("menu-screen").classList.add("hidden");
         document.getElementById("memory-screen").classList.remove("hidden");
@@ -911,186 +948,4 @@
                 memoryCards[i2].matched = true;
                 matchedPairs++;
                 if (currentPlayer === 1) p1Score++; else p2Score++;
-                flippedCards = [];
-                canFlip = true;
-                renderMemoryBoard();
-
-                checkMemoryEnd();
-            } else {
-                setTimeout(() => {
-                    memoryCards[i1].flipped = false;
-                    memoryCards[i2].flipped = false;
-                    flippedCards = [];
-                    currentPlayer = currentPlayer === 1 ? 2 : 1;
-                    updateTurnIndicator();
-                    canFlip = true;
-                    renderMemoryBoard();
-
-                    if (isVsComputer && currentPlayer === 2) {
-                        setTimeout(computerTurn, 800);
-                    }
-                }, 900);
-            }
-        }
-    }
-
-    function computerTurn() {
-        let unmasked = memoryCards.filter(c => !c.matched && !c.flipped && !c.isBonus);
-        if (unmasked.length < 2) return;
-
-        let idx1 = unmasked[Math.floor(Math.random() * unmasked.length)].id;
-        let card1Index = memoryCards.findIndex(c => c.id === idx1);
-        memoryCards[card1Index].flipped = true;
-        renderMemoryBoard();
-
-        setTimeout(() => {
-            let remaining = memoryCards.filter(c => !c.matched && !c.flipped && !c.isBonus);
-            let match = remaining.find(c => c.emoji === memoryCards[card1Index].emoji);
-            let targetCard = match ? match : remaining[Math.floor(Math.random() * remaining.length)];
-            let card2Index = memoryCards.findIndex(c => c.id === targetCard.id);
-
-            memoryCards[card2Index].flipped = true;
-            renderMemoryBoard();
-
-            setTimeout(() => {
-                if (memoryCards[card1Index].emoji === memoryCards[card2Index].emoji) {
-                    memoryCards[card1Index].matched = true;
-                    memoryCards[card2Index].matched = true;
-                    matchedPairs++;
-                    p2Score++;
-                    renderMemoryBoard();
-                    checkMemoryEnd();
-                    
-                    if (matchedPairs < 12 && currentPlayer === 2) {
-                        setTimeout(computerTurn, 800);
-                    }
-                } else {
-                    memoryCards[card1Index].flipped = false;
-                    memoryCards[card2Index].flipped = false;
-                    currentPlayer = 1;
-                    updateTurnIndicator();
-                    renderMemoryBoard();
-                }
-            }, 900);
-        }, 600);
-    }
-
-    function checkMemoryEnd() {
-        if (matchedPairs === 12) {
-            playVictorySound();
-            setTimeout(() => {
-                let winnerText = p1Score > p2Score ? `${currentUser} vyhrává!` : (p2Score > p1Score ? `${p2Name} vyhrává!` : `Remíza!`);
-                saveLeaderboard(currentUser, p1Score * 2, subjectNames['memory']);
-                alert(`🏆 Pexeso skončilo! ${winnerText}`);
-                showMenu();
-            }, 500);
-        }
-    }
-
-    function showMenu() {
-        document.getElementById("quiz-screen").classList.add("hidden");
-        document.getElementById("fill-screen").classList.add("hidden");
-        document.getElementById("memory-screen").classList.add("hidden");
-        document.getElementById("result-screen").classList.add("hidden");
-        document.getElementById("menu-screen").classList.remove("hidden");
-        loadLeaderboard();
-        checkSavedState();
-    }
-
-    function saveLeaderboard(name, pts, subjectName) {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        board.push({ 
-            name: name, 
-            score: pts, 
-            subject: subjectName || "Matematika 🔢",
-            date: new Date().toLocaleDateString() 
-        });
-        localStorage.setItem("school_leaderboard", JSON.stringify(board));
-    }
-
-    function loadLeaderboard() {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let listHtml = "";
-
-        if (board.length === 0) {
-            listHtml = "<li style='text-align:center; color:#64748b; padding:10px;'>Zatím žádné výsledky. Hraj testy nebo hry! 🎮</li>";
-        } else {
-            let uniquePlayers = {};
-            board.forEach(item => {
-                if (!uniquePlayers[item.name] || item.score > uniquePlayers[item.name].score) {
-                    uniquePlayers[item.name] = item;
-                }
-            });
-
-            let sortedPlayers = Object.values(uniquePlayers).sort((a, b) => b.score - a.score);
-
-            sortedPlayers.forEach((item, index) => {
-                let subj = item.subject || "Matematika 🔢";
-                listHtml += `
-                    <li class="score-item" onclick="showUserDetail('${item.name}')">
-                        <div>
-                            <strong>#${index+1} 👤 ${item.name}</strong><br>
-                            <span class="badge-subject">${subj}</span>
-                        </div>
-                        <div style="text-align:right;">
-                            <span style="font-weight:bold; font-size:15px; color:#059669;">⭐ Max: ${item.score} b.</span><br>
-                            <small style="color:#64748b;">${item.date}</small>
-                        </div>
-                    </li>`;
-            });
-        }
-        document.getElementById("leaderboard").innerHTML = listHtml;
-    }
-
-    function showUserDetail(name) {
-        selectedPlayerFromModal = name;
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let userRecords = board.filter(item => item.name === name);
-        
-        let bySubject = {};
-        userRecords.forEach(r => {
-            let subj = r.subject || "Matematika 🔢";
-            if (!bySubject[subj]) bySubject[subj] = [];
-            bySubject[subj].push(r);
-        });
-
-        let html = `<strong>Hráč:</strong> ${name}<br><br><strong>📈 Poslední pokusy a hry:</strong>`;
-        
-        for (let subj in bySubject) {
-            let lastThree = bySubject[subj].slice(-3);
-            html += `<div style="margin-top:8px; background:#f1f5f9; padding:8px; border-radius:10px; border:1px solid #cbd5e1;">`;
-            html += `<b>${subj}:</b><ul style="padding-left:20px; margin:3px 0;">`;
-            lastThree.forEach(r => {
-                html += `<li><b>${r.score} bodů</b> <small style="color:#64748b;">(${r.date})</small></li>`;
-            });
-            html += `</ul></div>`;
-        }
-
-        document.getElementById("modal-title").innerText = `📊 Profil hráče: ${name}`;
-        document.getElementById("modal-body").innerHTML = html;
-        document.getElementById("detail-modal").classList.remove("hidden");
-    }
-
-    function selectUserFromModal() {
-        document.getElementById("username").value = selectedPlayerFromModal;
-        closeModal();
-    }
-
-    function closeModal() {
-        document.getElementById("detail-modal").classList.add("hidden");
-    }
-
-    function resetLeaderboard() {
-        if (confirm("Opravdu chceš vymazat celou tabulku skóre?")) {
-            localStorage.removeItem("school_leaderboard");
-            document.getElementById("username").value = "";
-            loadLeaderboard();
-        }
-    }
-
-    loadLeaderboard();
-    checkSavedState();
-</script>
-
-</body>
-</html>
+                flippedCards
