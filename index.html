@@ -602,41 +602,45 @@
             title: "Geometrie (4. třída - Úsečky, Obvody)",
             theoryPages: [
                 `<h3>📖 1. Úsečky a rýsování v sešitě</h3>
-                 <p>V geometrii rýsujeme úsečky ostrou tužkou a označujeme krajní body křížky:</p>
+                 <p>V geometrii rýsujeme úsečky ostrou tužkou a označujeme krajní body křížky (nebo čárkami) a velkými písmeny:</p>
                  <div style="display: flex; justify-content: center; margin: 15px 0;">
-                     <svg width="280" height="130" style="background: #ffffff; border: 2px solid #cbd5e1; border-radius: 12px;">
-                         <!-- Mřížka jako v sešitě -->
-                         <line x1="30" y1="30" x2="250" y2="30" stroke="#f1f5f9" stroke-width="1"/>
-                         <line x1="30" y1="65" x2="250" y2="65" stroke="#e2e8f0" stroke-width="1"/>
-                         <line x1="30" y1="100" x2="250" y2="100" stroke="#f1f5f9" stroke-width="1"/>
-                         <!-- Výrazná úsečka s koncovými body -->
-                         <line x1="50" y1="65" x2="210" y2="65" stroke="#4f46e5" stroke-width="4" stroke-linecap="round"/>
-                         <!-- Křížky bodů A a B -->
-                         <text x="44" y="71" font-size="18" font-weight="bold" fill="#ef4444">×</text>
-                         <text x="204" y="71" font-size="18" font-weight="bold" fill="#ef4444">×</text>
-                         <text x="47" y="45" font-size="16" font-weight="bold" fill="#1e1b4b">A</text>
-                         <text x="207" y="45" font-size="16" font-weight="bold" fill="#1e1b4b">B</text>
-                         <text x="105" y="95" font-size="14" font-weight="bold" fill="#059669">Úsečka AB (|AB|)</text>
-                     </svg>
-                 </div>
-                 <p><strong>Úsečka:</strong> Část přímky ohraničená dvěma body (A, B). Délku zapisujeme jako |AB|.</p>`,
-                `<h3>📖 2. Obvod čtverce a obdélníku v příkladech</h3>
-                 <p>Obvod (o) je celková délka všech stran ohraničujících obrazec:</p>
-                 <div style="display: flex; justify-content: center; margin: 15px 0;">
-                     <svg width="280" height="130" style="background: #ffffff; border: 2px solid #cbd5e1; border-radius: 12px;">
-                         <!-- Čtverec -->
-                         <rect x="25" y="25" width="75" height="75" fill="#e0e7ff" stroke="#4f46e5" stroke-width="3" rx="4"/>
-                         <text x="55" y="17" font-size="13" font-weight="bold" fill="#4f46e5">strana a</text>
-                         <text x="35" y="115" font-size="13" font-weight="bold" fill="#1e1b4b">Čtverec: o = 4 · a</text>
+                     <svg width="300" height="150" style="background: #ffffff; border: 3px solid #cbd5e1; border-radius: 14px;">
+                         <!-- Čtvercová mřížka jako v sešitě -->
+                         <defs>
+                             <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                 <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f1f5f9" stroke-width="1"/>
+                             </pattern>
+                         </defs>
+                         <rect width="300" height="150" fill="url(#grid)" />
                          
-                         <!-- Obdélník -->
-                         <rect x="135" y="35" width="120" height="55" fill="#dcfce7" stroke="#059669" stroke-width="3" rx="4"/>
-                         <text x="185" y="27" font-size="13" font-weight="bold" fill="#059669">strana a</text>
-                         <text x="120" y="68" font-size="13" font-weight="bold" fill="#059669">b</text>
-                         <text x="135" y="115" font-size="13" font-weight="bold" fill="#1e1b4b">Obdélník: o = 2 · (a + b)</text>
+                         <!-- Opravdový nákres úsečky v sešitě -->
+                         <line x1="50" y1="75" x2="250" y2="75" stroke="#4f46e5" stroke-width="4" stroke-linecap="round"/>
+                         <!-- Koncové body -->
+                         <circle cx="50" cy="75" r="5" fill="#ef4444"/>
+                         <circle cx="250" cy="75" r="5" fill="#ef4444"/>
+                         <text x="42" y="100" font-size="16" font-weight="bold" fill="#1e1b4b">A</text>
+                         <text x="242" y="100" font-size="16" font-weight="bold" fill="#1e1b4b">B</text>
+                         <text x="130" y="55" font-size="15" font-weight="bold" fill="#059669">Úsečka AB (délka |AB|)</text>
                      </svg>
                  </div>
-                 <p>Příklad: Čtverec o straně a = 6 cm má obvod <strong>o = 4 · 6 = 24 cm</strong>.</p>`
+                 <p><strong>Úsečka:</strong> Část přímky ohraničená dvěma body. Zapisujeme jako |AB|.</p>`,
+                `<h3>📖 2. Obvod čtverce a obdélníku</h3>
+                 <p>Obvod (o) spočítáme sečtením délek všech stran:</p>
+                 <div style="display: flex; justify-content: center; margin: 15px 0;">
+                     <svg width="300" height="150" style="background: #ffffff; border: 3px solid #cbd5e1; border-radius: 14px;">
+                         <!-- Čtverec nákres -->
+                         <rect x="30" y="35" width="80" height="80" fill="#e0e7ff" stroke="#4f46e5" stroke-width="3" rx="4"/>
+                         <text x="65" y="25" font-size="13" font-weight="bold" fill="#4f46e5">strana a</text>
+                         <text x="40" y="132" font-size="13" font-weight="bold" fill="#1e1b4b">Čtverec: o = 4 · a</text>
+                         
+                         <!-- Obdélník nákres -->
+                         <rect x="145" y="45" width="130" height="60" fill="#dcfce7" stroke="#059669" stroke-width="3" rx="4"/>
+                         <text x="200" y="35" font-size="13" font-weight="bold" fill="#059669">strana a</text>
+                         <text x="130" y="79" font-size="13" font-weight="bold" fill="#059669">b</text>
+                         <text x="145" y="132" font-size="13" font-weight="bold" fill="#1e1b4b">Obdélník: o = 2 · (a + b)</text>
+                     </svg>
+                 </div>
+                 <p>Příklad: Čtverec o straně a = 5 cm má obvod <strong>o = 4 · 5 = 20 cm</strong>.</p>`
             ],
             items: [
                 {q: "Čtverec má stranu a = 5 cm. Jaký je jeho obvod?", options: ["20 cm", "25 cm", "16 cm"], correct: "20 cm"},
@@ -782,36 +786,35 @@
         geom6: {
             title: "Geometrie (6. třída - Úhly, Osová souměrnost)",
             theoryPages: [
-                `<h3>📖 1. Rýsování a měření úhlů úhloměrem</h3>
-                 <p>V 6. třídě měříme úhly pomocí úhloměru a označujeme jejich vrchol a ramena:</p>
+                `<h3>📖 1. Měření a rýsování úhlů úhloměrem</h3>
+                 <p>Úhly dělíme na ostré, pravé, tupé a přímé. Nákres ukazuje úhel s vrcholem V a ramenem:</p>
                  <div style="display: flex; justify-content: center; margin: 15px 0;">
-                     <svg width="280" height="140" style="background: #ffffff; border: 2px solid #cbd5e1; border-radius: 12px;">
+                     <svg width="300" height="150" style="background: #ffffff; border: 3px solid #cbd5e1; border-radius: 14px;">
                          <!-- Vrchol V a ramena úhlu -->
-                         <line x1="50" y1="110" x2="240" y2="110" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
-                         <line x1="50" y1="110" x2="190" y2="30" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
-                         <!-- Vrchol V -->
-                         <circle cx="50" cy="110" r="5" fill="#ef4444"/>
-                         <text x="35" y="125" font-size="14" font-weight="bold" fill="#ef4444">Vrchol V</text>
+                         <line x1="60" y1="120" x2="260" y2="120" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
+                         <line x1="60" y1="120" x2="210" y2="35" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
+                         <!-- Vrchol -->
+                         <circle cx="60" cy="120" r="5" fill="#ef4444"/>
+                         <text x="42" y="138" font-size="14" font-weight="bold" fill="#ef4444">Vrchol V</text>
                          <!-- Oblouček úhlu -->
-                         <path d="M 85 110 A 35 35 0 0 0 78 85" fill="none" stroke="#f59e0b" stroke-width="3"/>
-                         <text x="95" y="85" font-size="15" font-weight="bold" fill="#d97706">α = 45° (Ostrý úhel)</text>
+                         <path d="M 100 120 A 40 40 0 0 0 92 92" fill="none" stroke="#f59e0b" stroke-width="3"/>
+                         <text x="110" y="90" font-size="15" font-weight="bold" fill="#d97706">α = 50° (Ostrý úhel)</text>
                      </svg>
                  </div>
-                 <p><strong>Ostrý úhel:</strong> menší než 90° | <strong>Pravý úhel:</strong> přesně 90° | <strong>Tupý úhel:</strong> větší než 90° a menší než 180°.</p>`,
-                `<h3>📖 2. Kolmice a pravý úhel</h3>
-                 <p>Dvě přímky jsou na sebe kolmé, svírají pravý úhel, který v sešitě značíme čtverečkem:</p>
+                 <p><strong>Ostrý úhel:</strong> méně než 90° | <strong>Pravý úhel:</strong> přesně 90° | <strong>Tupý úhel:</strong> více než 90°.</p>`,
+                `<h3>📖 2. Kolmice a pravý úhel v rovině</h3>
+                 <p>Dvě přímky p a q jsou na sebe kolmé (p ⟂ q), pokud svírají pravý úhel označený čtverečkem:</p>
                  <div style="display: flex; justify-content: center; margin: 15px 0;">
-                     <svg width="280" height="130" style="background: #ffffff; border: 2px solid #cbd5e1; border-radius: 12px;">
-                         <!-- Přímky p a q -->
-                         <line x1="30" y1="65" x2="240" y2="65" stroke="#0284c7" stroke-width="3"/>
-                         <line x1="110" y1="15" x2="110" y2="115" stroke="#0284c7" stroke-width="3"/>
-                         <!-- Značka pravého úhlu (čtvereček s tečkou) -->
-                         <rect x="110" y="50" width="15" height="15" fill="#fef08a" stroke="#ef4444" stroke-width="2"/>
-                         <circle cx="117" cy="57" r="2.5" fill="#ef4444"/>
-                         <text x="135" y="60" font-size="14" font-weight="bold" fill="#0284c7">p ⟂ q (Kolmice)</text>
+                     <svg width="300" height="150" style="background: #ffffff; border: 3px solid #cbd5e1; border-radius: 14px;">
+                         <!-- Přímky -->
+                         <line x1="30" y1="75" x2="270" y2="75" stroke="#0284c7" stroke-width="3"/>
+                         <line x1="120" y1="20" x2="120" y2="130" stroke="#0284c7" stroke-width="3"/>
+                         <!-- Značka pravého úhlu -->
+                         <rect x="120" y="55" width="20" height="20" fill="#fef08a" stroke="#ef4444" stroke-width="2"/>
+                         <text x="145" y="70" font-size="15" font-weight="bold" fill="#0284c7">p ⟂ q (Kolmice)</text>
                      </svg>
                  </div>
-                 <p>Značka pravého úhlu v průsečíku přímek zaručuje, že jde o dokonalou kolmici.</p>`
+                 <p>Pravý úhel v geometrii vždy ověřujeme rýsovacím trojúhelníkem s ryskou.</p>`
             ],
             items: [
                 {q: "Jak se nazývá úhel, který má méně než 90 stupňů?", options: ["Ostrý úhel", "Tupý úhel", "Pravý úhel"], correct: "Ostrý úhel"},
