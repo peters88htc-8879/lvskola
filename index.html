@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎓 Celoroční Digitální Sešit & Učebnice (Kompletní verze)</title>
+    <title>🎓 Celoroční Digitální Sešit & Učebnice (Stabilní verze)</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
 
@@ -261,7 +261,7 @@
 
     <!-- HLAVNÍ MENU -->
     <div id="menu-screen">
-        <div class="version-badge">🚀 Verze 9.0 (Obří zásoba doplňovačky & chytré míchání)</div>
+        <div class="version-badge">🚀 Verze 9.1 (Stabilní oprava doplňovačky)</div>
         <h1>🌟 Celoroční Digitální Sešit & Učebnice 🎓</h1>
 
         <h3>📁 Výběr ročníku:</h3>
@@ -1104,36 +1104,12 @@
         { hint: "Anglicky: Kočka", missing: "C", display: "_AT", options: ["C", "K", "S"] },
         { hint: "Anglicky: Kniha", missing: "O", display: "B__K", options: ["OO", "EE", "AA"] },
         { hint: "Anglicky: Voda", missing: "A", display: "W_TER", options: ["A", "E", "O"] },
-        { hint: "Anglicky: Dům", missing: "O", display: "H_USE", options: ["O", "U", "A"] }
-    ];
-
-    const fillDatabaseEng = [
-        { hint: "Anglicky: Škola", missing: "H", display: "SC_OOL", options: ["H", "K", "L"] },
-        { hint: "Anglicky: Jablko", missing: "P", display: "A_PLE", options: ["P", "B", "T"] },
-        { hint: "Anglicky: Bratr", missing: "T", display: "BRO_HER", options: ["T", "D", "S"] },
-        { hint: "Anglicky: Učitel", missing: "C", display: "TEA_HER", options: ["C", "CH", "S"] },
-        { hint: "Anglicky: Zahrada", missing: "R", display: "GA_DEN", options: ["R", "L", "N"] },
-        { hint: "Anglicky: Zima", missing: "N", display: "WI_TER", options: ["N", "M", "L"] },
-        { hint: "Anglicky: Léto", missing: "M", display: "SU_MER", options: ["M", "N", "P"] },
-        { hint: "Anglicky: Kamarád", missing: "I", display: "FR_END", options: ["I", "E", "A"] },
-        { hint: "Anglicky: Rodina", missing: "M", display: "FA_ILY", options: ["M", "N", "L"] },
-        { hint: "Anglicky: Tužka", missing: "N", display: "PEN_IL", options: ["N", "M", "L"] },
-        { hint: "Anglicky: Okno", missing: "D", display: "WIN_OW", options: ["D", "T", "G"] },
-        { hint: "Anglicky: Pomeranč", missing: "G", display: "ORAN_E", options: ["G", "J", "K"] },
-        { hint: "Anglicky: Květina", missing: "W", display: "FLOW_R", options: ["W", "E", "A"] },
-        { hint: "Anglicky: Štěně", missing: "U", display: "P_PPY", options: ["U", "A", "O"] },
-        { hint: "Anglicky: Opice", missing: "K", display: "MON_EY", options: ["K", "C", "S"] },
-        { hint: "Anglicky: Pes", missing: "G", display: "DO_", options: ["G", "B", "D"] },
-        { hint: "Anglicky: Kočka", missing: "C", display: "_AT", options: ["C", "K", "S"] },
-        { hint: "Anglicky: Kniha", missing: "O", display: "B__K", options: ["OO", "EE", "AA"] },
-        { hint: "Anglicky: Voda", missing: "A", display: "W_TER", options: ["A", "E", "O"] },
         { hint: "Anglicky: Dům", missing: "O", display: "H_USE", options: ["O", "U", "A"] },
         { hint: "Anglicky: Sestra", missing: "S", display: "_ISTER", options: ["S", "C", "T"] },
         { hint: "Anglicky: Matka", missing: "M", display: "_OTHER", options: ["M", "F", "B"] },
         { hint: "Anglicky: Otec", missing: "F", display: "_ATHER", options: ["F", "M", "P"] },
         { hint: "Anglicky: Babička", missing: "R", display: "GRANDMOTHE_", options: ["R", "L", "N"] },
         { hint: "Anglicky: Dědeček", missing: "R", display: "GRANDFATHE_", options: ["R", "L", "D"] },
-        { hint: "Anglicky: Tužka", missing: "P", display: "PEN_IL", options: ["P", "B", "T"] },
         { hint: "Anglicky: Sešit", missing: "B", display: "NOTE_OOK", options: ["B", "P", "D"] },
         { hint: "Anglicky: Červená", missing: "R", display: "_ED", options: ["R", "B", "G"] },
         { hint: "Anglicky: Modrá", missing: "B", display: "_LUE", options: ["B", "R", "Y"] },
@@ -1141,13 +1117,12 @@
         { hint: "Anglicky: Zelená", missing: "G", display: "_REEN", options: ["G", "C", "B"] },
         { hint: "Anglicky: Slunce", missing: "S", display: "_UN", options: ["S", "C", "M"] },
         { hint: "Anglicky: Měsíc", missing: "M", display: "_OON", options: ["M", "N", "S"] },
-        { hint: "Anglicky: Hvvezda", missing: "S", display: "_TAR", options: ["S", "T", "R"] },
+        { hint: "Anglicky: Hvězda", missing: "S", display: "_TAR", options: ["S", "T", "R"] },
         { hint: "Anglicky: Auto", missing: "C", display: "_AR", options: ["C", "K", "B"] },
         { hint: "Anglicky: Autobus", missing: "B", display: "_US", options: ["B", "P", "V"] },
         { hint: "Anglicky: Kolo", missing: "B", display: "_IKE", options: ["B", "D", "P"] },
         { hint: "Anglicky: Mléko", missing: "M", display: "_ILK", options: ["M", "N", "W"] },
         { hint: "Anglicky: Čaj", missing: "T", display: "_EA", options: ["T", "C", "D"] },
-        { hint: "Anglicky: Stolní tenis", missing: "T", display: "TENNIS_", options: ["_"] },
         { hint: "Anglicky: Park", missing: "P", display: "_ARK", options: ["P", "B", "T"] },
         { hint: "Anglicky: Město", missing: "C", display: "_ITY", options: ["C", "S", "K"] },
         { hint: "Anglicky: Vesnice", missing: "V", display: "_ILLAGE", options: ["V", "W", "F"] },
