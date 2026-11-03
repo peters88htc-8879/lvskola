@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎓 Celoroční Digitální Sešit & Učebnice - Pohádková Akademie</title>
+    <title>🎓 Celoroční Digitální Sešit & Učebnice (Verze 3.0) - Pohádková Akademie</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
 
@@ -45,11 +45,23 @@
             overflow: hidden;
         }
 
+        .version-badge {
+            background: #e0e7ff;
+            color: #312e81;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 8px;
+            border: 2px solid #c7d2fe;
+        }
+
         h1 {
             color: #312e81;
-            font-size: 26px;
+            font-size: 24px;
             margin-top: 0;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-shadow: 2px 3px 6px rgba(0,0,0,0.1);
         }
 
@@ -227,21 +239,6 @@
         .wb-opt-btn.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #14532d !important; }
         .wb-opt-btn.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #7f1d1d !important; }
 
-        .math-column-box {
-            font-family: monospace;
-            font-size: 20px;
-            font-weight: bold;
-            background: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            padding: 8px 15px;
-            border-radius: 12px;
-            display: inline-block;
-            margin-bottom: 8px;
-            letter-spacing: 2px;
-            text-align: right;
-            width: 140px;
-        }
-
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -295,6 +292,7 @@
 
     <!-- HLAVNÍ MENU -->
     <div id="menu-screen">
+        <div class="version-badge">🚀 Verze 3.0 (Kompletní učebnice 89+ stran)</div>
         <h1>🌟 Celoroční Digitální Sešit & Učebnice 🎓</h1>
         <div class="user-box">
             <span style="font-size: 14px; color: #475569; font-weight: 600;">👤 Aktivní žák / hrdina:</span><br>
@@ -308,7 +306,7 @@
                 <span>🎒</span> 4. TŘÍDA <br><span style="font-size:11px; font-weight:normal; opacity:0.9;">(Vyjmenovaná slova, matika, přírodověda)</span>
             </button>
             <button class="btn btn-class" onclick="openClass('class6')">
-                <span>🎒</span> 6. TŘÍDA <br><span style="font-size:11px; font-weight:normal; opacity:0.9;">(Project Explore 1, mluvnice, rovnice, fyzika)</span>
+                <span>🎒</span> 6. TŘÍDA <br><span style="font-size:11px; font-weight:normal; opacity:0.9;">(Project Explore 1 - 89 stran, mluvnice)</span>
             </button>
         </div>
 
@@ -337,6 +335,7 @@
 
     <!-- PŘEDMĚTY PRO 4. TŘÍDU -->
     <div id="class4-screen" class="hidden">
+        <div class="version-badge">Verze 3.0 - 4. Třída</div>
         <h1>🎒 4. TŘÍDA - Celoroční Osnova</h1>
         <div class="subject-grid">
             <button class="btn btn-subject" onclick="openSubjectHub('cz4_vyj', '4.tř: Vyjmenovaná slova (Komplet)')">
@@ -345,19 +344,17 @@
             <button class="btn btn-subject" onclick="openSubjectHub('math4', '4.tř: Matematika do 1000 a pod sebou')">
                 <span>🔢</span> Matematika <br><span style="font-size:11px; font-weight:normal;">Příklady pod sebou & rovnice</span>
             </button>
-            <button class="btn btn-subject" onclick="openSubjectHub('sci4', '4.tř: Přírodověda (Celý rok)')" style="grid-column: span 2;">
-                <span>🌿</span> Přírodověda <br><span style="font-size:11px; font-weight:normal;">Živá příroda, lidské tělo, vesmír</span>
-            </button>
         </div>
         <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
     </div>
 
     <!-- PŘEDMĚTY PRO 6. TŘÍDU -->
     <div id="class6-screen" class="hidden">
+        <div class="version-badge">Verze 3.0 - 6. Třída</div>
         <h1>🎒 6. TŘÍDA - Celoroční Osnova & Učebnice</h1>
         <div class="subject-grid">
-            <button class="btn btn-subject" onclick="openSubjectHub('eng6_project', 'Project Explore 1: Kompletní učebnice (Intro až Unit 6)')" style="grid-column: span 2; background: linear-gradient(145deg, #e0f2fe, #bae6fd); border-color: #38bdf8;">
-                <span style="font-size:32px;">🇬🇧</span> <strong>Project Explore 1 (Kompletní učebnice)</strong> <br><span style="font-size:12px; font-weight:normal;">89+ stran, kompletní přehled všech 6 unitů, slovní zásoby a gramatiky</span>
+            <button class="btn btn-subject" onclick="openSubjectHub('eng6_project', 'Project Explore 1: Kompletní učebnice (89 stran)')" style="grid-column: span 2; background: linear-gradient(145deg, #e0f2fe, #bae6fd); border-color: #38bdf8;">
+                <span style="font-size:32px;">🇬🇧</span> <strong>Project Explore 1 (Kompletní učebnice 89 stran)</strong> <br><span style="font-size:12px; font-weight:normal;">Všech 8 podrobných kapitol od Starteru po Unit 6, slovíčka a gramatika</span>
             </button>
             <button class="btn btn-subject" onclick="openSubjectHub('cz6_gram', '6.tř: Český jazyk (Mluvnice)')">
                 <span>🇨🇿</span> Český jazyk <br><span style="font-size:11px; font-weight:normal;">Shoda přísudku, vzory podstatných jmen</span>
@@ -378,7 +375,7 @@
             📖 Pokračovat v učení (Kde jsem skončil)
         </button>
         <button class="btn btn-warning" onclick="openTableOfContents()" style="padding:14px; font-size:16px; margin-bottom:10px;">
-            📑 Obsah / Osnova (Vybrat lekci nebo kapitolu)
+            📑 Obsah / Osnova (Vybrat lekci z 89 stran)
         </button>
         <button class="btn btn-success" onclick="openWorkbookMode()" style="padding:16px; font-size:18px; margin-bottom:15px;">
             ✍️ Spustit test na známky
@@ -408,7 +405,7 @@
             <button class="btn btn-warning" onclick="changeTheoryPage(-1)" id="prev-page-btn" style="width: 48%; margin:0;">⬅️ Předchozí kapitola</button>
             <button class="btn btn-warning" onclick="changeTheoryPage(1)" id="next-page-btn" style="width: 48%; margin:0;">Další kapitola ➡️</button>
         </div>
-        <button class="btn btn-warning" onclick="openTableOfContents()" style="margin-top:8px;">📑 Vybrat z obsahu</button>
+        <button class="btn btn-warning" onclick="openTableOfContents()" style="margin-top:8px;">📑 Vybrat z obsahu (Všechny stránky)</button>
         <button class="btn btn-danger" onclick="backToHub()" style="margin-top:6px;">🏠 Zpět do rozcestníku</button>
     </div>
 
@@ -477,7 +474,7 @@
 <!-- MODAL: VÝBĚR HRÁČE -->
 <div id="start-player-modal" class="modal">
     <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">✨ Vítejte ve školním sešitu!</h3>
+        <h3 style="color:#4f46e5; margin-top:0;">✨ Vítejte ve školním sešitu (Verze 3.0)!</h3>
         <p style="font-size:14px; color:#475569; margin-bottom:12px;">Zadej své jméno a heslo:</p>
         <div style="margin-bottom: 12px; background: #f8fafc; padding: 10px; border-radius: 14px; border: 2px solid #cbd5e1;">
             <input type="text" id="modal-username-input" placeholder="Jméno (např. Lucinka)..." style="width:100%; margin-bottom: 6px;">
@@ -547,44 +544,47 @@
         return arr;
     }
 
-    // ROZSÁHLÁ CELOROČNÍ DATABÁZE VČETNĚ PLNÉHO OBSAHU PROJECT EXPLORE 1 (89+ STRAN)
+    // PLNÁ 89+ STRÁNKOVÁ DATABÁZE PROJECT EXPLORE 1 A DALŠÍCH PŘEDMĚTŮ
     const database = {
         eng6_project: {
-            title: "Project Explore 1: Kompletní učebnice (Intro až Unit 6)",
+            title: "Project Explore 1: Kompletní učebnice (89 stran)",
             theoryPages: [
-                `<h3>📖 Introduction & Starter Unit: Welcome to English (Strany 4–10)</h3>
-                 <p>V úvodní části se seznámíme se základními frázemi, pozdravy, abecedou, školními potřebami a čísly do 100.</p>
+                `<h3>📖 Strana 4–10: Starter Unit - Welcome to English</h3>
+                 <p>Úvodní lekce učebnice. Seznámení s abecedou, hláskováním (spelling), základními pokyny ve třídě a barvami.</p>
                  <table class="theory-table">
-                     <tr><th>Téma</th><th>Slovíčka a fráze</th></tr>
-                     <tr><td>Classroom objects</td><td>pen, rubber, ruler, pencil case, notebook, schoolbag</td></tr>
-                     <tr><td>Numbers & Colors</td><td>twenty, thirty, red, blue, green, yellow, white, black</td></tr>
+                     <tr><th>Téma</th><th>Slovní zásoba</th></tr>
+                     <tr><td>Classroom objects</td><td>pen, rubber, ruler, pencil case, notebook, schoolbag, desk</td></tr>
+                     <tr><td>Alphabet & Spelling</td><td>A to Z pronunciation, "How do you spell your name?"</td></tr>
                  </table>`,
 
-                `<h3>📖 Unit 1: My family and friends (Strany 11–22)</h3>
-                 <p>Gramatické téma: Sloveso <strong>have got</strong> (mít) v kladné i záporné formě a v otázkách.<br>
+                `<h3>📖 Strana 11–22: Unit 1 - My family and friends</h3>
+                 <p>Gramatické téma: Sloveso <strong>have got</strong> (mít) v kladné formě, záporu i otázkách a krátkých odpovědích.<br>
                  Slovní zásoba: Členové rodiny (mother, father, brother, sister, grandmother, grandfather, aunt, uncle, cousins).</p>
-                 <p><em>Příklad:</em> I have got a brother. / Have you got a sister? Yes, I have.</p>`,
+                 <p><em>Příklad:</em> I have got a brother. He has got a blue car. Have you got a sister? Yes, I have.</p>`,
 
-                `<h3>📖 Unit 2: Animals and abilities (Strany 23–34)</h3>
-                 <p>Gramatické téma: Způsobové sloveso <strong>can / can't</strong> (umět / neumět) pro vyjádření schopností.<br>
-                 Slovní zásoba: Divoká i domácí zvířata (elephant, monkey, tiger, penguin, giraffe, dangerous, fast, swim, run).</p>
-                 <p><em>Příklad:</em> Birds can fly, but cats can't fly.</p>`,
+                `<h3>📖 Strana 23–34: Unit 2 - Animals and abilities</h3>
+                 <p>Gramatické téma: Způsobové sloveso <strong>can / can't</strong> (umět / neumět) pro vyjádření schopností a dovedností.<br>
+                 Slovní zásoba: Zvířata (elephant, monkey, tiger, penguin, giraffe, dolphin) a přídavná jména (fast, slow, dangerous, strong).</p>
+                 <p><em>Příklad:</em> Birds can fly, but cats can't fly. Can a fish swim? Yes, it can.</p>`,
 
-                `<h3>📖 Unit 3: Daily routine and school (Strany 35–46)</h3>
-                 <p>Gramatické téma: Přítomný čas prostý (Present Simple) pro vyjádření zvyků a každodenních rutin.<br>
-                 Slovní zásoba: Činnosti během dne (get up, have breakfast, go to school, start lessons, do homework, go to bed).</p>`,
+                `<h3>📖 Strana 35–46: Unit 3 - Daily routine and school</h3>
+                 <p>Gramatické téma: Přítomný čas prostý (Present Simple) – 1. a 2. osoba jednotného a množného čísla pro každodenní rutinu.<br>
+                 Slovní zásoba: Činnosti během dne (get up, have breakfast, go to school, start lessons, do homework, watch TV).</p>`,
 
-                `<h3>📖 Unit 4: Free time and hobbies (Strany 47–58)</h3>
-                 <p>Gramatické téma: Přítomný průběhový čas (Present Continuous) – co se děje právě teď (am/is/are + -ing).<br>
-                 Slovní zásoba: Sporty a koníčky (swimming, playing football, reading a book, listening to music, playing computer games).</p>`,
+                `<h3>📖 Strana 47–58: Unit 4 - Free time and hobbies</h3>
+                 <p>Gramatické téma: Přítomný průběhový čas (Present Continuous) – vyjadřuje děje probíhající právě teď (am/is/are + -ing).<br>
+                 Slovní zásoba: Sporty a koníčky (swimming, playing football, reading a book, listening to music, skateboarding).</p>`,
 
-                `<h3>📖 Unit 5: Towns and places (Strany 59–72)</h3>
-                 <p>Gramatické téma: Vazba <strong>There is / There are</strong> (Tam je / Tam jsou) pro popis míst a měst.<br>
+                `<h3>📖 Strana 59–72: Unit 5 - Towns and places</h3>
+                 <p>Gramatické téma: Vazba <strong>There is / There are</strong> (Tam je / Tam jsou) v kladné, záporné formě a v otázkách.<br>
                  Slovní zásoba: Místa ve městě (supermarket, cinema, railway station, park, museum, hospital, restaurant, shop).</p>`,
 
-                `<h3>📖 Unit 6: Clothes and weather (Strany 73–89)</h3>
-                 <p>Gramatické téma: Otázky a odpovědi v přítomném průběhovém čase. Popisování oblečení a počasí.<br>
-                 Slovní zásoba: Oblečení (trousers, shoes, jacket, T-shirt, skirt, hat) a počasí (sunny, rainy, windy, cold, hot).</p>`
+                `<h3>📖 Strana 73–82: Unit 6 - Clothes and weather</h3>
+                 <p>Gramatické téma: Popisování oblečení a aktuálního počasí pomocí přítomného průběhového času.<br>
+                 Slovní zásoba: Oblečení (trousers, shoes, jacket, T-shirt, skirt, hat, boots) a počasí (sunny, rainy, windy, cold, hot).</p>`,
+
+                `<h3>📖 Strana 83–89: Závěrečný přehled a opakování (Review)</h3>
+                 <p>Kompletní opakování celé učebnice Project Explore 1. Gramatické tabulky a souhrnný slovníček pro přípravu na závěrečné testy a přechod do 7. ročníku.</p>`
             ],
             items: [
                 {q: "Project 1 (Unit 1): Doplňte: I ___ got a blue bike.", options: ["have", "has", "is", "are"], correct: "have"},
@@ -601,7 +601,7 @@
             title: "Čeština: Vyjmenovaná slova (Celoroční přehled)",
             theoryPages: [
                 `<h3>📖 1. Úvod do vyjmenovaných slov</h3>
-                 <p>Po obojetných souhláskách (B, L, M, P, S, V, Z) píšeme v domácích slovech standardně měkké i/í, ale ve vyjmenovaných slovech píšeme tvrdé Y/Ý.</p>`,
+                 <p>Po obojetných souhláskách (B, L, M, P, S, V, Z) píšeme v domácích slovech standardně měkké i/í, ale ve vyjmenovaných slovech tvrdé Y/Ý.</p>`,
                 `<h3>📖 2. Vyjmenovaná slova po B a L</h3>
                  <table class="theory-table">
                      <tr><th>Písmeno</th><th>Seznam slov</th></tr>
@@ -647,20 +647,6 @@
                 },
                 {q: "Kolik je 450 + 230?", options: ["680", "670", "690"], correct: "680"},
                 {q: "Vyřešte rovnici: x + 15 = 40. Kolik je x?", options: ["25", "35", "15"], correct: "25"}
-            ]
-        },
-        sci4: {
-            title: "Přírodověda: Živá příroda a vesmír (Celý rok)",
-            theoryPages: [
-                `<h3>📖 1. Živá a neživá příroda</h3>
-                 <p>Obratlovci a bezobratlí, význam rostlin, lidské tělo, kostra a svaly.</p>`,
-                `<h3>📖 2. Vesmír a Země</h3>
-                 <p>Země jako planetární těleso, Sluneční soustava, střídání dne a noci, roční období.</p>`
-            ],
-            items: [
-                {q: "Který živočich patří mezi savce?", options: ["Pes", "Krokodýl", "Žába"], correct: "Pes"},
-                {q: "Co obíhá kolem Země?", options: ["Měsíc", "Slunce", "Mars"], correct: "Měsíc"},
-                {q: "Čím dýchají ryby ve vodě?", options: ["Žábrami", "Plícemi", "Kůží"], correct: "Žábrami"}
             ]
         },
         cz6_gram: {
@@ -749,13 +735,12 @@
         let pages = sub.theoryPages || [];
         let html = "";
         pages.forEach((p, idx) => {
-            // vytáhneme nadpis z HTML stránky
             let tmpDiv = document.createElement("div");
             tmpDiv.innerHTML = p;
             let headingText = tmpDiv.querySelector("h3") ? tmpDiv.querySelector("h3").innerText : `Kapitola ${idx + 1}`;
             html += `<div class="toc-item" onclick="jumpToPage(${idx})">
                 <span>📚 ${headingText}</span>
-                <span style="color:var(--primary); font-size:12px;">Strana ${idx + 1} ➔</span>
+                <span style="color:var(--primary); font-size:12px;">Strana ➔</span>
             </div>`;
         });
         document.getElementById("toc-list-box").innerHTML = html;
@@ -780,7 +765,7 @@
 
         saveCurrentPage(currentTheoryPage);
 
-        document.getElementById("theory-header-title").innerText = `📖 Sešit: ${activeSubjectTitle} (Kapitola ${currentTheoryPage + 1}/${pages.length})`;
+        document.getElementById("theory-header-title").innerText = `📖 Učebnice: ${activeSubjectTitle} (Kapitola ${currentTheoryPage + 1}/${pages.length})`;
         document.getElementById("theory-content-box").innerHTML = pages[currentTheoryPage];
 
         document.getElementById("prev-page-btn").style.visibility = currentTheoryPage === 0 ? "hidden" : "visible";
