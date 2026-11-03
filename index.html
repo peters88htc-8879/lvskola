@@ -317,6 +317,9 @@
             <button class="btn btn-subject" onclick="openSubjectHub('eng4_all', '4.tř: Anglický jazyk (Základy)')">
                 <span>🇬🇧</span> Anglický jazyk <br><span style="font-size:13px; font-weight:normal;">Rodina, škola, jídlo, oblečení</span>
             </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('eng4_vocab', '4.tř: Slovíčka (Test slovní zásoby)')">
+                <span>🔤</span> Slovíčka (Test) <br><span style="font-size:13px; font-weight:normal;">Základní slovíčka pro 4. třídu</span>
+            </button>
             <button class="btn btn-subject" onclick="openSubjectHub('math4', '4.tř: Matematika (Do 1000)')">
                 <span>🔢</span> Matematika <br><span style="font-size:13px; font-weight:normal;">Počítání, násobilka, rovnice</span>
             </button>
@@ -343,6 +346,9 @@
         <div class="subject-grid">
             <button class="btn btn-subject" onclick="openSubjectHub('eng6_project', 'Project Explore 1: Kompletní učebnice (89 stran)')" style="grid-column: span 2; background: linear-gradient(145deg, #e0f2fe, #bae6fd); border-color: #38bdf8;">
                 <span style="font-size:38px;">🇬🇧</span> <strong>Project Explore 1 (89 stran)</strong> <br><span style="font-size:14px; font-weight:normal;">Všech 8 kapitol od Starteru po Unit 6, slovíčka a gramatika</span>
+            </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('eng6_vocab', '6.tř: Slovíčka (Project Explore 1)')">
+                <span>🔤</span> Slovíčka (Project 1) <br><span style="font-size:13px; font-weight:normal;">Slovní zásoba z lekcí učebnice</span>
             </button>
             <button class="btn btn-subject" onclick="openSubjectHub('cz6_gram', '6.tř: Český jazyk (Mluvnice)')">
                 <span>🇨🇿</span> Český jazyk <br><span style="font-size:13px; font-weight:normal;">Shoda přísudku, vzory podstatných jmen</span>
@@ -528,6 +534,18 @@
                 {q: "Anglicky 'tužka' je:", options: ["pencil", "pen", "ruler"], correct: "pencil"}
             ]
         },
+        eng4_vocab: {
+            title: "4. třída: Test slovní zásoby",
+            theoryPages: [
+                `<h3>📖 Slovní zásoba pro 4. třídu</h3><p>Procvičování základních slovíček: rodina, zvířata, barvy a čísla.</p>`
+            ],
+            items: [
+                {q: "Jak je anglicky 'babička'?", options: ["grandmother", "grandfather", "mother"], correct: "grandmother"},
+                {q: "Jak je anglicky 'kočka'?", options: ["cat", "dog", "cow"], correct: "cat"},
+                {q: "Jak se anglicky řekne číslo 'deset'?", options: ["ten", "two", "twelve"], correct: "ten"},
+                {q: "Jak je anglicky 'žlutá' barva?", options: ["yellow", "red", "blue"], correct: "yellow"}
+            ]
+        },
         math4: {
             title: "Matematika (4. třída - Počítání do 1000)",
             theoryPages: [
@@ -577,6 +595,18 @@
             items: [
                 {q: "Project 1 (Unit 1): Doplňte: I ___ got a blue bike.", options: ["have", "has", "is", "are"], correct: "have"},
                 {q: "Project 1 (Unit 2): Ptáci umějí létat: Birds ___ fly.", options: ["can", "can't", "is", "are"], correct: "can"}
+            ]
+        },
+        eng6_vocab: {
+            title: "6. třída: Slovní zásoba (Project Explore 1)",
+            theoryPages: [
+                `<h3>📖 Pokročilá slovní zásoba (Project Explore 1)</h3><p>Slovíčka z lekcí zaměřená na denní režim, koníčky, obchody a popis místnosti.</p>`
+            ],
+            items: [
+                {q: "Co znamená anglické slovo 'library'?", options: ["knihovna", "obchod", "nemocnice"], correct: "knihovna"},
+                {q: "Jak je anglicky 'snídaně'?", options: ["breakfast", "lunch", "dinner"], correct: "breakfast"},
+                {q: "Co znamená sloveso 'to borrow'?", options: ["půjčit si", "koupit", "prodávat"], correct: "půjčit si"},
+                {q: "Jak je anglicky 'představení / divadelní hra'?", options: ["play", "match", "film"], correct: "play"}
             ]
         },
         cz6_gram: {
