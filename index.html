@@ -546,7 +546,7 @@
         board.push({ 
             name: name, 
             score: pts, 
-            subject: subjectName,
+            subject: subjectName || "Matematika 🔢",
             date: new Date().toLocaleDateString() 
         });
         board.sort((a, b) => b.score - a.score);
@@ -560,7 +560,7 @@
             listHtml = "<li style='text-align:center; color:#7F8C8D; padding:10px;'>Zatím žádné výsledky. Vyzkoušej test!</li>";
         } else {
             board.forEach((item, index) => {
-                let subj = item.subject || "Škola";
+                let subj = item.subject || "Matematika 🔢";
                 listHtml += `
                     <li class="score-item" onclick="showUserDetail('${item.name}')">
                         <div>
@@ -583,7 +583,8 @@
         
         let html = `<strong>Hráč:</strong> ${name}<br><br><strong>Všechny výsledky:</strong><ul style="padding-left:20px; margin:5px 0;">`;
         userRecords.forEach(r => {
-            html += `<li><b>${r.subject}</b>: ${r.score}/10 bodů (${r.date})</li>`;
+            let subjName = r.subject || "Matematika 🔢";
+            html += `<li><b>${subjName}</b>: ${r.score}/10 bodů (${r.date})</li>`;
         });
         html += `</ul>`;
 
