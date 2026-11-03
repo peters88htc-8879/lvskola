@@ -3,737 +3,900 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎓 Školní Sešit & Příprava na Písemky</title>
+    <title>🎓 Školní Sešit, Hry & Testy - Pohádková Akademie</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Roboto+Mono:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
 
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
             --success: #10b981;
             --danger: #ef4444;
             --warning: #f59e0b;
-            --bg-gradient: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%);
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
+            --bg-gradient: radial-gradient(circle at center, #312e81 0%, #1e1b4b 100%);
+            --text-color: #1e1b4b;
         }
 
         * { box-sizing: border-box; }
 
         body {
-            font-family: 'Fredoka', sans-serif;
+            font-family: 'Fredoka', 'Segoe UI', Tahoma, sans-serif;
             background: var(--bg-gradient);
             background-attachment: fixed;
             margin: 0;
-            padding: 12px;
+            padding: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: var(--text-main);
+            color: var(--text-color);
         }
 
-        .app-container {
-            background: #f8fafc;
-            border-radius: 30px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 800px;
+        .container {
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
             padding: 25px;
-            border: 5px solid #cbd5e1;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 4px 10px rgba(255,255,255,0.9);
+            width: 100%;
+            max-width: 750px;
+            text-align: center;
+            border: 6px solid #e2e8f0;
             position: relative;
+            overflow: hidden;
         }
 
         h1 {
             color: #312e81;
             font-size: 28px;
             margin-top: 0;
-            text-align: center;
+            margin-bottom: 12px;
+            text-shadow: 2px 3px 6px rgba(0,0,0,0.1);
         }
 
-        .user-bar {
-            background: #e0e7ff;
-            padding: 12px 18px;
-            border-radius: 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border: 2px solid #a5b4fc;
+        .user-box {
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            padding: 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            border: 3px solid #cbd5e1;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 85%;
+            padding: 12px;
+            font-size: 16px;
+            border: 3px solid #cbd5e1;
+            border-radius: 16px;
+            margin-top: 6px;
+            text-align: center;
+            font-weight: 600;
+            outline: none;
+            background: #f8fafc;
+            color: #1e1b4b;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
         }
 
         .btn {
-            background: var(--primary);
+            background: linear-gradient(145deg, #818cf8, #4f46e5);
             color: white;
             border: none;
             padding: 14px 20px;
-            font-size: 16px;
-            border-radius: 16px;
+            font-size: 17px;
+            border-radius: 18px;
             cursor: pointer;
+            width: 100%;
+            margin: 8px 0;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-weight: 700;
-            transition: all 0.2s;
-            display: inline-flex;
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            gap: 10px;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            background: var(--primary-hover);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 22px rgba(79, 70, 229, 0.6);
         }
 
-        .btn-success { background: #059669; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3); }
-        .btn-warning { background: #d97706; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3); }
-        .btn-danger { background: #dc2626; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); }
-        .btn-secondary { background: #64748b; box-shadow: none; }
+        .btn-success { background: linear-gradient(145deg, #34d399, #059669); }
+        .btn-danger { background: linear-gradient(145deg, #f87171, #dc2626); font-size: 15px; padding: 12px; }
+        .btn-warning { background: linear-gradient(145deg, #fbbf24, #d97706); font-size: 15px; padding: 12px; color: #fff; }
+        .btn-game { background: linear-gradient(145deg, #38bdf8, #0284c7); }
+        .btn-theory { background: linear-gradient(145deg, #c084fc, #9333ea); }
 
-        .grid-2 {
+        .class-grid, .subject-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 15px;
         }
 
-        .class-card {
-            background: #ffffff;
-            border: 3px solid #cbd5e1;
+        .btn-class {
+            background: linear-gradient(145deg, #4f46e5, #3730a3);
+            color: white;
+            font-size: 17px;
             border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
+            padding: 15px 10px;
+            box-shadow: 0 6px 14px rgba(79, 70, 229, 0.3);
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .btn-subject {
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
+            border: 3px solid #cbd5e1;
+            color: #1e1b4b;
+            font-size: 15px;
+            border-radius: 22px;
+            padding: 14px 10px;
+            flex-direction: column;
+            gap: 5px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
             transition: all 0.3s;
         }
 
-        .class-card:hover {
-            border-color: var(--primary);
+        .btn-subject span { 
+            font-size: 28px; 
+            animation: floatIcon 3s ease-in-out infinite;
+        }
+
+        .btn-subject:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            border-color: var(--primary);
+            background: linear-gradient(145deg, #e0f2fe, #bae6fd);
         }
 
         .hidden { display: none !important; }
 
-        /* UČIVO A SEŠIT TEORIE */
-        .notebook-box {
+        /* DIGITÁLNÍ SEŠIT / UČIVO S LISTOVÁNÍM */
+        .theory-box {
             background: #ffffff;
             border: 3px solid #cbd5e1;
-            border-radius: 20px;
             padding: 20px;
-            max-height: 420px;
-            overflow-y: auto;
+            border-radius: 22px;
             text-align: left;
-            margin-bottom: 15px;
-        }
-
-        .notebook-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        .notebook-table th, .notebook-table td {
-            border: 2px solid #cbd5e1;
-            padding: 8px 12px;
-            font-size: 14px;
-        }
-
-        .notebook-table th { background: #e0e7ff; color: #312e81; }
-
-        /* PÍSEMNÉ POČÍTÁNÍ POD SEBOU */
-        .column-math-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin: 15px 0;
-        }
-
-        .column-math-card {
-            background: #ffffff;
-            border: 3px solid #cbd5e1;
-            border-radius: 16px;
-            padding: 15px 25px;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 24px;
-            text-align: right;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            min-width: 140px;
-        }
-
-        .column-math-card .line {
-            border-bottom: 3px solid #0f172a;
-            margin: 6px 0;
-        }
-
-        .column-math-card input {
-            width: 100%;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 22px;
-            text-align: right;
-            border: 2px solid #a5b4fc;
-            border-radius: 8px;
-            padding: 4px;
-            outline: none;
-        }
-
-        /* VSTUPNÍ POLE PRO WRITING SPELLING */
-        .spelling-input {
-            padding: 12px;
-            font-size: 20px;
-            border: 3px solid #cbd5e1;
-            border-radius: 14px;
-            text-align: center;
-            width: 80%;
-            margin: 10px 0;
-            font-weight: bold;
-            outline: none;
-        }
-
-        /* STRUKTURA TESTŮ POD SEBOU */
-        .test-list {
-            max-height: 400px;
+            max-height: 380px;
             overflow-y: auto;
-            text-align: left;
-        }
-
-        .test-item {
-            background: #ffffff;
-            border: 2px solid #cbd5e1;
-            border-radius: 16px;
-            padding: 15px;
             margin-bottom: 12px;
         }
+        .theory-box h3 { color: var(--primary); margin-top: 0; }
+        .theory-box h4 { color: #312e81; margin-top: 15px; border-bottom: 2px solid #e0e7ff; padding-bottom: 4px; }
+        .theory-box p { line-height: 1.6; color: #334155; font-size: 14px; }
+        .theory-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        .theory-table th, .theory-table td { border: 2px solid #cbd5e1; padding: 8px 12px; text-align: left; font-size: 13px; }
+        .theory-table th { background: #e0e7ff; color: #312e81; }
 
-        .test-item-title {
-            font-size: 18px;
+        /* PRACOVNÍ SEŠIT - PŘÍKLADY POD SEBOU */
+        .workbook-container {
+            text-align: left;
+            max-height: 380px;
+            overflow-y: auto;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .workbook-item {
+            background: #ffffff;
+            border: 3px solid #cbd5e1;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+        .workbook-question {
+            font-size: 16px;
             font-weight: bold;
+            color: #1e1b4b;
             margin-bottom: 8px;
         }
-
-        .option-group {
+        .workbook-options {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
         }
-
-        .opt-btn {
+        .wb-opt-btn {
             background: #f1f5f9;
             border: 2px solid #cbd5e1;
-            border-radius: 10px;
-            padding: 8px 14px;
-            font-size: 15px;
+            padding: 6px 12px;
+            font-size: 14px;
             font-weight: bold;
+            border-radius: 12px;
             cursor: pointer;
+            color: #1e1b4b;
+        }
+        .wb-opt-btn:hover { background: #e0f2fe; border-color: var(--primary); }
+        .wb-opt-btn.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #14532d !important; }
+        .wb-opt-btn.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #7f1d1d !important; }
+
+        .math-column-box {
+            font-family: monospace;
+            font-size: 20px;
+            font-weight: bold;
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            padding: 8px 15px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+            text-align: right;
+            width: 140px;
+        }
+        .spelling-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 17px;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 6px;
         }
 
-        .opt-btn.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #14532d; }
-        .opt-btn.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #7f1d1d; }
+        /* HRY */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .memory-card {
+            background: linear-gradient(145deg, #94a3b8, #64748b);
+            height: 55px;
+            border-radius: 14px;
+            display: flex; justify-content: center; align-items: center; font-size: 24px; cursor: pointer;
+        }
+        .memory-card.flipped { background: #ffffff; border: 3px solid #4f46e5; }
+        .memory-card.matched { background: #34d399; color: white; }
 
-        /* MODÁL */
+        #snake-canvas {
+            background: radial-gradient(circle, #312e81 0%, #0f172a 100%);
+            border: 4px solid #4f46e5; border-radius: 20px; display: block; margin: 10px auto;
+        }
+        .snake-controls {
+            display: grid; grid-template-columns: repeat(3, 55px); gap: 8px; justify-content: center; margin: 10px 0;
+        }
+        .ctrl-btn { background: #38bdf8; color: white; border: none; font-size: 20px; height: 45px; border-radius: 14px; cursor: pointer; font-weight: bold; }
+
+        .score-board {
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border: 3px solid #cbd5e1; padding: 12px; border-radius: 20px; margin-top: 12px; text-align: left;
+        }
+        .score-item-detailed {
+            background: #f1f5f9; padding: 6px 10px; border-radius: 12px; margin-bottom: 5px; border: 2px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; font-size: 13px;
+        }
+
         .modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.75);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.75); display: flex; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(8px);
         }
         .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 25px;
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
+            background: linear-gradient(145deg, #ffffff, #f1f5f9); color: #1e1b4b; padding: 25px; border-radius: 30px; width: 90%; max-width: 450px; max-height: 90vh; overflow-y: auto; text-align: center; border: 5px solid var(--primary);
         }
 
-        #custom-alert {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
-            background: white;
-            border: 3px solid var(--primary);
-            padding: 14px 24px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            font-weight: bold;
-            z-index: 2000;
-            transition: transform 0.3s ease;
+        #custom-alert-box {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #ffffff; border: 4px solid var(--primary); color: #1e1b4b; padding: 12px 22px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); font-size: 16px; font-weight: bold; z-index: 2000; transition: transform 0.3s;
         }
-        #custom-alert.show { transform: translateX(-50%) translateY(0); }
+        #custom-alert-box.show { transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
 
-<div id="custom-alert">Oznámení</div>
+<div id="custom-alert-box">Oznámení</div>
 
-<div class="app-container">
+<div class="container">
 
-    <div class="user-bar">
-        <div>👤 Žák: <strong id="active-user-display" style="color:var(--primary); font-size:18px;">Nepřihlášen</strong></div>
-        <button class="btn btn-warning" onclick="openUserModal()" style="padding:6px 12px; font-size:13px;">🔄 Změnit žáka</button>
+    <!-- HLAVNÍ MENU -->
+    <div id="menu-screen">
+        <h1>🌟 Školní Sešit, Hry & Testy 🎓</h1>
+        <div class="user-box">
+            <span style="font-size: 14px; color: #475569; font-weight: 600;">👤 Aktivní žák / hrdina:</span><br>
+            <strong id="current-user-display" style="font-size: 18px; color: var(--primary);">Zatím nikdo</strong><br>
+            <button class="btn btn-warning" onclick="openStartPlayerModal()" style="margin-top: 8px; font-size: 13px; padding: 8px;">🔄 Změnit profil žáka</button>
+        </div>
+
+        <h3>📁 Složky výuky podle ročníků:</h3>
+        <div class="class-grid">
+            <button class="btn btn-class" onclick="openClass('class4')">
+                <span>🎒</span> 4. TŘÍDA <br><span style="font-size:11px; font-weight:normal; opacity:0.9;">(Vyjmenovaná slova, počítání, přírodověda)</span>
+            </button>
+            <button class="btn btn-class" onclick="openClass('class6')">
+                <span>🎒</span> 6. TŘÍDA <br><span style="font-size:11px; font-weight:normal; opacity:0.9;">(Project Explore 1, rovnice, fyzika)</span>
+            </button>
+        </div>
+
+        <h3>🎮 Zábavné hry pro procvičení:</h3>
+        <div class="subject-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+            <button class="btn btn-subject btn-game" onclick="startFillGame()">
+                <span>✍️</span> Doplňovačka
+            </button>
+            <button class="btn btn-subject btn-game" onclick="openMemoryModal()">
+                <span>🃏</span> Pexeso
+            </button>
+            <button class="btn btn-subject btn-game" onclick="startSnakeGame()">
+                <span>🐍</span> Had
+            </button>
+        </div>
+
+        <!-- ŽEBŘÍČEK -->
+        <div class="score-board">
+            <h4 style="margin-top:0; color:#b45309; display:flex; justify-content:space-between; align-items:center; font-size:14px;">
+                <span>🥇 Žebříček žáků:</span>
+                <button onclick="promptResetLeaderboard()" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:8px; cursor:pointer; font-size:11px; font-weight:bold;">🗑️ Vynulovat</button>
+            </h4>
+            <div id="player-leaderboard-box"></div>
+        </div>
     </div>
 
-    <!-- MAIN MENU -->
-    <div id="screen-menu">
-        <h1>🎓 Příprava na Písemky & Školní Sešit</h1>
-        <p style="text-align:center; color:#64748b; margin-bottom:20px;">Vyber si ročník a zvol si, zda se chceš učit nebo psát test na známky:</p>
+    <!-- PŘEDMĚTY PRO 4. TŘÍDU -->
+    <div id="class4-screen" class="hidden">
+        <h1>🎒 4. TŘÍDA - Sešit & Testy</h1>
+        <div class="subject-grid">
+            <button class="btn btn-subject" onclick="openSubjectHub('cz4_vyj', 'Čeština: Vyjmenovaná slova & Y/I')">
+                <span>🇨🇿</span> Vyjmenovaná slova <br><span style="font-size:11px; font-weight:normal;">B, L, M, P, S, V, Z</span>
+            </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('cz4_ee', 'Čeština: Doplňování Ě / E')">
+                <span>🇨🇿</span> Doplňování Ě / E <br><span style="font-size:11px; font-weight:normal;">mě/mně, ď/t/ň</span>
+            </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('eng4_vocab', 'Angličtina: Slovní zásoba & Spelling')">
+                <span>🇬🇧</span> Anglická slovíčka <br><span style="font-size:11px; font-weight:normal;">Zvířata, rodina, barvy</span>
+            </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('math4', 'Matematika: Písemné počítání')">
+                <span>🔢</span> Matematika <br><span style="font-size:11px; font-weight:normal;">Příklady pod sebou & rovnice</span>
+            </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('sci4', 'Přírodověda: Živá příroda')">
+                <span>🌿</span> Přírodověda <br><span style="font-size:11px; font-weight:normal;">Lidské tělo, rostliny, zvířata</span>
+            </button>
+        </div>
+        <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
+    </div>
+
+    <!-- PŘEDMĚTY PRO 6. TŘÍDU -->
+    <div id="class6-screen" class="hidden">
+        <h1>🎒 6. TŘÍDA - Sešit & Testy</h1>
+        <div class="subject-grid">
+            <button class="btn btn-subject" onclick="openSubjectHub('eng6_project', 'Angličtina: Project Explore 1')">
+                <span>🇬🇧</span> Project Explore 1 <br><span style="font-size:11px; font-weight:normal;">Intro až Unit 6 (Slovíčka)</span>
+            </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('cz6_gram', 'Čeština: Shoda přísudku & vzory')">
+                <span>🇨🇿</span> Mluvnice & vzory <br><span style="font-size:11px; font-weight:normal;">Shoda podmětu s přísudkem</span>
+            </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('math6', 'Matematika: Rovnice & Desetinná čísla')">
+                <span>🔢</span> Matematika <br><span style="font-size:11px; font-weight:normal;">Rovnice a písemné počítání</span>
+            </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('phy6', 'Fyzika: Veličiny a jednotky')">
+                <span>⚡</span> Fyzika <br><span style="font-size:11px; font-weight:normal;">Hmotnost, délka, čas, objem</span>
+            </button>
+        </div>
+        <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
+    </div>
+
+    <!-- ROZCESTNÍK PRO DANÉ TÉMA -->
+    <div id="subject-hub-screen" class="hidden">
+        <h1 id="hub-title" style="font-size:24px; color:#312e81;">Téma</h1>
+        <p style="color:#475569; font-size:14px; margin-bottom:15px;">Vyber si, zda chceš listovat v sešitu, nebo spustit test na známky!</p>
         
-        <div class="grid-2">
-            <div class="class-card" onclick="openClass('class4')">
-                <div style="font-size:40px;">🎒</div>
-                <h2 style="margin:10px 0 5px 0; color:#312e81;">4. TŘÍDA</h2>
-                <p style="font-size:13px; color:#64748b; margin:0;">ČJ (vyjmenovaná slova, y/i), AJ (slovíčka, psaní), MAT (sloupce, rovnice), Přírodověda</p>
-            </div>
-            <div class="class-card" onclick="openClass('class6')">
-                <div style="font-size:40px;">📐</div>
-                <h2 style="margin:10px 0 5px 0; color:#312e81;">6. TŘÍDA</h2>
-                <p style="font-size:13px; color:#64748b; margin:0;">ČJ (ě/e, vzory, shoda), AJ (Project Explore 1), MAT (desetinná, rovnice), Fyzika</p>
-            </div>
-        </div>
-
-        <div style="background:#ffffff; border:2px solid #cbd5e1; border-radius:18px; padding:15px; margin-top:20px;">
-            <h3 style="margin-top:0; color:#b45309;">🥇 Přehled bodů žáků:</h3>
-            <div id="leaderboard-box"></div>
-        </div>
+        <button class="btn btn-theory" onclick="openTheoryMode()" style="padding:16px; font-size:18px; margin-bottom:12px;">
+            📖 1. Číst sešit / Učit se (Listování v učivu)
+        </button>
+        <button class="btn btn-success" onclick="openWorkbookMode()" style="padding:16px; font-size:18px; margin-bottom:15px;">
+            ✍️ 2. Spustit zkoušení / Test (Příklady pod sebou)
+        </button>
+        
+        <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
     </div>
 
-    <!-- CLASS 4 SUBJECTS -->
-    <div id="screen-class4" class="hidden">
-        <h1>🎒 4. TŘÍDA - Předměty</h1>
-        <div class="grid-2">
-            <button class="btn" onclick="openSubject('cz4', 'Český jazyk (4. tř)')">🇨🇿 Český jazyk</button>
-            <button class="btn" onclick="openSubject('eng4', 'Anglický jazyk (4. tř)')">🇬🇧 Anglický jazyk</button>
-            <button class="btn" onclick="openSubject('math4', 'Matematika (4. tř)')">🔢 Matematika</button>
-            <button class="btn" onclick="openSubject('sci4', 'Přírodověda (4. tř)')">🌿 Přírodověda</button>
+    <!-- OBRAZOVKA: UČIVO A TEORIE (S LISTOVÁNÍm STRÁNEK) -->
+    <div id="theory-screen" class="hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span id="theory-header-title" style="font-weight:bold; color:#4f46e5; font-size:16px;">📖 Sešit</span>
+            <button class="btn btn-success" onclick="openWorkbookMode()" style="width:auto; padding:6px 12px; font-size:13px; margin:0;">Spustit test ➔</button>
         </div>
-        <button class="btn btn-danger" onclick="showMenu()">🏠 Hlavní menu</button>
+        
+        <div class="theory-box" id="theory-content-box"></div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+            <button class="btn btn-warning" onclick="changeTheoryPage(-1)" id="prev-page-btn" style="width: 48%; margin:0;">⬅️ Předchozí stránka</button>
+            <button class="btn btn-warning" onclick="changeTheoryPage(1)" id="next-page-btn" style="width: 48%; margin:0;">Další stránka ➡️</button>
+        </div>
+        <button class="btn btn-danger" onclick="backToHub()" style="margin-top:10px;">🏠 Zpět na výběr (Sešit / Test)</button>
     </div>
 
-    <!-- CLASS 6 SUBJECTS -->
-    <div id="screen-class6" class="hidden">
-        <h1>📐 6. TŘÍDA - Předměty</h1>
-        <div class="grid-2">
-            <button class="btn" onclick="openSubject('cz6', 'Český jazyk (6. tř)')">🇨🇿 Český jazyk</button>
-            <button class="btn" onclick="openSubject('eng6', 'Angličtina - Project Explore 1')">🇬🇧 Anglický jazyk</button>
-            <button class="btn" onclick="openSubject('math6', 'Matematika (6. tř)')">🔢 Matematika</button>
-            <button class="btn" onclick="openSubject('phy6', 'Fyzika (6. tř)')">⚡ Fyzika</button>
+    <!-- OBRAZOVKA: PRACOVNÍ SEŠIT / TEST -->
+    <div id="workbook-screen" class="hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:15px; margin-bottom:8px;">
+            <span id="workbook-title" style="color: #4f46e5;">Test</span>
+            <span id="workbook-score" style="color: #059669; font-size: 16px;">⭐ Body: 0/0</span>
         </div>
-        <button class="btn btn-danger" onclick="showMenu()">🏠 Hlavní menu</button>
+        <hr style="border: 1px solid #cbd5e1; margin-bottom: 10px;">
+
+        <div class="workbook-container" id="workbook-items-box"></div>
+
+        <button class="btn btn-success" onclick="finishWorkbook()" style="margin-top:8px;">💾 Dokončit test a uložit výsledek</button>
+        <button class="btn btn-warning" onclick="openTheoryMode()">📖 Vrátit se k učivu (Sešit)</button>
+        <button class="btn btn-danger" onclick="showMenu()">🏠 Zavřít do menu</button>
     </div>
 
-    <!-- SUBJECT HUB: LEARNING VS TEST -->
-    <div id="screen-hub" class="hidden">
-        <h1 id="hub-subject-title">Název předmětu</h1>
-        <p style="text-align:center; color:#64748b;">Co chceš právě teď dělat?</p>
-
-        <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
-            <button class="btn btn-warning" onclick="openTheoryView()" style="font-size:18px; padding:18px;">📖 Otevřít Digitální Sešit & Učivo (Příprava)</button>
-            <button class="btn btn-success" onclick="openTestView()" style="font-size:18px; padding:18px;">✍️ Spustit Test a Písemku (Na známky)</button>
+    <!-- PEXESO OBRAZOVKA -->
+    <div id="memory-screen" class="hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:14px;">
+            <span id="player-turn-indicator" style="padding: 6px 12px; border-radius: 10px; color: white; background: #4f46e5;">Hráč 1</span>
+            <span>🃏 Pexeso</span>
+            <span id="memory-scores">H1: 0 | H2: 0</span>
         </div>
-        <button class="btn btn-secondary" onclick="backToClass()">⬅️ Zpět na výběr předmětů</button>
+        <hr style="border: 1px solid #cbd5e1; margin: 8px 0;">
+        <div class="memory-grid" id="memory-board"></div>
+        <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
     </div>
 
-    <!-- SEŠIT A TEORIE VIEW -->
-    <div id="screen-theory" class="hidden">
-        <h1 id="theory-title">📖 Učivo a Sešit</h1>
-        <div class="notebook-box" id="theory-content"></div>
-        <button class="btn btn-success" onclick="openTestView()" style="width:100%; margin-bottom:10px;">✍️ Přejít k testu</button>
-        <button class="btn btn-secondary" onclick="openHub()">⬅️ Zpět na nabídku</button>
+    <!-- HAD OBRAZOVKA -->
+    <div id="snake-screen" class="hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:14px;">
+            <span style="color: #10b981;" id="snake-info-level">🐍 Kolo: 1</span>
+            <span id="snake-score" style="color: #059669;">⭐ Skóre: 0</span>
+        </div>
+        <hr style="border: 1px solid #cbd5e1; margin: 6px 0;">
+        <canvas id="snake-canvas" width="280" height="280"></canvas>
+        <div class="snake-controls">
+            <div></div><button class="ctrl-btn" onclick="changeSnakeDir('UP')">⬆️</button><div></div>
+            <button class="ctrl-btn" onclick="changeSnakeDir('LEFT')">⬅️</button>
+            <button class="ctrl-btn" onclick="changeSnakeDir('DOWN')">⬇️</button>
+            <button class="ctrl-btn" onclick="changeSnakeDir('RIGHT')">➡️</button>
+        </div>
+        <button class="btn btn-danger" onclick="showMenu()" style="margin-top:6px;">🏠 Zpět do menu</button>
     </div>
 
-    <!-- TEST A PÍSEMKA VIEW -->
-    <div id="screen-test" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-            <h2 id="test-title" style="margin:0;">✍️ Písemná práce</h2>
-            <span id="test-score-counter" style="color:var(--success); font-weight:bold; font-size:18px;">Body: 0</span>
+    <!-- DOPLŇOVAČKA OBRAZOVKA -->
+    <div id="fill-screen" class="hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:15px;">
+            <span id="fill-count" style="color: #0284c7;">✍️ Doplňovačka: 1/5</span>
+            <span id="fill-score" style="color: #059669; font-size: 17px;">⭐ Body: 0</span>
         </div>
-        <hr style="border:1px solid #cbd5e1; margin-bottom:15px;">
-
-        <div id="test-container" class="test-list"></div>
-
-        <button class="btn btn-success" onclick="evaluateTest()" style="width:100%; margin-top:15px; font-size:18px;">💾 Vyhodnotit a uložit známku</button>
-        <button class="btn btn-secondary" onclick="openHub()" style="margin-top:10px;">⬅️ Zpět</button>
+        <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
+        <div class="workbook-item" style="text-align:center;">
+            <h3 id="fill-title" style="margin-top:0;">Nápověda</h3>
+            <div id="fill-word-display" style="font-size: 30px; font-weight: bold; letter-spacing: 5px; margin: 12px 0; color: #4f46e5;"></div>
+        </div>
+        <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno..." style="width:100%; margin-bottom:10px;">
+        <button class="btn btn-success" onclick="checkFillAnswer()">✅ Zkontrolovat</button>
+        <div id="fill-feedback" style="font-weight:bold; margin: 10px 0;"></div>
+        <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
     </div>
 
 </div>
 
-<!-- USER MODAL -->
-<div id="modal-user" class="modal">
+<!-- MODAL: VÝBĚR HRÁČE -->
+<div id="start-player-modal" class="modal">
     <div class="modal-content">
-        <h2 style="color:var(--primary); margin-top:0;">👤 Profil žáka</h2>
-        <p style="font-size:14px; color:#64748b;">Zadej své jméno pro uložení výsledků písemek:</p>
-        <input type="text" id="username-input" placeholder="Tvé jméno..." style="width:100%; padding:12px; font-size:16px; border-radius:12px; border:2px solid #cbd5e1; text-align:center; margin-bottom:15px;">
-        <button class="btn btn-success" onclick="confirmUser()" style="width:100%;">Uložit / Vstoupit</button>
+        <h3 style="color:#4f46e5; margin-top:0;">✨ Vítejte ve školním sešitu!</h3>
+        <p style="font-size:14px; color:#475569; margin-bottom:12px;">Zadej své jméno a heslo:</p>
+        <div style="margin-bottom: 12px; background: #f8fafc; padding: 10px; border-radius: 14px; border: 2px solid #cbd5e1;">
+            <input type="text" id="modal-username-input" placeholder="Jméno (např. Lucinka)..." style="width:100%; margin-bottom: 6px;">
+            <input type="password" id="modal-password-input" placeholder="Heslo (číslo / mazlíček)..." style="width:100%;">
+            <button class="btn btn-success" onclick="createNewUserWithPassword()" style="margin-top: 8px;">✨ Vstoupit</button>
+        </div>
+        <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
+        <p style="font-size:13px; font-weight:700; color:#b45309; margin-bottom:6px;">Nebo vyber stávající profil:</p>
+        <div id="modal-player-list" style="max-height: 120px; overflow-y: auto; text-align: left; margin-bottom: 10px;"></div>
+        <button class="btn btn-warning" onclick="closeStartPlayerModal()">Zavřít</button>
+    </div>
+</div>
+
+<!-- MODAL: HESLO PRO LOGIN -->
+<div id="login-password-modal" class="modal hidden">
+    <div class="modal-content">
+        <h3 style="color:#4f46e5; margin-top:0;">🔒 Ověření profilu</h3>
+        <p id="login-password-title" style="font-size:14px; color:#475569; margin-bottom:10px;">Zadej heslo:</p>
+        <input type="password" id="check-password-input" placeholder="Heslo..." style="width:100%; margin-bottom: 10px;">
+        <button class="btn btn-success" onclick="verifyLoginPassword()">🔑 Otevřít</button>
+        <button class="btn btn-warning" onclick="closeLoginPasswordModal()" style="margin-top:8px;">Zpět</button>
+    </div>
+</div>
+
+<!-- MODAL: HESLO PRO VYNULOVÁNÍ -->
+<div id="password-modal" class="modal hidden">
+    <div class="modal-content">
+        <h3 style="color:#ef4444; margin-top:0;">🔒 Zabezpečené vymazání</h3>
+        <input type="password" id="reset-password-input" placeholder="Zadej heslo (9876)..." style="width:100%; margin-bottom: 10px;">
+        <button class="btn btn-danger" onclick="verifyResetPassword()">🗑️ Potvrdit</button>
+        <button class="btn btn-warning" onclick="closePasswordModal()" style="margin-top:8px;">Zavřít</button>
+    </div>
+</div>
+
+<!-- MODAL: PEXESO VÝBĚR -->
+<div id="memory-modal" class="modal hidden">
+    <div class="modal-content">
+        <h3 style="color:#4f46e5; margin-top:0;">🃏 Kouzelné Pexeso 5x5</h3>
+        <button class="btn btn-game" onclick="selectMemoryMode('vs-pc')" style="margin-bottom:10px;">🤖 Hráč vs Počítač</button>
+        <button class="btn btn-game" onclick="showP2Input()" style="margin-bottom:10px; background:linear-gradient(145deg, #c084fc, #9333ea);">👥 Dva hráči</button>
+        <div id="p2-input-box" class="hidden" style="margin-top:8px; background:#f8fafc; padding:10px; border-radius:14px; border: 2px solid #cbd5e1;">
+            <input type="text" id="p2-name-input" placeholder="Jméno 2. hráče..." style="width:100%; margin-bottom:8px;">
+            <button class="btn btn-success" onclick="selectMemoryMode('vs-player')">🎮 Spustit souboj</button>
+        </div>
+        <button class="btn btn-warning" onclick="closeMemoryModal()" style="margin-top:8px;">Zavřít</button>
     </div>
 </div>
 
 <script>
-    let activeUser = "";
-    let activeClass = "";
+    let currentUser = "";
+    let pendingPlayerToLogin = "";
     let activeSubjectKey = "";
     let activeSubjectTitle = "";
-    let testAnswers = {};
+    let currentTheoryPage = 0;
+    let userAnswers = {};
 
-    // KOMPLETNÍ UČEBNÍ DATABÁZE A SEŠITY PODLE ROČNÍKŮ
-    const subjectData = {
-        // --- 4. TŘÍDA ---
-        cz4: {
-            title: "Český jazyk (4. třída)",
-            theory: `
-                <h3>📖 Vyjmenovaná slova & Párové souhlásky</h3>
-                <p><strong>Vyjmenovaná slova po B:</strong> být, bydlit, obyvatel, byt, příbytek, nábytek, dobytek, obyčej, bystrý, bylina, kobyla, pobývat, odbývat.</p>
-                <p><strong>Párové souhlásky (Spodoba znělosti):</strong> Na konci slov nebo před jinou souhláskou píšeme podle příbuzných slov (dub - duby, hrad - hrady, zub - zuby).</p>
-                <table class="notebook-table">
-                    <tr><th>Slovo</th><th>Příbuzné slovo</th><th>Správné psaní</th></tr>
-                    <tr><td>b_t (bydlet)</td><td>bydliště, nábytek</td><td><strong>Ý</strong></td></tr>
-                    <tr><td>b_t (bít psa)</td><td>ubíjet, bijec</td><td><strong>Í</strong></td></tr>
-                    <tr><td>dub_ (strom)</td><td>duby</td><td><strong>B</strong></td></tr>
-                </table>
-            `,
-            testType: "options",
+    function showAppAlert(message) {
+        const alertBox = document.getElementById("custom-alert-box");
+        alertBox.innerText = message;
+        alertBox.classList.add("show");
+        setTimeout(() => alertBox.classList.remove("show"), 3000);
+    }
+
+    function shuffleArray(array) {
+        let arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // ROZSÁHLÁ DATABÁZE OBSAHUJÍCÍ VÍCESTRÁNKOVÉ UČIVO A BOHATÉ TESTY
+    const database = {
+        cz4_vyj: {
+            title: "Čeština: Vyjmenovaná slova & Y/I",
+            theoryPages: [
+                `<h3>📖 1. Úvod do vyjmenovaných slov</h3>
+                 <p>V českém jazyce rozlišujeme obojetné souhlásky: <strong>B, F, L, M, P, S, V, Z</strong>.<br>
+                 Po obojetných souhláskách píšeme v domácích českých slovech standardně měkké i/í. Avšak existují slova, ve kterých se po těchto souhláskách píše tvrdé <strong>Y / Ý</strong>. Říkáme jim <em>vyjmenovaná slova</em>.</p>
+                 <p>Musíme se je naučit nazpaměť, protože se podle nich řídí správný pravopis celé řady příbuzných slov.</p>`,
+                
+                `<h3>📖 2. Vyjmenovaná slova po B a L</h3>
+                 <table class="theory-table">
+                     <tr><th>Písmeno</th><th>Seznam slov</th></tr>
+                     <tr><td><strong>B</strong></td><td>být, bydlit, obyvatel, byt, příbytek, nábytek, dobytek, obyčej, bystrý, bylina, kobyla</td></tr>
+                     <tr><td><strong>L</strong></td><td>slyšet, mlýn, blýskat se, plynout, plýtvat, lýko, lýtko, lyže, pelyněk</td></tr>
+                 </table>
+                 <p><em>Příklad:</em> Slyšet znamená vnímat uchem. Mlýn je stavba k mletí obilí.</p>`,
+
+                `<h3>📖 3. Vyjmenovaná slova po M a P</h3>
+                 <table class="theory-table">
+                     <tr><th>Písmeno</th><th>Seznam slov</th></tr>
+                     <tr><td><strong>M</strong></td><td>my, mýt, mykat, mýtit, myš, hlemýžď, mýdlo, mýto, myslit, mým</td></tr>
+                     <tr><td><strong>P</strong></td><td>pýcha, pytel, pysk, netopýr, slepýš, pápěří, pyl, kopyto, chropět</td></tr>
+                 </table>
+                 <p>Rozlišujte: <em>mýt</em> (nádobí) x <em>mít</em> (auto). <em>My</em> (já a ty) x <em>mi</em> (dativ od já).</p>`,
+
+                `<h3>📖 4. Vyjmenovaná slova po S, V a Z</h3>
+                 <table class="theory-table">
+                     <tr><th>Písmeno</th><th>Seznam slov</th></tr>
+                     <tr><td><strong>S</strong></td><td>syn, sít, sýr, syrový, sychravý, usychat, sýkora, sýček, syčet, sypat</td></tr>
+                     <tr><td><strong>V</strong></td><td>vy, vykat, vysoký, výt, výskat, zvykat, žvýkat, vydra, výr, výheň</td></tr>
+                     <tr><td><strong>Z</strong></td><td>brzy, jazyk, zítra, zříti, ozývat se</td></tr>
+                 </table>
+                 <p>Skvělá práce! Nyní jsi připraven na velký ověřovací test.</p>`
+            ],
             items: [
-                {q: "Doplň y/i: Děti musely b_t doma ticho.", opts: ["ý", "í"], correct: "ý"},
-                {q: "Doplň y/i: Hodiny začaly b_t poledne.", opts: ["ý", "í"], correct: "í"},
-                {q: "Doplň souhlásku: Na zahradě rostl starý du_.", opts: ["b", "p"], correct: "b"},
-                {q: "Doplň y/i: B_strá kalkulačka počítá rychle.", opts: ["y", "i"], correct: "y"},
-                {q: "Doplň y/i: M_š běhala po půdě.", opts: ["y", "i"], correct: "y"},
-                {q: "Doplň ě/e: B_žel rychle do školy.", opts: ["bě", "bje"], correct: "bě"}
+                {q: "Vyjmenované slovo po B: b_t (bydlet)", options: ["ý", "í"], correct: "ý"},
+                {q: "Vyjmenované slovo po M: m_š (zvíře)", options: ["y", "i"], correct: "y"},
+                {q: "Vyjmenované slovo po P: p_cha (povýšenost)", options: ["ý", "í"], correct: "ý"},
+                {q: "Vyjmenované slovo po S: s_n (syn rodičů)", options: ["y", "i"], correct: "y"},
+                {q: "Vyjmenované slovo po V: v_skat (jásat)", options: ["ý", "í"], correct: "ý"},
+                {q: "Slovo příbuzné k 'bydlet': ob_vatel", options: ["ý", "í"], correct: "ý"},
+                {q: "Slovo po L: ml_t (obilí)", options: ["ý", "í"], correct: "ý"}
             ]
         },
-        eng4: {
-            title: "Anglický jazyk (4. třída) - Spelling & Vocabulary",
-            theory: `
-                <h3>📖 Slovní zásoba & Pravopis (Spelling)</h3>
-                <p>Pro úspěšné zvládnutí písemky z angličtiny je nutné umět slovíčka správně <strong>napsat</strong>!</p>
-                <table class="notebook-table">
-                    <tr><th>Česky</th><th>Anglicky (Pravopis)</th></tr>
-                    <tr><td>Pes</td><td>D-O-G</td></tr>
-                    <tr><td>Kočka</td><td>C-A-T</td></tr>
-                    <tr><td>Škola</td><td>S-C-H-O-O-L</td></tr>
-                    <tr><td>Penál</td><td>P-E-N-C-I-L  C-A-S-E</td></tr>
-                    <tr><td>Jablko</td><td>A-P-P-L-E</td></tr>
-                </table>
-            `,
-            testType: "spelling",
+        cz4_ee: {
+            title: "Čeština: Doplňování Ě / E",
+            theoryPages: [
+                `<h3>📖 1. Kdy píšeme Ě</h3>
+                 <p>Písmeno <strong>Ě</strong> píšeme po souhláskách <strong>B, P, V, M</strong> a <strong>Ď, T, Ň</strong>.</p>
+                 <p>Po obojetných souhláskách B, P, V se nikdy nepíše *mje*, ale vždy <strong>mě</strong> (např. <em>město, pomněnka, obět</em>).</p>`,
+                `<h3>📖 2. Skupiny bě, pě, vě, mě</h3>
+                 <p>T оto Jsou slabiky, kde se po retných souhláskách ozývá zvuk [ňje] nebo [je], ale píšeme písmeno <strong>ě</strong>.</p>
+                 <p>Příklady: <em>pěkný, větev, směšn_</em>.</p>`
+            ],
             items: [
-                {hint: "Přelož a napiš anglicky 'pes':", correct: "dog"},
-                {hint: "Přelož a napiš anglicky 'kočka':", correct: "cat"},
-                {hint: "Přelož a napiš anglicky 'škola':", correct: "school"},
-                {hint: "Přelož a napiš anglicky 'jablko':", correct: "apple"}
+                {q: "Doplň: pam_tihodnost", options: ["ě", "e"], correct: "ě"},
+                {q: "Doplň: m_sto", options: ["ě", "e"], correct: "ě"},
+                {q: "Doplň: ob_t", options: ["ě", "e"], correct: "ě"},
+                {q: "Doplň: d_ti (množné číslo od dítě)", options: ["ě", "e"], correct: "ě"},
+                {q: "Doplň: v_tev stromu", options: ["ě", "e"], correct: "ě"}
+            ]
+        },
+        eng4_vocab: {
+            title: "Angličtina: Slovní zásoba & Spelling",
+            theoryPages: [
+                `<h3>📖 1. Základní slovíčka (School & Family)</h3>
+                 <table class="theory-table">
+                     <tr><th>Anglicky</th><th>Česky</th></tr>
+                     <tr><td>Dog / Cat</td><td>Pes / Kočka</td></tr>
+                     <tr><td>Pencil case</td><td>Penál</td></tr>
+                     <tr><td>Sister / Brother</td><td>Sestra / Bratr</td></tr>
+                 </table>`,
+                `<h3>📖 2. Barvy a čísla (Colors & Numbers)</h3>
+                 <table class="theory-table">
+                     <tr><th>Anglicky</th><th>Česky</th></tr>
+                     <tr><td>Green / Red / Blue</td><td>Zelená / Červená / Modrá</td></tr>
+                     <tr><td>Twelve / Twenty</td><td>Dvanáct / Dvacet</td></tr>
+                     <tr><td>Apple / Banana</td><td>Jablko / Banán</td></tr>
+                 </table>`
+            ],
+            items: [
+                {q: "Napište anglicky: <strong>pes</strong> (Napiš slovo):", type: "spelling", correct: "dog"},
+                {q: "Napište anglicky: <strong>jablko</strong> (Napiš slovo):", type: "spelling", correct: "apple"},
+                {q: "Jak se řekne 'zelená' barva?", options: ["green", "red", "blue", "yellow"], correct: "green"},
+                {q: "Co znamená 'pencil case'?", options: ["penál", "sešit", "pravítko", "taška"], correct: "penál"},
+                {q: "Napište anglicky: <strong>kočka</strong> (Napiš slovo):", type: "spelling", correct: "cat"}
             ]
         },
         math4: {
-            title: "Matematika (4. třída) - Počítání pod sebou & Rovnice",
-            theory: `
-                <h3>📖 Písemné sčítání a odčítání pod sebou</h3>
-                <p>Čísla zapisujeme přesně pod sebe: <strong>jednotky pod jednotky, desítky pod desítky, stovky pod stovky</strong>.</p>
-                <p><strong>Jednoduché rovnice:</strong> $x + 15 = 40 \Rightarrow x = 40 - 15 \Rightarrow x = 25$.</p>
-            `,
-            testType: "columnMath",
+            title: "Matematika: Písemné počítání & Rovnice",
+            theoryPages: [
+                `<h3>📖 1. Písemné sčítání a odčítání pod sebou</h3>
+                 <p>Při písemném počítání sčítáme čísla pod sebou tak, že jednotky jsou přesně pod jednotkami, desítky pod desítkami a stovky pod stovkami.</p>
+                 <div class="math-column-box">  432<br>+ 245<br>-----</div>`,
+                `<h3>📖 2. Jednoduché rovnice</h3>
+                 <p>Rovnice je zápis rovnosti dvou stran s neznámou (např. $x$). Cílem je zjistit, jakou hodnotu má $x$.<br>
+                 Příklad: $x + 5 = 12 \rightarrow x = 12 - 5 \rightarrow x = 7$.</p>`
+            ],
             items: [
-                {n1: "348", n2: "215", op: "+", correct: "563"},
-                {n1: "764", n2: "321", op: "-", correct: "443"},
-                {n1: "512", n2: "189", op: "+", correct: "701"},
-                {eq: "x + 20 = 65. Vypočítej x:", correct: "45"}
+                {
+                    q: "Sečtěte písemně pod sebou:<br><div class='math-column-box'>  432<br>+ 245<br>-----</div>",
+                    options: ["677", "667", "577", "687"],
+                    correct: "677"
+                },
+                {
+                    q: "Odečtěte písemně pod sebou:<br><div class='math-column-box'>  789<br>- 342<br>-----</div>",
+                    options: ["447", "437", "547", "457"],
+                    correct: "447"
+                },
+                {q: "Vyřešte rovnici: x + 15 = 40. Kolik je x?", options: ["25", "35", "15", "55"], correct: "25"},
+                {q: "Vyřešte rovnici: x - 12 = 18. Kolik je x?", options: ["30", "20", "6", "26"], correct: "30"}
             ]
         },
         sci4: {
-            title: "Přírodověda (4. třída)",
-            theory: `
-                <h3>📖 Živá a neživá příroda</h3>
-                <p><strong>Neživá příroda:</strong> Voda, vzduch, půda, kameny, sluneční záření.</p>
-                <p><strong>Živá příroda (Organismy):</strong> Rostliny, houby, živočichové, člověk. Potřebují k životu živiny, dýchají, rostou a rozmnožují se.</p>
-            `,
-            testType: "options",
+            title: "Přírodověda: Živá a neživá příroda",
+            theoryPages: [
+                `<h3>📖 1. Stavba těla živočichů</h3>
+                 <p>Živočichové se dělí na obratlovce (savci, ptáci, plazi, obojživelníci, ryby) a bezobratlé (hmyz, červi, měkkýši).</p>`,
+                `<h3>📖 2. Význam rostlin</h3>
+                 <p>Rostliny vyrábějí kyslík, poskytují potravu a úkryt. Jejich hlavní částí jsou kořen, stonek, listy a květ.</p>`
+            ],
             items: [
-                {q: "Co patří do NEŽIVÉ přírody?", options: ["Půda a voda", "Strom a pes", "Houby", "Ptáci"], correct: "Půda a voda"},
-                {q: "Co potřebují rostliny k fotosyntéze?", options: ["Sluneční světlo, vodu a oxid uhličitý", "Tmu a písek", "Mléko", "Jen cukr"], correct: "Sluneční světlo, vodu a oxid uhličitý"}
+                {q: "Který živočich patří mezi savce?", options: ["Pes", "Krokodýl", "Žába", "Holub"], correct: "Pes"},
+                {q: "Čím dýchají ryby ve vodě?", options: ["Žábrami", "Plícemi", "Kůží", "Průdušnicemi"], correct: "Žábrami"},
+                {q: "Co je hlavní funkcí kořenu rostliny?", options: ["Přijímá vodu a živiny", "Vyrábí plody", "Dýchá kyslík", "Přitahuje včely"], correct: "Přijímá vodu a živiny"}
             ]
         },
-
-        // --- 6. TŘÍDA ---
-        cz6: {
-            title: "Český jazyk (6. třída)",
-            theory: `
-                <h3>📖 Psaní Ě/E, Vzory přídavných jmen & Shoda</h3>
-                <p><strong>Psaní Ě/E po souhláskách:</strong><br>
-                - B, V, P + Ě $\rightarrow$ bě, vě, pě (běžet, věřit).<br>
-                - M + Ě $\rightarrow$ mě / mně (město, zapomněl - od slova pomni).</p>
-                <p><strong>Shoda přísudku s podmětem:</strong> Chlapci dělal<strong>i</strong> (rod mužský živ.), Dívky tancoval<strong>y</strong> (rod ženský).</p>
-            `,
-            testType: "options",
+        eng6_project: {
+            title: "Angličtina: Project Explore 1 (6. třída)",
+            theoryPages: [
+                `<h3>📖 1. Project Explore 1 - Unit 1 & 2</h3>
+                 <table class="theory-table">
+                     <tr><th>Lekce</th><th>Slovíčka & Gramatika</th></tr>
+                     <tr><td>Intro & Unit 1</td><td>School objects, family (brother, sister, grandfather), *have got*.</td></tr>
+                     <tr><td>Unit 2 & 3</td><td>Animals (elephant, dangerous), *can / can't*, daily routine (get up).</td></tr>
+                 </table>`,
+                `<h3>📖 2. Project Explore 1 - Unit 4 až 6</h3>
+                 <table class="theory-table">
+                     <tr><th>Lekce</th><th>Slovíčka & Gramatika</th></tr>
+                     <tr><td>Unit 4 & 5</td><td>Free time, present continuous (swimming), town (station, there is).</td></tr>
+                     <tr><td>Unit 6</td><td>Clothes (trousers), weather.</td></tr>
+                 </table>`
+            ],
             items: [
-                {q: "Doplň ě/e: V novém m_stě jsme se ztratili.", opts: ["ě", "e"], correct: "ě"},
-                {q: "Doplň i/y: Děti si radostně hrál_.", opts: ["i", "y"], correct: "i"},
-                {q: "Doplň i/y: Dívky zpíval_ v sboru.", opts: ["y", "i"], correct: "y"},
-                {q: "Který vzor je přídavné jméno 'mladý'?", opts: ["Tvrdý", "Měkký"], correct: "Tvrdý"}
+                {q: "Napište anglicky: <strong>bratr</strong> (Napiš slovo):", type: "spelling", correct: "brother"},
+                {q: "Project 1 (Unit 1): Doplňte: I ___ got a blue bike.", options: ["have", "has", "is", "are"], correct: "have"},
+                {q: "Napište anglicky: <strong>slon</strong> (Napiš slovo):", type: "spelling", correct: "elephant"},
+                {q: "Project 1 (Unit 2): Ptáci umějí létat: Birds ___ fly.", options: ["can", "can't", "is", "are"], correct: "can"},
+                {q: "Napište anglicky: <strong>kalhoty</strong> (Napiš slovo):", type: "spelling", correct: "trousers"}
             ]
         },
-        eng6: {
-            title: "Anglický jazyk (6. třída) - Project Explore 1",
-            theory: `
-                <h3>📖 Slovní zásoba & Gramatika Project Explore 1</h3>
-                <p><strong>Přítomný čas průběhový (Present Continuous):</strong> Vyjadřuje děj, který probíhá právě teď. (I am reading, He is swimming).</p>
-                <table class="notebook-table">
-                    <tr><th>Anglicky</th><th>Česky</th></tr>
-                    <tr><td>Dangerous</td><td>Nebezpečný</td></tr>
-                    <tr><td>Get up</td><td>Vstávat</td></tr>
-                    <tr><td>Breakfast</td><td>Snídaně</td></tr>
-                    <tr><td>Trousers</td><td>Kalhoty</td></tr>
-                </table>
-            `,
-            testType: "spelling",
+        cz6_gram: {
+            title: "Čeština: Shoda přísudku s podmětem",
+            theoryPages: [
+                `<h3>📖 1. Pravidla shody přísudku s podmětem</h3>
+                 <p>Příčestí minulé (konec -l/-la/-lo/-li/-ly) se řídí rodem podmětu:<br>
+                 - Chlapci běhal<strong>i</strong> (mužský životný = -i).<br>
+                 - Dívky tancoval<strong>y</strong> (ženský rod = -y).<br>
+                 - Stromy stál<strong>y</strong> (mužský neživotný / ženský = -y).</p>`,
+                `<h3>📖 2. Kombinace rodů</h3>
+                 <p>Je-li v podmětu alespoň jedno podstatné jméno v mužském životném rodě, má přednost koncovka <strong>-i</strong> (např. <em>Chlapec a dívka zpíval<strong>i</strong></em>).</p>`
+            ],
             items: [
-                {hint: "Napiš anglicky slovíčko 'snídaně':", correct: "breakfast"},
-                {hint: "Napiš anglicky slovíčko 'kalhoty':", correct: "trousers"},
-                {hint: "Napiš anglicky slovíčko 'vstávat' (dvě slova):", correct: "get up"}
+                {q: "Doplň i/y: Chlapci si hrál_ na hřišti.", options: ["i", "y"], correct: "i"},
+                {q: "Doplň i/y: Dívky tancoval_ na pódiu.", options: ["y", "i"], correct: "y"},
+                {q: "Doplň i/y: Bratr se sestrou kupoval_ dárky.", options: ["i", "y"], correct: "i"},
+                {q: "Které slovo je přídavné jméno tvrdé?", options: ["mladý", "jarní", "cizí", "poutníkův"], correct: "mladý"}
             ]
         },
         math6: {
-            title: "Matematika (6. třída) - Desetinná čísla & Rovnice",
-            theory: `
-                <h3>📖 Desetinná čísla a Rovnice</h3>
-                <p><strong>Desetinná čísla pod sebou:</strong> Zarovnáváme přesně podle desetinné čárky!</p>
-                <p><strong>Složitější rovnice:</strong> $2x + 4 = 14 \Rightarrow 2x = 10 \Rightarrow x = 5$.</p>
-            `,
-            testType: "columnMath",
+            title: "Matematika: Rovnice & Desetinná čísla",
+            theoryPages: [
+                `<h3>📖 1. Rovnice se závorkami</h3>
+                 <p>Při řešení rovnic nejdříve odstraníme závorku roznásobením, poté převedeme členy s neznámou na jednu stranu.<br>
+                 Příklad: $2(x + 3) = 14 \rightarrow 2x + 6 = 14 \rightarrow 2x = 8 \rightarrow x = 4$.</p>`,
+                `<h3>📖 2. Počítání s desetinnými čísly</h3>
+                 <p>Při sčítání a odčítání desetinných čísel musíme mít desetinné čárky přesně pod sebou.<br>
+                 Příklad: $2,5 + 3,4 = 5,9$.</p>`
+            ],
             items: [
-                {n1: "12.45", n2: "3.80", op: "+", correct: "16.25"},
-                {n1: "45.80", n2: "12.30", op: "-", correct: "33.50"},
-                {eq: "Vyřeš rovnici 2x + 5 = 15. x = ?", correct: "5"}
+                {q: "Vyřešte rovnici: 3x = 21. Kolik je x?", options: ["7", "6", "8", "9"], correct: "7"},
+                {q: "Vyřešte rovnici: 2x + 4 = 16. Kolik je x?", options: ["6", "5", "7", "8"], correct: "6"},
+                {q: "Vypočítejte desetinná čísla: 2,5 + 3,4 =", options: ["5,9", "5,8", "6,1", "5,7"], correct: "5,9"},
+                {q: "Vypočítejte: 10 - 4,2 =", options: ["5,8", "6,2", "5,2", "6,8"], correct: "5,8"}
             ]
         },
         phy6: {
-            title: "Fyzika (6. třída) - Veličiny & Jednotky",
-            theory: `
-                <h3>📖 Přehled Fyzikálních Veličin</h3>
-                <table class="notebook-table">
-                    <tr><th>Veličina</th><th>Značka</th><th>Jednotka</th><th>Měřidlo</th></tr>
-                    <tr><td>Délka</td><td>l</td><td>metr (m)</td><td>Pravítko</td></tr>
-                    <tr><td>Hmotnost</td><td>m</td><td>kilogram (kg)</td><td>Váhy</td></tr>
-                    <tr><td>Čas</td><td>t</td><td>sekunda (s)</td><td>Stopky</td></tr>
-                    <tr><td>Teplota</td><td>T</td><td>Stupeň Celsia (°C)</td><td>Teploměr</td></tr>
-                </table>
-            `,
-            testType: "options",
+            title: "Fyzika: Veličiny a jednotky",
+            theoryPages: [
+                `<h3>📖 1. Fyzikální veličiny a měření</h3>
+                 <p>Fyzika zkoumá přírodní jevy. Každou vlastnost tělesa, kterou lze změřit, nazýváme fyzikální veličinou (např. délka, hmotnost, čas).</p>`,
+                `<h3>📖 2. Přehled jednotek (Soustava SI)</h3>
+                 <table class="theory-table">
+                     <tr><th>Veličina</th><th>Značka</th><th>Jednotka</th><th>Měřidlo</th></tr>
+                     <tr><td>Délka</td><td>l</td><td>metr (m)</td><td>Pravítko</td></tr>
+                     <tr><td>Hmotnost</td><td>m</td><td>kilogram (kg)</td><td>Váhy</td></tr>
+                     <tr><td>Čas</td><td>t</td><td>sekunda (s)</td><td>Stopky</td></tr>
+                 </table>`
+            ],
             items: [
-                {q: "Základní jednotkou hmotnosti v soustavě SI je:", options: ["kilogram (kg)", "gram (g)", "tuna (t)"], correct: "kilogram (kg)"},
-                {q: "Značka pro fyzikální veličinu ČAS je:", options: ["t", "s", "m"], correct: "t"},
-                {q: "Kolik gramů má 1 kg?", options: ["1000 g", "100 g", "10 g"], correct: "1000 g"}
+                {q: "Čím měříme hmotnost těles?", options: ["Váhami", "Pravítkem", "Teploměrem", "Stopkami"], correct: "Váhami"},
+                {q: "Základní jednotka délky v soustavě SI je:", options: ["metr (m)", "kilogram (kg)", "sekunda (s)", "litr (l)"], correct: "metr (m)"},
+                {q: "Kolik gramů má 1 kilogram?", options: ["1000 g", "100 g", "10 g", "500 g"], correct: "1000 g"},
+                {q: "Veličina pro čas se značí písmenem:", options: ["t", "s", "m", "v"], correct: "t"}
             ]
         }
     };
 
-    function showAlert(msg) {
-        const el = document.getElementById("custom-alert");
-        el.innerText = msg;
-        el.classList.add("show");
-        setTimeout(() => el.classList.remove("show"), 2500);
-    }
+    const fillDatabase = [
+        { word: "SCHOOL", hint: "Anglicky: Škola", missing: "H", display: "SC_OOL" },
+        { word: "APPLE", hint: "Anglicky: Jablko", missing: "P", display: "A_PLE" },
+        { word: "BYSTRÝ", hint: "Vyjmenované slovo po B", missing: "Y", display: "B_STRÝ" },
+        { word: "NEWTON", hint: "Jednotka síly (F)", missing: "W", display: "NE_TON" },
+        { word: "FAMILY", hint: "Anglicky: Rodina", missing: "M", display: "FA_ILY" }
+    ];
 
-    function confirmUser() {
-        const input = document.getElementById("username-input").value.trim();
-        if(!input) { showAlert("⚠️ Zadej jméno žáka!"); return; }
-        activeUser = input;
-        localStorage.setItem("school_active_user", activeUser);
-        document.getElementById("active-user-display").innerText = activeUser;
-        document.getElementById("modal-user").classList.add("hidden");
-        loadLeaderboard();
-    }
-
-    function openUserModal() {
-        document.getElementById("modal-user").classList.remove("hidden");
-    }
-
-    function showMenu() {
+    function openClass(screenId) {
+        if (!currentUser) { openStartPlayerModal(); return; }
         hideAllScreens();
-        document.getElementById("screen-menu").classList.remove("hidden");
-        loadLeaderboard();
+        document.getElementById(screenId + "-screen").classList.remove("hidden");
     }
 
-    function hideAllScreens() {
-        document.getElementById("screen-menu").classList.add("hidden");
-        document.getElementById("screen-class4").classList.add("hidden");
-        document.getElementById("screen-class6").classList.add("hidden");
-        document.getElementById("screen-hub").classList.add("hidden");
-        document.getElementById("screen-theory").classList.add("hidden");
-        document.getElementById("screen-test").classList.add("hidden");
-    }
-
-    function openClass(cls) {
-        if(!activeUser) { openUserModal(); return; }
-        activeClass = cls;
-        hideAllScreens();
-        document.getElementById("screen-" + cls).classList.remove("hidden");
-    }
-
-    function backToClass() {
-        openClass(activeClass);
-    }
-
-    function openSubject(key, title) {
+    function openSubjectHub(key, title) {
+        if (!currentUser) { openStartPlayerModal(); return; }
         activeSubjectKey = key;
         activeSubjectTitle = title;
-        document.getElementById("hub-subject-title").innerText = title;
+        document.getElementById("hub-title").innerText = title;
         hideAllScreens();
-        document.getElementById("screen-hub").classList.remove("hidden");
+        document.getElementById("subject-hub-screen").classList.remove("hidden");
     }
 
-    function openHub() {
+    function backToHub() {
         hideAllScreens();
-        document.getElementById("screen-hub").classList.remove("hidden");
+        document.getElementById("subject-hub-screen").classList.remove("hidden");
     }
 
-    function openTheoryView() {
-        const sub = subjectData[activeSubjectKey];
-        document.getElementById("theory-title").innerText = `📖 Učivo: ${sub.title}`;
-        document.getElementById("theory-content").innerHTML = sub.theory;
+    function openTheoryMode() {
+        let sub = database[activeSubjectKey];
+        if (!sub) return;
+        currentTheoryPage = 0;
+        renderTheoryPage();
         hideAllScreens();
-        document.getElementById("screen-theory").classList.remove("hidden");
+        document.getElementById("theory-screen").classList.remove("hidden");
     }
 
-    function openTestView() {
-        const sub = subjectData[activeSubjectKey];
-        testAnswers = {};
-        document.getElementById("test-title").innerText = `✍️ Test: ${sub.title}`;
-        document.getElementById("test-score-counter").innerText = "Body: 0";
+    function renderTheoryPage() {
+        let sub = database[activeSubjectKey];
+        let pages = sub.theoryPages || ["<p>Učivo se připravuje...</p>"];
         
-        const container = document.getElementById("test-container");
-        container.innerHTML = "";
+        document.getElementById("theory-header-title").innerText = `📖 Sešit: ${activeSubjectTitle} (Strana ${currentTheoryPage + 1}/${pages.length})`;
+        document.getElementById("theory-content-box").innerHTML = pages[currentTheoryPage];
 
-        if (sub.testType === "options") {
-            sub.items.forEach((item, idx) => {
-                let optsHtml = "";
-                let optionsList = item.options || item.opts;
-                optionsList.forEach(opt => {
-                    optsHtml += `<button class="opt-btn" onclick="selectOption(${idx}, '${opt}', '${item.correct}', this)">${opt}</button>`;
-                });
-                container.innerHTML += `
-                    <div class="test-item">
-                        <div class="test-item-title">${idx+1}. ${item.q}</div>
-                        <div class="option-group">${optsHtml}</div>
-                    </div>
-                `;
-            });
-        } else if (sub.testType === "spelling") {
-            sub.items.forEach((item, idx) => {
-                container.innerHTML += `
-                    <div class="test-item">
-                        <div class="test-item-title">${idx+1}. ${item.hint}</div>
-                        <input type="text" class="spelling-input" id="spell-${idx}" placeholder="Napiš správně anglicky..." oninput="recordSpelling(${idx}, '${item.correct}')">
-                    </div>
-                `;
-            });
-        } else if (sub.testType === "columnMath") {
-            let mathHtml = `<div class="column-math-container">`;
-            sub.items.forEach((item, idx) => {
-                if(item.n1) {
-                    mathHtml += `
-                        <div class="column-math-card">
-                            <div>${item.n1}</div>
-                            <div>${item.op} ${item.n2}</div>
-                            <div class="line"></div>
-                            <input type="text" id="math-${idx}" oninput="recordMath(${idx}, '${item.correct}')" placeholder="= ?">
-                        </div>
-                    `;
-                } else if(item.eq) {
-                    mathHtml += `
-                        <div class="test-item" style="width:100%;">
-                            <div class="test-item-title">${item.eq}</div>
-                            <input type="text" class="spelling-input" id="math-${idx}" oninput="recordMath(${idx}, '${item.correct}')" placeholder="x = ?">
-                        </div>
-                    `;
-                }
-            });
-            mathHtml += `</div>`;
-            container.innerHTML = mathHtml;
-        }
-
-        hideAllScreens();
-        document.getElementById("screen-test").classList.remove("hidden");
+        document.getElementById("prev-page-btn").style.visibility = currentTheoryPage === 0 ? "hidden" : "visible";
+        document.getElementById("next-page-btn").innerText = currentTheoryPage === pages.length - 1 ? "Dokončit čtení ➔" : "Další stránka ➡️";
     }
 
-    function selectOption(itemIdx, val, correct, btn) {
-        let parent = btn.parentElement;
-        let btns = parent.getElementsByTagName("button");
-        for(let b of btns) {
-            b.classList.remove("correct", "wrong");
-        }
-        if(val === correct) {
-            btn.classList.add("correct");
-            testAnswers[itemIdx] = true;
+    function changeTheoryPage(direction) {
+        let sub = database[activeSubjectKey];
+        let pages = sub.theoryPages || [];
+        currentTheoryPage += direction;
+
+        if (currentTheoryPage >= pages.length) {
+            openWorkbookMode(); // Po dočtení všech stránek se rovnou nabídne test
+        } else if (currentTheoryPage < 0) {
+            currentTheoryPage = 0;
         } else {
-            btn.classList.add("wrong");
-            testAnswers[itemIdx] = false;
+            renderTheoryPage();
         }
-        updateScoreDisplay();
     }
 
-    function recordSpelling(itemIdx, correct) {
-        let val = document.getElementById(`spell-${itemIdx}`).value.trim().toLowerCase();
-        testAnswers[itemIdx] = (val === correct.toLowerCase());
-        updateScoreDisplay();
-    }
+    function openWorkbookMode() {
+        let sub = database[activeSubjectKey];
+        if (!sub) return;
+        userAnswers = {};
 
-    function recordMath(itemIdx, correct) {
-        let val = document.getElementById(`math-${itemIdx}`).value.trim();
-        testAnswers[itemIdx] = (val === correct);
-        updateScoreDisplay();
-    }
+        document.getElementById("workbook-title").innerText = `Test: ${activeSubjectTitle}`;
+        document.getElementById("workbook-score").innerText = `⭐ Body: 0/${sub.items.length}`;
 
-    function updateScoreDisplay() {
-        let count = Object.values(testAnswers).filter(v => v === true).length;
-        document.getElementById("test-score-counter").innerText = `Body: ${count * 2}`;
-    }
-
-    function evaluateTest() {
-        let count = Object.values(testAnswers).filter(v => v === true).length;
-        let points = count * 2;
-        saveScore(activeUser, points);
-        showAlert(`🎉 Písemka vyhodnocena! Získal(a) jsi ${points} bodů.`);
-        showMenu();
-    }
-
-    function saveScore(name, pts) {
-        let board = JSON.parse(localStorage.getItem("school_scores") || "{}");
-        board[name] = (board[name] || 0) + pts;
-        localStorage.setItem("school_scores", JSON.stringify(board));
-    }
-
-    function loadLeaderboard() {
-        let board = JSON.parse(localStorage.getItem("school_scores") || "{}");
-        let box = document.getElementById("leaderboard-box");
+        let box = document.getElementById("workbook-items-box");
         let html = "";
-        let sorted = Object.keys(board).sort((a,b) => board[b] - board[a]);
-        if(sorted.length === 0) {
-            box.innerHTML = "<p style='color:#64748b; font-size:13px;'>Zatím žádné zapsané známky.</p>";
-            return;
-        }
-        sorted.forEach(name => {
-            html += `<div style="display:flex; justify-content:space-between; padding:6px 12px; background:#f1f5f9; border-radius:10px; margin-bottom:4px;">
-                <strong>${name}</strong>
-                <span style="color:var(--success); font-weight:bold;">${board[name]} bodů</span>
-            </div>`;
+
+        sub.items.forEach((item, index) => {
+            html += `<div class="workbook-item" id="wb-item-${index}">
+                <div class="workbook-question"><strong>${index + 1}.</strong> ${item.q}</div>`;
+            
+            if (item.type === "spelling") {
+                html += `<input type="text" class="spelling-input" id="spelling-input-${index}" placeholder="Napište správný tvar..." oninput="checkSpelling(${index}, '${item.correct}')">
+                         <div id="spelling-feedback-${index}" style="font-weight:bold; margin-top:5px; font-size:14px;"></div>`;
+            } else {
+                let shuffledOpts = shuffleArray(item.options);
+                html += `<div class="workbook-options">`;
+                shuffledOpts.forEach(opt => {
+                    html += `<button class="wb-opt-btn" onclick="selectWorkbookAnswer(${index}, '${opt}', '${item.correct}', this)">${opt}</button>`;
+                });
+                html += `</div>`;
+            }
+            html += `</div>`;
         });
+
         box.innerHTML = html;
+        hideAllScreens();
+        document.getElementById("workbook-screen").classList.remove("hidden");
     }
 
-    window.onload = function() {
-        let saved = localStorage.getItem("school_active_user");
-        if(saved) {
-            activeUser = saved;
-            document.getElementById("active-user-display").innerText = activeUser;
-            document.getElementById("modal-user").classList.add("hidden");
-        } else {
-            openUserModal();
+    function selectWorkbookAnswer(itemIndex, selected, correct, btnElement) {
+        let parent = btnElement.parentElement;
+        let buttons = parent.getElementsByTagName("button");
+        for (let b of buttons) {
+            b.classList.remove("correct", "wrong");
+            b.disabled = true;
         }
-        loadLeaderboard();
-    }
-</script>
 
-</body>
-</html>
+        if (selected === correct) {
+            btnElement.classList.add("correct");
+            userAnswers[itemIndex] = true;
+        } else {
+            btnElement.classList.add("wrong");
+            userAnswers[itemIndex] = false;
+            for (let b of buttons) {
+                if (b.innerText === correct) b.classList.add("correct");
+            }
+        }
+
+        let totalCorrect = Object.values(userAnswers).filter(val => val === true).length;
+        let totalItems = database[activeSubjectKey].items.length;
+        document.getElementById("workbook-score").innerText = `⭐ Body: ${totalCorrect}/${totalItems}`;
+    }
+
+    function checkSpelling(itemIndex, correct) {
+        let val = document.getElementById(`spelling-input-${itemIndex}`).value.trim().toLowerCase();
+        let fb = document.getElementById(`spelling-feedback-${itemIndex}`);
+        if (val === correct.toLowerCase()) {
+            fb.innerText = "🎉 Správně!";
+            fb.style.color = "var(--success)";
+            userAnswers[itemIndex] = true;
+        } else {
+            fb.innerText = "Zatím nesprávně...";
+            fb.style.color = "var(--danger)";
+            userAnswers[itemIndex] = false;
+        }
+        let totalCorrect = Object.values(userAnswers).filter(val => val === true).length;
+        let totalItems = database[activeSubjectKey].items.length;
+        document.getElementById("workbook-score").innerText = `⭐ Body: ${totalCorrect}/${totalItems}`;
+    }
+
+    function finishWorkbook() {
+        let totalCorrect = Object.values(userAnswers).filter(val => val === true).length;
+        let totalItems = database[activeSubjectKey].items.length;
+        let scoreEarned = totalCorrect * 2;
