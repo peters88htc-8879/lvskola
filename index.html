@@ -471,9 +471,8 @@
             <h3 id="fill-title" style="margin-top:0; font-size:20px;">Nápověda</h3>
             <div id="fill-word-display" style="font-size: 34px; font-weight: bold; letter-spacing: 4px; margin: 15px 0; color: #4f46e5;"></div>
         </div>
-        <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno..." style="width:100%; margin-bottom:12px;">
-        <button class="btn btn-success" onclick="checkFillAnswer()">✅ Zkontrolovat</button>
-        <div id="fill-feedback" style="font-weight:bold; font-size: 18px; margin: 12px 0;"></div>
+        <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno..." style="width:100%; margin-bottom:12px;" oninput="checkFillAnswerAuto(this)">
+        <div id="fill-feedback" style="font-weight:bold; font-size: 18px; margin: 12px 0; min-height: 28px;"></div>
         <button class="btn btn-danger" onclick="showMenu()" style="font-size:17px;">🏠 Zpět do menu</button>
     </div>
 
@@ -1321,10 +1320,8 @@
             return;
         }
         let fq = fillQuestions[fillIndex];
-        document.getElementById("fill-count").innerText = `✍️ Doplňovačka (${currentFillLang === 'cz' ? 'Čeština' : 'Angličtina'}): ${fillIndex + 1}/${fillQuestions.length}`;
-        document.getElementById("fill-score").innerText = `⭐ Body: ${fillScore}`;
         
-        // Obnovíme původní strukturu obrazovky doplňovačky, pokud byla přepsána dokončenou obrazovkou
+        // Zajištění struktury doplňovačky
         let fillScreen = document.getElementById("fill-screen");
         if (!document.getElementById("fill-answer")) {
             fillScreen.innerHTML = `
@@ -1337,9 +1334,8 @@
                     <h3 id="fill-title" style="margin-top:0; font-size:20px;">Nápověda</h3>
                     <div id="fill-word-display" style="font-size: 34px; font-weight: bold; letter-spacing: 4px; margin: 15px 0; color: #4f46e5;"></div>
                 </div>
-                <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno..." style="width:100%; margin-bottom:12px;">
-                <button class="btn btn-success" onclick="checkFillAnswer()">✅ Zkontrolovat</button>
-                <div id="fill-feedback" style="font-weight:bold; font-size: 18px; margin: 12px 0;"></div>
+                <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno..." style="width:100%; margin-bottom:12px;" oninput="checkFillAnswerAuto(this)">
+                <div id="fill-feedback" style="font-weight:bold; font-size: 18px; margin: 12px 0; min-height: 28px;"></div>
                 <button class="btn btn-danger" onclick="showMenu()" style="font-size:17px;">🏠 Zpět do menu</button>
             `;
         }
@@ -1348,68 +1344,32 @@
         document.getElementById("fill-score").innerText = `⭐ Body: ${fillScore}`;
         document.getElementById("fill-title").innerText = fq.hint;
         document.getElementById("fill-word-display").innerText = fq.display;
-        document.getElementById("fill-answer").value = "";
+        let ansField = document.getElementById("fill-answer");
+        ansField.value = "";
+        ansField.disabled = false;
+        ansField.focus();
         document.getElementById("fill-feedback").innerText = "";
     }
-    function checkFillAnswer() {
-        let ansInput = document.getElementById("fill-answer");
-        if (!ansInput) return;
-        let ans = ansInput.value.trim().toUpperCase();
+
+    function checkFillAnswerAuto(inputEl) {
+        let ans = inputEl.value.trim().toUpperCase();
         let fq = fillQuestions[fillIndex];
         let fb = document.getElementById("fill-feedback");
+
+        // Pokud uživatel zadá správnou délku nebo shodný text
         if (ans === fq.missing) {
+            inputEl.disabled = true;
             fillScore += 2;
             fb.innerText = "🎉 Správně!";
             fb.style.color = "var(--success)";
-        } else {
-            fb.innerText = `❌ Chyba! Mělo být: ${fq.missing}`;
+            fillIndex++;
+            setTimeout(showFillQuestion, 1100);
+        } else if (ans.length >= fq.missing.length) {
+            inputEl.disabled = true;
+            fb.innerText = `❌ Chyba! Správně bylo: ${fq.missing}`;
             fb.style.color = "var(--danger)";
-        }
-        fillIndex++;
-        setTimeout(showFillQuestion, 1200);
-    }
-
-    let memoryCards = [], flippedCards = [], matchedPairs = 0, p1Score = 0, p2Score = 0, pcScore = 0, canFlip = true, memoryMode = 'solo', activePlayer = 1, pcMemory = {};
-    
-    function openMemoryModal() {
-        document.getElementById("memory-modal").classList.remove("hidden");
-    }
-    function closeMemoryModal() {
-        document.getElementById("memory-modal").classList.add("hidden");
-    }
-
-    function startMemoryGame(mode) {
-        closeMemoryModal();
-        memoryMode = mode;
-        p1Score = 0; p2Score = 0; pcScore = 0; matchedPairs = 0; flippedCards = []; canFlip = true; pcMemory = {}; activePlayer = 1; isPcTurn = false;
-        
-        let emojis = ['🍎', '🍌', '🍇', '🍉', '🍓', '🍒'];
-        let pairCards = [...emojis, ...emojis].map((emoji, idx) => ({ id: idx, emoji: emoji, flipped: false, matched: false }));
-        memoryCards = shuffleArray(pairCards);
-        
-        hideAllScreens();
-        document.getElementById("memory-screen").classList.remove("hidden");
-        updateTurnIndicator();
-        renderMemoryBoard();
-    }
-
-    function renderMemoryBoard() {
-        let board = document.getElementById("memory-board");
-        board.innerHTML = "";
-        memoryCards.forEach((card, index) => {
-            let el = document.createElement("div");
-            el.className = `memory-card ${card.flipped ? 'flipped' : ''} ${card.matched ? 'matched' : ''}`;
-            el.innerText = (card.flipped || card.matched) ? card.emoji : "❓";
-            el.onclick = () => playerFlipCard(index);
-            board.appendChild(el);
-        });
-
-        if (memoryMode === 'pc') {
-            document.getElementById("memory-scores").innerText = `Ty: ${p1Score} | PC: ${pcScore}`;
-        } else if (memoryMode === 'pvp') {
-            document.getElementById("memory-scores").innerText = `Hráč 1: ${p1Score} | Hráč 2: ${p2Score}`;
-        } else {
-            document.getElementById("memory-scores").innerText = `Skóre: ${p1Score}`;
+            fillIndex++;
+            setTimeout(showFillQuestion, 1300);
         }
     }
 
