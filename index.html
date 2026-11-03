@@ -160,7 +160,6 @@
 
         .hidden { display: none !important; }
 
-        /* DIGITÁLNÍ SEŠIT / UČIVO S LISTOVÁNÍM */
         .theory-box {
             background: #ffffff;
             border: 3px solid #cbd5e1;
@@ -178,7 +177,6 @@
         .theory-table th, .theory-table td { border: 2px solid #cbd5e1; padding: 8px 12px; text-align: left; font-size: 13px; }
         .theory-table th { background: #e0e7ff; color: #312e81; }
 
-        /* PRACOVNÍ SEŠIT - PŘÍKLADY POD SEBOU */
         .workbook-container {
             text-align: left;
             max-height: 380px;
@@ -243,7 +241,6 @@
             margin-top: 6px;
         }
 
-        /* HRY */
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -395,7 +392,7 @@
         <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
     </div>
 
-    <!-- OBRAZOVKA: UČIVO A TEORIE (S LISTOVÁNÍm STRÁNEK) -->
+    <!-- OBRAZOVKA: UČIVO A TEORIE -->
     <div id="theory-screen" class="hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <span id="theory-header-title" style="font-weight:bold; color:#4f46e5; font-size:16px;">📖 Sešit</span>
@@ -487,7 +484,10 @@
         <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
         <p style="font-size:13px; font-weight:700; color:#b45309; margin-bottom:6px;">Nebo vyber stávající profil:</p>
         <div id="modal-player-list" style="max-height: 120px; overflow-y: auto; text-align: left; margin-bottom: 10px;"></div>
-        <button class="btn btn-warning" onclick="closeStartPlayerModal()">Zavřít</button>
+        
+        <!-- BEZPEČNOSTNÍ TLAČÍTKO PRO ZAVŘENÍ NEBO NOUZOVÝ RESET -->
+        <button class="btn btn-warning" onclick="forceCloseModal()" style="margin-top:6px;">Zavřít okno</button>
+        <button class="btn btn-danger" onclick="emergencyReset()" style="margin-top:6px; font-size:13px; padding:10px;">🗑️ Nouzový reset paměti</button>
     </div>
 </div>
 
@@ -550,50 +550,585 @@
         return arr;
     }
 
-    // ROZSÁHLÁ DATABÁZE OBSAHUJÍCÍ VÍCESTRÁNKOVÉ UČIVO A BOHATÉ TESTY
     const database = {
         cz4_vyj: {
             title: "Čeština: Vyjmenovaná slova & Y/I",
             theoryPages: [
                 `<h3>📖 1. Úvod do vyjmenovaných slov</h3>
                  <p>V českém jazyce rozlišujeme obojetné souhlásky: <strong>B, F, L, M, P, S, V, Z</strong>.<br>
-                 Po obojetných souhláskách píšeme v domácích českých slovech standardně měkké i/í. Avšak existují slova, ve kterých se po těchto souhláskách píše tvrdé <strong>Y / Ý</strong>. Říkáme jim <em>vyjmenovaná slova</em>.</p>
-                 <p>Musíme se je naučit nazpaměť, protože se podle nich řídí správný pravopis celé řady příbuzných slov.</p>`,
-                
+                 Po obojetných souhláskách píšeme v domácích českých slovech standardně měkké i/í. Avšak existují slova, ve kterých se po těchto souhláskách píše tvrdé <strong>Y / Ý</strong>. Říkáme jim <em>vyjmenovaná slova</em>.</p>`,
                 `<h3>📖 2. Vyjmenovaná slova po B a L</h3>
                  <table class="theory-table">
                      <tr><th>Písmeno</th><th>Seznam slov</th></tr>
                      <tr><td><strong>B</strong></td><td>být, bydlit, obyvatel, byt, příbytek, nábytek, dobytek, obyčej, bystrý, bylina, kobyla</td></tr>
                      <tr><td><strong>L</strong></td><td>slyšet, mlýn, blýskat se, plynout, plýtvat, lýko, lýtko, lyže, pelyněk</td></tr>
-                 </table>
-                 <p><em>Příklad:</em> Slyšet znamená vnímat uchem. Mlýn je stavba k mletí obilí.</p>`,
-
+                 </table>`,
                 `<h3>📖 3. Vyjmenovaná slova po M a P</h3>
                  <table class="theory-table">
                      <tr><th>Písmeno</th><th>Seznam slov</th></tr>
                      <tr><td><strong>M</strong></td><td>my, mýt, mykat, mýtit, myš, hlemýžď, mýdlo, mýto, myslit, mým</td></tr>
                      <tr><td><strong>P</strong></td><td>pýcha, pytel, pysk, netopýr, slepýš, pápěří, pyl, kopyto, chropět</td></tr>
-                 </table>
-                 <p>Rozlišujte: <em>mýt</em> (nádobí) x <em>mít</em> (auto). <em>My</em> (já a ty) x <em>mi</em> (dativ od já).</p>`,
-
+                 </table>`,
                 `<h3>📖 4. Vyjmenovaná slova po S, V a Z</h3>
                  <table class="theory-table">
                      <tr><th>Písmeno</th><th>Seznam slov</th></tr>
                      <tr><td><strong>S</strong></td><td>syn, sít, sýr, syrový, sychravý, usychat, sýkora, sýček, syčet, sypat</td></tr>
                      <tr><td><strong>V</strong></td><td>vy, vykat, vysoký, výt, výskat, zvykat, žvýkat, vydra, výr, výheň</td></tr>
                      <tr><td><strong>Z</strong></td><td>brzy, jazyk, zítra, zříti, ozývat se</td></tr>
-                 </table>
-                 <p>Skvělá práce! Nyní jsi připraven na velký ověřovací test.</p>`
+                 </table>`
             ],
             items: [
                 {q: "Vyjmenované slovo po B: b_t (bydlet)", options: ["ý", "í"], correct: "ý"},
                 {q: "Vyjmenované slovo po M: m_š (zvíře)", options: ["y", "i"], correct: "y"},
                 {q: "Vyjmenované slovo po P: p_cha (povýšenost)", options: ["ý", "í"], correct: "ý"},
                 {q: "Vyjmenované slovo po S: s_n (syn rodičů)", options: ["y", "i"], correct: "y"},
-                {q: "Vyjmenované slovo po V: v_skat (jásat)", options: ["ý", "í"], correct: "ý"},
-                {q: "Slovo příbuzné k 'bydlet': ob_vatel", options: ["ý", "í"], correct: "ý"},
-                {q: "Slovo po L: ml_t (obilí)", options: ["ý", "í"], correct: "ý"}
+                {q: "Vyjmenované slovo po V: v_skat (jásat)", options: ["ý", "í"], correct: "ý"}
             ]
         },
         cz4_ee: {
-            title: "Čeština: Doplňování Ě /
+            title: "Čeština: Doplňování Ě / E",
+            theoryPages: [
+                `<h3>📖 1. Kdy píšeme Ě</h3>
+                 <p>Písmeno <strong>Ě</strong> píšeme po souhláskách <strong>B, P, V, M</strong> a <strong>Ď, T, Ň</strong>.</p>`,
+                `<h3>📖 2. Skupiny bě, pě, vě, mě</h3>
+                 <p>Příklady: <em>pěkný, větev, město</em>.</p>`
+            ],
+            items: [
+                {q: "Doplň: pam_tihodnost", options: ["ě", "e"], correct: "ě"},
+                {q: "Doplň: m_sto", options: ["ě", "e"], correct: "ě"},
+                {q: "Doplň: ob_t", options: ["ě", "e"], correct: "ě"}
+            ]
+        },
+        eng4_vocab: {
+            title: "Angličtina: Slovní zásoba & Spelling",
+            theoryPages: [
+                `<h3>📖 1. Základní slovíčka</h3>
+                 <table class="theory-table">
+                     <tr><th>Anglicky</th><th>Česky</th></tr>
+                     <tr><td>Dog / Cat</td><td>Pes / Kočka</td></tr>
+                     <tr><td>Pencil case</td><td>Penál</td></tr>
+                 </table>`
+            ],
+            items: [
+                {q: "Napište anglicky: <strong>pes</strong> (Napiš slovo):", type: "spelling", correct: "dog"},
+                {q: "Napište anglicky: <strong>jablko</strong> (Napiš slovo):", type: "spelling", correct: "apple"}
+            ]
+        },
+        math4: {
+            title: "Matematika: Písemné počítání & Rovnice",
+            theoryPages: [
+                `<h3>📖 1. Písemné sčítání a odčítání pod sebou</h3>
+                 <div class="math-column-box">  432<br>+ 245<br>-----</div>`
+            ],
+            items: [
+                {
+                    q: "Sečtěte písemně pod sebou:<br><div class='math-column-box'>  432<br>+ 245<br>-----</div>",
+                    options: ["677", "667", "577", "687"],
+                    correct: "677"
+                },
+                {q: "Vyřešte rovnici: x + 15 = 40. Kolik je x?", options: ["25", "35", "15", "55"], correct: "25"}
+            ]
+        },
+        sci4: {
+            title: "Přírodověda: Živá a neživá příroda",
+            theoryPages: [
+                `<h3>📖 1. Stavba těla živočichů</h3>
+                 <p>Obratlovci a bezobratlí.</p>`
+            ],
+            items: [
+                {q: "Který živočich patří mezi savce?", options: ["Pes", "Krokodýl", "Žába", "Holub"], correct: "Pes"}
+            ]
+        },
+        eng6_project: {
+            title: "Angličtina: Project Explore 1 (6. třída)",
+            theoryPages: [
+                `<h3>📖 1. Project Explore 1</h3>
+                 <p>Intro až Unit 6.</p>`
+            ],
+            items: [
+                {q: "Napište anglicky: <strong>bratr</strong> (Napiš slovo):", type: "spelling", correct: "brother"}
+            ]
+        },
+        cz6_gram: {
+            title: "Čeština: Shoda přísudku s podmětem",
+            theoryPages: [
+                `<h3>📖 1. Pravidla shody</h3>
+                 <p>Chlapci běhal<strong>i</strong> x Dívky tancoval<strong>y</strong>.</p>`
+            ],
+            items: [
+                {q: "Doplň i/y: Chlapci si hrál_ na hřišti.", options: ["i", "y"], correct: "i"}
+            ]
+        },
+        math6: {
+            title: "Matematika: Rovnice & Desetinná čísla",
+            theoryPages: [
+                `<h3>📖 1. Rovnice se závorkami</h3>
+                 <p>2(x + 3) = 14</p>`
+            ],
+            items: [
+                {q: "Vyřešte rovnici: 3x = 21. Kolik je x?", options: ["7", "6", "8", "9"], correct: "7"}
+            ]
+        },
+        phy6: {
+            title: "Fyzika: Veličiny a jednotky",
+            theoryPages: [
+                `<h3>📖 1. Fyzikální veličiny</h3>
+                 <p>Délka, hmotnost, čas.</p>`
+            ],
+            items: [
+                {q: "Čím měříme hmotnost těles?", options: ["Váhami", "Pravítkem", "Teploměrem", "Stopkami"], correct: "Váhami"}
+            ]
+        }
+    };
+
+    const fillDatabase = [
+        { word: "SCHOOL", hint: "Anglicky: Škola", missing: "H", display: "SC_OOL" },
+        { word: "APPLE", hint: "Anglicky: Jablko", missing: "P", display: "A_PLE" },
+        { word: "BYSTRÝ", hint: "Vyjmenované slovo po B", missing: "Y", display: "B_STRÝ" }
+    ];
+
+    function openClass(screenId) {
+        if (!currentUser) { openStartPlayerModal(); return; }
+        hideAllScreens();
+        document.getElementById(screenId + "-screen").classList.remove("hidden");
+    }
+
+    function openSubjectHub(key, title) {
+        if (!currentUser) { openStartPlayerModal(); return; }
+        activeSubjectKey = key;
+        activeSubjectTitle = title;
+        document.getElementById("hub-title").innerText = title;
+        hideAllScreens();
+        document.getElementById("subject-hub-screen").classList.remove("hidden");
+    }
+
+    function backToHub() {
+        hideAllScreens();
+        document.getElementById("subject-hub-screen").classList.remove("hidden");
+    }
+
+    function openTheoryMode() {
+        let sub = database[activeSubjectKey];
+        if (!sub) return;
+        currentTheoryPage = 0;
+        renderTheoryPage();
+        hideAllScreens();
+        document.getElementById("theory-screen").classList.remove("hidden");
+    }
+
+    function renderTheoryPage() {
+        let sub = database[activeSubjectKey];
+        let pages = sub.theoryPages || ["<p>Učivo se připravuje...</p>"];
+        
+        document.getElementById("theory-header-title").innerText = `📖 Sešit: ${activeSubjectTitle} (Strana ${currentTheoryPage + 1}/${pages.length})`;
+        document.getElementById("theory-content-box").innerHTML = pages[currentTheoryPage];
+
+        document.getElementById("prev-page-btn").style.visibility = currentTheoryPage === 0 ? "hidden" : "visible";
+        document.getElementById("next-page-btn").innerText = currentTheoryPage === pages.length - 1 ? "Dokončit čtení ➔" : "Další stránka ➡️";
+    }
+
+    function changeTheoryPage(direction) {
+        let sub = database[activeSubjectKey];
+        let pages = sub.theoryPages || [];
+        currentTheoryPage += direction;
+
+        if (currentTheoryPage >= pages.length) {
+            openWorkbookMode();
+        } else if (currentTheoryPage < 0) {
+            currentTheoryPage = 0;
+        } else {
+            renderTheoryPage();
+        }
+    }
+
+    function openWorkbookMode() {
+        let sub = database[activeSubjectKey];
+        if (!sub) return;
+        userAnswers = {};
+
+        document.getElementById("workbook-title").innerText = `Test: ${activeSubjectTitle}`;
+        document.getElementById("workbook-score").innerText = `⭐ Body: 0/${sub.items.length}`;
+
+        let box = document.getElementById("workbook-items-box");
+        let html = "";
+
+        sub.items.forEach((item, index) => {
+            html += `<div class="workbook-item" id="wb-item-${index}">
+                <div class="workbook-question"><strong>${index + 1}.</strong> ${item.q}</div>`;
+            
+            if (item.type === "spelling") {
+                html += `<input type="text" class="spelling-input" id="spelling-input-${index}" placeholder="Napište správný tvar..." oninput="checkSpelling(${index}, '${item.correct}')">
+                         <div id="spelling-feedback-${index}" style="font-weight:bold; margin-top:5px; font-size:14px;"></div>`;
+            } else {
+                let shuffledOpts = shuffleArray(item.options);
+                html += `<div class="workbook-options">`;
+                shuffledOpts.forEach(opt => {
+                    html += `<button class="wb-opt-btn" onclick="selectWorkbookAnswer(${index}, '${opt}', '${item.correct}', this)">${opt}</button>`;
+                });
+                html += `</div>`;
+            }
+            html += `</div>`;
+        });
+
+        box.innerHTML = html;
+        hideAllScreens();
+        document.getElementById("workbook-screen").classList.remove("hidden");
+    }
+
+    function selectWorkbookAnswer(itemIndex, selected, correct, btnElement) {
+        let parent = btnElement.parentElement;
+        let buttons = parent.getElementsByTagName("button");
+        for (let b of buttons) {
+            b.classList.remove("correct", "wrong");
+            b.disabled = true;
+        }
+
+        if (selected === correct) {
+            btnElement.classList.add("correct");
+            userAnswers[itemIndex] = true;
+        } else {
+            btnElement.classList.add("wrong");
+            for (let b of buttons) {
+                if (b.innerText === correct) b.classList.add("correct");
+            }
+        }
+
+        let totalCorrect = Object.values(userAnswers).filter(val => val === true).length;
+        let totalItems = database[activeSubjectKey].items.length;
+        document.getElementById("workbook-score").innerText = `⭐ Body: ${totalCorrect}/${totalItems}`;
+    }
+
+    function checkSpelling(itemIndex, correct) {
+        let val = document.getElementById(`spelling-input-${itemIndex}`).value.trim().toLowerCase();
+        let fb = document.getElementById(`spelling-feedback-${itemIndex}`);
+        if (val === correct.toLowerCase()) {
+            fb.innerText = "🎉 Správně!";
+            fb.style.color = "var(--success)";
+            userAnswers[itemIndex] = true;
+        } else {
+            fb.innerText = "Zatím nesprávně...";
+            fb.style.color = "var(--danger)";
+            userAnswers[itemIndex] = false;
+        }
+        let totalCorrect = Object.values(userAnswers).filter(val => val === true).length;
+        let totalItems = database[activeSubjectKey].items.length;
+        document.getElementById("workbook-score").innerText = `⭐ Body: ${totalCorrect}/${totalItems}`;
+    }
+
+    function finishWorkbook() {
+        let totalCorrect = Object.values(userAnswers).filter(val => val === true).length;
+        let totalItems = database[activeSubjectKey].items.length;
+        let scoreEarned = totalCorrect * 2;
+
+        saveLeaderboard(currentUser, scoreEarned, activeSubjectTitle, activeSubjectKey);
+        showAppAlert(`🎉 Výborně! Získal(a) jsi ${scoreEarned} bodů. Výsledek byl uložen.`);
+        showMenu();
+    }
+
+    // --- HRY ---
+    let fillIndex = 0, fillQuestions = [], fillScore = 0;
+    function startFillGame() {
+        if (!currentUser) { openStartPlayerModal(); return; }
+        fillIndex = 0; fillScore = 0;
+        fillQuestions = shuffleArray(fillDatabase).slice(0, 3);
+        hideAllScreens();
+        document.getElementById("fill-screen").classList.remove("hidden");
+        showFillQuestion();
+    }
+    function showFillQuestion() {
+        if (fillIndex >= fillQuestions.length) {
+            endFillGame();
+            return;
+        }
+        let fq = fillQuestions[fillIndex];
+        document.getElementById("fill-count").innerText = `✍️ Doplňovačka: ${fillIndex + 1}/3`;
+        document.getElementById("fill-score").innerText = `⭐ Body: ${fillScore}`;
+        document.getElementById("fill-title").innerText = fq.hint;
+        document.getElementById("fill-word-display").innerText = fq.display;
+        document.getElementById("fill-answer").value = "";
+        document.getElementById("fill-feedback").innerText = "";
+    }
+    function checkFillAnswer() {
+        let ans = document.getElementById("fill-answer").value.trim().toUpperCase();
+        let fq = fillQuestions[fillIndex];
+        let fb = document.getElementById("fill-feedback");
+        if (ans === fq.missing) {
+            fillScore += 2;
+            fb.innerText = "🎉 Správně!";
+            fb.style.color = "var(--success)";
+        } else {
+            fb.innerText = `❌ Chyba! Mělo být: ${fq.missing}`;
+            fb.style.color = "var(--danger)";
+        }
+        fillIndex++;
+        setTimeout(showFillQuestion, 1200);
+    }
+    function endFillGame() {
+        saveLeaderboard(currentUser, fillScore, "Doplňovačka ✍️", "fill");
+        showAppAlert(`🏆 Konec doplňovačky! Získal jsi ${fillScore} bodů.`);
+        showMenu();
+    }
+
+    let memoryCards = [], flippedCards = [], matchedPairs = 0, p1Score = 0, p2Score = 0, currentPlayer = 1, canFlip = true;
+    function openMemoryModal() {
+        if (!currentUser) { openStartPlayerModal(); return; }
+        document.getElementById("memory-modal").classList.remove("hidden");
+    }
+    function closeMemoryModal() { document.getElementById("memory-modal").classList.add("hidden"); }
+    function selectMemoryMode(mode) {
+        closeMemoryModal();
+        startMemoryGame();
+    }
+    function startMemoryGame() {
+        p1Score = 0; p2Score = 0; currentPlayer = 1; matchedPairs = 0; flippedCards = []; canFlip = true;
+        let emojis = ['🍎', '🍌', '🍇', '🍉', '🍓', '🍒'];
+        let pairCards = [...emojis, ...emojis].map((emoji, idx) => ({ id: idx, emoji: emoji, flipped: false, matched: false }));
+        memoryCards = shuffleArray(pairCards);
+        hideAllScreens();
+        document.getElementById("memory-screen").classList.remove("hidden");
+        renderMemoryBoard();
+    }
+    function renderMemoryBoard() {
+        let board = document.getElementById("memory-board");
+        board.innerHTML = "";
+        memoryCards.forEach((card, index) => {
+            let el = document.createElement("div");
+            el.className = `memory-card ${card.flipped ? 'flipped' : ''} ${card.matched ? 'matched' : ''}`;
+            el.innerText = (card.flipped || card.matched) ? card.emoji : "❓";
+            el.onclick = () => flipCard(index);
+            board.appendChild(el);
+        });
+        document.getElementById("memory-scores").innerText = `${currentUser}: ${p1Score}`;
+    }
+    function flipCard(index) {
+        if (!canFlip || memoryCards[index].flipped || memoryCards[index].matched) return;
+        memoryCards[index].flipped = true;
+        flippedCards.push(index);
+        renderMemoryBoard();
+        if (flippedCards.length === 2) {
+            canFlip = false;
+            let [i1, i2] = flippedCards;
+            if (memoryCards[i1].emoji === memoryCards[i2].emoji) {
+                memoryCards[i1].matched = true; memoryCards[i2].matched = true;
+                matchedPairs++; p1Score++;
+                flippedCards = []; canFlip = true;
+                renderMemoryBoard();
+                if (matchedPairs === 6) {
+                    saveLeaderboard(currentUser, p1Score * 2, "Pexeso 🃏", "memory");
+                    showAppAlert("🏆 Pexeso dokončeno!");
+                    showMenu();
+                }
+            } else {
+                setTimeout(() => {
+                    memoryCards[i1].flipped = false; memoryCards[i2].flipped = false;
+                    flippedCards = []; canFlip = true; renderMemoryBoard();
+                }, 1000);
+            }
+        }
+    }
+
+    let snakeInterval = null, snake = [], food = {}, dx = 15, dy = 0, nextDx = 15, nextDy = 0, snakeScore = 0, tileSize = 15;
+    function startSnakeGame() {
+        if (!currentUser) { openStartPlayerModal(); return; }
+        snakeScore = 0;
+        snake = [{x: 105, y: 105}, {x: 90, y: 105}, {x: 75, y: 105}];
+        dx = tileSize; dy = 0; nextDx = tileSize; nextDy = 0;
+        hideAllScreens();
+        document.getElementById("snake-screen").classList.remove("hidden");
+        spawnFood();
+        if (snakeInterval) clearInterval(snakeInterval);
+        snakeInterval = setInterval(mainSnakeLoop, 130);
+    }
+    function mainSnakeLoop() {
+        dx = nextDx; dy = nextDy;
+        let head = {x: snake[0].x + dx, y: snake[0].y + dy};
+        if (head.x < 0 || head.x >= 280 || head.y < 0 || head.y >= 280 || checkSnakeCollision(head)) {
+            clearInterval(snakeInterval);
+            saveLeaderboard(currentUser, snakeScore, "Had 🐍", "snake");
+            showAppAlert(`🐍 Konec hry Had! Skóre: ${snakeScore}`);
+            showMenu();
+            return;
+        }
+        snake.unshift(head);
+        if (Math.abs(head.x - food.x) < tileSize && Math.abs(head.y - food.y) < tileSize) {
+            snakeScore += 2; spawnFood();
+        } else { snake.pop(); }
+        drawSnakeGame();
+        document.getElementById("snake-score").innerText = `⭐ Skóre: ${snakeScore}`;
+    }
+    function spawnFood() {
+        let maxCount = Math.floor(280 / tileSize);
+        food = { x: Math.floor(Math.random() * maxCount) * tileSize, y: Math.floor(Math.random() * maxCount) * tileSize };
+    }
+    function checkSnakeCollision(head) {
+        for (let i = 1; i < snake.length; i++) { if (head.x === snake[i].x && head.y === snake[i].y) return true; }
+        return false;
+    }
+    function drawSnakeGame() {
+        const canvas = document.getElementById("snake-canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#0f172a"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#ef4444"; ctx.beginPath(); ctx.arc(food.x + tileSize/2, food.y + tileSize/2, tileSize/2 - 2, 0, 2 * Math.PI); ctx.fill();
+        snake.forEach((part, idx) => {
+            ctx.fillStyle = idx === 0 ? "#10b981" : "#34d399";
+            ctx.fillRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2);
+        });
+    }
+    function changeSnakeDir(dir) {
+        if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -tileSize; }
+        if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = tileSize; }
+        if (dir === 'LEFT' && dx === 0) { nextDx = -tileSize; nextDy = 0; }
+        if (dir === 'RIGHT' && dx === 0) { nextDx = tileSize; nextDy = 0; }
+    }
+
+    // --- UŽIVATELÉ A SKÓRE ---
+    function getStoredPasswords() { return JSON.parse(localStorage.getItem("school_passwords") || "{}"); }
+    function saveUserPassword(name, password) {
+        let pass = getStoredPasswords(); pass[name] = password;
+        localStorage.setItem("school_passwords", JSON.stringify(pass));
+    }
+    
+    function openStartPlayerModal() {
+        let rememberedUser = localStorage.getItem("school_current_active_user");
+        if (rememberedUser) {
+            currentUser = rememberedUser;
+            document.getElementById("current-user-display").innerText = currentUser;
+            loadLeaderboard(); return;
+        }
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        let listHtml = "", uniquePlayers = {};
+        board.forEach(item => { if (item.name) uniquePlayers[item.name] = true; });
+        let playerNames = Object.keys(uniquePlayers);
+        if (playerNames.length === 0) { listHtml = "<p style='color:#64748b; font-size:13px; text-align:center;'>Zatím žádní uložení žáci.</p>"; }
+        else {
+            playerNames.forEach(name => {
+                listHtml += `<div class="score-item-detailed" onclick="requestLoginPassword('${name}')" style="cursor:pointer;">
+                    <span>🔒 <strong>${name}</strong></span><span style="color:var(--primary); font-weight:bold;">Zvolit ➔</span>
+                </div>`;
+            });
+        }
+        document.getElementById("modal-player-list").innerHTML = listHtml;
+        document.getElementById("start-player-modal").classList.remove("hidden");
+    }
+
+    function createNewUserWithPassword() {
+        let nameInput = document.getElementById("modal-username-input").value.trim();
+        let passInput = document.getElementById("modal-password-input").value.trim();
+        if (!nameInput || !passInput) { showAppAlert("⚠️ Zadej jméno i heslo!"); return; }
+        saveUserPassword(nameInput, passInput);
+        currentUser = nameInput;
+        localStorage.setItem("school_current_active_user", currentUser);
+        document.getElementById("current-user-display").innerText = currentUser;
+        document.getElementById("start-player-modal").classList.add("hidden");
+        loadLeaderboard();
+    }
+
+    function requestLoginPassword(name) {
+        pendingPlayerToLogin = name;
+        document.getElementById("login-password-title").innerText = `Zadej heslo pro: ${name}`;
+        document.getElementById("check-password-input").value = "";
+        document.getElementById("start-player-modal").classList.add("hidden");
+        document.getElementById("login-password-modal").classList.remove("hidden");
+    }
+
+    function verifyLoginPassword() {
+        let enteredPass = document.getElementById("check-password-input").value.trim();
+        let passwords = getStoredPasswords();
+        if (passwords[pendingPlayerToLogin] === enteredPass) {
+            currentUser = pendingPlayerToLogin;
+            localStorage.setItem("school_current_active_user", currentUser);
+            document.getElementById("current-user-display").innerText = currentUser;
+            document.getElementById("login-password-modal").classList.add("hidden");
+            loadLeaderboard();
+        } else { showAppAlert("❌ Nesprávné heslo!"); }
+    }
+
+    function closeLoginPasswordModal() { document.getElementById("login-password-modal").classList.add("hidden"); openStartPlayerModal(); }
+    
+    function closeStartPlayerModal() { 
+        if (!currentUser) { 
+            currentUser = "Hráč";
+            localStorage.setItem("school_current_active_user", currentUser);
+            document.getElementById("current-user-display").innerText = currentUser;
+        } 
+        document.getElementById("start-player-modal").classList.add("hidden"); 
+    }
+
+    function forceCloseModal() {
+        currentUser = "Hráč";
+        localStorage.setItem("school_current_active_user", currentUser);
+        document.getElementById("current-user-display").innerText = currentUser;
+        document.getElementById("start-player-modal").classList.add("hidden");
+        document.getElementById("login-password-modal").classList.add("hidden");
+        document.getElementById("password-modal").classList.add("hidden");
+        document.getElementById("memory-modal").classList.add("hidden");
+    }
+
+    function emergencyReset() {
+        if (confirm("Opravdu vymazat paměť a restartovat aplikaci?")) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+
+    function hideAllScreens() {
+        if (snakeInterval) clearInterval(snakeInterval);
+        document.getElementById("menu-screen").classList.add("hidden");
+        document.getElementById("class4-screen").classList.add("hidden");
+        document.getElementById("class6-screen").classList.add("hidden");
+        document.getElementById("subject-hub-screen").classList.add("hidden");
+        document.getElementById("theory-screen").classList.add("hidden");
+        document.getElementById("workbook-screen").classList.add("hidden");
+        document.getElementById("memory-screen").classList.add("hidden");
+        document.getElementById("snake-screen").classList.add("hidden");
+        document.getElementById("fill-screen").classList.add("hidden");
+    }
+
+    function showMenu() {
+        hideAllScreens();
+        document.getElementById("menu-screen").classList.remove("hidden");
+        loadLeaderboard();
+    }
+
+    function saveLeaderboard(name, pts, subjectName, subjectKey) {
+        if (!name) return;
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        board.unshift({ name: name, score: pts, subject: subjectName, subjectKey: subjectKey, date: new Date().toLocaleDateString() });
+        localStorage.setItem("school_leaderboard", JSON.stringify(board));
+        loadLeaderboard();
+    }
+
+    function loadLeaderboard() {
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        let playerTotals = {};
+        board.forEach(item => { if (item.name) playerTotals[item.name] = (playerTotals[item.name] || 0) + item.score; });
+        let sortedPlayers = Object.keys(playerTotals).map(name => ({ name: name, totalScore: playerTotals[name] })).sort((a,b) => b.totalScore - a.totalScore);
+        let playerBox = document.getElementById("player-leaderboard-box");
+        if (sortedPlayers.length === 0) { playerBox.innerHTML = "<p style='color:#64748b; font-size:12px; text-align:center;'>Zatím žádné skóre.</p>"; }
+        else {
+            let medals = ["🥇", "🥈", "🥉"], html = "";
+            sortedPlayers.forEach((p, idx) => {
+                let badge = idx < 3 ? medals[idx] : ` #${idx+1}`;
+                html += `<div class="score-item-detailed"><span><strong>${badge} ${p.name}</strong></span><span style="color:#059669; font-weight:bold;">Celkem: ${p.totalScore} ⭐</span></div>`;
+            });
+            playerBox.innerHTML = html;
+        }
+    }
+
+    function promptResetLeaderboard() { document.getElementById("reset-password-input").value = ""; document.getElementById("password-modal").classList.remove("hidden"); }
+    function closePasswordModal() { document.getElementById("password-modal").classList.add("hidden"); }
+    
+    function verifyResetPassword() {
+        let pass = document.getElementById("reset-password-input").value.trim();
+        if (pass === "9876") {
+            localStorage.removeItem("school_leaderboard"); localStorage.removeItem("school_passwords"); localStorage.removeItem("school_current_active_user");
+            currentUser = ""; document.getElementById("current-user-display").innerText = "Zatím nikdo";
+            loadLeaderboard(); closePasswordModal(); showAppAlert("🗑️ Úspěšně vymazáno!"); openStartPlayerModal();
+        } else { showAppAlert("❌ Nesprávné heslo!"); }
+    }
+
+    window.onload = function() { openStartPlayerModal(); };
+</script>
+
+</body>
+</html>
