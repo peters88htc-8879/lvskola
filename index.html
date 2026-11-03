@@ -275,7 +275,7 @@
 
     <!-- HLAVNÍ MENU -->
     <div id="menu-screen">
-        <div class="version-badge">🚀 Verze 8.6 (Oprava tlačítek & interaktivita)</div>
+        <div class="version-badge">🚀 Verze 8.7 (Rozšířená databáze & algoritmus proti opakování)</div>
         <h1>🌟 Celoroční Digitální Sešit & Učebnice 🎓</h1>
 
         <h3>📁 Výběr ročníku:</h3>
@@ -425,7 +425,7 @@
         <div id="workbook-feedback" style="font-weight: bold; font-size: 18px; margin: 12px 0; min-height: 28px;"></div>
 
         <div id="workbook-end-actions" class="hidden" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
-            <button class="btn btn-success" onclick="startWorkbookMode()">🔄 Spustit test znovu (nové míchání)</button>
+            <button class="btn btn-success" onclick="startWorkbookMode()">🔄 Spustit test znovu (nové míchání z velké zásoby)</button>
             <button class="btn btn-warning" onclick="backToHub()">📑 Zpět do nabídky předmětu</button>
         </div>
 
@@ -509,6 +509,9 @@
     let currentTestIndex = 0;
     let testScore = 0;
 
+    // Sledování historie otázek pro eliminaci okamžiků opakování za sebou
+    let questionHistory = {};
+
     function shuffleArray(array) {
         let arr = [...array];
         for (let i = arr.length - 1; i > 0; i--) {
@@ -516,6 +519,26 @@
             [arr[i], arr[j]] = [arr[j], arr[i]];
         }
         return arr;
+    }
+
+    // Pokročilý výběr otázek zaručující rotaci bez opakování v krátkém sledu
+    function getRotatedQuestions(subjectKey, allItems) {
+        if (!questionHistory[subjectKey]) {
+            questionHistory[subjectKey] = [];
+        }
+        
+        let shuffled = shuffleArray(allItems);
+        // Vybereme např. 10 otázek z velké zásoby, preferujeme ty, které nebyly použity minule
+        let pool = shuffled.filter(item => !questionHistory[subjectKey].includes(item.q));
+        if (pool.length < 10) {
+            // Pokud dojdou, resetujeme historii
+            questionHistory[subjectKey] = [];
+            pool = shuffled;
+        }
+        
+        let selected = shuffleArray(pool).slice(0, 10);
+        questionHistory[subjectKey] = selected.map(i => i.q);
+        return selected;
     }
 
     const database = {
@@ -535,7 +558,12 @@
                 {q: "Doplňte předponu: _hasit oheň", options: ["Z", "S"], correct: "Z"},
                 {q: "Které slovo je podstatným jménem?", options: ["stůl", "běžet", "velmi"], correct: "stůl"},
                 {q: "Jaké i/y píšeme ve slově: v_t (vítr fouká)?", options: ["í", "ý"], correct: "í"},
-                {q: "Jaké i/y píšeme ve slově: m_t (umývat nádobí)?", options: ["ý", "í"], correct: "ý"}
+                {q: "Jaké i/y píšeme ve slově: m_t (umývat nádobí)?", options: ["ý", "í"], correct: "ý"},
+                {q: "Vyjmenované slovo po L: l_že", options: ["ý", "í"], correct: "ý"},
+                {q: "Vyjmenované slovo po Z: z_tek", options: ["ý", "í"], correct: "ý"},
+                {q: "Urči slovní druh slova 'rychle':", options: ["příslovce", "přídavné jméno", "sloveso"], correct: "příslovce"},
+                {q: "Urči slovní druh slova 'zpívat':", options: ["sloveso", "podstatné jméno", "předložka"], correct: "sloveso"},
+                {q: "Jaké i/y píšeme ve slově: ml_n?", options: ["ý", "í"], correct: "ý"}
             ]
         },
         eng4_all: {
@@ -553,7 +581,12 @@
                 {q: "Anglicky 'kočka' je:", options: ["cat", "dog", "cow"], correct: "cat"},
                 {q: "Anglicky 'kniha' je:", options: ["book", "notebook", "pen"], correct: "book"},
                 {q: "Anglicky 'červená' barva je:", options: ["red", "blue", "green"], correct: "red"},
-                {q: "Anglicky 'zelená' barva je:", options: ["green", "yellow", "black"], correct: "green"}
+                {q: "Anglicky 'zelená' barva je:", options: ["green", "yellow", "black"], correct: "green"},
+                {q: "Anglicky 'slunce' je:", options: ["sun", "moon", "star"], correct: "sun"},
+                {q: "Anglicky 'voda' je:", options: ["water", "milk", "juice"], correct: "water"},
+                {q: "Anglicky 'dům' je:", options: ["house", "school", "park"], correct: "house"},
+                {q: "Anglicky 'auto' je:", options: ["car", "bus", "bike"], correct: "car"},
+                {q: "Anglicky 'mléko' je:", options: ["milk", "water", "tea"], correct: "milk"}
             ]
         },
         eng4_vocab: {
@@ -571,7 +604,9 @@
                 {q: "Jak je anglicky 'dům'?", options: ["house", "school", "park"], correct: "house"},
                 {q: "Jak se řekne anglicky 'auto'?", options: ["car", "bus", "bike"], correct: "car"},
                 {q: "Jak je anglicky 'mléko'?", options: ["milk", "water", "tea"], correct: "milk"},
-                {q: "Jak je anglicky 'stůl'?", options: ["table", "chair", "bed"], correct: "table"}
+                {q: "Jak je anglicky 'stůl'?", options: ["table", "chair", "bed"], correct: "table"},
+                {q: "Jak je anglicky 'tužka'?", options: ["pencil", "pen", "book"], correct: "pencil"},
+                {q: "Jak je anglicky 'pták'?", options: ["bird", "dog", "cat"], correct: "bird"}
             ]
         },
         math4: {
@@ -589,7 +624,9 @@
                 {q: "Vypočítejte: 120 + 340 =", options: ["460", "450", "470"], correct: "460"},
                 {q: "Kolik je 9 · 9?", options: ["81", "72", "90"], correct: "81"},
                 {q: "Vyřešte rovnici: x - 20 = 50. Kolik je x?", options: ["70", "30", "50"], correct: "70"},
-                {q: "Vypočítejte: 500 - 120 =", options: ["380", "390", "480"], correct: "380"}
+                {q: "Vypočítejte: 500 - 120 =", options: ["380", "390", "480"], correct: "380"},
+                {q: "Kolik je 6 · 7?", options: ["42", "36", "48"], correct: "42"},
+                {q: "Kolik je 72 děleno 8?", options: ["9", "8", "7"], correct: "9"}
             ]
         },
         geom4: {
@@ -604,9 +641,7 @@
                          <text x="245" y="105" font-size="16" font-weight="bold" fill="#1e1b4b">B</text>
                          <text x="110" y="45" font-size="15" font-weight="bold" fill="#059669">Úsečka AB (|AB|)</text>
                      </svg>
-                 </div>`,
-                `<h3>📖 2. Obvod čtverce a obdélníku</h3>
-                 <p>Obvod (o) spočítáme sečtením délek všech stran:</p>`
+                 </div>`
             ],
             items: [
                 {
@@ -714,7 +749,7 @@
         math4_column: {
             title: "4. třída: Počítání pod sebou",
             theoryPages: [
-                `<h3>📖 Písemné sčítání a odčítání pod sebou</h3><p>Zápis jednotek pod jednotky, desítek pod desítky a stovek pod stovky.</p>`
+                `<h3>📖 Písemné sčítání a odčítání pod sebou</h3>`
             ],
             items: [
                 { layout: "column", title: "Vypočítej pod sebou:", num1: "348", op: "+", num2: "225", options: ["573", "563", "583"], correct: "573" },
@@ -726,7 +761,9 @@
                 { layout: "column", title: "Vypočítej pod sebou:", num1: "219", op: "+", num2: "381", options: ["600", "590", "610"], correct: "600" },
                 { layout: "column", title: "Vypočítej pod sebou:", num1: "950", op: "-", num2: "372", options: ["578", "588", "568"], correct: "578" },
                 { layout: "column", title: "Vypočítej pod sebou:", num1: "444", op: "+", num2: "333", options: ["777", "767", "787"], correct: "777" },
-                { layout: "column", title: "Vypočítej pod sebou:", num1: "602", op: "-", num2: "145", options: ["457", "467", "447"], correct: "457" }
+                { layout: "column", title: "Vypočítej pod sebou:", num1: "602", op: "-", num2: "145", options: ["457", "467", "447"], correct: "457" },
+                { layout: "column", title: "Vypočítej pod sebou:", num1: "523", op: "+", num2: "278", options: ["801", "791", "811"], correct: "801" },
+                { layout: "column", title: "Vypočítej pod sebou:", num1: "901", op: "-", num2: "432", options: ["469", "479", "459"], correct: "469" }
             ]
         },
         sci4: {
@@ -744,7 +781,9 @@
                 {q: "Který orgán v lidském těle pumpuje krev?", options: ["Srdce", "Plíce", "Játra"], correct: "Srdce"},
                 {q: "Jaké skupenství má voda při mrznutí?", options: ["Pevné", "Kapalné", "Plynné"], correct: "Pevné"},
                 {q: "Který zvířecí druh patří mezi obojživelníky?", options: ["Skokan zelený", "Had", "Ještěrka"], correct: "Skokan zelený"},
-                {q: "Kolik planet má naše Sluneční soustava?", options: ["8", "9", "7"], correct: "8"}
+                {q: "Kolik planet má naše Sluneční soustava?", options: ["8", "9", "7"], correct: "8"},
+                {q: "Která planeta je největší v soustavě?", options: ["Jupiter", "Saturn", "Země"], correct: "Jupiter"},
+                {q: "Který plyn rostliny uvolňují při fotosyntéze?", options: ["Kyslík", "Oxid uhličitý", "Dusík"], correct: "Kyslík"}
             ]
         },
         eng6_project: {
@@ -762,14 +801,15 @@
                 {q: "Project 1 (Unit 4): Ona vaří oběd teď -> She is ___ lunch.", options: ["cooking", "cook", "cooks", "cooked"], correct: "cooking"},
                 {q: "Project 1 (Unit 5): Pro jednotné číslo místa ve městě používáme vazbu There ___", options: ["is", "are", "have"], correct: "is"},
                 {q: "Project 1 (Unit 6): Minulý čas slovesa 'to be' pro I a he/she/it je:", options: ["was", "were", "been", "is"], correct: "was"},
-                {q: "Project 1 (Starter): Jak se anglicky řekne úvodní 'Jak se máš?'", options: ["How are you?", "Who are you?", "What is you?", "Where are you?"], correct: "How are you?"}
+                {q: "Project 1 (Starter): Jak se anglicky řekne úvodní 'Jak se máš?'", options: ["How are you?", "Who are you?", "What is you?", "Where are you?"], correct: "How are you?"},
+                {q: "Project 1 (Unit 2): Kolik hodin je? What time ___ it?", options: ["is", "are", "have", "do"], correct: "is"},
+                {q: "Project 1 (Unit 4): Co děláš o víkendu? What do you ___?", options: ["do", "does", "doing", "is"], correct: "do"}
             ]
         },
         eng6_family: {
             title: "6. třída: Rodinní příslušníci a širší rodina (Family members)",
             theoryPages: [
-                `<h3>📖 Rozšířená rodina a příbuzní v angličtině</h3>
-                 <p>V 6. třídě se učíme detailní názvy rodinných příslušníků včetně širší rodiny a vztahů ze sňatku (švagr, švagrová, tchyně, neteř, synovci atd.).</p>`
+                `<h3>📖 Rozšířená rodina a příbuzní v angličtině</h3>`
             ],
             items: [
                 {q: "Jak je anglicky 'švagr'?", options: ["brother-in-law", "stepfather", "uncle"], correct: "brother-in-law"},
@@ -781,14 +821,15 @@
                 {q: "Co znamená anglické slovo 'stepmother'?", options: ["nevlastní matka", "babička", "teta"], correct: "nevlastní matka"},
                 {q: "Jak je anglicky 'strýc'?", options: ["uncle", "nephew", "cousin"], correct: "uncle"},
                 {q: "Jak je anglicky 'teta'?", options: ["aunt", "niece", "sister"], correct: "aunt"},
-                {q: "Co znamená 'cousin' v rodinných vztazích?", options: ["bratranec nebo sestřenice", "synovec", "vnuk"], correct: "bratranec nebo sestřenice"}
+                {q: "Co znamená 'cousin' v rodinných vztazích?", options: ["bratranec nebo sestřenice", "synovec", "vnuk"], correct: "bratranec nebo sestřenice"},
+                {q: "Jak je anglicky 'nevlastní otec'?", options: ["stepfather", "grandfather", "uncle"], correct: "stepfather"},
+                {q: "Jak je anglicky 'vnuk'?", options: ["grandson", "granddaughter", "nephew"], correct: "grandson"}
             ]
         },
         eng6_vocab: {
             title: "6. třída: Velký test slovní zásoby (Project Explore 1)",
             theoryPages: [
-                `<h3>📖 Velká slovní zásoba (Project Explore 1 - Units 1 až 6)</h3>
-                 <p>Rozsáhlý souhrn slovíček z celé učebnice: škola, volný čas, denní režim, nakupování, jídlo, počasí, domov a města.</p>`
+                `<h3>📖 Velká slovní zásoba (Project Explore 1 - Units 1 až 6)</h3>`
             ],
             items: [
                 {q: "Co znamená anglické slovo 'library'?", options: ["knihovna", "obchod", "nemocnice", "lékárna"], correct: "knihovna"},
@@ -800,13 +841,15 @@
                 {q: "Co znamená přídavné jméno 'crowded'?", options: ["přelidněný / plný lidí", "prázdný", "špinavý", "tichý"], correct: "přelidněný / plný lidí"},
                 {q: "Jak je anglicky 'supermarket'?", options: ["supermarket", "chemist's", "newsagent's", "bakery"], correct: "supermarket"},
                 {q: "Co znamená anglické slovo 'subject'?", options: ["školní předmět", "objekt", "úkol", "sešit"], correct: "školní předmět"},
-                {q: "Jak se anglicky řekne 'oběd'?", options: ["lunch", "breakfast", "dinner", "supper"], correct: "lunch"}
+                {q: "Jak se anglicky řekne 'oběd'?", options: ["lunch", "breakfast", "dinner", "supper"], correct: "lunch"},
+                {q: "Jak je anglicky 'lékárna'?", options: ["chemist's", "library", "supermarket", "museum"], correct: "chemist's"},
+                {q: "Co znamená anglické slovo 'weather'?", options: ["počasí", "podnebí", "větrno", "hodiny"], correct: "počasí"}
             ]
         },
         cz6_gram: {
             title: "Český jazyk (6. třída - Shoda přísudku a vzory)",
             theoryPages: [
-                `<h3>📖 1. Shoda přísudku s podmětem</h3><p>Mužský životný rod vyžaduje měkké -i, ženský tvrdé -y.</p>`
+                `<h3>📖 1. Shoda přísudku s podmětem</h3>`
             ],
             items: [
                 {q: "Doplň i/y: Chlapci si hrál_ na hřišti.", options: ["i", "y"], correct: "i"},
@@ -818,13 +861,15 @@
                 {q: "Který vzor je střední?", options: ["stavení", "píseň", "pán"], correct: "stavení"},
                 {q: "Urči rod slova 'předseda':", options: ["mužský", "ženský", "střední"], correct: "mužský"},
                 {q: "Doplň i/y: Koně pobíhal_ po louce.", options: ["i", "y"], correct: "i"},
-                {q: "Doplň i/y: Okna byla umyt_.", options: ["a", "y"], correct: "a"}
+                {q: "Doplň i/y: Okna byla umyt_.", options: ["a", "y"], correct: "a"},
+                {q: "Který vzor je mužský neživotný?", options: ["hrad", "pán", "žena"], correct: "hrad"},
+                {q: "Doplň i/y: Děti si hrál_ venku.", options: ["y", "i"], correct: "y"}
             ]
         },
         math6: {
             title: "Matematika (6. třída - Rovnice, Desetinná čísla)",
             theoryPages: [
-                `<h3>📖 1. Desetinná čísla a rovnice</h3><p>Sčítání desetinných čísel a řešení rovnic.</p>`
+                `<h3>📖 1. Desetinná čísla a rovnice</h3>`
             ],
             items: [
                 {q: "Vyřešte rovnici: 3x = 21. Kolik je x?", options: ["7", "6", "8"], correct: "7"},
@@ -836,14 +881,15 @@
                 {q: "Vypočítejte: 3,2 · 3 =", options: ["9,6", "9,3", "6,6"], correct: "9,6"},
                 {q: "Jaký je zlomek jedné poloviny zapsaný desetinným číslem?", options: ["0,5", "0,2", "0,1"], correct: "0,5"},
                 {q: "Vypočítejte: 48 děleno 0,8 =", options: ["60", "6", "600"], correct: "60"},
-                {q: "Kolik procent je jedna čtvrtina?", options: ["25 %", "50 %", "20 %"], correct: "25 %"}
+                {q: "Kolik procent je jedna čtvrtina?", options: ["25 %", "50 %", "20 %"], correct: "25 %"},
+                {q: "Vypočítejte: 15,2 + 4,8 =", options: ["20,0", "19,0", "20,2"], correct: "20,0"},
+                {q: "Vyřešte rovnici: 4x = 32. Kolik je x?", options: ["8", "7", "9"], correct: "8"}
             ]
         },
         geom6: {
             title: "Geometrie (6. třída - Úhly, Osová souměrnost)",
             theoryPages: [
-                `<h3>📖 1. Měření a rýsování úhlů úhloměrem</h3>
-                 <p>Úhly dělíme na ostré, pravé, tupé a přímé.</p>`
+                `<h3>📖 1. Měření a rýsování úhlů úhloměrem</h3>`
             ],
             items: [
                 {
@@ -963,7 +1009,9 @@
                 { layout: "column", title: "Vypočítej pod sebou:", num1: "234,5", op: "+", num2: "111,1", options: ["345,6", "344,6", "346,6"], correct: "345,6" },
                 { layout: "column", title: "Vypočítej pod sebou:", num1: "88,2", op: "-", num2: "45,1", options: ["43,1", "42,1", "44,1"], correct: "43,1" },
                 { layout: "column", title: "Vypočítej pod sebou:", num1: "7,5", op: "·", num2: "2", options: ["15,0", "14,5", "16,0"], correct: "15,0" },
-                { layout: "column", title: "Vypočítej pod sebou:", num1: "500,2", op: "-", num2: "123,4", options: ["376,8", "375,8", "386,8"], correct: "376,8" }
+                { layout: "column", title: "Vypočítej pod sebou:", num1: "500,2", op: "-", num2: "123,4", options: ["376,8", "375,8", "386,8"], correct: "376,8" },
+                { layout: "column", title: "Vypočítej pod sebou:", num1: "64,2", op: "+", num2: "18,9", options: ["83,1", "82,1", "84,1"], correct: "83,1" },
+                { layout: "column", title: "Vypočítej pod sebou:", num1: "4,5", op: "·", num2: "6", options: ["27,0", "26,5", "27,5"], correct: "27,0" }
             ]
         },
         phy6: {
@@ -981,7 +1029,9 @@
                 {q: "V jakých jednotkách měříme objem kapalin v praxi?", options: ["Litry", "Metry", "Gramy"], correct: "Litry"},
                 {q: "Která látka je za normálních podmínek v plynonném skupenství?", options: ["Kyslík", "Voda", "Železo"], correct: "Kyslík"},
                 {q: "Jaký přístroj slouží k měření teploty?", options: ["Teploměr", "Voměr", "Tlakoměr"], correct: "Teploměr"},
-                {q: "Co je to hustota látky?", options: ["Hmotnost objemu jednotky", "Celková váha", "Objem tělesa"], correct: "Hmotnost objemu jednotky"}
+                {q: "Co je to hustota látky?", options: ["Hmotnost objemu jednotky", "Celková váha", "Objem tělesa"], correct: "Hmotnost objemu jednotky"},
+                {q: "Jaká je jednotka hmotnosti v soustavě SI?", options: ["Kilogram", "Gram", "Tuna"], correct: "Kilogram"},
+                {q: "Jakou značku má fyzikální veličina síla?", options: ["F", "s", "m", "t"], correct: "F"}
             ]
         },
         shared_test: {
@@ -1004,7 +1054,10 @@
                 {q: "Kolik měsíců má jeden kalendářní rok?", options: ["12", "10", "24", "7"], correct: "12"},
                 {q: "Který stát je největší na světě podle rozlohy?", options: ["Rusko", "Kanada", "Čína", "Spojené státy"], correct: "Rusko"},
                 {q: "Jaké je nejhlubší jezero na světě?", options: ["Bajkal", "Tahoe", "Lamanšský průliv", "Kaspické moře"], correct: "Bajkal"},
-                {q: "Kdo byl prvním československým prezidentem?", options: ["T. G. Masaryk", "Václav Havel", "Edvard Beneš", "Klement Gottwald"], correct: "T. G. Masaryk"}
+                {q: "Kdo byl prvním československým prezidentem?", options: ["T. G. Masaryk", "Václav Havel", "Edvard Beneš", "Klement Gottwald"], correct: "T. G. Masaryk"},
+                {q: "Který kontinent je nejteplejší na Zemi?", options: ["Afrika", "Asie", "Austrálie"], correct: "Afrika"},
+                {q: "Jaký je nejvyšší vrchol světa?", options: ["Mount Everest", "K2", "Mont Blanc"], correct: "Mount Everest"},
+                {q: "Kolik strun má standardní kytara?", options: ["6", "4", "5", "12"], correct: "6"}
             ]
         }
     };
@@ -1150,7 +1203,8 @@
         let sub = database[activeSubjectKey];
         if (!sub) return;
 
-        testQuestionsQueue = shuffleArray(sub.items);
+        // Použití nového algoritmu proti opakování otázek ze zásoby
+        testQuestionsQueue = getRotatedQuestions(activeSubjectKey, sub.items);
         currentTestIndex = 0;
         testScore = 0;
 
