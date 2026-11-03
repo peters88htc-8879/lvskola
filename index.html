@@ -62,7 +62,7 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.06), inset 0 3px 5px rgba(255,255,255,0.8);
         }
 
-        input[type="text"] {
+        input[type="text"], input[type="password"] {
             width: 85%;
             padding: 14px;
             font-size: 18px;
@@ -78,7 +78,7 @@
             transition: all 0.3s;
         }
 
-        input[type="text"]:focus {
+        input[type="text"]:focus, input[type="password"]:focus {
             border-color: var(--primary);
             box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
         }
@@ -420,7 +420,7 @@
         <div class="score-board">
             <h4 style="margin-bottom:12px;">
                 <span>🥇 Žebříček spoluhráčů:</span>
-                <button onclick="resetLeaderboard()" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:10px; cursor:pointer; font-size:13px; font-weight:bold;">🗑️ Vynulovat skóre</button>
+                <button onclick="promptResetLeaderboard()" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:10px; cursor:pointer; font-size:13px; font-weight:bold;">🗑️ Vynulovat skóre</button>
             </h4>
             <div id="player-leaderboard-box" style="margin-bottom: 15px;"></div>
 
@@ -477,11 +477,11 @@
         <hr style="border: 1px solid #cbd5e1; margin: 12px 0;">
 
         <div class="question-card" id="fill-card-box">
-            <h2 id="fill-title" style="margin:0; font-size:20px;">Doplň písmeno</h2>
+            <h2 id="fill-title" style="margin:0; font-size:20px;">Doplň chybějící písmeno</h2>
             <div id="fill-word-display" style="font-size: 34px; font-weight: 700; letter-spacing: 6px; margin: 15px 0; color: #4f46e5;"></div>
         </div>
 
-        <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno...">
+        <input type="text" id="fill-answer" placeholder="Napiš písmeno...">
         <button class="btn btn-success" onclick="checkFillAnswer()">✅ Zkontrolovat</button>
         <div id="fill-feedback"></div>
         <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
@@ -560,10 +560,25 @@
         </div>
 
         <hr style="border: 1px solid #cbd5e1; margin: 15px 0;">
-        <p style="font-size:15px; font-weight:700; color:#b45309; margin-bottom:10px;">Nabo klikni na stávajícího hráče:</p>
+        <p style="font-size:15px; font-weight:700; color:#b45309; margin-bottom:10px;">Nebo klikni na stávajícího hráče:</p>
         <div id="modal-player-list" style="max-height: 150px; overflow-y: auto; text-align: left; margin-bottom: 15px;"></div>
 
         <button class="btn btn-warning" onclick="closeStartPlayerModal()" id="close-modal-btn">Zavřít</button>
+    </div>
+</div>
+
+<!-- MODAL: HESLO PRO VYNULOVÁNÍ -->
+<div id="password-modal" class="modal hidden">
+    <div class="modal-content">
+        <h3 style="color:#ef4444; margin-top:0;">🔒 Zabezpečené vymazání skóre</h3>
+        <p style="font-size:15px; color:#475569; margin-bottom:15px;">Pro vynulování skóre zadejte heslo:</p>
+        
+        <div style="margin-bottom: 15px;">
+            <input type="password" id="reset-password-input" placeholder="Zadej heslo..." style="width:100%;">
+            <button class="btn btn-danger" onclick="verifyResetPassword()" style="margin-top: 12px;">🗑️ Potvrdit vymazání</button>
+        </div>
+
+        <button class="btn btn-warning" onclick="closePasswordModal()">Zavřít</button>
     </div>
 </div>
 
@@ -733,7 +748,14 @@
         { word: "APPLE", hint: "Anglicky: Jablko", missing: "P", display: "A_PLE" },
         { word: "BYSTRÝ", hint: "Vyjmenované slovo po B", missing: "Y", display: "B_STRÝ" },
         { word: "NEWTON", hint: "Jednotka síly (F)", missing: "W", display: "NE_TON" },
-        { word: "METR", hint: "Základní jednotka délky", missing: "T", display: "ME_R" }
+        { word: "METR", hint: "Základní jednotka délky", missing: "T", display: "ME_R" },
+        { word: "PÝCHA", hint: "Vyjmenované slovo po P", missing: "Ý", display: "P_ÝCHA" },
+        { word: "SLUNCE", hint: "Naše nejbližší hvězda", missing: "L", display: "S_UNCE" },
+        { word: "WATER", hint: "Anglicky: Voda", missing: "A", display: "W_TER" },
+        { word: "FAMILY", hint: "Anglicky: Rodina", missing: "M", display: "FA_ILY" },
+        { word: "KOTLÍK", hint: "Slovo po K", missing: "T", display: "KOT_ÍK" },
+        { word: "JAHODA", hint: "Červené letní ovoce", missing: "H", display: "JA_ODA" },
+        { word: "TEPLOMĚR", hint: "Měří teplotu", missing: "M", display: "TEPLO_ĚR" }
     ];
 
     function openLevelModal(subjectKey, subjectTitle) {
@@ -926,7 +948,7 @@
     function startFillGame() {
         if (!currentUser) { openStartPlayerModal(); return; }
         fillIndex = 0; fillScore = 0;
-        fillQuestions = shuffleArray(fillDatabase);
+        fillQuestions = shuffleArray(fillDatabase).slice(0, 5);
         hideAllScreens();
         document.getElementById("fill-screen").classList.remove("hidden");
         showFillQuestion();
@@ -1270,7 +1292,6 @@
     function loadLeaderboard() {
         let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
 
-        // 1. ŽEBŘÍČEK SPOLUHRÁČŮ (Celkové body)
         let playerTotals = {};
         board.forEach(item => {
             if (item.name) {
@@ -1299,7 +1320,6 @@
             playerBox.innerHTML = html;
         }
 
-        // 2. TOP 3 VÝSLEDKY DLE PŘEDMĚTŮ (Hráč, Kolo, Skóre)
         const keys = ['math', 'eng', 'cz', 'phy'];
         keys.forEach(key => {
             let accBox = document.getElementById("acc-" + key);
@@ -1322,13 +1342,29 @@
         });
     }
 
-    function resetLeaderboard() {
-        if (confirm("Opravdu chceš vymazat historii skóre a výsledků?")) {
+    // OTEVŘENÍ OKNA PRO ZADÁNÍ HESLA
+    function promptResetLeaderboard() {
+        document.getElementById("reset-password-input").value = "";
+        document.getElementById("password-modal").classList.remove("hidden");
+    }
+
+    function closePasswordModal() {
+        document.getElementById("password-modal").classList.add("hidden");
+    }
+
+    // OVĚŘENÍ HESLA A VYNULOVÁNÍ
+    function verifyResetPassword() {
+        let pass = document.getElementById("reset-password-input").value.trim();
+        if (pass === "9876") {
             localStorage.removeItem("school_leaderboard");
             currentUser = "";
             document.getElementById("current-user-display").innerText = "Zatím nikdo";
             loadLeaderboard();
+            closePasswordModal();
+            showAppAlert("🗑️ Skóre bylo úspěšně vymazáno!");
             openStartPlayerModal();
+        } else {
+            showAppAlert("❌ Nesprávné heslo!");
         }
     }
 
