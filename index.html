@@ -11,9 +11,9 @@
             --success: #059669;
             --danger: #dc2626;
             --accent: #d97706;
-            --bg-gradient: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%);
-            --card-bg: #f8fafc;
-            --text-color: #1e293b;
+            --bg-gradient: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            --card-bg: #e6f4f1; /* Světle modrozelená pro samotnou hru */
+            --text-color: #0f172a;
         }
 
         * { box-sizing: border-box; }
@@ -23,7 +23,7 @@
             background: var(--bg-gradient);
             background-attachment: fixed;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -33,29 +33,29 @@
 
         .container {
             background: var(--card-bg);
-            padding: 30px;
+            padding: 25px;
             border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             width: 100%;
             max-width: 620px;
             text-align: center;
-            border: 3px solid #cbd5e1;
+            border: 3px solid #94a3b8;
+            margin: auto;
         }
 
         h1 {
-            color: #312e81;
-            font-size: 30px;
+            color: #1e1b4b;
+            font-size: 28px;
             margin-top: 0;
             margin-bottom: 15px;
         }
 
         .user-box {
             background: #ffffff;
-            padding: 16px;
+            padding: 14px;
             border-radius: 20px;
             margin-bottom: 15px;
-            border: 2px dashed #94a3b8;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            border: 2px dashed #64748b;
         }
 
         input[type="text"] {
@@ -74,7 +74,7 @@
 
         input[type="text"]:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(79, 70, 229, 0.2);
+            box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
         }
 
         .btn {
@@ -117,7 +117,7 @@
         .btn-subject {
             background: #ffffff;
             border: 2px solid #cbd5e1;
-            color: #334155;
+            color: #1e293b;
             font-size: 16px;
             border-radius: 20px;
             padding: 16px 10px;
@@ -132,8 +132,8 @@
         .btn-subject:hover {
             transform: translateY(-3px);
             border-color: var(--primary);
-            background: #e0e7ff;
-            color: #312e81;
+            background: #cffafe;
+            color: #0f172a;
         }
 
         .hidden { display: none !important; }
@@ -142,14 +142,14 @@
             background: #ffffff;
             border: 2px solid #cbd5e1;
             color: #1e293b;
-            margin: 10px 0;
-            font-size: 18px;
+            margin: 8px 0;
+            font-size: 17px;
             border-radius: 16px;
         }
 
         .option-btn:hover {
             border-color: var(--primary);
-            background: #e0e7ff;
+            background: #cffafe;
         }
 
         .score-board {
@@ -175,7 +175,7 @@
             list-style: none;
             padding: 0;
             margin: 0;
-            max-height: 180px;
+            max-height: 160px;
             overflow-y: auto;
         }
 
@@ -209,13 +209,13 @@
 
         .vertical-math {
             font-family: 'Courier New', Courier, monospace;
-            font-size: 38px;
+            font-size: 34px;
             font-weight: bold;
             text-align: right;
             display: inline-block;
             border-bottom: 4px solid #1e293b;
-            padding: 10px 25px;
-            margin: 10px 0;
+            padding: 8px 20px;
+            margin: 8px 0;
             background: #ffffff;
             border-radius: 16px;
             letter-spacing: 4px;
@@ -223,44 +223,49 @@
         }
 
         #feedback {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
-            margin-top: 15px;
-            min-height: 35px;
+            margin-top: 10px;
+            min-height: 30px;
         }
 
         .question-card {
             background: #ffffff;
-            padding: 20px;
+            padding: 15px;
             border-radius: 20px;
             border: 2px solid #cbd5e1;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        /* STYLY PRO PEXESO */
+        #quiz-screen, #fill-screen {
+            padding-bottom: 40px;
+        }
+
+        /* STYLY PRO PEXESO 5x5 (VĚTŠÍ A PŘEHLEDNĚJŠÍ KARTY) */
         .memory-grid {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 6px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
             margin: 15px 0;
         }
         .memory-card {
-            background: #cbd5e1;
-            height: 50px;
-            border-radius: 10px;
+            background: #94a3b8;
+            height: 60px;
+            border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 22px;
+            font-size: 28px;
             cursor: pointer;
             user-select: none;
             transition: transform 0.2s, background 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .memory-card.flipped {
             background: #ffffff;
             transform: scale(1.05);
-            border: 2px solid #4f46e5;
+            border: 3px solid #4f46e5;
         }
         .memory-card.matched {
             background: #10b981;
@@ -288,6 +293,16 @@
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             border: 3px solid var(--primary);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .trophy-animation {
+            font-size: 70px;
+            margin: 10px 0;
+            animation: bounce 1s infinite;
         }
     </style>
 </head>
@@ -330,8 +345,8 @@
             <button class="btn btn-subject btn-game" onclick="startFillGame()">
                 <span>✍️</span> Doplňovačka
             </button>
-            <button class="btn btn-subject btn-game" onclick="startMemoryGame()">
-                <span>🃏</span> Pexeso (6x6)
+            <button class="btn btn-subject btn-game" onclick="promptMemoryMode()">
+                <span>🃏</span> Pexeso (5x5)
             </button>
         </div>
 
@@ -350,10 +365,10 @@
             <span id="question-count" style="color: #4f46e5;">📌 Otázka: 1/10</span>
             <span id="score-display" style="color: #059669; font-size: 18px;">⭐ Body: 0</span>
         </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 12px 0;">
+        <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
 
         <div class="question-card">
-            <h2 id="question-title" style="margin:0; color:#1e293b; font-size:22px;">Otázka</h2>
+            <h2 id="question-title" style="margin:0; color:#1e293b; font-size:20px;">Otázka</h2>
             
             <div id="vertical-box" class="hidden">
                 <div class="vertical-math" id="vertical-content"></div>
@@ -377,11 +392,11 @@
             <span id="fill-count" style="color: #0284c7;">✍️ Doplňovačka: 1/5</span>
             <span id="fill-score" style="color: #059669; font-size: 18px;">⭐ Body: 0</span>
         </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 12px 0;">
+        <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
 
         <div class="question-card">
-            <h2 id="fill-title" style="margin:0; color:#1e293b; font-size:20px;">Doplň písmeno</h2>
-            <div id="fill-word-display" style="font-size: 32px; font-weight: bold; letter-spacing: 5px; margin: 15px 0; color: #4f46e5;"></div>
+            <h2 id="fill-title" style="margin:0; color:#1e293b; font-size:18px;">Doplň písmeno</h2>
+            <div id="fill-word-display" style="font-size: 30px; font-weight: bold; letter-spacing: 5px; margin: 12px 0; color: #4f46e5;"></div>
         </div>
 
         <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno...">
@@ -392,9 +407,9 @@
 
     <!-- HRÁČSKÁ OBRAZOVKA: PEXESO -->
     <div id="memory-screen" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:15px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:14px;">
             <span id="player-turn-indicator" style="padding: 6px 12px; border-radius: 10px; color: white; background: #4f46e5;">Hráč 1 na tahu</span>
-            <span>🃏 Pexeso 6x6</span>
+            <span>🃏 Pexeso 5x5</span>
             <span id="memory-scores">H1: 0 | H2: 0</span>
         </div>
         <hr style="border: 1px solid #cbd5e1; margin: 8px 0;">
@@ -406,8 +421,8 @@
     <!-- VYHODNOCENÍ TESTU / HRY -->
     <div id="result-screen" class="hidden">
         <h2>🎉 Skvělá práce!</h2>
-        <div style="font-size: 70px; margin: 10px 0;">🏆</div>
-        <p id="final-stats" style="font-size: 20px; font-weight: bold; color: #1e293b;">Získal jsi 0 bodů.</p>
+        <div class="trophy-animation">🏆</div>
+        <p id="final-stats" style="font-size: 18px; font-weight: bold; color: #1e293b;">Získal jsi 0 bodů.</p>
         <button class="btn btn-success" id="result-action-btn" onclick="startQuiz(currentSubjectKey)">🔄 Další test (znovu)</button>
         <button class="btn btn-warning" onclick="showMenu()">🏠 Zpět do menu</button>
     </div>
@@ -433,19 +448,39 @@
     let score = 0;
     let questions = [];
 
-    // Proměnné pro doplňovačku
     let fillIndex = 0;
     let fillQuestions = [];
     let fillScore = 0;
 
-    // Proměnné pro pexeso
     let memoryCards = [];
     let flippedCards = [];
     let matchedPairs = 0;
     let p1Score = 0;
     let p2Score = 0;
-    let currentPlayer = 1; // 1 nebo 2
+    let currentPlayer = 1;
+    let isVsComputer = false;
+    let p2Name = "Počítač 🤖";
     let canFlip = true;
+
+    // --- ZVUKOVÝ GENERÁTOR (FANFÁRY) ---
+    function playVictorySound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((freq, index) => {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime + index * 0.15);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + index * 0.15 + 0.4);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(audioCtx.currentTime + index * 0.15);
+                osc.stop(audioCtx.currentTime + index * 0.15 + 0.4);
+            });
+        } catch(e) { console.log(e); }
+    }
 
     const subjectNames = {
         math: "Matematika 🔢",
@@ -495,7 +530,6 @@
         ]
     };
 
-    // Databáze pro doplňovačku písmen
     const fillDatabase = [
         { word: "SCHOOL", hint: "🇬🇧 Anglicky: Škola", missing: "H", display: "SC_OOL" },
         { word: "APPLE", hint: "🇬🇧 Anglicky: Jablko", missing: "P", display: "A_PLE" },
@@ -720,6 +754,7 @@
     }
 
     function endQuiz() {
+        playVictorySound();
         saveLeaderboard(currentUser, score, currentSubjectName);
         localStorage.removeItem("school_saved_quiz");
 
@@ -781,6 +816,7 @@
     }
 
     function endFillGame() {
+        playVictorySound();
         saveLeaderboard(currentUser, fillScore, subjectNames['fill']);
         document.getElementById("fill-screen").classList.add("hidden");
         document.getElementById("result-screen").classList.remove("hidden");
@@ -788,25 +824,45 @@
         document.getElementById("result-action-btn").setAttribute("onclick", `startFillGame()`);
     }
 
-    // --- FUNKCE PRO HRU: PEXESO 6x6 ---
-    function startMemoryGame() {
+    // --- FUNKCE PRO PEXESO 5x5 ---
+    function promptMemoryMode() {
         let nameInput = document.getElementById("username").value.trim();
         if (!nameInput) {
-            alert("⚠️ Prosím, zadej nejprve svoje jméno (Hráč 1) do políčka nahoře!");
+            alert("⚠️ Prosím, zadej nejprve své jméno do políčka nahoře!");
             return;
         }
         currentUser = nameInput;
+
+        let mode = prompt("Zvol režim pexesa:\n1 - Proti počítači 🤖\n2 - Ve dvou hráčích 👥", "1");
+        if (mode === "1") {
+            isVsComputer = true;
+            p2Name = "Počítač 🤖";
+            startMemoryGame();
+        } else if (mode === "2") {
+            let p2 = prompt("Zadej jméno druhého hráče:", "Hráč 2");
+            if (p2) {
+                isVsComputer = false;
+                p2Name = p2;
+                startMemoryGame();
+            }
+        }
+    }
+
+    function startMemoryGame() {
         p1Score = 0;
         p2Score = 0;
         currentPlayer = 1;
         matchedPairs = 0;
         flippedCards = [];
 
-        // 18 párů pro 6x6 grid
-        let emojis = ['🍎', '🍌', '🍇', '🍉', '🍓', '🍒', '🍑', '🍍', '🥝', '🐶', '🐱', '🐰', '🦊', '🐻', '🐼', '🐨', '🦁', '🐯'];
-        memoryCards = [...emojis, ...emojis]
-            .sort(() => Math.random() - 0.5)
-            .map((emoji, idx) => ({ id: idx, emoji: emoji, flipped: false, matched: false }));
+        // 12 párů (24 karet) + 1 bonusová karta ⭐ (celkem 25 karet pro mřížku 5x5)
+        let emojis = ['🍎', '🍌', '🍇', '🍉', '🍓', '🍒', '🍑', '🍍', '🐶', '🐱', '🐰', '🦊'];
+        let pairCards = [...emojis, ...emojis].map((emoji, idx) => ({ id: idx, emoji: emoji, flipped: false, matched: false, isBonus: false }));
+        
+        let bonusCard = { id: 24, emoji: '⭐', flipped: true, matched: true, isBonus: true };
+
+        memoryCards = pairCards.sort(() => Math.random() - 0.5);
+        memoryCards.splice(12, 0, bonusCard); // Vložení bonusové stálé karty doprostřed mřížky
 
         document.getElementById("menu-screen").classList.add("hidden");
         document.getElementById("memory-screen").classList.remove("hidden");
@@ -824,22 +880,23 @@
             el.onclick = () => flipCard(index);
             board.appendChild(el);
         });
-        document.getElementById("memory-scores").innerText = `H1 (${currentUser}): ${p1Score} | H2: ${p2Score}`;
+        document.getElementById("memory-scores").innerText = `${currentUser}: ${p1Score} | ${p2Name}: ${p2Score}`;
     }
 
     function updateTurnIndicator() {
         let indicator = document.getElementById("player-turn-indicator");
         if (currentPlayer === 1) {
             indicator.innerText = `👤 ${currentUser} na tahu`;
-            indicator.style.background = "#4f46e5"; // Modrá barva Hráče 1
+            indicator.style.background = "#4f46e5";
         } else {
-            indicator.innerText = `👤 Hráč 2 na tahu`;
-            indicator.style.background = "#d97706"; // Oranžová barva Hráče 2
+            indicator.innerText = `👤 ${p2Name} na tahu`;
+            indicator.style.background = "#d97706";
         }
     }
 
     function flipCard(index) {
-        if (!canFlip || memoryCards[index].flipped || memoryCards[index].matched) return;
+        if (!canFlip || memoryCards[index].flipped || memoryCards[index].matched || memoryCards[index].isBonus) return;
+        if (isVsComputer && currentPlayer === 2) return;
 
         memoryCards[index].flipped = true;
         flippedCards.push(index);
@@ -858,25 +915,75 @@
                 canFlip = true;
                 renderMemoryBoard();
 
-                if (matchedPairs === 18) {
-                    setTimeout(() => {
-                        let winnerText = p1Score > p2Score ? `${currentUser} vyhrává!` : (p2Score > p1Score ? `Hráč 2 vyhrává!` : `Remíza!`);
-                        saveLeaderboard(currentUser, p1Score * 2, subjectNames['memory']);
-                        alert(`🏆 Pexeso skončilo! ${winnerText}`);
-                        showMenu();
-                    }, 500);
-                }
+                checkMemoryEnd();
             } else {
                 setTimeout(() => {
                     memoryCards[i1].flipped = false;
                     memoryCards[i2].flipped = false;
                     flippedCards = [];
-                    currentPlayer = currentPlayer === 1 ? 2 : 1; // Přepnutí hráče
+                    currentPlayer = currentPlayer === 1 ? 2 : 1;
                     updateTurnIndicator();
                     canFlip = true;
                     renderMemoryBoard();
+
+                    if (isVsComputer && currentPlayer === 2) {
+                        setTimeout(computerTurn, 800);
+                    }
                 }, 900);
             }
+        }
+    }
+
+    function computerTurn() {
+        let unmasked = memoryCards.filter(c => !c.matched && !c.flipped && !c.isBonus);
+        if (unmasked.length < 2) return;
+
+        let idx1 = unmasked[Math.floor(Math.random() * unmasked.length)].id;
+        let card1Index = memoryCards.findIndex(c => c.id === idx1);
+        memoryCards[card1Index].flipped = true;
+        renderMemoryBoard();
+
+        setTimeout(() => {
+            let remaining = memoryCards.filter(c => !c.matched && !c.flipped && !c.isBonus);
+            let match = remaining.find(c => c.emoji === memoryCards[card1Index].emoji);
+            let targetCard = match ? match : remaining[Math.floor(Math.random() * remaining.length)];
+            let card2Index = memoryCards.findIndex(c => c.id === targetCard.id);
+
+            memoryCards[card2Index].flipped = true;
+            renderMemoryBoard();
+
+            setTimeout(() => {
+                if (memoryCards[card1Index].emoji === memoryCards[card2Index].emoji) {
+                    memoryCards[card1Index].matched = true;
+                    memoryCards[card2Index].matched = true;
+                    matchedPairs++;
+                    p2Score++;
+                    renderMemoryBoard();
+                    checkMemoryEnd();
+                    
+                    if (matchedPairs < 12 && currentPlayer === 2) {
+                        setTimeout(computerTurn, 800);
+                    }
+                } else {
+                    memoryCards[card1Index].flipped = false;
+                    memoryCards[card2Index].flipped = false;
+                    currentPlayer = 1;
+                    updateTurnIndicator();
+                    renderMemoryBoard();
+                }
+            }, 900);
+        }, 600);
+    }
+
+    function checkMemoryEnd() {
+        if (matchedPairs === 12) {
+            playVictorySound();
+            setTimeout(() => {
+                let winnerText = p1Score > p2Score ? `${currentUser} vyhrává!` : (p2Score > p1Score ? `${p2Name} vyhrává!` : `Remíza!`);
+                saveLeaderboard(currentUser, p1Score * 2, subjectNames['memory']);
+                alert(`🏆 Pexeso skončilo! ${winnerText}`);
+                showMenu();
+            }, 500);
         }
     }
 
