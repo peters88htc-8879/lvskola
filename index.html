@@ -153,7 +153,7 @@
             list-style: none;
             padding: 0;
             margin: 0;
-            max-height: 200px;
+            max-height: 220px;
             overflow-y: auto;
         }
 
@@ -173,9 +173,9 @@
         }
 
         .score-item:hover {
-            background: #fff8e1;
+            background: #e0f2fe;
             transform: scale(1.02);
-            border-color: #f59e0b;
+            border-color: #0284c7;
         }
 
         .badge-subject {
@@ -247,8 +247,8 @@
     <div id="menu-screen">
         <h1>🌟 Školní Trénink 🌟</h1>
         <div class="user-box">
-            <label for="username"><strong>👤 Napiš své jméno:</strong></label><br>
-            <input type="text" id="username" placeholder="Tvoje jméno..." value="Školák">
+            <label for="username"><strong>👤 Zadej své jméno nebo vyber níže:</strong></label><br>
+            <input type="text" id="username" placeholder="Napiš jméno...">
         </div>
 
         <h3>🎯 Vyber si předmět:</h3>
@@ -259,7 +259,7 @@
 
         <div class="score-board">
             <h4>
-                <span>🏆 Tabulka skóre (klikni pro detail):</span>
+                <span>🏆 Hráči v žebříčku (kliknutím vybereš):</span>
                 <button onclick="resetLeaderboard()" style="background:#e74c3c; color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:12px;" title="Vymazat skóre">🗑️ Vynulovat</button>
             </h4>
             <ul class="score-list" id="leaderboard"></ul>
@@ -308,12 +308,14 @@
     <div class="modal-content">
         <h3 id="modal-title" style="color:#2C3E50; margin-top:0;">📊 Detail hráče</h3>
         <div id="modal-body" style="max-height: 250px; overflow-y: auto; text-align: left; margin: 15px 0; font-size: 15px;"></div>
-        <button class="btn" onclick="closeModal()">Zavřít křížek</button>
+        <button class="btn btn-success" onclick="selectUserFromModal()">✅ Pokračovat za tohoto hráče</button>
+        <button class="btn btn-warning" onclick="closeModal()">Zavřít</button>
     </div>
 </div>
 
 <script>
-    let currentUser = "Školák";
+    let currentUser = "";
+    let selectedPlayerFromModal = "";
     let currentSubjectKey = "";
     let currentSubjectName = "";
     let questionIndex = 0;
@@ -413,7 +415,13 @@
     }
 
     function startQuiz(subject) {
-        currentUser = document.getElementById("username").value.trim() || "Školák";
+        let nameInput = document.getElementById("username").value.trim();
+        if (!nameInput) {
+            alert("Prosím, zadej svoje jméno nebo na něj klikni v tabulce dole!");
+            return;
+        }
+
+        currentUser = nameInput;
         currentSubjectKey = subject;
         currentSubjectName = subjectNames[subject];
         questionIndex = 0;
@@ -549,17 +557,27 @@
             subject: subjectName || "Matematika 🔢",
             date: new Date().toLocaleDateString() 
         });
-        board.sort((a, b) => b.score - a.score);
         localStorage.setItem("school_leaderboard", JSON.stringify(board));
     }
 
     function loadLeaderboard() {
         let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
         let listHtml = "";
+
         if (board.length === 0) {
-            listHtml = "<li style='text-align:center; color:#7F8C8D; padding:10px;'>Zatím žádné výsledky. Vyzkoušej test!</li>";
+            listHtml = "<li style='text-align:center; color:#7F8C8D; padding:10px;'>Zatím žádné výsledky. Napiš jméno a vyzkoušej test!</li>";
         } else {
-            board.forEach((item, index) => {
+            // VYTVOŘENÍ UNIKÁTNÍCH HRÁČŮ (každý hráč zobrazen pouze jednou s nejlepším skóre)
+            let uniquePlayers = {};
+            board.forEach(item => {
+                if (!uniquePlayers[item.name] || item.score > uniquePlayers[item.name].score) {
+                    uniquePlayers[item.name] = item;
+                }
+            });
+
+            let sortedPlayers = Object.values(uniquePlayers).sort((a, b) => b.score - a.score);
+
+            sortedPlayers.forEach((item, index) => {
                 let subj = item.subject || "Matematika 🔢";
                 listHtml += `
                     <li class="score-item" onclick="showUserDetail('${item.name}')">
@@ -568,7 +586,7 @@
                             <span class="badge-subject">${subj}</span>
                         </div>
                         <div style="text-align:right;">
-                            <span style="font-weight:bold; font-size:16px; color:#27AE60;">⭐ ${item.score}/10</span><br>
+                            <span style="font-weight:bold; font-size:16px; color:#27AE60;">⭐ Max: ${item.score}/10</span><br>
                             <small style="color:#94a3b8;">${item.date}</small>
                         </div>
                     </li>`;
@@ -578,19 +596,25 @@
     }
 
     function showUserDetail(name) {
+        selectedPlayerFromModal = name;
         let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
         let userRecords = board.filter(item => item.name === name);
         
-        let html = `<strong>Hráč:</strong> ${name}<br><br><strong>Všechny výsledky:</strong><ul style="padding-left:20px; margin:5px 0;">`;
+        let html = `<strong>Vybraný hráč:</strong> ${name}<br><br><strong>Historie pokusů:</strong><ul style="padding-left:20px; margin:5px 0;">`;
         userRecords.forEach(r => {
             let subjName = r.subject || "Matematika 🔢";
             html += `<li><b>${subjName}</b>: ${r.score}/10 bodů (${r.date})</li>`;
         });
         html += `</ul>`;
 
-        document.getElementById("modal-title").innerText = `📊 Výsledky uživatele: ${name}`;
+        document.getElementById("modal-title").innerText = `📊 Profil hráče: ${name}`;
         document.getElementById("modal-body").innerHTML = html;
         document.getElementById("detail-modal").classList.remove("hidden");
+    }
+
+    function selectUserFromModal() {
+        document.getElementById("username").value = selectedPlayerFromModal;
+        closeModal();
     }
 
     function closeModal() {
@@ -598,8 +622,9 @@
     }
 
     function resetLeaderboard() {
-        if (confirm("Opravdu chceš vymazat celé skóre a začít znovu?")) {
+        if (confirm("Opravdu chceš vymazat celou tabulku skóre?")) {
             localStorage.removeItem("school_leaderboard");
+            document.getElementById("username").value = "";
             loadLeaderboard();
         }
     }
