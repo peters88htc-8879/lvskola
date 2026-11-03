@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Škola pro děti - Procvičování</title>
+    <title>🎓 Školní Trénink - Zábavné Učení</title>
     <style>
         :root {
-            --primary: #4a90e2;
-            --success: #2ec4b6;
-            --danger: #e71d36;
-            --bg: #f4f7f6;
+            --primary: #4A90E2;
+            --primary-hover: #357ABD;
+            --success: #2ECC71;
+            --danger: #E74C3C;
+            --accent: #F1C40F;
+            --bg: #EEF2F7;
+            --card-bg: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
+            background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -24,85 +31,172 @@
         }
 
         .container {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
             text-align: center;
+            border: 4px solid #ffffff;
         }
 
-        h1, h2 { color: #333; margin-bottom: 20px; }
-        
+        h1 {
+            color: #2C3E50;
+            font-size: 28px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
         .user-box {
-            background: #eef4fb;
+            background: #E8F4F8;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 20px;
+            border: 2px dashed #3498DB;
         }
 
         input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            margin-bottom: 10px;
+            width: 85%;
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid #BDC3C7;
+            border-radius: 10px;
+            margin-top: 8px;
             text-align: center;
+            font-weight: bold;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
         }
 
         .btn {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: 8px;
+            padding: 14px 20px;
+            font-size: 18px;
+            border-radius: 12px;
             cursor: pointer;
             width: 100%;
             margin: 8px 0;
-            transition: 0.2s;
+            transition: all 0.2s ease;
             font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
-        .btn-success { background-color: var(--success); }
-        .btn-danger { background-color: var(--danger); }
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
 
-        .hidden { display: none; }
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-success { background-color: var(--success); }
+        .btn-success:hover { background-color: #27AE60; }
+
+        .btn-subject {
+            background: linear-gradient(45deg, #6C5CE7, #a29bfe);
+            font-size: 17px;
+        }
+
+        .hidden { display: none !important; }
 
         .option-btn {
-            background: #fff;
-            border: 2px solid var(--primary);
-            color: #333;
-            margin: 6px 0;
+            background: #F8F9FA;
+            border: 2px solid #E2E8F0;
+            color: #2D3748;
+            margin: 8px 0;
+            font-size: 17px;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: #EBF8FF;
         }
 
         .score-board {
-            background: #fff3cd;
-            border: 1px solid #ffeba2;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 15px;
+            background: #FFF9E6;
+            border: 2px solid #F39C12;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
             text-align: left;
+        }
+
+        .score-board h4 {
+            margin-top: 0;
+            color: #D35400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .score-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .score-item {
+            background: #FFFFFF;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #F1C40F;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+        }
+
+        .badge-subject {
+            background: #34495E;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
         }
 
         .vertical-math {
             font-family: 'Courier New', Courier, monospace;
-            font-size: 24px;
+            font-size: 32px;
+            font-weight: bold;
             text-align: right;
             display: inline-block;
-            border-bottom: 3px solid #333;
-            padding: 5px 15px;
+            border-bottom: 4px solid #2C3E50;
+            padding: 10px 20px;
             margin: 15px 0;
+            background: #F4F6F7;
+            border-radius: 8px;
+            letter-spacing: 2px;
         }
 
         #feedback {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             margin-top: 15px;
-            min-height: 25px;
+            min-height: 30px;
+        }
+
+        .question-card {
+            background: #F7FAFC;
+            padding: 18px;
+            border-radius: 12px;
+            border: 2px solid #E2E8F0;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -110,104 +204,33 @@
 
 <div class="container">
 
-    <!-- UŽIVATEL A HLAVNÍ MENU -->
+    <!-- HLAVNÍ MENU -->
     <div id="menu-screen">
-        <h1>🎓 Školní Trénink</h1>
+        <h1>🌟 Školní Trénink 🌟</h1>
         <div class="user-box">
-            <label for="username"><strong>Napiš své jméno:</strong></label><br><br>
+            <label for="username"><strong>👤 Napiš své jméno:</strong></label><br>
             <input type="text" id="username" placeholder="Tvoje jméno..." value="Školák">
         </div>
 
-        <h3>Vyber si předmět:</h3>
-        <button class="btn" onclick="startQuiz('math')">🔢 Matematika (do 1000)</button>
-        <button class="btn" onclick="startQuiz('eng')">🇬🇧 Angličtina (6. třída)</button>
-        <button class="btn" onclick="startQuiz('cz')">🇨🇿 Čeština (i/y, e/ě, vyjm. slova)</button>
-        <button class="btn" onclick="startQuiz('phy')">⚡ Fyzika (6. třída)</button>
+        <h3>🎯 Vyber si předmět:</h3>
+        <button class="btn btn-subject" onclick="startQuiz('math')">🔢 Matematika (do 1000)</button>
+        <button class="btn btn-subject" onclick="startQuiz('eng')">🇬🇧 Angličtina (6. třída)</button>
+        <button class="btn btn-subject" onclick="startQuiz('cz')">🇨🇿 Čeština (i/y, e/ě, vyjm. slova)</button>
+        <button class="btn btn-subject" onclick="startQuiz('phy')">⚡ Fyzika (6. třída)</button>
 
         <div class="score-board">
-            <h4>🏆 Nejlepší výsledky (Tabulka skóre):</h4>
-            <ol id="leaderboard"></ol>
+            <h4>🏆 Nejlepší výsledky s předmětem:</h4>
+            <ul class="score-list" id="leaderboard"></ul>
         </div>
     </div>
 
     <!-- KVÍZOVÁ OBRAZOVKA -->
     <div id="quiz-screen" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span id="question-count">Otázka: 1/10</span>
-            <span id="score-display">Body: 0</span>
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:16px;">
+            <span id="question-count">📌 Otázka: 1/10</span>
+            <span id="score-display" style="color: #27AE60;">⭐ Body: 0</span>
         </div>
-        <hr>
-        <h2 id="question-title">Otázka</h2>
-        
-        <div id="vertical-box" class="hidden">
-            <div class="vertical-math" id="vertical-content"></div>
-        </div>
+        <hr style="border: 1px solid #E2E8F0; margin: 12px 0;">
 
-        <div id="options-box"></div>
-        <input type="text" id="text-answer" class="hidden" placeholder="Napiš odpověď...">
-        <button id="submit-text-btn" class="btn btn-success hidden" onclick="checkTextAnswer()">Odeslat</button>
-
-        <div id="feedback"></div>
-        <button id="next-btn" class="btn hidden" onclick="nextQuestion()">Další otázka ➔</button>
-    </div>
-
-    <!-- VYHODNOCENÍ -->
-    <div id="result-screen" class="hidden">
-        <h2>🎉 Konec testu!</h2>
-        <p id="final-stats">Získal jsi 0 bodů z 10.</p>
-        <button class="btn btn-success" onclick="saveScoreAndRestart()">Uložit výsledek a pokračovat</button>
-        <button class="btn" onclick="showMenu()">Zpět do menu</button>
-    </div>
-
-</div>
-
-<script>
-    let currentUser = "Školák";
-    let currentSubject = "";
-    let questionIndex = 0;
-    let score = 0;
-    let questions = [];
-
-    const database = {
-        eng: [
-            { q: "Přelož slovíčko: 'Book'", a: ["kniha", "sešit", "taška", "tužka"], correct: "kniha" },
-            { q: "Doplň sloveso: 'She ___ 12 years old.'", a: ["is", "are", "am", "be"], correct: "is" },
-            { q: "Přelož slovíčko: 'Teacher'", a: ["učitel", "žák", "ředitel", "školník"], correct: "učitel" },
-            { q: "Přelož větu: 'I have a dog.'", a: ["Mám psa.", "Vidím psa.", "Pes spí.", "To je pes."], correct: "Mám psa." },
-            { q: "Doplň zápor: 'They ___ like apples.'", a: ["don't", "doesn't", "isn't", "aren't"], correct: "don't" },
-            { q: "Přelož slovíčko: 'Weather'", a: ["počasí", "voda", "vítr", "slunce"], correct: "počasí" },
-            { q: "Přelož větu: 'Where is my pen?'", a: ["Kde je moje pero?", "Kdo má moje pero?", "Kam jdeš?", "To je moje pero."], correct: "Kde je moje pero?" },
-            { q: "Doplň: 'He usually ___ basketball.'", a: ["plays", "play", "playing", "played"], correct: "plays" },
-            { q: "Přelož slovíčko: 'Always'", a: ["vždy", "nikdy", "často", "občas"], correct: "vždy" },
-            { q: "Přelož větu: 'We live in a house.'", a: ["Bydlíme v domě.", "Stavíme dům.", "Máme velký dům.", "Dům je starý."], correct: "Bydlíme v domě." }
-        ],
-        cz: [
-            { q: "Doplň i/y: Myš_čka běhá po dvoře.", a: ["i", "y"], correct: "i" },
-            { q: "Doplň vyjmenované slovo: P_cha přchází před pádem.", a: ["ý", "í"], correct: "ý" },
-            { q: "Doplň e/ě: Dělal to pro m_.", a: ["ě", "ě (mě)", "e", "ně"], correct: "ě" },
-            { q: "Doplň i/y: S_kora je užitečný pták.", a: ["y", "i"], correct: "y" },
-            { q: "Doplň e/ě: B_žel rychle do školy.", a: ["ě", "e"], correct: "ě" },
-            { q: "Vyber správně napsané slovo:", a: ["bystrý", "bistrý", "bystrí", "bistrí"], correct: "bystrý" },
-            { q: "Doplň i/y: Děti s_hrály divadlo.", a: ["e", "i", "y"], correct: "e" },
-            { q: "Doplň i/y: B_lit stěnu na bílo.", a: ["í", "ý"], correct: "í" },
-            { q: "Doplň e/ě: Zapom_l na úkol.", a: ["ně", "ě"], correct: "ně" },
-            { q: "Doplň vyjmenované slovo: Litomyš_ je město.", a: ["l", "ľ", "l (Litomyšl)", "š"], correct: "l (Litomyšl)" }
-        ],
-        phy: [
-            { q: "Čím měříme hmotnost tělesa?", a: ["Váhami", "Pravítkem", "Teploměrem", "Stopkami"], correct: "Váhami" },
-            { q: "Jaká je základní jednotka délky?", a: ["Metr (m)", "Kilogram (kg)", "Sekunda (s)", "Litr (l)"], correct: "Metr (m)" },
-            { q: "Převod jednotek: 1 km má kolik metrů?", a: ["1000 m", "100 m", "10 m", "10000 m"], correct: "1000 m" },
-            { q: "Jakou značku má síla ve fyzice?", a: ["F", "m", "v", "s"], correct: "F" },
-            { q: "Jednotkou fyzikální síly je:", a: ["Newton (N)", "Joule (J)", "Pascal (Pa)", "Watt (W)"], correct: "Newton (N)" },
-            { q: "Převod jednotek: 1 kg má kolik gramů?", a: ["1000 g", "100 g", "10 g", "500 g"], correct: "1000 g" },
-            { q: "Čím měříme objem kapalin?", a: ["Odmerným válcem", "Váhou", "Siloměrem", "Pásmem"], correct: "Odmerným válcem" },
-            { q: "Skupenství vody při 0 °C přechází na:", a: ["Led (pevné)", "Páru (plynné)", "Plazmu", "Žádné z uvedených"], correct: "Led (pevné)" },
-            { q: "Co způsobuje, že padáme k zemi?", a: ["Gravitační síla", "Tlak vzduchu", "Magnetická síla", "Elektrická síla"], correct: "Gravitační síla" },
-            { q: "Jaká je značka pro hmotnost?", a: ["m", "H", "kg", "V"], correct: "m" }
-        ]
-    };
-
-    function generateMathQuestions() {
-        let mathQ = [];
-        for(let i=0; i<10; i++) {
-            let type = Math.floor(Math.random() *
+        <div class="question-card">
+            <h2 id="question-title" style="margin:0; color:#2C3E50; font-size:22px;">Otázka</h2>
