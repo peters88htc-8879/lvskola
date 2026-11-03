@@ -65,29 +65,6 @@
             text-shadow: 2px 3px 6px rgba(0,0,0,0.1);
         }
 
-        .user-box {
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-            padding: 12px;
-            border-radius: 20px;
-            margin-bottom: 15px;
-            border: 3px solid #cbd5e1;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-        }
-
-        input[type="text"], input[type="password"] {
-            width: 85%;
-            padding: 12px;
-            font-size: 16px;
-            border: 3px solid #cbd5e1;
-            border-radius: 16px;
-            margin-top: 6px;
-            text-align: center;
-            font-weight: 600;
-            outline: none;
-            background: #f8fafc;
-            color: #1e1b4b;
-        }
-
         .btn {
             background: linear-gradient(145deg, #818cf8, #4f46e5);
             color: white;
@@ -261,43 +238,16 @@
             display: grid; grid-template-columns: repeat(3, 55px); gap: 8px; justify-content: center; margin: 10px 0;
         }
         .ctrl-btn { background: #38bdf8; color: white; border: none; font-size: 20px; height: 45px; border-radius: 14px; cursor: pointer; font-weight: bold; }
-
-        .score-board {
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-            border: 3px solid #cbd5e1; padding: 12px; border-radius: 20px; margin-top: 12px; text-align: left;
-        }
-        .score-item-detailed {
-            background: #f1f5f9; padding: 6px 10px; border-radius: 12px; margin-bottom: 5px; border: 2px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; font-size: 13px;
-        }
-
-        .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.75); display: flex; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(8px);
-        }
-        .modal-content {
-            background: linear-gradient(145deg, #ffffff, #f1f5f9); color: #1e1b4b; padding: 25px; border-radius: 30px; width: 90%; max-width: 450px; max-height: 90vh; overflow-y: auto; text-align: center; border: 5px solid var(--primary);
-        }
-
-        #custom-alert-box {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #ffffff; border: 4px solid var(--primary); color: #1e1b4b; padding: 12px 22px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); font-size: 16px; font-weight: bold; z-index: 2000; transition: transform 0.3s;
-        }
-        #custom-alert-box.show { transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
-
-<div id="custom-alert-box">Oznámení</div>
 
 <div class="container">
 
     <!-- HLAVNÍ MENU -->
     <div id="menu-screen">
-        <div class="version-badge">🚀 Verze 6.0 (Kompletní učebnice pro 4. a 6. třídu)</div>
+        <div class="version-badge">🚀 Verze 6.0 (Bezproblémový přímý přístup)</div>
         <h1>🌟 Celoroční Digitální Sešit & Učebnice 🎓</h1>
-        <div class="user-box">
-            <span style="font-size: 14px; color: #475569; font-weight: 600;">👤 Aktivní žák / hrdina:</span><br>
-            <strong id="current-user-display" style="font-size: 18px; color: var(--primary);">Zatím nikdo</strong><br>
-            <button class="btn btn-warning" onclick="openStartPlayerModal()" style="margin-top: 8px; font-size: 13px; padding: 8px;">🔄 Změnit profil žáka</button>
-        </div>
 
         <h3>📁 Výběr ročníku:</h3>
         <div class="class-grid">
@@ -314,27 +264,18 @@
             <button class="btn btn-subject btn-game" onclick="startFillGame()">
                 <span>✍️</span> Doplňovačka
             </button>
-            <button class="btn btn-subject btn-game" onclick="openMemoryModal()">
+            <button class="btn btn-subject btn-game" onclick="startMemoryGame()">
                 <span>🃏</span> Pexeso
             </button>
             <button class="btn btn-subject btn-game" onclick="startSnakeGame()">
                 <span>🐍</span> Had
             </button>
         </div>
-
-        <!-- ŽEBŘÍČEK -->
-        <div class="score-board">
-            <h4 style="margin-top:0; color:#b45309; display:flex; justify-content:space-between; align-items:center; font-size:14px;">
-                <span>🥇 Žebříček žáků:</span>
-                <button onclick="promptResetLeaderboard()" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:8px; cursor:pointer; font-size:11px; font-weight:bold;">🗑️ Vynulovat</button>
-            </h4>
-            <div id="player-leaderboard-box"></div>
-        </div>
     </div>
 
     <!-- PŘEDMĚTY PRO 4. TŘÍDU -->
     <div id="class4-screen" class="hidden">
-        <div class="version-badge">Verze 6.0 - 4. Třída</div>
+        <div class="version-badge">4. Třída</div>
         <h1>🎒 4. TŘÍDA - Celoroční Předměty</h1>
         <div class="subject-grid">
             <button class="btn btn-subject" onclick="openSubjectHub('cz4_all', '4.tř: Český jazyk (Komplet)')">
@@ -355,7 +296,7 @@
 
     <!-- PŘEDMĚTY PRO 6. TŘÍDU -->
     <div id="class6-screen" class="hidden">
-        <div class="version-badge">Verze 6.0 - 6. Třída</div>
+        <div class="version-badge">6. Třída</div>
         <h1>🎒 6. TŘÍDA - Celoroční Předměty</h1>
         <div class="subject-grid">
             <button class="btn btn-subject" onclick="openSubjectHub('eng6_project', 'Project Explore 1: Kompletní učebnice (89 stran)')" style="grid-column: span 2; background: linear-gradient(145deg, #e0f2fe, #bae6fd); border-color: #38bdf8;">
@@ -380,13 +321,13 @@
         <p style="color:#475569; font-size:14px; margin-bottom:15px;">Vyber si, zda chceš pokračovat v četbě učebnice, prohlédnout si obsah, nebo spustit test!</p>
         
         <button class="btn btn-theory" onclick="resumeTheory()" style="padding:16px; font-size:18px; margin-bottom:10px;">
-            📖 Pokračovat v učení (Kde jsem skončil)
+            📖 Pokračovat v učení
         </button>
         <button class="btn btn-warning" onclick="openTableOfContents()" style="padding:14px; font-size:16px; margin-bottom:10px;">
             📑 Obsah / Osnova (Vybrat kapitolu)
         </button>
         <button class="btn btn-success" onclick="openWorkbookMode()" style="padding:16px; font-size:18px; margin-bottom:15px;">
-            ✍️ Spustit test na známky
+            ✍️ Spustit test
         </button>
         
         <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
@@ -400,7 +341,7 @@
         <button class="btn btn-warning" onclick="backToHub()">Zpět do rozcestníku</button>
     </div>
 
-    <!-- OBRAZOVKA: CELOROČNÍ SEŠIT (S PAMĚTÍ POZICE) -->
+    <!-- OBRAZOVKA: CELOROČNÍ SEŠIT -->
     <div id="theory-screen" class="hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <span id="theory-header-title" style="font-weight:bold; color:#4f46e5; font-size:15px;">📖 Učebnice</span>
@@ -427,7 +368,7 @@
 
         <div class="workbook-container" id="workbook-items-box"></div>
 
-        <button class="btn btn-success" onclick="finishWorkbook()" style="margin-top:8px;">💾 Dokončit test a uložit výsledek</button>
+        <button class="btn btn-success" onclick="showMenu()" style="margin-top:8px;">💾 Dokončit test</button>
         <button class="btn btn-warning" onclick="resumeTheory()">📖 Vrátit se k učení</button>
         <button class="btn btn-danger" onclick="showMenu()">🏠 Zavřít do menu</button>
     </div>
@@ -436,7 +377,7 @@
     <div id="memory-screen" class="hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:14px;">
             <span>🃏 Pexeso</span>
-            <span id="memory-scores">H1: 0</span>
+            <span id="memory-scores">Skóre: 0</span>
         </div>
         <hr style="border: 1px solid #cbd5e1; margin: 8px 0;">
         <div class="memory-grid" id="memory-board"></div>
@@ -479,69 +420,11 @@
 
 </div>
 
-<!-- MODAL: VÝBĚR HRÁČE -->
-<div id="start-player-modal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">✨ Vítejte ve školním sešitu (Verze 6.0)!</h3>
-        <p style="font-size:14px; color:#475569; margin-bottom:12px;">Zadej své jméno a heslo:</p>
-        <div style="margin-bottom: 12px; background: #f8fafc; padding: 10px; border-radius: 14px; border: 2px solid #cbd5e1;">
-            <input type="text" id="modal-username-input" placeholder="Jméno (např. Lucinka)..." style="width:100%; margin-bottom: 6px;">
-            <input type="password" id="modal-password-input" placeholder="Heslo..." style="width:100%;">
-            <button class="btn btn-success" onclick="createNewUserWithPassword()" style="margin-top: 8px;">✨ Vstoupit</button>
-        </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
-        <p style="font-size:13px; font-weight:700; color:#b45309; margin-bottom:6px;">Nebo vyber stávající profil:</p>
-        <div id="modal-player-list" style="max-height: 120px; overflow-y: auto; text-align: left; margin-bottom: 10px;"></div>
-        
-        <button class="btn btn-warning" onclick="forceCloseModal()" style="margin-top:6px;">Zavřít okno</button>
-        <button class="btn btn-danger" onclick="emergencyReset()" style="margin-top:6px; font-size:13px; padding:10px;">🗑️ Nouzový reset paměti</button>
-    </div>
-</div>
-
-<!-- MODAL: HESLO PRO LOGIN -->
-<div id="login-password-modal" class="modal hidden">
-    <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">🔒 Ověření profilu</h3>
-        <p id="login-password-title" style="font-size:14px; color:#475569; margin-bottom:10px;">Zadej heslo:</p>
-        <input type="password" id="check-password-input" placeholder="Heslo..." style="width:100%; margin-bottom: 10px;">
-        <button class="btn btn-success" onclick="verifyLoginPassword()">🔑 Otevřít</button>
-        <button class="btn btn-warning" onclick="closeLoginPasswordModal()" style="margin-top:8px;">Zpět</button>
-    </div>
-</div>
-
-<!-- MODAL: HESLO PRO VYNULOVÁNÍ -->
-<div id="password-modal" class="modal hidden">
-    <div class="modal-content">
-        <h3 style="color:#ef4444; margin-top:0;">🔒 Zabezpečené vymazání</h3>
-        <input type="password" id="reset-password-input" placeholder="Zadej heslo (9876)..." style="width:100%; margin-bottom: 10px;">
-        <button class="btn btn-danger" onclick="verifyResetPassword()">🗑️ Potvrdit</button>
-        <button class="btn btn-warning" onclick="closePasswordModal()" style="margin-top:8px;">Zavřít</button>
-    </div>
-</div>
-
-<!-- MODAL: PEXESO VÝBĚR -->
-<div id="memory-modal" class="modal hidden">
-    <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">🃏 Kouzelné Pexeso</h3>
-        <button class="btn btn-game" onclick="selectMemoryMode()" style="margin-bottom:10px;">🎮 Spustit Pexeso</button>
-        <button class="btn btn-warning" onclick="closeMemoryModal()" style="margin-top:8px;">Zavřít</button>
-    </div>
-</div>
-
 <script>
-    let currentUser = "";
-    let pendingPlayerToLogin = "";
     let activeSubjectKey = "";
     let activeSubjectTitle = "";
     let currentTheoryPage = 0;
     let userAnswers = {};
-
-    function showAppAlert(message) {
-        const alertBox = document.getElementById("custom-alert-box");
-        alertBox.innerText = message;
-        alertBox.classList.add("show");
-        setTimeout(() => alertBox.classList.remove("show"), 3000);
-    }
 
     function shuffleArray(array) {
         let arr = [...array];
@@ -671,13 +554,9 @@
             ],
             items: [
                 {q: "Project 1 (Unit 1): Doplňte: I ___ got a blue bike.", options: ["have", "has", "is", "are"], correct: "have"},
-                {q: "Napište anglicky: <strong>bratr</strong> (Napiš slovo):", type: "spelling", correct: "brother"},
                 {q: "Project 1 (Unit 2): Ptáci umějí létat: Birds ___ fly.", options: ["can", "can't", "is", "are"], correct: "can"},
-                {q: "Napište anglicky: <strong>slon</strong> (Napiš slovo):", type: "spelling", correct: "elephant"},
                 {q: "Project 1 (Unit 4): Co se děje právě teď vyjadřujeme pomocí ___ času.", options: ["průběhového", "prostého", "minulého"], correct: "průběhového"},
-                {q: "Napište anglicky: <strong>kalhoty</strong> (Napiš slovo):", type: "spelling", correct: "trousers"},
-                {q: "Project 1 (Unit 5): Pro jednotné číslo místa ve městě používáme vazbu There ___", options: ["is", "are", "have"], correct: "is"},
-                {q: "Napište anglicky: <strong>supermarket</strong> (Napiš slovo):", type: "spelling", correct: "supermarket"}
+                {q: "Project 1 (Unit 5): Pro jednotné číslo místa ve městě používáme vazbu There ___", options: ["is", "are", "have"], correct: "is"}
             ]
         },
         cz6_gram: {
@@ -738,13 +617,11 @@
     ];
 
     function openClass(screenId) {
-        if (!currentUser) { openStartPlayerModal(); return; }
         hideAllScreens();
         document.getElementById(screenId + "-screen").classList.remove("hidden");
     }
 
     function openSubjectHub(key, title) {
-        if (!currentUser) { openStartPlayerModal(); return; }
         activeSubjectKey = key;
         activeSubjectTitle = title;
         document.getElementById("hub-title").innerText = title;
@@ -757,24 +634,10 @@
         document.getElementById("subject-hub-screen").classList.remove("hidden");
     }
 
-    function getStoredProgress() {
-        let prog = JSON.parse(localStorage.getItem("school_progress") || "{}");
-        return prog[currentUser] || {};
-    }
-
-    function saveCurrentPage(pageIndex) {
-        if (!currentUser || !activeSubjectKey) return;
-        let prog = JSON.parse(localStorage.getItem("school_progress") || "{}");
-        if (!prog[currentUser]) prog[currentUser] = {};
-        prog[currentUser][activeSubjectKey] = pageIndex;
-        localStorage.setItem("school_progress", JSON.stringify(prog));
-    }
-
     function resumeTheory() {
         let sub = database[activeSubjectKey];
         if (!sub) return;
-        let savedProg = getStoredProgress();
-        currentTheoryPage = savedProg[activeSubjectKey] !== undefined ? savedProg[activeSubjectKey] : 0;
+        currentTheoryPage = 0;
         renderTheoryPage();
         hideAllScreens();
         document.getElementById("theory-screen").classList.remove("hidden");
@@ -801,7 +664,6 @@
 
     function jumpToPage(pageIndex) {
         currentTheoryPage = pageIndex;
-        saveCurrentPage(currentTheoryPage);
         renderTheoryPage();
         hideAllScreens();
         document.getElementById("theory-screen").classList.remove("hidden");
@@ -813,8 +675,6 @@
         
         if (currentTheoryPage >= pages.length) currentTheoryPage = pages.length - 1;
         if (currentTheoryPage < 0) currentTheoryPage = 0;
-
-        saveCurrentPage(currentTheoryPage);
 
         document.getElementById("theory-header-title").innerText = `📖 Učebnice: ${activeSubjectTitle} (Kapitola ${currentTheoryPage + 1}/${pages.length})`;
         document.getElementById("theory-content-box").innerHTML = pages[currentTheoryPage];
@@ -850,18 +710,12 @@
             html += `<div class="workbook-item" id="wb-item-${index}">
                 <div class="workbook-question"><strong>${index + 1}.</strong> ${item.q}</div>`;
             
-            if (item.type === "spelling") {
-                html += `<input type="text" class="spelling-input" id="spelling-input-${index}" placeholder="Napište správný tvar..." oninput="checkSpelling(${index}, '${item.correct}')" style="width:100%; padding:10px; font-size:17px; border:2px solid #cbd5e1; border-radius:12px; text-align:center; margin-top:6px;">
-                         <div id="spelling-feedback-${index}" style="font-weight:bold; margin-top:5px; font-size:14px;"></div>`;
-            } else {
-                let shuffledOpts = shuffleArray(item.options);
-                html += `<div class="workbook-options">`;
-                shuffledOpts.forEach(opt => {
-                    html += `<button class="wb-opt-btn" onclick="selectWorkbookAnswer(${index}, '${opt}', '${item.correct}', this)">${opt}</button>`;
-                });
-                html += `</div>`;
-            }
-            html += `</div>`;
+            let shuffledOpts = shuffleArray(item.options);
+            html += `<div class="workbook-options">`;
+            shuffledOpts.forEach(opt => {
+                html += `<button class="wb-opt-btn" onclick="selectWorkbookAnswer(${index}, '${opt}', '${item.correct}', this)">${opt}</button>`;
+            });
+            html += `</div></div>`;
         });
 
         box.innerHTML = html;
@@ -892,36 +746,8 @@
         document.getElementById("workbook-score").innerText = `⭐ Body: ${totalCorrect}/${totalItems}`;
     }
 
-    function checkSpelling(itemIndex, correct) {
-        let val = document.getElementById(`spelling-input-${itemIndex}`).value.trim().toLowerCase();
-        let fb = document.getElementById(`spelling-feedback-${itemIndex}`);
-        if (val === correct.toLowerCase()) {
-            fb.innerText = "🎉 Správně!";
-            fb.style.color = "var(--success)";
-            userAnswers[itemIndex] = true;
-        } else {
-            fb.innerText = "Zatím nesprávně...";
-            fb.style.color = "var(--danger)";
-            userAnswers[itemIndex] = false;
-        }
-        let totalCorrect = Object.values(userAnswers).filter(val => val === true).length;
-        let totalItems = database[activeSubjectKey].items.length;
-        document.getElementById("workbook-score").innerText = `⭐ Body: ${totalCorrect}/${totalItems}`;
-    }
-
-    function finishWorkbook() {
-        let totalCorrect = Object.values(userAnswers).filter(val => val === true).length;
-        let totalItems = database[activeSubjectKey].items.length;
-        let scoreEarned = totalCorrect * 2;
-
-        saveLeaderboard(currentUser, scoreEarned, activeSubjectTitle, activeSubjectKey);
-        showAppAlert(`🎉 Výborně! Získal(a) jsi ${scoreEarned} bodů. Výsledek byl uložen.`);
-        showMenu();
-    }
-
     let fillIndex = 0, fillQuestions = [], fillScore = 0;
     function startFillGame() {
-        if (!currentUser) { openStartPlayerModal(); return; }
         fillIndex = 0; fillScore = 0;
         fillQuestions = shuffleArray(fillDatabase).slice(0, 3);
         hideAllScreens();
@@ -930,7 +756,7 @@
     }
     function showFillQuestion() {
         if (fillIndex >= fillQuestions.length) {
-            endFillGame();
+            showMenu();
             return;
         }
         let fq = fillQuestions[fillIndex];
@@ -956,22 +782,8 @@
         fillIndex++;
         setTimeout(showFillQuestion, 1200);
     }
-    function endFillGame() {
-        saveLeaderboard(currentUser, fillScore, "Doplňovačka ✍️", "fill");
-        showAppAlert(`🏆 Konec doplňovačky! Získal jsi ${fillScore} bodů.`);
-        showMenu();
-    }
 
     let memoryCards = [], flippedCards = [], matchedPairs = 0, p1Score = 0, canFlip = true;
-    function openMemoryModal() {
-        if (!currentUser) { openStartPlayerModal(); return; }
-        document.getElementById("memory-modal").classList.remove("hidden");
-    }
-    function closeMemoryModal() { document.getElementById("memory-modal").classList.add("hidden"); }
-    function selectMemoryMode() {
-        closeMemoryModal();
-        startMemoryGame();
-    }
     function startMemoryGame() {
         p1Score = 0; matchedPairs = 0; flippedCards = []; canFlip = true;
         let emojis = ['🍎', '🍌', '🍇', '🍉', '🍓', '🍒'];
@@ -991,7 +803,7 @@
             el.onclick = () => flipCard(index);
             board.appendChild(el);
         });
-        document.getElementById("memory-scores").innerText = `${currentUser}: ${p1Score}`;
+        document.getElementById("memory-scores").innerText = `Skóre: ${p1Score}`;
     }
     function flipCard(index) {
         if (!canFlip || memoryCards[index].flipped || memoryCards[index].matched) return;
@@ -1007,9 +819,7 @@
                 flippedCards = []; canFlip = true;
                 renderMemoryBoard();
                 if (matchedPairs === 6) {
-                    saveLeaderboard(currentUser, p1Score * 2, "Pexeso 🃏", "memory");
-                    showAppAlert("🏆 Pexeso dokončeno!");
-                    showMenu();
+                    setTimeout(showMenu, 1500);
                 }
             } else {
                 setTimeout(() => {
@@ -1022,7 +832,6 @@
 
     let snakeInterval = null, snake = [], food = {}, dx = 15, dy = 0, nextDx = 15, nextDy = 0, snakeScore = 0, tileSize = 15;
     function startSnakeGame() {
-        if (!currentUser) { openStartPlayerModal(); return; }
         snakeScore = 0;
         snake = [{x: 105, y: 105}, {x: 90, y: 105}, {x: 75, y: 105}];
         dx = tileSize; dy = 0; nextDx = tileSize; nextDy = 0;
@@ -1037,8 +846,6 @@
         let head = {x: snake[0].x + dx, y: snake[0].y + dy};
         if (head.x < 0 || head.x >= 280 || head.y < 0 || head.y >= 280 || checkSnakeCollision(head)) {
             clearInterval(snakeInterval);
-            saveLeaderboard(currentUser, snakeScore, "Had 🐍", "snake");
-            showAppAlert(`🐍 Konec hry Had! Skóre: ${snakeScore}`);
             showMenu();
             return;
         }
@@ -1068,4 +875,31 @@
         });
     }
     function changeSnakeDir(dir) {
-        if (dir === 'UP' && dy === 0) { next
+        if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -tileSize; }
+        if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = tileSize; }
+        if (dir === 'LEFT' && dx === 0) { nextDx = -tileSize; nextDy = 0; }
+        if (dir === 'RIGHT' && dx === 0) { nextDx = tileSize; nextDy = 0; }
+    }
+
+    function hideAllScreens() {
+        if (snakeInterval) clearInterval(snakeInterval);
+        document.getElementById("menu-screen").classList.add("hidden");
+        document.getElementById("class4-screen").classList.add("hidden");
+        document.getElementById("class6-screen").classList.add("hidden");
+        document.getElementById("subject-hub-screen").classList.add("hidden");
+        document.getElementById("toc-screen").classList.add("hidden");
+        document.getElementById("theory-screen").classList.add("hidden");
+        document.getElementById("workbook-screen").classList.add("hidden");
+        document.getElementById("memory-screen").classList.add("hidden");
+        document.getElementById("snake-screen").classList.add("hidden");
+        document.getElementById("fill-screen").classList.add("hidden");
+    }
+
+    function showMenu() {
+        hideAllScreens();
+        document.getElementById("menu-screen").classList.remove("hidden");
+    }
+</script>
+
+</body>
+</html>
