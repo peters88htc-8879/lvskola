@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎓 Školní Trénink - Zábavné Učení</title>
+    <title>🎓 Školní Trénink - Pohádková 3D Akademie</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --success: #059669;
-            --danger: #dc2626;
-            --accent: #d97706;
-            --bg-gradient: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
-            --card-bg: #e6f4f1;
-            --text-color: #0f172a;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg-gradient: radial-gradient(circle at center, #312e81 0%, #1e1b4b 100%);
+            --card-glass: rgba(255, 255, 255, 0.9);
+            --text-color: #1e1b4b;
         }
 
         * { box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Fredoka', 'Segoe UI', Tahoma, sans-serif;
             background: var(--bg-gradient);
             background-attachment: fixed;
             margin: 0;
-            padding: 10px;
+            padding: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -32,141 +34,185 @@
         }
 
         .container {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
+            padding: 30px;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 4px 10px rgba(255,255,255,0.9);
             width: 100%;
-            max-width: 620px;
+            max-width: 650px;
             text-align: center;
-            border: 3px solid #94a3b8;
-            margin: auto;
+            border: 6px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Pohádková 3D záře v pozadí */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50px; left: -50px;
+            width: 150px; height: 150px;
+            background: rgba(99, 102, 241, 0.15);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: 0;
         }
 
         h1 {
-            color: #1e1b4b;
-            font-size: 28px;
+            color: #312e81;
+            font-size: 34px;
             margin-top: 0;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            text-shadow: 2px 3px 6px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
         }
 
         .user-box {
-            background: #ffffff;
-            padding: 14px;
-            border-radius: 20px;
-            margin-bottom: 15px;
-            border: 2px dashed #64748b;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            padding: 18px;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            border: 3px solid #cbd5e1;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.06), inset 0 3px 5px rgba(255,255,255,0.8);
+            position: relative;
+            z-index: 1;
         }
 
         input[type="text"] {
             width: 85%;
-            padding: 12px;
+            padding: 14px;
             font-size: 18px;
-            border: 2px solid #cbd5e1;
-            border-radius: 15px;
+            border: 3px solid #cbd5e1;
+            border-radius: 18px;
             margin-top: 8px;
             text-align: center;
-            font-weight: bold;
+            font-weight: 600;
             outline: none;
-            background: #ffffff;
-            color: #0f172a;
+            background: #f8fafc;
+            color: #1e1b4b;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s;
         }
 
         input[type="text"]:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4), inset 0 3px 6px rgba(0,0,0,0.05);
         }
 
+        /* Pohádková 3D tlačítka */
         .btn {
-            background-color: var(--primary);
+            background: linear-gradient(145deg, #818cf8, #4f46e5);
             color: white;
             border: none;
-            padding: 14px 20px;
-            font-size: 18px;
-            border-radius: 16px;
+            padding: 16px 22px;
+            font-size: 19px;
+            border-radius: 20px;
             cursor: pointer;
             width: 100%;
-            margin: 8px 0;
-            transition: all 0.2s ease;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 10px 0;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4), inset 0 3px 4px rgba(255, 255, 255, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
         }
 
         .btn:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(79, 70, 229, 0.6), inset 0 3px 4px rgba(255, 255, 255, 0.5);
         }
 
-        .btn-success { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
-        .btn-danger { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); font-size: 15px; padding: 12px; }
-        .btn-warning { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); font-size: 15px; padding: 12px; color: #fff; }
-        .btn-continue { 
-            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); 
-            font-size: 16px; 
-            padding: 14px; 
-            border-radius: 18px;
-            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.4);
         }
-        /* Sjednocená barva všech herních tlačítek */
-        .btn-game { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
+
+        .btn-success { background: linear-gradient(145deg, #34d399, #059669); box-shadow: 0 8px 20px rgba(5, 150, 105, 0.4), inset 0 3px 4px rgba(255, 255, 255, 0.4); }
+        .btn-danger { background: linear-gradient(145deg, #f87171, #dc2626); font-size: 16px; padding: 14px; box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4), inset 0 3px 4px rgba(255, 255, 255, 0.4); }
+        .btn-warning { background: linear-gradient(145deg, #fbbf24, #d97706); font-size: 16px; padding: 14px; color: #fff; box-shadow: 0 8px 20px rgba(217, 119, 6, 0.4), inset 0 3px 4px rgba(255, 255, 255, 0.4); }
+        .btn-continue { 
+            background: linear-gradient(145deg, #c084fc, #9333ea); 
+            font-size: 17px; 
+            padding: 16px; 
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(147, 51, 234, 0.4), inset 0 3px 4px rgba(255, 255, 255, 0.4);
+        }
+        .btn-game { background: linear-gradient(145deg, #38bdf8, #0284c7); box-shadow: 0 8px 20px rgba(2, 132, 199, 0.4), inset 0 3px 4px rgba(255, 255, 255, 0.4); }
 
         .subject-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 15px;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .btn-subject {
-            background: #ffffff;
-            border: 2px solid #cbd5e1;
-            color: #1e293b;
-            font-size: 16px;
-            border-radius: 20px;
-            padding: 16px 10px;
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
+            border: 3px solid #cbd5e1;
+            color: #1e1b4b;
+            font-size: 17px;
+            border-radius: 25px;
+            padding: 18px 12px;
             flex-direction: column;
-            gap: 6px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            transition: all 0.2s;
+            gap: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.06), inset 0 3px 4px rgba(255,255,255,0.9);
+            transition: all 0.3s;
         }
 
-        .btn-subject span { font-size: 28px; }
+        .btn-subject span { 
+            font-size: 36px; 
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+            animation: floatIcon 3s ease-in-out infinite;
+        }
 
         .btn-subject:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             border-color: var(--primary);
-            background: #cffafe;
+            background: linear-gradient(145deg, #e0f2fe, #bae6fd);
             color: #0f172a;
+            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.25), inset 0 3px 5px rgba(255,255,255,1);
         }
 
         .hidden { display: none !important; }
 
         .option-btn {
-            background: #ffffff;
-            border: 2px solid #cbd5e1;
-            color: #1e293b;
-            margin: 8px 0;
-            font-size: 17px;
-            border-radius: 16px;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border: 3px solid #cbd5e1;
+            color: #1e1b4b;
+            margin: 10px 0;
+            font-size: 18px;
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05), inset 0 3px 3px rgba(255,255,255,0.9);
         }
 
         .option-btn:hover {
             border-color: var(--primary);
-            background: #cffafe;
+            background: linear-gradient(145deg, #e0f2fe, #bae6fd);
+            transform: translateY(-2px);
         }
 
         .score-board {
-            background: #ffffff;
-            border: 2px solid #cbd5e1;
-            padding: 16px;
-            border-radius: 22px;
-            margin-top: 15px;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border: 3px solid #cbd5e1;
+            padding: 18px;
+            border-radius: 28px;
+            margin-top: 20px;
             text-align: left;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05), inset 0 3px 5px rgba(255,255,255,0.9);
+            position: relative;
+            z-index: 1;
         }
 
         .score-board h4 {
@@ -175,7 +221,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 16px;
+            font-size: 17px;
         }
 
         .score-list {
@@ -187,158 +233,167 @@
         }
 
         .score-item {
-            background: #f1f5f9;
-            padding: 10px 14px;
-            border-radius: 12px;
+            background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+            padding: 12px 16px;
+            border-radius: 16px;
             margin-bottom: 8px;
-            border: 1px solid #cbd5e1;
+            border: 2px solid #cbd5e1;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 15px;
+            font-size: 16px;
             cursor: pointer;
             transition: all 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
         }
 
         .score-item:hover {
-            background: #e2e8f0;
+            background: linear-gradient(145deg, #e2e8f0, #cbd5e1);
             border-color: var(--primary);
+            transform: scale(1.01);
         }
 
         .badge-subject {
             background: #4f46e5;
             color: white;
-            padding: 3px 8px;
-            border-radius: 8px;
-            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 12px;
             font-weight: bold;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
         }
 
         .vertical-math {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 34px;
-            font-weight: bold;
+            font-family: 'Fredoka', monospace;
+            font-size: 38px;
+            font-weight: 700;
             text-align: right;
             display: inline-block;
-            border-bottom: 4px solid #1e293b;
-            padding: 8px 20px;
-            margin: 8px 0;
-            background: #ffffff;
-            border-radius: 16px;
-            letter-spacing: 4px;
-            color: #0f172a;
+            border-bottom: 5px solid #1e1b4b;
+            padding: 10px 25px;
+            margin: 10px 0;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border-radius: 20px;
+            letter-spacing: 5px;
+            color: #1e1b4b;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.1), 0 6px 12px rgba(0,0,0,0.06);
         }
 
         #feedback {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-            min-height: 30px;
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 12px;
+            min-height: 35px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
 
         .question-card {
-            background: #ffffff;
-            padding: 15px;
-            border-radius: 20px;
-            border: 2px solid #cbd5e1;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            padding: 22px;
+            border-radius: 25px;
+            border: 3px solid #cbd5e1;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.06), inset 0 3px 5px rgba(255,255,255,0.9);
         }
 
         #quiz-screen, #fill-screen {
             padding-bottom: 40px;
         }
 
-        /* STYLY PRO PEXESO 5x5 */
+        /* 3D Pohádkové Pexeso */
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            margin: 15px 0;
+            gap: 10px;
+            margin: 20px 0;
         }
         .memory-card {
-            background: #94a3b8;
-            height: 55px;
-            border-radius: 12px;
+            background: linear-gradient(145deg, #94a3b8, #64748b);
+            height: 60px;
+            border-radius: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 26px;
+            font-size: 28px;
             cursor: pointer;
             user-select: none;
-            transition: transform 0.2s, background 0.3s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.25s, background 0.3s;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.25), inset 0 3px 4px rgba(255,255,255,0.5);
         }
+        .memory-card:hover { transform: translateY(-3px) scale(1.03); }
         .memory-card.flipped {
-            background: #ffffff;
-            transform: scale(1.05);
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
+            transform: scale(1.08);
             border: 3px solid #4f46e5;
+            box-shadow: 0 12px 25px rgba(79, 70, 229, 0.4);
         }
         .memory-card.matched {
-            background: #10b981;
+            background: linear-gradient(145deg, #34d399, #059669);
             color: white;
             cursor: default;
+            box-shadow: inset 0 3px 6px rgba(255,255,255,0.5);
         }
 
-        /* STYLY PRO VYLEPŠENOU HRU HAD */
+        /* 3D Pohádková Hra Had */
         #snake-canvas {
-            background: #0f172a;
-            border: 4px solid #334155;
-            border-radius: 16px;
+            background: radial-gradient(circle, #312e81 0%, #0f172a 100%);
+            border: 6px solid #4f46e5;
+            border-radius: 24px;
             display: block;
-            margin: 10px auto;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+            margin: 15px auto;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 12px 25px rgba(0,0,0,0.4);
         }
         .snake-controls {
             display: grid;
-            grid-template-columns: repeat(3, 60px);
-            gap: 6px;
+            grid-template-columns: repeat(3, 65px);
+            gap: 10px;
             justify-content: center;
-            margin: 10px 0;
+            margin: 15px 0;
         }
         .ctrl-btn {
-            background: #0284c7;
+            background: linear-gradient(145deg, #38bdf8, #0284c7);
             color: white;
             border: none;
-            font-size: 22px;
-            height: 50px;
-            border-radius: 12px;
+            font-size: 24px;
+            height: 56px;
+            border-radius: 18px;
             cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            font-weight: 700;
+            box-shadow: 0 8px 18px rgba(2, 132, 199, 0.4), inset 0 3px 4px rgba(255,255,255,0.5);
         }
-        .ctrl-btn:active { background: #0369a1; transform: scale(0.95); }
+        .ctrl-btn:active { background: #0369a1; transform: scale(0.92); }
 
         .modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(15, 23, 42, 0.75);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(8px);
         }
         .modal-content {
-            background: #ffffff;
-            color: #1e293b;
-            padding: 25px;
-            border-radius: 25px;
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
+            color: #1e1b4b;
+            padding: 35px;
+            border-radius: 35px;
             width: 90%;
-            max-width: 450px;
+            max-width: 480px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            border: 3px solid var(--primary);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 4px 8px rgba(255,255,255,1);
+            border: 5px solid var(--primary);
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
         }
         .trophy-animation {
-            font-size: 70px;
-            margin: 10px 0;
+            font-size: 85px;
+            margin: 15px 0;
             animation: bounce 1s infinite;
+            filter: drop-shadow(0 12px 15px rgba(0,0,0,0.3));
         }
     </style>
 </head>
@@ -350,13 +405,14 @@
     <div id="menu-screen">
         <h1>🌟 Školní Trénink 🌟</h1>
         <div class="user-box">
-            <label for="username"><strong>👤 Zadej jméno nebo vyber v tabulce:</strong></label><br>
-            <input type="text" id="username" placeholder="Např. Anička / Tata...">
+            <span style="font-size: 16px; color: #475569; font-weight: 600;">👤 Aktivní hrdina:</span><br>
+            <strong id="current-user-display" style="font-size: 22px; color: var(--primary);">Zatím nikdo</strong><br>
+            <button class="btn btn-warning" onclick="openStartPlayerModal()" style="margin-top: 12px; font-size: 15px; padding: 12px;">🔄 Změnit hráče / Vybrat ze skóre</button>
         </div>
 
-        <div id="resume-container" class="hidden" style="margin-bottom: 15px;">
+        <div id="resume-container" class="hidden" style="margin-bottom: 18px;">
             <button class="btn btn-continue" onclick="resumeQuiz()">
-                ▶️ Pokračovat: <span id="resume-subject-name"></span>
+                ▶️ Pokračovat v testu: <span id="resume-subject-name"></span>
             </button>
         </div>
 
@@ -391,8 +447,8 @@
 
         <div class="score-board">
             <h4>
-                <span>🏆 Žebříček skóre (testy i hry):</span>
-                <button onclick="resetLeaderboard()" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:8px; cursor:pointer; font-size:12px; font-weight:bold;" title="Vymazat skóre">🗑️ Vynulovat</button>
+                <span>🏆 Síň slávy (testy i hry):</span>
+                <button onclick="resetLeaderboard()" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:10px; cursor:pointer; font-size:13px; font-weight:bold;" title="Vymazat skóre">🗑️ Vynulovat</button>
             </h4>
             <ul class="score-list" id="leaderboard"></ul>
         </div>
@@ -400,14 +456,14 @@
 
     <!-- KVÍZOVÁ OBRAZOVKA (TESTY) -->
     <div id="quiz-screen" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:17px;">
             <span id="question-count" style="color: #4f46e5;">📌 Otázka: 1/10</span>
-            <span id="score-display" style="color: #059669; font-size: 18px;">⭐ Body: 0</span>
+            <span id="score-display" style="color: #059669; font-size: 19px;">⭐ Body: 0</span>
         </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
+        <hr style="border: 1px solid #cbd5e1; margin: 12px 0;">
 
         <div class="question-card">
-            <h2 id="question-title" style="margin:0; color:#1e293b; font-size:20px;">Otázka</h2>
+            <h2 id="question-title" style="margin:0; color:#1e1b4b; font-size:22px;">Otázka</h2>
             <div id="vertical-box" class="hidden">
                 <div class="vertical-math" id="vertical-content"></div>
             </div>
@@ -426,15 +482,15 @@
 
     <!-- HRÁČSKÁ OBRAZOVKA: DOPLŇOVAČKA -->
     <div id="fill-screen" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:17px;">
             <span id="fill-count" style="color: #0284c7;">✍️ Doplňovačka: 1/5</span>
-            <span id="fill-score" style="color: #059669; font-size: 18px;">⭐ Body: 0</span>
+            <span id="fill-score" style="color: #059669; font-size: 19px;">⭐ Body: 0</span>
         </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
+        <hr style="border: 1px solid #cbd5e1; margin: 12px 0;">
 
         <div class="question-card">
-            <h2 id="fill-title" style="margin:0; color:#1e293b; font-size:18px;">Doplň písmeno</h2>
-            <div id="fill-word-display" style="font-size: 30px; font-weight: bold; letter-spacing: 5px; margin: 12px 0; color: #4f46e5;"></div>
+            <h2 id="fill-title" style="margin:0; color:#1e1b4b; font-size:20px;">Doplň písmeno</h2>
+            <div id="fill-word-display" style="font-size: 34px; font-weight: 700; letter-spacing: 6px; margin: 15px 0; color: #4f46e5;"></div>
         </div>
 
         <input type="text" id="fill-answer" placeholder="Napiš chybějící písmeno...">
@@ -445,12 +501,12 @@
 
     <!-- HRÁČSKÁ OBRAZOVKA: PEXESO -->
     <div id="memory-screen" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:14px;">
-            <span id="player-turn-indicator" style="padding: 6px 12px; border-radius: 10px; color: white; background: #4f46e5;">Hráč 1 na tahu</span>
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:15px;">
+            <span id="player-turn-indicator" style="padding: 8px 14px; border-radius: 12px; color: white; background: #4f46e5;">Hráč 1 na tahu</span>
             <span>🃏 Pexeso 5x5</span>
             <span id="memory-scores">H1: 0 | H2: 0</span>
         </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 8px 0;">
+        <hr style="border: 1px solid #cbd5e1; margin: 10px 0;">
 
         <div class="memory-grid" id="memory-board"></div>
         <button class="btn btn-danger" onclick="showMenu()">🏠 Zpět do menu</button>
@@ -458,12 +514,12 @@
 
     <!-- HRÁČSKÁ OBRAZOVKA: HAD (SNAKE) -->
     <div id="snake-screen" class="hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:15px;">
             <span style="color: #10b981;" id="snake-info-level">🐍 Kolo: 1</span>
             <span id="snake-info-symbols" style="color: #f59e0b;">🍎 Sebráno: 0/4</span>
             <span id="snake-score" style="color: #059669;">⭐ Skóre: 0</span>
         </div>
-        <hr style="border: 1px solid #cbd5e1; margin: 6px 0;">
+        <hr style="border: 1px solid #cbd5e1; margin: 8px 0;">
 
         <canvas id="snake-canvas" width="300" height="300"></canvas>
 
@@ -476,67 +532,86 @@
             <button class="ctrl-btn" onclick="changeSnakeDir('RIGHT')">➡️</button>
         </div>
 
-        <button class="btn btn-danger" onclick="showMenu()" style="margin-top:5px;">🏠 Zpět do menu</button>
+        <button class="btn btn-danger" onclick="showMenu()" style="margin-top:8px;">🏠 Zpět do menu</button>
     </div>
 
     <!-- VYHODNOCENÍ TESTU / HRY -->
     <div id="result-screen" class="hidden">
         <h2>🎉 Skvělá práce!</h2>
         <div class="trophy-animation">🏆</div>
-        <p id="final-stats" style="font-size: 18px; font-weight: bold; color: #1e293b;">Získal jsi 0 bodů.</p>
+        <p id="final-stats" style="font-size: 20px; font-weight: 700; color: #1e1b4b;">Získal jsi 0 bodů.</p>
         <button class="btn btn-success" id="result-action-btn" onclick="showMenu()">🔄 Pokračovat</button>
         <button class="btn btn-warning" onclick="showMenu()">🏠 Zpět do menu</button>
     </div>
 
 </div>
 
+<!-- MODAL: VÝBĚR HRÁČE / NOVÝ HRÁČ PŘI STARTU -->
+<div id="start-player-modal" class="modal">
+    <div class="modal-content">
+        <h3 style="color:#4f46e5; margin-top:0;">✨ Vítejte v pohádkové akademii!</h3>
+        <p style="font-size:16px; color:#475569; margin-bottom:15px;">Zadej jméno nového hrdiny, nebo vyber ze seznamu:</p>
+        
+        <div style="margin-bottom: 18px;">
+            <input type="text" id="modal-username-input" placeholder="Jméno hrdiny (např. Anička)..." style="width:100%;">
+            <button class="btn btn-success" onclick="confirmNewUserModal()" style="margin-top: 12px;">✨ Vstoupit do hry</button>
+        </div>
+
+        <hr style="border: 1px solid #cbd5e1; margin: 15px 0;">
+        <p style="font-size:15px; font-weight:700; color:#b45309; margin-bottom:10px;">Nebo vyber hrdinu ze síňe slávy:</p>
+        <div id="modal-player-list" style="max-height: 150px; overflow-y: auto; text-align: left; margin-bottom: 15px;"></div>
+
+        <button class="btn btn-warning" onclick="closeStartPlayerModal()" id="close-modal-btn" style="display:none;">Zavřít</button>
+    </div>
+</div>
+
 <!-- DIALOGOVÉ OKNO: VÝBĚR MATEMATIKY -->
 <div id="math-modal" class="modal hidden">
     <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">🔢 Vyber si z matematiky</h3>
-        <button class="btn btn-game" onclick="startMathMode('add')" style="margin-bottom:8px;">➕ Sčítání</button>
-        <button class="btn btn-game" onclick="startMathMode('sub')" style="margin-bottom:8px;">➖ Odčítání</button>
-        <button class="btn btn-game" onclick="startMathMode('mul')" style="margin-bottom:8px;">✖️ Násobení</button>
-        <button class="btn btn-game" onclick="startMathMode('div')" style="margin-bottom:8px;">➗ Dělení</button>
-        <button class="btn btn-game" onclick="startMathMode('vert')" style="margin-bottom:8px; background:linear-gradient(135deg, #10b981 0%, #059669 100%);">📝 Příklady pod sebou (+ - × ÷)</button>
-        <button class="btn btn-game" onclick="startMathMode('mix')" style="margin-bottom:8px; background:linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);">🎓 Velký test (vše dohromady)</button>
-        <button class="btn btn-warning" onclick="closeMathMenu()" style="margin-top:10px;">Zavřít</button>
+        <h3 style="color:#4f46e5; margin-top:0;">🔢 Matematická dobrodružství</h3>
+        <button class="btn btn-game" onclick="startMathMode('add')" style="margin-bottom:10px;">➕ Sčítání</button>
+        <button class="btn btn-game" onclick="startMathMode('sub')" style="margin-bottom:10px;">➖ Odčítání</button>
+        <button class="btn btn-game" onclick="startMathMode('mul')" style="margin-bottom:10px;">✖️ Násobení</button>
+        <button class="btn btn-game" onclick="startMathMode('div')" style="margin-bottom:10px;">➗ Dělení</button>
+        <button class="btn btn-game" onclick="startMathMode('vert')" style="margin-bottom:10px; background:linear-gradient(145deg, #34d399, #059669);">📝 Příklady pod sebou (+ - × ÷)</button>
+        <button class="btn btn-game" onclick="startMathMode('mix')" style="margin-bottom:10px; background:linear-gradient(145deg, #c084fc, #9333ea);">🎓 Velký zkouškový test</button>
+        <button class="btn btn-warning" onclick="closeMathMenu()" style="margin-top:12px;">Zavřít</button>
     </div>
 </div>
 
 <!-- DIALOGOVÉ OKNO: VÝBĚR ANGLIČTINY -->
 <div id="eng-modal" class="modal hidden">
     <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">🇬🇧 Vyber si z angličtiny</h3>
-        <button class="btn btn-game" onclick="startEngMode('vocab')" style="margin-bottom:10px;">📖 Slovíčka (překlady)</button>
-        <button class="btn btn-game" onclick="startEngMode('fill')" style="margin-bottom:10px; background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">✍️ Doplňovačka písmen</button>
-        <button class="btn btn-game" onclick="startEngMode('test')" style="margin-bottom:10px; background:linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);">🎓 Velký gramatický test</button>
-        <button class="btn btn-warning" onclick="closeEngMenu()" style="margin-top:10px;">Zavřít</button>
+        <h3 style="color:#4f46e5; margin-top:0;">🇬🇧 Anglický svět</h3>
+        <button class="btn btn-game" onclick="startEngMode('vocab')" style="margin-bottom:12px;">📖 Slovíčka (překlady)</button>
+        <button class="btn btn-game" onclick="startEngMode('fill')" style="margin-bottom:12px; background:linear-gradient(145deg, #38bdf8, #0284c7);">✍️ Doplňovačka písmen</button>
+        <button class="btn btn-game" onclick="startEngMode('test')" style="margin-bottom:12px; background:linear-gradient(145deg, #c084fc, #9333ea);">🎓 Velký gramatický test</button>
+        <button class="btn btn-warning" onclick="closeEngMenu()" style="margin-top:12px;">Zavřít</button>
     </div>
 </div>
 
 <!-- DIALOGOVÉ OKNO: PEXESO -->
 <div id="memory-modal" class="modal hidden">
     <div class="modal-content">
-        <h3 style="color:#4f46e5; margin-top:0;">🃏 Vyber si režim Pexesa</h3>
-        <p style="font-size:15px; color:#64748b; margin-bottom:15px;">S kým si chceš zahrát?</p>
-        <button class="btn btn-game" onclick="selectMemoryMode('vs-pc')" style="margin-bottom:12px;">🤖 Hráč vs Počítač (hodný soupeř)</button>
-        <button class="btn btn-game" onclick="showP2Input()" style="margin-bottom:12px; background:linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);">👥 Dva hráči (na jednom mobilu)</button>
-        <div id="p2-input-box" class="hidden" style="margin-top:10px; background:#f1f5f9; padding:12px; border-radius:15px;">
+        <h3 style="color:#4f46e5; margin-top:0;">🃏 Kouzelné Pexeso 5x5</h3>
+        <p style="font-size:16px; color:#475569; margin-bottom:18px;">S kým si chceš zahrát?</p>
+        <button class="btn btn-game" onclick="selectMemoryMode('vs-pc')" style="margin-bottom:14px;">🤖 Hráč vs Počítač (přátelský soupeř)</button>
+        <button class="btn btn-game" onclick="showP2Input()" style="margin-bottom:14px; background:linear-gradient(145deg, #c084fc, #9333ea);">👥 Dva hráči (na jednom zařízení)</button>
+        <div id="p2-input-box" class="hidden" style="margin-top:12px; background:#f8fafc; padding:15px; border-radius:18px; border: 2px solid #cbd5e1;">
             <label for="p2-name-input"><strong>👤 Jméno 2. hráče:</strong></label><br>
-            <input type="text" id="p2-name-input" placeholder="Např. Máma / Brácha" style="width:100%; margin-bottom:10px;">
-            <button class="btn btn-success" onclick="selectMemoryMode('vs-player')">🎮 Spustit hru 2 hráčů</button>
+            <input type="text" id="p2-name-input" placeholder="Např. Máma / Brácha" style="width:100%; margin-bottom:12px;">
+            <button class="btn btn-success" onclick="selectMemoryMode('vs-player')">🎮 Spustit souboj</button>
         </div>
-        <button class="btn btn-warning" onclick="closeMemoryModal()" style="margin-top:10px;">Zavřít</button>
+        <button class="btn btn-warning" onclick="closeMemoryModal()" style="margin-top:12px;">Zavřít</button>
     </div>
 </div>
 
 <!-- DETAILNÍ OKNO PRO HISTORII POKUSŮ -->
 <div id="detail-modal" class="modal hidden">
     <div class="modal-content">
-        <h3 id="modal-title" style="color:#4f46e5; margin-top:0;">📊 Profil hráče</h3>
-        <div id="modal-body" style="max-height: 280px; overflow-y: auto; text-align: left; margin: 15px 0; font-size: 15px;"></div>
-        <button class="btn btn-success" onclick="selectUserFromModal()">✅ Pokračovat za tohoto hráče</button>
+        <h3 id="modal-title" style="color:#4f46e5; margin-top:0;">📊 Profil hrdiny</h3>
+        <div id="modal-body" style="max-height: 250px; overflow-y: auto; text-align: left; margin: 15px 0; font-size: 16px;"></div>
+        <button class="btn btn-success" onclick="selectUserFromModal()">✅ Pokračovat za tohoto hrdinu</button>
         <button class="btn btn-warning" onclick="closeModal()">Zavřít</button>
     </div>
 </div>
@@ -564,7 +639,7 @@
     let p2Name = "Počítač 🤖";
     let canFlip = true;
 
-    // Proměnné pro vylepšenou hru Had
+    // Had (stabilní rychlost pro 8leté děti)
     let snakeInterval = null;
     let snake = [];
     let food = {};
@@ -575,7 +650,7 @@
     let snakeScore = 0;
     let snakeLevel = 1;
     let symbolsCollectedInLevel = 0;
-    let tileSize = 15; // Zvětšující se políčko podle kol
+    let tileSize = 15;
 
     function playVictorySound() {
         try {
@@ -740,14 +815,67 @@
         return mathQ;
     }
 
-    // --- OVLÁDÁNÍ MENU MATEMATIKY A ANGLIČTINY ---
-    function openMathMenu() {
-        let nameInput = document.getElementById("username").value.trim();
+    // --- SPRÁVA STARTU A VÝBĚRU HRÁČE ---
+    function openStartPlayerModal() {
+        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
+        let listHtml = "";
+        
+        let uniquePlayers = {};
+        board.forEach(item => {
+            if (!uniquePlayers[item.name] || item.score > uniquePlayers[item.name].score) {
+                uniquePlayers[item.name] = item;
+            }
+        });
+
+        let sorted = Object.values(uniquePlayers).sort((a,b) => b.score - a.score);
+
+        if (sorted.length === 0) {
+            listHtml = "<p style='color:#64748b; font-size:15px; text-align:center;'>Zatím žádní uložení hrdinové. Zadejte jméno výše.</p>";
+            document.getElementById("close-modal-btn").style.display = "block";
+        } else {
+            sorted.forEach(item => {
+                listHtml += `<div class="score-item" onclick="selectModalPlayer('${item.name}')">
+                    <span>👤 <strong>${item.name}</strong></span>
+                    <span style="color:#059669; font-weight:bold;">Max: ${item.score} b.</span>
+                </div>`;
+            });
+            document.getElementById("close-modal-btn").style.display = currentUser ? "block" : "none";
+        }
+
+        document.getElementById("modal-player-list").innerHTML = listHtml;
+        document.getElementById("start-player-modal").classList.remove("hidden");
+    }
+
+    function selectModalPlayer(name) {
+        currentUser = name;
+        document.getElementById("current-user-display").innerText = name;
+        document.getElementById("start-player-modal").classList.add("hidden");
+        checkSavedState();
+    }
+
+    function confirmNewUserModal() {
+        let nameInput = document.getElementById("modal-username-input").value.trim();
         if (!nameInput) {
-            alert("⚠️ Prosím, zadej nejprve svoje jméno do políčka nahoře!");
+            alert("⚠️ Zadej prosím platné jméno hrdiny!");
             return;
         }
         currentUser = nameInput;
+        document.getElementById("current-user-display").innerText = nameInput;
+        document.getElementById("start-player-modal").classList.add("hidden");
+        checkSavedState();
+    }
+
+    function closeStartPlayerModal() {
+        if (!currentUser) {
+            alert("⚠️ Nejprve vyber nebo zadej jméno hrdiny!");
+            return;
+        }
+        document.getElementById("start-player-modal").classList.add("hidden");
+    }
+
+    // --- OVLÁDÁNÍ MENU ---
+    function openMathMenu() {
+        if (!currentUser) { openStartPlayerModal(); return; }
         document.getElementById("math-modal").classList.remove("hidden");
     }
     function closeMathMenu() { document.getElementById("math-modal").classList.add("hidden"); }
@@ -763,12 +891,7 @@
     }
 
     function openEngMenu() {
-        let nameInput = document.getElementById("username").value.trim();
-        if (!nameInput) {
-            alert("⚠️ Prosím, zadej nejprve svoje jméno do políčka nahoře!");
-            return;
-        }
-        currentUser = nameInput;
+        if (!currentUser) { openStartPlayerModal(); return; }
         document.getElementById("eng-modal").classList.remove("hidden");
     }
     function closeEngMenu() { document.getElementById("eng-modal").classList.add("hidden"); }
@@ -796,12 +919,7 @@
     }
 
     function startQuiz(subject) {
-        let nameInput = document.getElementById("username").value.trim();
-        if (!nameInput) {
-            alert("⚠️ Prosím, zadej nejprve svoje jméno do políčka nahoře nebo klikni na své jméno v žebříčku dole!");
-            return;
-        }
-        currentUser = nameInput;
+        if (!currentUser) { openStartPlayerModal(); return; }
         currentSubjectKey = subject;
         currentSubjectName = subjectNames[subject];
         questionIndex = 0;
@@ -819,11 +937,13 @@
         const resumeBox = document.getElementById("resume-container");
         if (saved) {
             let data = JSON.parse(saved);
-            document.getElementById("resume-subject-name").innerText = `${subjectNames[data.subjectKey] || "Test"} (${data.userName})`;
-            resumeBox.classList.remove("hidden");
-        } else {
-            resumeBox.classList.add("hidden");
+            if (data.userName === currentUser) {
+                document.getElementById("resume-subject-name").innerText = `${subjectNames[data.subjectKey] || "Test"} (${data.userName})`;
+                resumeBox.classList.remove("hidden");
+                return;
+            }
         }
+        resumeBox.classList.add("hidden");
     }
 
     function resumeQuiz() {
@@ -831,13 +951,13 @@
         if (!saved) return;
         let data = JSON.parse(saved);
         currentUser = data.userName;
+        document.getElementById("current-user-display").innerText = currentUser;
         currentSubjectKey = data.subjectKey;
         currentSubjectName = subjectNames[data.subjectKey] || "Test";
         questionIndex = data.questionIndex;
         score = data.score;
         questions = data.questions;
 
-        document.getElementById("username").value = currentUser;
         localStorage.removeItem("school_saved_quiz");
         hideAllScreens();
         document.getElementById("quiz-screen").classList.remove("hidden");
@@ -956,12 +1076,7 @@
 
     // --- DOPLŇOVAČKA ---
     function startFillGame() {
-        let nameInput = document.getElementById("username").value.trim();
-        if (!nameInput) {
-            alert("⚠️ Prosím, zadej nejprve svoje jméno do políčka nahoře!");
-            return;
-        }
-        currentUser = nameInput;
+        if (!currentUser) { openStartPlayerModal(); return; }
         fillIndex = 0;
         fillScore = 0;
         fillQuestions = [...fillDatabase].sort(() => Math.random() - 0.5);
@@ -1014,12 +1129,7 @@
 
     // --- PEXESO 5x5 ---
     function openMemoryModal() {
-        let nameInput = document.getElementById("username").value.trim();
-        if (!nameInput) {
-            alert("⚠️ Prosím, zadej nejprve své jméno do políčka nahoře!");
-            return;
-        }
-        currentUser = nameInput;
+        if (!currentUser) { openStartPlayerModal(); return; }
         document.getElementById("p2-input-box").classList.add("hidden");
         document.getElementById("memory-modal").classList.remove("hidden");
     }
@@ -1148,292 +1258,4 @@
                     matchedPairs++;
                     p2Score++;
                     renderMemoryBoard();
-                    checkMemoryEnd();
-                    
-                    if (matchedPairs < 12 && currentPlayer === 2) {
-                        setTimeout(computerTurn, 900);
-                    }
-                } else {
-                    memoryCards[card1Index].flipped = false;
-                    memoryCards[card2Index].flipped = false;
-                    currentPlayer = 1;
-                    updateTurnIndicator();
-                    renderMemoryBoard();
-                }
-            }, 1000);
-        }, 700);
-    }
-
-    function checkMemoryEnd() {
-        if (matchedPairs === 12) {
-            playVictorySound();
-            setTimeout(() => {
-                let winnerText = p1Score > p2Score ? `${currentUser} vyhrává!` : (p2Score > p1Score ? `${p2Name} vyhrává!` : `Remíza!`);
-                saveLeaderboard(currentUser, p1Score * 2, subjectNames['memory']);
-                alert(`🏆 Pexeso skončilo! ${winnerText}`);
-                showMenu();
-            }, 500);
-        }
-    }
-
-    // --- VYLEPŠENÁ HRA HAD (SNAKE) S KOLY A ZVĚTŠOVÁNÍM ---
-    function startSnakeGame() {
-        let nameInput = document.getElementById("username").value.trim();
-        if (!nameInput) {
-            alert("⚠️ Prosím, zadej nejprve své jméno do políčka nahoře!");
-            return;
-        }
-        currentUser = nameInput;
-        snakeScore = 0;
-        snakeLevel = 1;
-        symbolsCollectedInLevel = 0;
-        tileSize = 15; // Výchozí velikost políčka
-
-        snake = [
-            {x: 105, y: 105},
-            {x: 90, y: 105},
-            {x: 75, y: 105}
-        ];
-        dx = tileSize;
-        dy = 0;
-        nextDx = tileSize;
-        nextDy = 0;
-
-        hideAllScreens();
-        document.getElementById("snake-screen").classList.remove("hidden");
-        spawnFood();
-
-        if (snakeInterval) clearInterval(snakeInterval);
-        snakeInterval = setInterval(mainSnakeLoop, 120);
-    }
-
-    function mainSnakeLoop() {
-        dx = nextDx;
-        dy = nextDy;
-        let head = {x: snake[0].x + dx, y: snake[0].y + dy};
-
-        // Kontrola nárazu do stěn
-        if (head.x < 0 || head.x >= 300 || head.y < 0 || head.y >= 300 || checkSnakeCollision(head)) {
-            clearInterval(snakeInterval);
-            playVictorySound();
-            saveLeaderboard(currentUser, snakeScore, subjectNames['snake']);
-            alert(`🐍 Konec hry! Narazil jsi do zdi nebo do sebe. Skóre: ${snakeScore} bodů.`);
-            showMenu();
-            return;
-        }
-
-        snake.unshift(head);
-
-        // Sebrání jablíčka / symbolu
-        if (Math.abs(head.x - food.x) < tileSize && Math.abs(head.y - food.y) < tileSize) {
-            snakeScore += 2;
-            symbolsCollectedInLevel++;
-            spawnFood();
-
-            // Pokud sebere 4 symboly -> další kolo a zvětšení hrací plochy/políček
-            if (symbolsCollectedInLevel >= 4) {
-                snakeLevel++;
-                symbolsCollectedInLevel = 0;
-                tileSize = Math.min(20, tileSize + 1); // Zvětšení políčka o 1 pixel (max 20)
-                playVictorySound();
-            }
-        } else {
-            snake.pop();
-        }
-
-        drawSnakeGame();
-        document.getElementById("snake-score").innerText = `⭐ Skóre: ${snakeScore}`;
-        document.getElementById("snake-info-level").innerText = `🐍 Kolo: ${snakeLevel}`;
-        document.getElementById("snake-info-symbols").innerText = `🍎 Sebráno: ${symbolsCollectedInLevel}/4`;
-    }
-
-    function spawnFood() {
-        let maxCount = Math.floor(300 / tileSize);
-        food = {
-            x: Math.floor(Math.random() * maxCount) * tileSize,
-            y: Math.floor(Math.random() * maxCount) * tileSize
-        };
-        snake.forEach(part => {
-            if (part.x === food.x && part.y === food.y) spawnFood();
-        });
-    }
-
-    function checkSnakeCollision(head) {
-        for (let i = 1; i < snake.length; i++) {
-            if (head.x === snake[i].x && head.y === snake[i].y) return true;
-        }
-        return false;
-    }
-
-    function drawSnakeGame() {
-        const canvas = document.getElementById("snake-canvas");
-        const ctx = canvas.getContext("2d");
-        
-        // Vyčištění plátna
-        ctx.fillStyle = "#0f172a";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Kreslení mřížky pozadí
-        ctx.strokeStyle = "#1e293b";
-        ctx.lineWidth = 0.5;
-        for(let i=0; i<=300; i+=tileSize) {
-            ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, 300); ctx.stroke();
-            ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(300, i); ctx.stroke();
-        }
-
-        // Kreslení jablíčka (symbolu) s efektem záře
-        ctx.fillStyle = "#ef4444";
-        ctx.shadowColor = "#f87171";
-        ctx.shadowBlur = 10;
-        ctx.beginPath();
-        ctx.arc(food.x + tileSize/2, food.y + tileSize/2, tileSize/2 - 2, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.shadowBlur = 0; // Vypnutí stínu pro hada
-
-        // Kreslení vylepšeného hada
-        snake.forEach((part, idx) => {
-            if (idx === 0) {
-                // Hlava hada
-                ctx.fillStyle = "#10b981";
-                ctx.fillRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2);
-                // Očička hada
-                ctx.fillStyle = "#ffffff";
-                ctx.fillRect(part.x + 3, part.y + 3, 3, 3);
-                ctx.fillRect(part.x + tileSize - 6, part.y + 3, 3, 3);
-            } else {
-                // Tělo hada
-                ctx.fillStyle = "#34d399";
-                ctx.beginPath();
-                ctx.roundRect(part.x + 1, part.y + 1, tileSize - 2, tileSize - 2, 4);
-                ctx.fill();
-            }
-        });
-    }
-
-    function changeSnakeDir(dir) {
-        if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -tileSize; }
-        if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = tileSize; }
-        if (dir === 'LEFT' && dx === 0) { nextDx = -tileSize; nextDy = 0; }
-        if (dir === 'RIGHT' && dx === 0) { nextDx = tileSize; nextDy = 0; }
-    }
-
-    // Podpora pro klávesnici (šipky)
-    window.addEventListener('keydown', e => {
-        if (e.key === "ArrowUp") changeSnakeDir('UP');
-        if (e.key === "ArrowDown") changeSnakeDir('DOWN');
-        if (e.key === "ArrowLeft") changeSnakeDir('LEFT');
-        if (e.key === "ArrowRight") changeSnakeDir('RIGHT');
-    });
-
-    function hideAllScreens() {
-        if (snakeInterval) clearInterval(snakeInterval);
-        document.getElementById("menu-screen").classList.add("hidden");
-        document.getElementById("quiz-screen").classList.add("hidden");
-        document.getElementById("fill-screen").classList.add("hidden");
-        document.getElementById("memory-screen").classList.add("hidden");
-        document.getElementById("snake-screen").classList.add("hidden");
-        document.getElementById("result-screen").classList.add("hidden");
-    }
-
-    function showMenu() {
-        hideAllScreens();
-        document.getElementById("menu-screen").classList.remove("hidden");
-        loadLeaderboard();
-        checkSavedState();
-    }
-
-    function saveLeaderboard(name, pts, subjectName) {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        board.push({ 
-            name: name, 
-            score: pts, 
-            subject: subjectName || "Matematika 🔢",
-            date: new Date().toLocaleDateString() 
-        });
-        localStorage.setItem("school_leaderboard", JSON.stringify(board));
-    }
-
-    function loadLeaderboard() {
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let listHtml = "";
-
-        if (board.length === 0) {
-            listHtml = "<li style='text-align:center; color:#64748b; padding:10px;'>Zatím žádné výsledky. Hraj testy nebo hry! 🎮</li>";
-        } else {
-            let uniquePlayers = {};
-            board.forEach(item => {
-                if (!uniquePlayers[item.name] || item.score > uniquePlayers[item.name].score) {
-                    uniquePlayers[item.name] = item;
-                }
-            });
-
-            let sortedPlayers = Object.values(uniquePlayers).sort((a, b) => b.score - a.score);
-
-            sortedPlayers.forEach((item, index) => {
-                let subj = item.subject || "Matematika 🔢";
-                listHtml += `
-                    <li class="score-item" onclick="showUserDetail('${item.name}')">
-                        <div>
-                            <strong>#${index+1} 👤 ${item.name}</strong><br>
-                            <span class="badge-subject">${subj}</span>
-                        </div>
-                        <div style="text-align:right;">
-                            <span style="font-weight:bold; font-size:15px; color:#059669;">⭐ Max: ${item.score} b.</span><br>
-                            <small style="color:#64748b;">${item.date}</small>
-                        </div>
-                    </li>`;
-            });
-        }
-        document.getElementById("leaderboard").innerHTML = listHtml;
-    }
-
-    function showUserDetail(name) {
-        selectedPlayerFromModal = name;
-        let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
-        let userRecords = board.filter(item => item.name === name);
-        
-        let bySubject = {};
-        userRecords.forEach(r => {
-            let subj = r.subject || "Matematika 🔢";
-            if (!bySubject[subj]) bySubject[subj] = [];
-            bySubject[subj].push(r);
-        });
-
-        let html = `<strong>Hráč:</strong> ${name}<br><br><strong>📈 Poslední pokusy a hry:</strong>`;
-        
-        for (let subj in bySubject) {
-            let lastThree = bySubject[subj].slice(-3);
-            html += `<div style="margin-top:8px; background:#f1f5f9; padding:8px; border-radius:10px; border:1px solid #cbd5e1;">`;
-            html += `<b>${subj}:</b><ul style="padding-left:20px; margin:3px 0;">`;
-            lastThree.forEach(r => {
-                html += `<li><b>${r.score} bodů</b> <small style="color:#64748b;">(${r.date})</small></li>`;
-            });
-            html += `</ul></div>`;
-        }
-
-        document.getElementById("modal-title").innerText = `📊 Profil hráče: ${name}`;
-        document.getElementById("modal-body").innerHTML = html;
-        document.getElementById("detail-modal").classList.remove("hidden");
-    }
-
-    function selectUserFromModal() {
-        document.getElementById("username").value = selectedPlayerFromModal;
-        closeModal();
-    }
-
-    function closeModal() { document.getElementById("detail-modal").classList.add("hidden"); }
-
-    function resetLeaderboard() {
-        if (confirm("Opravdu chceš vymazat celou tabulku skóre?")) {
-            localStorage.removeItem("school_leaderboard");
-            document.getElementById("username").value = "";
-            loadLeaderboard();
-        }
-    }
-
-    loadLeaderboard();
-    checkSavedState();
-</script>
-
-</body>
-</html>
+                    checkMemoryEnd
