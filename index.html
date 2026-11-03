@@ -548,22 +548,38 @@
     </div>
 </div>
 
-<!-- MODAL: VÝBĚR HRÁČE -->
+<!-- MODAL: VÝBĚR HRÁČE A ZÁMEK HESLEM -->
 <div id="start-player-modal" class="modal">
     <div class="modal-content">
         <h3 style="color:#4f46e5; margin-top:0;">✨ Vítejte v pohádkové akademii!</h3>
-        <p style="font-size:16px; color:#475569; margin-bottom:15px;">Zadej jméno hrdiny, nebo vyber ze seznamu:</p>
+        <p style="font-size:16px; color:#475569; margin-bottom:15px;">Zadej jméno a heslo (číslo nebo jméno mazlíčka), nebo vyber ze seznamu:</p>
         
-        <div style="margin-bottom: 18px;">
-            <input type="text" id="modal-username-input" placeholder="Jméno (např. Tata, Lucinka)..." style="width:100%;">
-            <button class="btn btn-success" onclick="confirmNewUserModal()" style="margin-top: 12px;">✨ Vstoupit do hry</button>
+        <div style="margin-bottom: 18px; background: #f8fafc; padding: 15px; border-radius: 18px; border: 2px solid #cbd5e1;">
+            <input type="text" id="modal-username-input" placeholder="Jméno (např. Lucinka)..." style="width:100%; margin-bottom: 8px;">
+            <input type="password" id="modal-password-input" placeholder="Heslo (mazlíček / číslo)..." style="width:100%;">
+            <button class="btn btn-success" onclick="createNewUserWithPassword()" style="margin-top: 12px;">✨ Vytvořit / Vstoupit</button>
         </div>
 
         <hr style="border: 1px solid #cbd5e1; margin: 15px 0;">
-        <p style="font-size:15px; font-weight:700; color:#b45309; margin-bottom:10px;">Nebo klikni na stávajícího hráče:</p>
+        <p style="font-size:15px; font-weight:700; color:#b45309; margin-bottom:10px;">Nebo klikni na stávající profil:</p>
         <div id="modal-player-list" style="max-height: 150px; overflow-y: auto; text-align: left; margin-bottom: 15px;"></div>
 
         <button class="btn btn-warning" onclick="closeStartPlayerModal()" id="close-modal-btn">Zavřít</button>
+    </div>
+</div>
+
+<!-- MODAL: ZADÁNÍ HESLA PŘI KLIKNUTÍ NA CIZÍ PROFIL -->
+<div id="login-password-modal" class="modal hidden">
+    <div class="modal-content">
+        <h3 style="color:#4f46e5; margin-top:0;">🔒 Ověření profilu</h3>
+        <p id="login-password-title" style="font-size:16px; color:#475569; margin-bottom:15px;">Zadej heslo pro hrdinu:</p>
+        
+        <div style="margin-bottom: 15px;">
+            <input type="password" id="check-password-input" placeholder="Zadej heslo..." style="width:100%;">
+            <button class="btn btn-success" onclick="verifyLoginPassword()" style="margin-top: 12px;">🔑 Otevřít profil</button>
+        </div>
+
+        <button class="btn btn-warning" onclick="closeLoginPasswordModal()">Zpět</button>
     </div>
 </div>
 
@@ -598,6 +614,7 @@
 
 <script>
     let currentUser = "";
+    let pendingPlayerToLogin = "";
     let currentSubjectKey = "";
     let currentSubjectName = "";
     let currentLevel = 1;
@@ -807,7 +824,27 @@
         phy: "Fyzika ⚡"
     };
 
+    // SPRÁVA UŽIVATELSKÝCH HESEL A PAMATOVÁNÍ NA TELEFONU
+    function getStoredPasswords() {
+        return JSON.parse(localStorage.getItem("school_passwords") || "{}");
+    }
+
+    function saveUserPassword(name, password) {
+        let passwords = getStoredPasswords();
+        passwords[name] = password;
+        localStorage.setItem("school_passwords", JSON.stringify(passwords));
+    }
+
     function openStartPlayerModal() {
+        // ZKONTROLUJEME, ZDA TELEFON UŽ PŘEDEM PAMATUJE PŘIHLÁŠENÉHO HRÁČE
+        let rememberedUser = localStorage.getItem("school_current_active_user");
+        if (rememberedUser) {
+            currentUser = rememberedUser;
+            document.getElementById("current-user-display").innerText = currentUser;
+            loadLeaderboard();
+            return; // Telefon si ho pamatuje, nemusí se přihlašovat
+        }
+
         let board = JSON.parse(localStorage.getItem("school_leaderboard") || "[]");
         let listHtml = "";
         let uniquePlayers = {};
@@ -817,12 +854,12 @@
 
         let playerNames = Object.keys(uniquePlayers);
         if (playerNames.length === 0) {
-            listHtml = "<p style='color:#64748b; font-size:15px; text-align:center;'>Zatím žádní uložení hrdinové. Napiš jméno nahoře!</p>";
+            listHtml = "<p style='color:#64748b; font-size:15px; text-align:center;'>Zatím žádní uložení hrdinové. Zadej jméno a heslo nahoře!</p>";
         } else {
             playerNames.forEach(name => {
-                listHtml += `<div class="score-item-detailed" onclick="selectModalPlayer('${name}')" style="cursor:pointer; margin-bottom: 6px; padding: 12px; border-radius: 14px; background: #f1f5f9;">
-                    <span>👤 <strong>${name}</strong></span>
-                    <span style="color:var(--primary); font-weight:bold;">Vybrat profil ➔</span>
+                listHtml += `<div class="score-item-detailed" onclick="requestLoginPassword('${name}')" style="cursor:pointer; margin-bottom: 6px; padding: 12px; border-radius: 14px; background: #f1f5f9;">
+                    <span>🔒 <strong>${name}</strong></span>
+                    <span style="color:var(--primary); font-weight:bold;">Zvolit profil ➔</span>
                 </div>`;
             });
         }
@@ -830,24 +867,62 @@
         document.getElementById("start-player-modal").classList.remove("hidden");
     }
 
-    function selectModalPlayer(name) {
-        currentUser = name;
-        document.getElementById("current-user-display").innerText = name;
+    function createNewUserWithPassword() {
+        let nameInput = document.getElementById("modal-username-input").value.trim();
+        let passInput = document.getElementById("modal-password-input").value.trim();
+
+        if (!nameInput) { showAppAlert("⚠️ Zadej jméno hrdiny!"); return; }
+        if (!passInput) { showAppAlert("⚠️ Zadej heslo (mazlíčka nebo číslo)!"); return; }
+
+        let passwords = getStoredPasswords();
+        if (passwords[nameInput]) {
+            // Pokud jméno už existuje, ověříme heslo
+            if (passwords[nameInput] !== passInput) {
+                showAppAlert("❌ Nesprávné heslo pro tento profil!");
+                return;
+            }
+        } else {
+            // Nový profil, uložení hesla
+            saveUserPassword(nameInput, passInput);
+        }
+
+        currentUser = nameInput;
+        localStorage.setItem("school_current_active_user", currentUser); // Zapamatovat si na tomto telefonu
+        document.getElementById("current-user-display").innerText = currentUser;
         document.getElementById("start-player-modal").classList.add("hidden");
         loadLeaderboard();
     }
 
-    function confirmNewUserModal() {
-        let nameInput = document.getElementById("modal-username-input").value.trim();
-        if (!nameInput) { showAppAlert("⚠️ Zadej jméno hrdiny!"); return; }
-        currentUser = nameInput;
-        document.getElementById("current-user-display").innerText = nameInput;
+    function requestLoginPassword(name) {
+        pendingPlayerToLogin = name;
+        document.getElementById("login-password-title").innerText = `Zadej heslo pro hrdinu: ${name}`;
+        document.getElementById("check-password-input").value = "";
         document.getElementById("start-player-modal").classList.add("hidden");
-        loadLeaderboard();
+        document.getElementById("login-password-modal").classList.remove("hidden");
+    }
+
+    function verifyLoginPassword() {
+        let enteredPass = document.getElementById("check-password-input").value.trim();
+        let passwords = getStoredPasswords();
+
+        if (passwords[pendingPlayerToLogin] === enteredPass) {
+            currentUser = pendingPlayerToLogin;
+            localStorage.setItem("school_current_active_user", currentUser); // Zapamatovat na telefonu
+            document.getElementById("current-user-display").innerText = currentUser;
+            document.getElementById("login-password-modal").classList.add("hidden");
+            loadLeaderboard();
+        } else {
+            showAppAlert("❌ Nesprávné heslo!");
+        }
+    }
+
+    function closeLoginPasswordModal() {
+        document.getElementById("login-password-modal").classList.add("hidden");
+        openStartPlayerModal();
     }
 
     function closeStartPlayerModal() {
-        if (!currentUser) { showAppAlert("⚠️ Nejprve vyber nebo zadej jméno hrdiny!"); return; }
+        if (!currentUser) { showAppAlert("⚠️ Nejprve vyber nebo vytvoř profil hrdiny!"); return; }
         document.getElementById("start-player-modal").classList.add("hidden");
     }
 
@@ -1342,7 +1417,6 @@
         });
     }
 
-    // OTEVŘENÍ OKNA PRO ZADÁNÍ HESLA
     function promptResetLeaderboard() {
         document.getElementById("reset-password-input").value = "";
         document.getElementById("password-modal").classList.remove("hidden");
@@ -1352,16 +1426,17 @@
         document.getElementById("password-modal").classList.add("hidden");
     }
 
-    // OVĚŘENÍ HESLA A VYNULOVÁNÍ
     function verifyResetPassword() {
         let pass = document.getElementById("reset-password-input").value.trim();
         if (pass === "9876") {
             localStorage.removeItem("school_leaderboard");
+            localStorage.removeItem("school_passwords");
+            localStorage.removeItem("school_current_active_user");
             currentUser = "";
             document.getElementById("current-user-display").innerText = "Zatím nikdo";
             loadLeaderboard();
             closePasswordModal();
-            showAppAlert("🗑️ Skóre bylo úspěšně vymazáno!");
+            showAppAlert("🗑️ Skóre i hesla byly úspěšně vymazány!");
             openStartPlayerModal();
         } else {
             showAppAlert("❌ Nesprávné heslo!");
@@ -1369,7 +1444,6 @@
     }
 
     window.onload = function() {
-        loadLeaderboard();
         openStartPlayerModal();
     };
 </script>
