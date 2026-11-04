@@ -300,6 +300,9 @@
             <button class="btn btn-subject" onclick="openSubjectHub('cz4_all', '4.tř: Český jazyk (Komplet)')">
                 <span>🇨🇿</span> Český jazyk <br><span style="font-size:13px; font-weight:normal;">Stavba slova, ě/je, vyjmenovaná slova</span>
             </button>
+            <button class="btn btn-subject" onclick="openSubjectHub('cz4_prep', '4.tř: Předložky, předpony & bě/bje, vě/vje, pě')" style="border-color:#4f46e5; background:linear-gradient(145deg, #e0e7ff, #c7d2fe);">
+                <span>📖</span> Předložky a bě/bje, vě/vje, pě <br><span style="font-size:13px; font-weight:normal;">Předložky v/ve, předpony ob-, o-, v- (dle učebnice)</span>
+            </button>
             <button class="btn btn-subject" onclick="openSubjectHub('eng4_all', '4.tř: Anglický jazyk (Základy)')">
                 <span>🇬🇧</span> Anglický jazyk <br><span style="font-size:13px; font-weight:normal;">Rodina, škola, jídlo, oblečení</span>
             </button>
@@ -315,7 +318,7 @@
             <button class="btn btn-subject" onclick="openSubjectHub('math4_column', '4.tř: Počítání pod sebou')">
                 <span>➕</span> Počítání pod sebou <br><span style="font-size:13px; font-weight:normal;">Písemné sčítání a odčítání do 1000</span>
             </button>
-            <button class="btn btn-subject" onclick="openSubjectHub('sci4', '4.tř: Přírodověda (Celý rok)')" style="grid-column: span 2;">
+            <button class="btn btn-subject" onclick="openSubjectHub('sci4', '4.tř: Přírodověda (Celý rok)')">
                 <span>🌿</span> Přírodověda <br><span style="font-size:13px; font-weight:normal;">Příroda, vesmír, lidské tělo</span>
             </button>
         </div>
@@ -521,6 +524,37 @@
     }
 
     const database = {
+        cz4_prep: {
+            title: "Předložky v, ve, předpony ob-, o-, v- a psaní skupin bě/bje, vě/vje, pě",
+            theoryPages: [
+                `<h3>📖 5. PŘEDLOŽKY v, ve, PŘEDPONY ob-, o-, v-</h3>
+                 <p><strong>Předložky</strong> (v, ve) se píší jako samostatná slova před podstatnými jmény (např. <em>v domě, ve škole, v okně, ve mlýně</em>).</p>
+                 <p><strong>Předpony</strong> (ob-, o-, v-) tvoří součást slova (např. <em>objednat, objevit, vjezd, vjet</em>).</p>`,
+                `<h3>📖 Psaní skupin bě / bje, vě / vje, pě</h3>
+                 <p>• Skupiny <strong>bě, pě, vě</strong> vyslovujeme [bje, pje, vje].</p>
+                 <p>• Vyslovované [pje] píšeme <strong>vždy pě</strong> (např. <em>pěnkava, zpěvák, napětí, pěkný</em>).</p>
+                 <p>• Vyslovované [bje, vje] píšeme <strong>bě, vě</strong> (např. <em>běžet, věneček, oběd, věž, věc</em>).</p>
+                 <p>• <strong>POZOR:</strong> Jen tam, kde se předpony <strong>ob-</strong> a <strong>v-</strong> setkávají s kořenem slova začínajícím na <strong>je-</strong>, píšeme <strong>-bje-, -vje-</strong> (např. <em>ob-jednat, ob-jevit, v-jezd, v-jet, v-jem</em>).</p>`
+            ],
+            items: [
+                {q: "Vypravování z učebnice: Podnikli jsme s rodiči sk___lý výlet.", options: ["vě", "vje"], correct: "vě"},
+                {q: "Šli jsme p___šky, protože do lesa je v___zd zakázán.", options: ["ě, j", "e, i"], correct: "ě, j"},
+                {q: "Vyber správný tvar slova: Uzká p___šinka se klikatila.", options: ["pěšinka", "pješinka"], correct: "pěšinka"},
+                {q: "Vyber správně napsané slovo s předponou: ___jednat oběd", options: ["ob", "op"], correct: "ob"},
+                {q: "Doplň skupinu do slova: v___zd do dvora", options: ["vje", "vě"], correct: "vje"},
+                {q: "Jak správně napíšeme předložku: ___ škole", options: ["ve", "v"], correct: "ve"},
+                {q: "Jak správně napíšeme předložku: ___ domě", options: ["v", "ve"], correct: "v"},
+                {q: "Doplň skupinu do slova: z-p___vák (zpívající osoba)", options: ["pě", "pje"], correct: "pě"},
+                {q: "Doplň skupinu do slova: ob___dvat (jíst oběd)", options: ["bě", "bje"], correct: "bě"},
+                {q: "Doplň skupinu do slova: ob___vit nový ostrov (předpona ob- a kořen -jev-)", options: ["bje", "bě"], correct: "bje"},
+                {q: "Doplň skupinu do slova: ob___ť (obětovat se)", options: ["bě", "bje"], correct: "bě"},
+                {q: "Doplň skupinu do slova: na-p___tí v elektrice", options: ["pě", "pje"], correct: "pě"},
+                {q: "Doplň skupinu do slova: v___jížďka na kole", options: ["vje", "vě"], correct: "vje"},
+                {q: "Jak napíšeme předložku: ___ okně", options: ["v", "ve"], correct: "v"},
+                {q: "Jak napíšeme předložku: ___ mlýně", options: ["ve", "v"], correct: "ve"},
+                {q: "Vyber správný tvar: ptáček p___nkava", options: ["pěnkava", "pjenkava"], correct: "pěnkava"}
+            ]
+        },
         cz4_all: {
             title: "Český jazyk (4. třída - Kompletní ročník)",
             theoryPages: [
